@@ -9,7 +9,7 @@ const TownMap = dynamic(() => import('@/components/TownMap'), { ssr: false })
 // Stats Card Component
 function StatCard({ value, label, trend }: { value: string | number, label: string, trend?: string }) {
   return (
-    <div className="stat-card animate-fade-in">
+    <div className="stat-card animate-fade-in text-center">
       <div className="stat-value text-text-primary">{value}</div>
       <div className="stat-label">{label}</div>
       {trend && <div className="text-xs text-approved mt-2">{trend}</div>}
@@ -148,19 +148,19 @@ export default function Dashboard() {
           <div className="grid grid-cols-4 gap-4">
             <StatCard 
               value={stats.totalApproved} 
-              label="ADUs Approved" 
+              label="Approved" 
             />
             <StatCard 
               value={stats.totalApplications} 
-              label="Applications Filed" 
+              label="Applied" 
             />
             <StatCard 
               value={stats.avgDays > 0 ? `${stats.avgDays}d` : '—'} 
-              label="Avg. Time to Approve" 
+              label="Avg Days" 
             />
             <StatCard 
               value={stats.townsWithData} 
-              label="Towns Reporting" 
+              label="Towns" 
             />
           </div>
         </div>

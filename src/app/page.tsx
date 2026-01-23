@@ -145,7 +145,7 @@ export default function Dashboard() {
       {/* Stats */}
       <section className="border-b border-border">
         <div className="max-w-7xl mx-auto px-6 py-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-4 gap-4">
             <StatCard 
               value={stats.totalApproved} 
               label="ADUs Approved" 

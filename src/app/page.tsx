@@ -176,18 +176,18 @@ export default function Dashboard() {
               <TownMap towns={towns} />
             </div>
             {/* Map Legend */}
-            <div className="flex items-center gap-6 mt-4 text-sm">
+            <div className="flex flex-wrap items-center gap-3 md:gap-6 mt-4 text-xs md:text-sm">
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 rounded-full bg-approved"></div>
-                <span className="text-text-secondary">High activity</span>
+                <span className="text-text-secondary">10+ approved</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 rounded-full bg-pending"></div>
-                <span className="text-text-secondary">Moderate</span>
+                <span className="text-text-secondary">4-9 approved</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 rounded-full bg-text-muted"></div>
-                <span className="text-text-secondary">No data yet</span>
+                <span className="text-text-secondary">1-3 approved</span>
               </div>
             </div>
           </div>
@@ -320,7 +320,7 @@ export default function Dashboard() {
             </div>
           </div>
           <div className="text-text-muted text-xs mt-4">
-            Built by Nick Uliano · Powered by public data
+            Built by Nick Welch · Powered by public data
           </div>
         </div>
       </footer>

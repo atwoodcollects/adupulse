@@ -310,7 +310,7 @@ export default function Dashboard() {
         <div className="max-w-7xl mx-auto px-6 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-text-muted text-sm">
-              Data sourced via public records requests. Updated weekly.
+              Aggregate data estimated from MA EOHLC H1 2025 Survey. Individual permit details via public records requests.
             </div>
             <div className="flex items-center gap-6 text-sm">
               <a href="#" className="text-text-secondary hover:text-accent transition-colors">

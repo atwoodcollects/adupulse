@@ -131,7 +131,7 @@ export default function Dashboard() {
                 Real-time permit data for Massachusetts
               </p>
               <p className="text-text-muted text-xs mt-1">
-                Data last updated: January 23, 2026
+                Data: MA EOHLC Survey (Jan-Jun 2025). Next state update expected Spring 2026.
               </p>
             </div>
             <div className="flex items-center gap-3">

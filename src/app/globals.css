@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  background-color: #0a0a0b;
+  color: #fafafa;
+}
+
+.stat-card {
+  @apply bg-surface border border-border rounded-lg p-6;
+}
+.stat-value {
+  @apply font-display text-4xl font-bold;
+}
+.stat-label {
+  @apply text-text-secondary text-sm mt-1;
+}
+.town-row {
+  @apply flex items-center justify-between py-4 px-4 border-b border-border hover:bg-surface-raised cursor-pointer;
+}
+.badge-approved { @apply bg-approved/10 text-approved px-2 py-0.5 rounded-full text-xs; }
+.badge-denied { @apply bg-denied/10 text-denied px-2 py-0.5 rounded-full text-xs; }
+.badge-pending { @apply bg-pending/10 text-pending px-2 py-0.5 rounded-full text-xs; }

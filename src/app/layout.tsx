@@ -1,0 +1,15 @@
+import type { Metadata } from 'next'
+import './globals.css'
+
+export const metadata: Metadata = {
+  title: 'ADU Pulse | Real-Time Permit Data for Massachusetts',
+  description: 'Track ADU permit activity across Massachusetts towns.',
+}
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body className="min-h-screen bg-void">{children}</body>
+    </html>
+  )
+}

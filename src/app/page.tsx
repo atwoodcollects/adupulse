@@ -174,6 +174,7 @@ export default function Dashboard() {
           <div className="lg:col-span-2">
             <div className="bg-surface border border-border rounded-lg overflow-hidden">
               <TownMap towns={towns} />
+            </div>
             {/* Map Legend */}
             <div className="flex items-center gap-6 mt-4 text-sm">
               <div className="flex items-center gap-2">

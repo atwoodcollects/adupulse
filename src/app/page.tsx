@@ -127,6 +127,9 @@ export default function Dashboard() {
               <p className="text-text-secondary text-sm mt-1">
                 Real-time permit data for Massachusetts
               </p>
+              <p className="text-text-muted text-xs mt-1">
+                Data last updated: January 23, 2026
+              </p>
             </div>
             <div className="flex items-center gap-3">
               <div className="pulse-dot mr-2"></div>

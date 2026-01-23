@@ -302,7 +302,7 @@ export default function Dashboard() {
         <div className="max-w-7xl mx-auto px-6 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-text-muted text-sm">
-              Aggregate data estimated from MA EOHLC H1 2025 Survey. Individual permit details via public records requests.
+              Data source: MA EOHLC ADU Survey (H1 2025). 242 of 351 municipalities reporting. Survey period: Jan–Jun 2025. Next update expected: Q1 2026.
             </div>
             <div className="flex items-center gap-6 text-sm">
               <a href="#" className="text-text-secondary hover:text-accent transition-colors">

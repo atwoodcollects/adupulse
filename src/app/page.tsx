@@ -31,7 +31,7 @@ function TownRow({ rank, town }: { rank: number, town: Town }) {
         <div className="text-xs text-text-muted mt-0.5">{town.county} County</div>
       </div>
       <div className="text-right">
-        <div className="town-count">{town.total_approved}</div>
+        <div className="town-count">{town.total_approved}<span className="text-text-muted text-sm font-normal">/{town.total_applications}</span></div>
         <div className="text-xs text-text-muted">
           {approvalRate}% approved
           {town.avg_days_to_approve && ` · ${Math.round(town.avg_days_to_approve)}d avg`}

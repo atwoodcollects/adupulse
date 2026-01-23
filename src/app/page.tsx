@@ -28,7 +28,7 @@ function TownRow({ rank, town }: { rank: number, town: Town }) {
       <span className="town-rank">#{rank}</span>
       <div className="flex-1 ml-4">
         <div className="town-name group-hover:text-accent transition-colors">{town.name}</div>
-        <div className="text-xs text-text-muted mt-0.5">{town.county} County</div>
+        
       </div>
       <div className="text-right">
         <div className="town-count">{town.total_approved}<span className="text-text-muted text-sm font-normal">/{town.total_applications}</span></div>
@@ -287,7 +287,7 @@ export default function Dashboard() {
                 ) : (
                   <tr>
                     <td colSpan={6} className="py-12 text-center text-text-muted">
-                      No permit data collected yet. Start sending FOIA requests!
+                      Individual permit details coming soon. Aggregate data shown in Top Towns.
                     </td>
                   </tr>
                 )}

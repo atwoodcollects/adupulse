@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from 'react'
 import { getTowns, getStats, getRecentPermits, Town, Permit } from '@/lib/supabase'
+import dynamic from 'next/dynamic'
+
+const TownMap = dynamic(() => import('@/components/TownMap'), { ssr: false })
 
 // Stats Card Component
 function StatCard({ value, label, trend }: { value: string | number, label: string, trend?: string }) {
@@ -170,19 +173,7 @@ export default function Dashboard() {
           {/* Map */}
           <div className="lg:col-span-2">
             <div className="bg-surface border border-border rounded-lg overflow-hidden">
-              <div className="aspect-[16/10] bg-surface-raised flex items-center justify-center">
-                <div className="text-center p-8">
-                  <div className="text-6xl mb-4">🗺️</div>
-                  <div className="text-text-secondary">
-                    Interactive map coming soon
-                  </div>
-                  <div className="text-text-muted text-sm mt-2">
-                    Add your Mapbox token to enable
-                  </div>
-                </div>
-              </div>
-            </div>
-            
+              <TownMap towns={towns} />
             {/* Map Legend */}
             <div className="flex items-center gap-6 mt-4 text-sm">
               <div className="flex items-center gap-2">

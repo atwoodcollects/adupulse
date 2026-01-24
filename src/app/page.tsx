@@ -1,5 +1,7 @@
 'use client'
 
+import TownNav from '@/components/TownNav'
+
 import { useEffect, useState } from 'react'
 import { getTowns, getStats, getRecentPermits, Town, Permit } from '@/lib/supabase'
 import dynamic from 'next/dynamic'
@@ -137,6 +139,7 @@ export default function Dashboard() {
             <div className="flex items-center gap-3">
               <div className="pulse-dot mr-2"></div>
               <span className="text-xs text-text-muted uppercase tracking-wide">Live</span>
+              <TownNav current="All Towns" />
             </div>
           </div>
         </div>

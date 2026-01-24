@@ -1,0 +1,2180 @@
+[
+  {
+    "name": "Abington",
+    "muni_id": 1,
+    "applications": 11,
+    "approved": 3,
+    "rejected": 1,
+    "detached_apps": 6,
+    "attached_apps": 5
+  },
+  {
+    "name": "Acushnet",
+    "muni_id": 3,
+    "applications": 4,
+    "approved": 4,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 3
+  },
+  {
+    "name": "Adams",
+    "muni_id": 4,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Agawam",
+    "muni_id": 5,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Alford",
+    "muni_id": 6,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Amherst",
+    "muni_id": 8,
+    "applications": 9,
+    "approved": 9,
+    "rejected": 0,
+    "detached_apps": 6,
+    "attached_apps": 3
+  },
+  {
+    "name": "Andover",
+    "muni_id": 9,
+    "applications": 5,
+    "approved": 3,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 4
+  },
+  {
+    "name": "Arlington",
+    "muni_id": 10,
+    "applications": 5,
+    "approved": 4,
+    "rejected": 0,
+    "detached_apps": 3,
+    "attached_apps": 2
+  },
+  {
+    "name": "Ashburnham",
+    "muni_id": 11,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Ashby",
+    "muni_id": 12,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Ashland",
+    "muni_id": 14,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Athol",
+    "muni_id": 15,
+    "applications": 3,
+    "approved": 2,
+    "rejected": 0,
+    "detached_apps": 3,
+    "attached_apps": 0
+  },
+  {
+    "name": "Attleboro",
+    "muni_id": 16,
+    "applications": 6,
+    "approved": 4,
+    "rejected": 1,
+    "detached_apps": 4,
+    "attached_apps": 2
+  },
+  {
+    "name": "Ayer",
+    "muni_id": 19,
+    "applications": 4,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 3
+  },
+  {
+    "name": "Barnstable",
+    "muni_id": 20,
+    "applications": 6,
+    "approved": 6,
+    "rejected": 2,
+    "detached_apps": 3,
+    "attached_apps": 3
+  },
+  {
+    "name": "Barre",
+    "muni_id": 21,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Becket",
+    "muni_id": 22,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Bedford",
+    "muni_id": 23,
+    "applications": 4,
+    "approved": 3,
+    "rejected": 0,
+    "detached_apps": 3,
+    "attached_apps": 1
+  },
+  {
+    "name": "Bellingham",
+    "muni_id": 25,
+    "applications": 2,
+    "approved": 2,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 2
+  },
+  {
+    "name": "Belmont",
+    "muni_id": 26,
+    "applications": 2,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 2
+  },
+  {
+    "name": "Berkley",
+    "muni_id": 27,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Berlin",
+    "muni_id": 28,
+    "applications": 1,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Beverly",
+    "muni_id": 30,
+    "applications": 8,
+    "approved": 8,
+    "rejected": 0,
+    "detached_apps": 5,
+    "attached_apps": 3
+  },
+  {
+    "name": "Billerica",
+    "muni_id": 31,
+    "applications": 18,
+    "approved": 13,
+    "rejected": 1,
+    "detached_apps": 6,
+    "attached_apps": 12
+  },
+  {
+    "name": "Blackstone",
+    "muni_id": 32,
+    "applications": 2,
+    "approved": 2,
+    "rejected": 0,
+    "detached_apps": 2,
+    "attached_apps": 0
+  },
+  {
+    "name": "Blandford",
+    "muni_id": 33,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Bolton",
+    "muni_id": 34,
+    "applications": 2,
+    "approved": 2,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 1
+  },
+  {
+    "name": "Boston",
+    "muni_id": 35,
+    "applications": 63,
+    "approved": 15,
+    "rejected": 0,
+    "detached_apps": 6,
+    "attached_apps": 57
+  },
+  {
+    "name": "Braintree",
+    "muni_id": 40,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Brewster",
+    "muni_id": 41,
+    "applications": 2,
+    "approved": 2,
+    "rejected": 0,
+    "detached_apps": 2,
+    "attached_apps": 0
+  },
+  {
+    "name": "Brimfield",
+    "muni_id": 43,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Brookline",
+    "muni_id": 46,
+    "applications": 2,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 2
+  },
+  {
+    "name": "Burlington",
+    "muni_id": 48,
+    "applications": 2,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 2
+  },
+  {
+    "name": "Cambridge",
+    "muni_id": 49,
+    "applications": 6,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 2,
+    "attached_apps": 4
+  },
+  {
+    "name": "Canton",
+    "muni_id": 50,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Carlisle",
+    "muni_id": 51,
+    "applications": 1,
+    "approved": 0,
+    "rejected": 1,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Charlton",
+    "muni_id": 54,
+    "applications": 5,
+    "approved": 3,
+    "rejected": 0,
+    "detached_apps": 2,
+    "attached_apps": 3
+  },
+  {
+    "name": "Chatham",
+    "muni_id": 55,
+    "applications": 2,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 1
+  },
+  {
+    "name": "Chelmsford",
+    "muni_id": 56,
+    "applications": 7,
+    "approved": 7,
+    "rejected": 0,
+    "detached_apps": 3,
+    "attached_apps": 4
+  },
+  {
+    "name": "Cheshire",
+    "muni_id": 58,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Chester",
+    "muni_id": 59,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Chesterfield",
+    "muni_id": 60,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Chilmark",
+    "muni_id": 62,
+    "applications": 6,
+    "approved": 6,
+    "rejected": 0,
+    "detached_apps": 6,
+    "attached_apps": 0
+  },
+  {
+    "name": "Cohasset",
+    "muni_id": 65,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Cummington",
+    "muni_id": 69,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Dalton",
+    "muni_id": 70,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Danvers",
+    "muni_id": 71,
+    "applications": 9,
+    "approved": 2,
+    "rejected": 3,
+    "detached_apps": 3,
+    "attached_apps": 6
+  },
+  {
+    "name": "Deerfield",
+    "muni_id": 74,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 1,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Dighton",
+    "muni_id": 76,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Douglas",
+    "muni_id": 77,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Dracut",
+    "muni_id": 79,
+    "applications": 6,
+    "approved": 4,
+    "rejected": 0,
+    "detached_apps": 4,
+    "attached_apps": 2
+  },
+  {
+    "name": "Dudley",
+    "muni_id": 80,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Duxbury",
+    "muni_id": 82,
+    "applications": 3,
+    "approved": 2,
+    "rejected": 0,
+    "detached_apps": 3,
+    "attached_apps": 0
+  },
+  {
+    "name": "East Bridgewater",
+    "muni_id": 83,
+    "applications": 3,
+    "approved": 3,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 3
+  },
+  {
+    "name": "East Longmeadow",
+    "muni_id": 85,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Eastham",
+    "muni_id": 86,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Easthampton",
+    "muni_id": 87,
+    "applications": 2,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 2,
+    "attached_apps": 0
+  },
+  {
+    "name": "Easton",
+    "muni_id": 88,
+    "applications": 2,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 2
+  },
+  {
+    "name": "Edgartown",
+    "muni_id": 89,
+    "applications": 11,
+    "approved": 4,
+    "rejected": 0,
+    "detached_apps": 11,
+    "attached_apps": 0
+  },
+  {
+    "name": "Egremont",
+    "muni_id": 90,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Everett",
+    "muni_id": 93,
+    "applications": 2,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 1
+  },
+  {
+    "name": "Fairhaven",
+    "muni_id": 94,
+    "applications": 18,
+    "approved": 18,
+    "rejected": 0,
+    "detached_apps": 9,
+    "attached_apps": 9
+  },
+  {
+    "name": "Falmouth",
+    "muni_id": 96,
+    "applications": 14,
+    "approved": 14,
+    "rejected": 0,
+    "detached_apps": 5,
+    "attached_apps": 9
+  },
+  {
+    "name": "Foxborough",
+    "muni_id": 99,
+    "applications": 6,
+    "approved": 3,
+    "rejected": 0,
+    "detached_apps": 2,
+    "attached_apps": 4
+  },
+  {
+    "name": "Framingham",
+    "muni_id": 100,
+    "applications": 8,
+    "approved": 6,
+    "rejected": 2,
+    "detached_apps": 2,
+    "attached_apps": 6
+  },
+  {
+    "name": "Franklin",
+    "muni_id": 101,
+    "applications": 4,
+    "approved": 4,
+    "rejected": 0,
+    "detached_apps": 4,
+    "attached_apps": 0
+  },
+  {
+    "name": "Freetown",
+    "muni_id": 102,
+    "applications": 6,
+    "approved": 5,
+    "rejected": 0,
+    "detached_apps": 4,
+    "attached_apps": 2
+  },
+  {
+    "name": "Aquinnah",
+    "muni_id": 104,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Georgetown",
+    "muni_id": 105,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Gloucester",
+    "muni_id": 107,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 1,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Goshen",
+    "muni_id": 108,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Grafton",
+    "muni_id": 110,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Granby",
+    "muni_id": 111,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Great Barrington",
+    "muni_id": 113,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 1
+  },
+  {
+    "name": "Groton",
+    "muni_id": 115,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Groveland",
+    "muni_id": 116,
+    "applications": 3,
+    "approved": 2,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 3
+  },
+  {
+    "name": "Hadley",
+    "muni_id": 117,
+    "applications": 5,
+    "approved": 5,
+    "rejected": 0,
+    "detached_apps": 3,
+    "attached_apps": 2
+  },
+  {
+    "name": "Halifax",
+    "muni_id": 118,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Hamilton",
+    "muni_id": 119,
+    "applications": 4,
+    "approved": 4,
+    "rejected": 0,
+    "detached_apps": 3,
+    "attached_apps": 1
+  },
+  {
+    "name": "Hampden",
+    "muni_id": 120,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Hanson",
+    "muni_id": 123,
+    "applications": 3,
+    "approved": 2,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 2
+  },
+  {
+    "name": "Harvard",
+    "muni_id": 125,
+    "applications": 2,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 1
+  },
+  {
+    "name": "Harwich",
+    "muni_id": 126,
+    "applications": 10,
+    "approved": 3,
+    "rejected": 0,
+    "detached_apps": 9,
+    "attached_apps": 1
+  },
+  {
+    "name": "Haverhill",
+    "muni_id": 128,
+    "applications": 17,
+    "approved": 9,
+    "rejected": 0,
+    "detached_apps": 11,
+    "attached_apps": 6
+  },
+  {
+    "name": "Hingham",
+    "muni_id": 131,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Holbrook",
+    "muni_id": 133,
+    "applications": 3,
+    "approved": 1,
+    "rejected": 1,
+    "detached_apps": 2,
+    "attached_apps": 1
+  },
+  {
+    "name": "Holliston",
+    "muni_id": 136,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Holyoke",
+    "muni_id": 137,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Hopkinton",
+    "muni_id": 139,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Hubbardston",
+    "muni_id": 140,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Hudson",
+    "muni_id": 141,
+    "applications": 4,
+    "approved": 4,
+    "rejected": 0,
+    "detached_apps": 2,
+    "attached_apps": 2
+  },
+  {
+    "name": "Hull",
+    "muni_id": 142,
+    "applications": 4,
+    "approved": 2,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 3
+  },
+  {
+    "name": "Huntington",
+    "muni_id": 143,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Ipswich",
+    "muni_id": 144,
+    "applications": 6,
+    "approved": 3,
+    "rejected": 0,
+    "detached_apps": 5,
+    "attached_apps": 1
+  },
+  {
+    "name": "Lakeville",
+    "muni_id": 146,
+    "applications": 2,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 2,
+    "attached_apps": 0
+  },
+  {
+    "name": "Lancaster",
+    "muni_id": 147,
+    "applications": 1,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Lanesborough",
+    "muni_id": 148,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Lawrence",
+    "muni_id": 149,
+    "applications": 14,
+    "approved": 7,
+    "rejected": 0,
+    "detached_apps": 6,
+    "attached_apps": 8
+  },
+  {
+    "name": "Lee",
+    "muni_id": 150,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Leicester",
+    "muni_id": 151,
+    "applications": 2,
+    "approved": 2,
+    "rejected": 0,
+    "detached_apps": 2,
+    "attached_apps": 0
+  },
+  {
+    "name": "Lenox",
+    "muni_id": 152,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 1
+  },
+  {
+    "name": "Leominster",
+    "muni_id": 153,
+    "applications": 2,
+    "approved": 2,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 1
+  },
+  {
+    "name": "Lexington",
+    "muni_id": 155,
+    "applications": 5,
+    "approved": 2,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 4
+  },
+  {
+    "name": "Littleton",
+    "muni_id": 158,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Longmeadow",
+    "muni_id": 159,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Lowell",
+    "muni_id": 160,
+    "applications": 11,
+    "approved": 11,
+    "rejected": 0,
+    "detached_apps": 4,
+    "attached_apps": 7
+  },
+  {
+    "name": "Lunenburg",
+    "muni_id": 162,
+    "applications": 1,
+    "approved": 0,
+    "rejected": 1,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Lynn",
+    "muni_id": 163,
+    "applications": 7,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 6
+  },
+  {
+    "name": "Lynnfield",
+    "muni_id": 164,
+    "applications": 4,
+    "approved": 4,
+    "rejected": 0,
+    "detached_apps": 2,
+    "attached_apps": 2
+  },
+  {
+    "name": "Malden",
+    "muni_id": 165,
+    "applications": 4,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 2,
+    "attached_apps": 2
+  },
+  {
+    "name": "Manchester-by-the-Sea",
+    "muni_id": 166,
+    "applications": 2,
+    "approved": 2,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 2
+  },
+  {
+    "name": "Mansfield",
+    "muni_id": 167,
+    "applications": 4,
+    "approved": 3,
+    "rejected": 0,
+    "detached_apps": 2,
+    "attached_apps": 2
+  },
+  {
+    "name": "Marion",
+    "muni_id": 169,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 1
+  },
+  {
+    "name": "Mashpee",
+    "muni_id": 172,
+    "applications": 2,
+    "approved": 2,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 1
+  },
+  {
+    "name": "Mattapoisett",
+    "muni_id": 173,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Maynard",
+    "muni_id": 174,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Medfield",
+    "muni_id": 175,
+    "applications": 2,
+    "approved": 2,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 1
+  },
+  {
+    "name": "Medford",
+    "muni_id": 176,
+    "applications": 6,
+    "approved": 4,
+    "rejected": 0,
+    "detached_apps": 5,
+    "attached_apps": 1
+  },
+  {
+    "name": "Medway",
+    "muni_id": 177,
+    "applications": 4,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 2,
+    "attached_apps": 2
+  },
+  {
+    "name": "Melrose",
+    "muni_id": 178,
+    "applications": 7,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 2,
+    "attached_apps": 5
+  },
+  {
+    "name": "Mendon",
+    "muni_id": 179,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Methuen",
+    "muni_id": 181,
+    "applications": 11,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 5,
+    "attached_apps": 6
+  },
+  {
+    "name": "Middleborough",
+    "muni_id": 182,
+    "applications": 10,
+    "approved": 10,
+    "rejected": 0,
+    "detached_apps": 7,
+    "attached_apps": 3
+  },
+  {
+    "name": "Millbury",
+    "muni_id": 186,
+    "applications": 11,
+    "approved": 10,
+    "rejected": 3,
+    "detached_apps": 8,
+    "attached_apps": 3
+  },
+  {
+    "name": "Millis",
+    "muni_id": 187,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Milton",
+    "muni_id": 189,
+    "applications": 25,
+    "approved": 24,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 24
+  },
+  {
+    "name": "Montague",
+    "muni_id": 192,
+    "applications": 2,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 2,
+    "attached_apps": 0
+  },
+  {
+    "name": "Monterey",
+    "muni_id": 193,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Montgomery",
+    "muni_id": 194,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Mount Washington",
+    "muni_id": 195,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 1
+  },
+  {
+    "name": "Nantucket",
+    "muni_id": 197,
+    "applications": 13,
+    "approved": 12,
+    "rejected": 0,
+    "detached_apps": 11,
+    "attached_apps": 2
+  },
+  {
+    "name": "Natick",
+    "muni_id": 198,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Needham",
+    "muni_id": 199,
+    "applications": 3,
+    "approved": 3,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 3
+  },
+  {
+    "name": "New Bedford",
+    "muni_id": 201,
+    "applications": 4,
+    "approved": 2,
+    "rejected": 2,
+    "detached_apps": 2,
+    "attached_apps": 2
+  },
+  {
+    "name": "New Marlborough",
+    "muni_id": 203,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Newbury",
+    "muni_id": 205,
+    "applications": 3,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 2
+  },
+  {
+    "name": "Newburyport",
+    "muni_id": 206,
+    "applications": 5,
+    "approved": 4,
+    "rejected": 1,
+    "detached_apps": 3,
+    "attached_apps": 2
+  },
+  {
+    "name": "Newton",
+    "muni_id": 207,
+    "applications": 19,
+    "approved": 7,
+    "rejected": 6,
+    "detached_apps": 9,
+    "attached_apps": 10
+  },
+  {
+    "name": "North Adams",
+    "muni_id": 209,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "North Andover",
+    "muni_id": 210,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 1
+  },
+  {
+    "name": "North Brookfield",
+    "muni_id": 212,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "North Reading",
+    "muni_id": 213,
+    "applications": 1,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 1
+  },
+  {
+    "name": "Northampton",
+    "muni_id": 214,
+    "applications": 7,
+    "approved": 7,
+    "rejected": 0,
+    "detached_apps": 2,
+    "attached_apps": 5
+  },
+  {
+    "name": "Northborough",
+    "muni_id": 215,
+    "applications": 2,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 2,
+    "attached_apps": 0
+  },
+  {
+    "name": "Norton",
+    "muni_id": 218,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Norwell",
+    "muni_id": 219,
+    "applications": 3,
+    "approved": 3,
+    "rejected": 0,
+    "detached_apps": 2,
+    "attached_apps": 1
+  },
+  {
+    "name": "Norwood",
+    "muni_id": 220,
+    "applications": 4,
+    "approved": 4,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 3
+  },
+  {
+    "name": "Oak Bluffs",
+    "muni_id": 221,
+    "applications": 10,
+    "approved": 8,
+    "rejected": 2,
+    "detached_apps": 7,
+    "attached_apps": 3
+  },
+  {
+    "name": "Oakham",
+    "muni_id": 222,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 1
+  },
+  {
+    "name": "Orleans",
+    "muni_id": 224,
+    "applications": 6,
+    "approved": 6,
+    "rejected": 0,
+    "detached_apps": 4,
+    "attached_apps": 2
+  },
+  {
+    "name": "Otis",
+    "muni_id": 225,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 1,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Oxford",
+    "muni_id": 226,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 1
+  },
+  {
+    "name": "Palmer",
+    "muni_id": 227,
+    "applications": 2,
+    "approved": 1,
+    "rejected": 1,
+    "detached_apps": 0,
+    "attached_apps": 2
+  },
+  {
+    "name": "Peabody",
+    "muni_id": 229,
+    "applications": 12,
+    "approved": 7,
+    "rejected": 0,
+    "detached_apps": 4,
+    "attached_apps": 8
+  },
+  {
+    "name": "Pembroke",
+    "muni_id": 231,
+    "applications": 3,
+    "approved": 3,
+    "rejected": 0,
+    "detached_apps": 2,
+    "attached_apps": 1
+  },
+  {
+    "name": "Pepperell",
+    "muni_id": 232,
+    "applications": 6,
+    "approved": 6,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 5
+  },
+  {
+    "name": "Peru",
+    "muni_id": 233,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Pittsfield",
+    "muni_id": 236,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 1
+  },
+  {
+    "name": "Plainfield",
+    "muni_id": 237,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Plainville",
+    "muni_id": 238,
+    "applications": 2,
+    "approved": 2,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 2
+  },
+  {
+    "name": "Plymouth",
+    "muni_id": 239,
+    "applications": 32,
+    "approved": 12,
+    "rejected": 14,
+    "detached_apps": 12,
+    "attached_apps": 20
+  },
+  {
+    "name": "Princeton",
+    "muni_id": 241,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 1
+  },
+  {
+    "name": "Provincetown",
+    "muni_id": 242,
+    "applications": 1,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Quincy",
+    "muni_id": 243,
+    "applications": 7,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 6
+  },
+  {
+    "name": "Randolph",
+    "muni_id": 244,
+    "applications": 1,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Raynham",
+    "muni_id": 245,
+    "applications": 8,
+    "approved": 7,
+    "rejected": 1,
+    "detached_apps": 1,
+    "attached_apps": 7
+  },
+  {
+    "name": "Reading",
+    "muni_id": 246,
+    "applications": 4,
+    "approved": 2,
+    "rejected": 2,
+    "detached_apps": 3,
+    "attached_apps": 1
+  },
+  {
+    "name": "Revere",
+    "muni_id": 248,
+    "applications": 17,
+    "approved": 9,
+    "rejected": 1,
+    "detached_apps": 0,
+    "attached_apps": 17
+  },
+  {
+    "name": "Rochester",
+    "muni_id": 250,
+    "applications": 2,
+    "approved": 2,
+    "rejected": 0,
+    "detached_apps": 2,
+    "attached_apps": 0
+  },
+  {
+    "name": "Rockland",
+    "muni_id": 251,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 1
+  },
+  {
+    "name": "Rockport",
+    "muni_id": 252,
+    "applications": 3,
+    "approved": 3,
+    "rejected": 0,
+    "detached_apps": 2,
+    "attached_apps": 1
+  },
+  {
+    "name": "Rowley",
+    "muni_id": 254,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Russell",
+    "muni_id": 256,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Rutland",
+    "muni_id": 257,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Salem",
+    "muni_id": 258,
+    "applications": 6,
+    "approved": 2,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 5
+  },
+  {
+    "name": "Salisbury",
+    "muni_id": 259,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Sandwich",
+    "muni_id": 261,
+    "applications": 6,
+    "approved": 4,
+    "rejected": 0,
+    "detached_apps": 4,
+    "attached_apps": 2
+  },
+  {
+    "name": "Saugus",
+    "muni_id": 262,
+    "applications": 2,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 2
+  },
+  {
+    "name": "Savoy",
+    "muni_id": 263,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Seekonk",
+    "muni_id": 265,
+    "applications": 3,
+    "approved": 3,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 2
+  },
+  {
+    "name": "Sharon",
+    "muni_id": 266,
+    "applications": 1,
+    "approved": 0,
+    "rejected": 1,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Sheffield",
+    "muni_id": 267,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Shirley",
+    "muni_id": 270,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Shrewsbury",
+    "muni_id": 271,
+    "applications": 8,
+    "approved": 4,
+    "rejected": 0,
+    "detached_apps": 4,
+    "attached_apps": 4
+  },
+  {
+    "name": "Somerset",
+    "muni_id": 273,
+    "applications": 7,
+    "approved": 6,
+    "rejected": 0,
+    "detached_apps": 4,
+    "attached_apps": 3
+  },
+  {
+    "name": "Somerville",
+    "muni_id": 274,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "South Hadley",
+    "muni_id": 275,
+    "applications": 4,
+    "approved": 4,
+    "rejected": 0,
+    "detached_apps": 2,
+    "attached_apps": 2
+  },
+  {
+    "name": "Southborough",
+    "muni_id": 277,
+    "applications": 2,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 1
+  },
+  {
+    "name": "Southbridge",
+    "muni_id": 278,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Southwick",
+    "muni_id": 279,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Spencer",
+    "muni_id": 280,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Springfield",
+    "muni_id": 281,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Sterling",
+    "muni_id": 282,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 1
+  },
+  {
+    "name": "Stockbridge",
+    "muni_id": 283,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Stoughton",
+    "muni_id": 285,
+    "applications": 4,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 2,
+    "attached_apps": 2
+  },
+  {
+    "name": "Sudbury",
+    "muni_id": 288,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Sunderland",
+    "muni_id": 289,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Swansea",
+    "muni_id": 292,
+    "applications": 4,
+    "approved": 4,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 3
+  },
+  {
+    "name": "Taunton",
+    "muni_id": 293,
+    "applications": 6,
+    "approved": 4,
+    "rejected": 0,
+    "detached_apps": 5,
+    "attached_apps": 1
+  },
+  {
+    "name": "Templeton",
+    "muni_id": 294,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Tewksbury",
+    "muni_id": 295,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Tisbury",
+    "muni_id": 296,
+    "applications": 12,
+    "approved": 11,
+    "rejected": 1,
+    "detached_apps": 6,
+    "attached_apps": 6
+  },
+  {
+    "name": "Townsend",
+    "muni_id": 299,
+    "applications": 4,
+    "approved": 4,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 3
+  },
+  {
+    "name": "Truro",
+    "muni_id": 300,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 1
+  },
+  {
+    "name": "Tyngsborough",
+    "muni_id": 301,
+    "applications": 3,
+    "approved": 2,
+    "rejected": 0,
+    "detached_apps": 3,
+    "attached_apps": 0
+  },
+  {
+    "name": "Tyringham",
+    "muni_id": 302,
+    "applications": 0,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Upton",
+    "muni_id": 303,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Wakefield",
+    "muni_id": 305,
+    "applications": 2,
+    "approved": 0,
+    "rejected": 1,
+    "detached_apps": 1,
+    "attached_apps": 1
+  },
+  {
+    "name": "Wales",
+    "muni_id": 306,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Walpole",
+    "muni_id": 307,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 1
+  },
+  {
+    "name": "Waltham",
+    "muni_id": 308,
+    "applications": 3,
+    "approved": 3,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 3
+  },
+  {
+    "name": "Wareham",
+    "muni_id": 310,
+    "applications": 2,
+    "approved": 1,
+    "rejected": 1,
+    "detached_apps": 2,
+    "attached_apps": 0
+  },
+  {
+    "name": "Warren",
+    "muni_id": 311,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Watertown",
+    "muni_id": 314,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Wayland",
+    "muni_id": 315,
+    "applications": 7,
+    "approved": 2,
+    "rejected": 0,
+    "detached_apps": 6,
+    "attached_apps": 1
+  },
+  {
+    "name": "Webster",
+    "muni_id": 316,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 1
+  },
+  {
+    "name": "Wellesley",
+    "muni_id": 317,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Wenham",
+    "muni_id": 320,
+    "applications": 2,
+    "approved": 2,
+    "rejected": 0,
+    "detached_apps": 2,
+    "attached_apps": 0
+  },
+  {
+    "name": "West Boylston",
+    "muni_id": 321,
+    "applications": 2,
+    "approved": 2,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 1
+  },
+  {
+    "name": "West Bridgewater",
+    "muni_id": 322,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "West Newbury",
+    "muni_id": 324,
+    "applications": 5,
+    "approved": 4,
+    "rejected": 0,
+    "detached_apps": 5,
+    "attached_apps": 0
+  },
+  {
+    "name": "West Springfield",
+    "muni_id": 325,
+    "applications": 5,
+    "approved": 3,
+    "rejected": 2,
+    "detached_apps": 1,
+    "attached_apps": 4
+  },
+  {
+    "name": "West Stockbridge",
+    "muni_id": 326,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "West Tisbury",
+    "muni_id": 327,
+    "applications": 5,
+    "approved": 4,
+    "rejected": 2,
+    "detached_apps": 2,
+    "attached_apps": 3
+  },
+  {
+    "name": "Westborough",
+    "muni_id": 328,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 1
+  },
+  {
+    "name": "Westfield",
+    "muni_id": 329,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Westhampton",
+    "muni_id": 331,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Westminster",
+    "muni_id": 332,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Westwood",
+    "muni_id": 335,
+    "applications": 3,
+    "approved": 2,
+    "rejected": 0,
+    "detached_apps": 2,
+    "attached_apps": 1
+  },
+  {
+    "name": "Weymouth",
+    "muni_id": 336,
+    "applications": 1,
+    "approved": 2,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 1
+  },
+  {
+    "name": "Wilbraham",
+    "muni_id": 339,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 1
+  },
+  {
+    "name": "Williamsburg",
+    "muni_id": 340,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Wilmington",
+    "muni_id": 342,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 1
+  },
+  {
+    "name": "Winchendon",
+    "muni_id": 343,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Winchester",
+    "muni_id": 344,
+    "applications": 2,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 2,
+    "attached_apps": 0
+  },
+  {
+    "name": "Windsor",
+    "muni_id": 345,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Winthrop",
+    "muni_id": 346,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Woburn",
+    "muni_id": 347,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Worcester",
+    "muni_id": 348,
+    "applications": 24,
+    "approved": 24,
+    "rejected": 3,
+    "detached_apps": 13,
+    "attached_apps": 11
+  },
+  {
+    "name": "Worthington",
+    "muni_id": 349,
+    "applications": 0,
+    "approved": 0,
+    "rejected": 0,
+    "detached_apps": 0,
+    "attached_apps": 0
+  },
+  {
+    "name": "Wrentham",
+    "muni_id": 350,
+    "applications": 1,
+    "approved": 1,
+    "rejected": 0,
+    "detached_apps": 1,
+    "attached_apps": 0
+  },
+  {
+    "name": "Yarmouth",
+    "muni_id": 351,
+    "applications": 8,
+    "approved": 6,
+    "rejected": 0,
+    "detached_apps": 2,
+    "attached_apps": 6
+  }
+]

@@ -6,7 +6,7 @@
 
 body {
   font-family: 'IBM Plex Sans', system-ui, sans-serif;
-  background-color: #0a0a0b;
+  background-color: #111827;
   color: #fafafa;
 }
 
@@ -26,5 +26,5 @@ body {
 .badge-denied { @apply bg-denied/10 text-denied px-2 py-0.5 rounded-full text-xs; }
 .badge-pending { @apply bg-pending/10 text-pending px-2 py-0.5 rounded-full text-xs; }
 /* force deploy */
-body { background-color: #0c0c0c !important; }
-html { background-color: #0c0c0c; }
+body { background-color: #111827 !important; }
+html { background-color: #111827; }

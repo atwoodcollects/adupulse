@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
+import TownNav from '@/components/TownNav'
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 
 const permits = [
@@ -31,7 +32,7 @@ export default function AndoverPage() {
             <h1 className="text-2xl font-bold text-white">Andover ADU Permits</h1>
             <p className="text-gray-400 text-xs">Since Feb 2, 2025</p>
           </div>
-          <div className="w-24"></div>
+          <TownNav current="Andover" />
         </div>
         <div className="flex justify-center gap-1 md:gap-4 mb-8">
           <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-4 text-center flex-1 min-w-0"><div className="text-lg md:text-3xl font-bold text-white">{totalPermits}</div><div className="text-gray-400 text-xs">Apps</div></div>

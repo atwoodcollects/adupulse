@@ -121,7 +121,7 @@ export default function Dashboard() {
     <div className="min-h-screen bg-gray-900">
       {/* Header */}
       <header className="border-b border-border">
-        <div className="max-w-7xl mx-auto px-6 py-6">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 md:py-6">
           <div className="flex items-center justify-between">
             <div>
               <h1 className="font-display text-2xl font-bold tracking-tight">
@@ -144,8 +144,8 @@ export default function Dashboard() {
 
       {/* Stats */}
       <section className="border-b border-border">
-        <div className="max-w-7xl mx-auto px-6 py-8">
-          <div className="grid grid-cols-4 gap-4">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
             <StatCard 
               value={stats.totalApproved} 
               label="Approved" 
@@ -167,7 +167,7 @@ export default function Dashboard() {
       </section>
 
       {/* Map Placeholder + Data */}
-      <section className="max-w-7xl mx-auto px-6 py-8">
+      <section className="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8">
         <div className="grid lg:grid-cols-3 gap-8">
           
           {/* Map */}
@@ -264,7 +264,7 @@ export default function Dashboard() {
       </section>
 
       {/* Full Permits Table */}
-      <section className="max-w-7xl mx-auto px-6 py-8">
+      <section className="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8">
         <h2 className="font-display text-lg font-semibold mb-4">All Permits</h2>
         <div className="bg-surface border border-border rounded-lg overflow-hidden">
           <div className="overflow-x-auto">
@@ -299,7 +299,7 @@ export default function Dashboard() {
 
       {/* Footer */}
       <footer className="border-t border-border mt-16">
-        <div className="max-w-7xl mx-auto px-6 py-8">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-text-muted text-sm">
               Data source: MA EOHLC ADU Survey (H1 2025). 242 of 351 municipalities reporting. Survey period: Jan–Jun 2025. Next update expected: Q1 2026.

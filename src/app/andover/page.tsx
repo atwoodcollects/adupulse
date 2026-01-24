@@ -57,7 +57,7 @@ export default function AndoverPage() {
             </div>
           </div>
         ) : (
-          <div className="bg-gray-900/50 border border-gray-800 rounded-lg overflow-hidden">
+          <div className="bg-gray-900/50 border border-gray-800 rounded-lg overflow-x-auto">
             <table className="w-full"><thead className="bg-gray-800/50"><tr><th className="text-left text-gray-300 p-4">Address</th><th className="text-left text-gray-300 p-4">Type</th><th className="text-left text-gray-300 p-4">Cost</th><th className="text-left text-gray-300 p-4">Date</th></tr></thead>
             <tbody>{permits.map(p => <tr key={p.id} className="border-t border-gray-800"><td className="p-4"><div className="text-white">{p.address}</div><div className="text-gray-500 text-sm">{p.id}</div></td><td className="p-4 text-gray-300">{p.type}</td><td className="p-4 text-gray-300">${p.cost.toLocaleString()}</td><td className="p-4 text-gray-400">{new Date(p.date).toLocaleDateString()}</td></tr>)}</tbody></table>
           </div>

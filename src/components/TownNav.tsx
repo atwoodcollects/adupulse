@@ -7,6 +7,7 @@ const towns = [
   { name: 'Boston', href: '/boston' },
   { name: 'Lexington', href: '/lexington' },
   { name: 'Andover', href: '/andover' },
+    { name: 'Falmouth', href: '/falmouth' },
 ]
 
 export default function TownNav({ current }: { current: string }) {

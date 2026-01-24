@@ -1,0 +1,10 @@
+[
+  {"address": "9 Alden Dr", "applied": "12/18/25", "issued": "12/31/25", "permit": "ADU-25-0081", "status": "Permit Issued"},
+  {"address": "0 Agawan Rd", "applied": "10/30/25", "issued": "11/03/25", "permit": "ADU-25-0064", "status": "CO Issued"},
+  {"address": "0 Agawan Rd", "applied": "10/29/25", "issued": "11/04/25", "permit": "ADU-25-0065", "status": "CO Issued"},
+  {"address": "34 Alexander Booker Rd", "applied": "10/13/25", "issued": "10/23/25", "permit": "ADU-25-0060", "status": "Permit Issued"},
+  {"address": "55 Alderberry Ln", "applied": "09/11/25", "issued": "09/11/25", "permit": "ADU-25-0047", "status": "Permit Issued"},
+  {"address": "330 Alwardt Way", "applied": "09/10/25", "issued": "09/11/25", "permit": "ADU-25-0046", "status": "Permit Issued"},
+  {"address": "26 Amherst Ave", "applied": "09/09/25", "issued": "10/24/25", "permit": "ADU-25-0061", "status": "Permit Issued"},
+  {"address": "13 Alden Dr", "applied": "09/09/25", "issued": "10/24/25", "permit": "ADU-25-0062", "status": "Permit Issued"}
+]

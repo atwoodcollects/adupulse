@@ -3,6 +3,7 @@
 import { useEffect, useState, useMemo } from 'react'
 import { createClient } from '@supabase/supabase-js'
 import Link from 'next/link'
+import TownNav from '@/components/TownNav'
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   LineChart, Line, PieChart, Pie, Cell, Legend
@@ -268,7 +269,7 @@ export default function BostonPage() {
             <h1 className="text-xl font-bold text-white">Boston ADU Permits</h1>
             <p className="text-xs text-gray-400">Since Feb 2, 2025 (Statewide ADU Policy)</p>
           </div>
-          <div className="w-32"></div>
+          <TownNav current="Boston" />
         </div>
       </header>
 

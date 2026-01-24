@@ -8,6 +8,8 @@ export interface HLCTown {
   rejected: number
   detached_apps: number
   attached_apps: number
+  lat: number | null
+  lng: number | null
 }
 
 export function getHLCStats() {

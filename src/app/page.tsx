@@ -177,7 +177,7 @@ export default function Dashboard() {
           {/* Map */}
           <div className="lg:col-span-2">
             <div className="bg-surface border border-border rounded-lg overflow-hidden">
-              <TownMap towns={[]} />
+              <TownMap towns={towns} />
             </div>
             {/* Map Legend */}
             <div className="flex flex-wrap items-center gap-3 md:gap-6 mt-4 text-xs md:text-sm">

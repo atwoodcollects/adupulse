@@ -6,7 +6,9 @@
     "approved": 3,
     "rejected": 1,
     "detached_apps": 6,
-    "attached_apps": 5
+    "attached_apps": 5,
+    "lat": 42.1048,
+    "lng": -70.9451
   },
   {
     "name": "Acushnet",
@@ -15,7 +17,9 @@
     "approved": 4,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 3
+    "attached_apps": 3,
+    "lat": 41.6837,
+    "lng": -70.9076
   },
   {
     "name": "Adams",
@@ -24,7 +28,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.6237,
+    "lng": -73.1176
   },
   {
     "name": "Agawam",
@@ -33,7 +39,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.0695,
+    "lng": -72.6145
   },
   {
     "name": "Alford",
@@ -42,7 +50,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.2548,
+    "lng": -73.399
   },
   {
     "name": "Amherst",
@@ -51,7 +61,9 @@
     "approved": 9,
     "rejected": 0,
     "detached_apps": 6,
-    "attached_apps": 3
+    "attached_apps": 3,
+    "lat": 42.3751,
+    "lng": -72.5198
   },
   {
     "name": "Andover",
@@ -60,7 +72,9 @@
     "approved": 3,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 4
+    "attached_apps": 4,
+    "lat": 42.6584,
+    "lng": -71.137
   },
   {
     "name": "Arlington",
@@ -69,7 +83,9 @@
     "approved": 4,
     "rejected": 0,
     "detached_apps": 3,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 42.4154,
+    "lng": -71.1565
   },
   {
     "name": "Ashburnham",
@@ -78,7 +94,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.6362,
+    "lng": -71.9298
   },
   {
     "name": "Ashby",
@@ -87,7 +105,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.6779,
+    "lng": -71.8176
   },
   {
     "name": "Ashland",
@@ -96,7 +116,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.2612,
+    "lng": -71.4634
   },
   {
     "name": "Athol",
@@ -105,7 +127,9 @@
     "approved": 2,
     "rejected": 0,
     "detached_apps": 3,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.5965,
+    "lng": -72.2262
   },
   {
     "name": "Attleboro",
@@ -114,7 +138,9 @@
     "approved": 4,
     "rejected": 1,
     "detached_apps": 4,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 41.9445,
+    "lng": -71.2856
   },
   {
     "name": "Ayer",
@@ -123,7 +149,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 3
+    "attached_apps": 3,
+    "lat": 42.5612,
+    "lng": -71.5912
   },
   {
     "name": "Barnstable",
@@ -132,7 +160,9 @@
     "approved": 6,
     "rejected": 2,
     "detached_apps": 3,
-    "attached_apps": 3
+    "attached_apps": 3,
+    "lat": 41.7003,
+    "lng": -70.3002
   },
   {
     "name": "Barre",
@@ -141,7 +171,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.4223,
+    "lng": -72.1048
   },
   {
     "name": "Becket",
@@ -150,7 +182,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.3323,
+    "lng": -73.082
   },
   {
     "name": "Bedford",
@@ -159,7 +193,9 @@
     "approved": 3,
     "rejected": 0,
     "detached_apps": 3,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.4918,
+    "lng": -71.2762
   },
   {
     "name": "Bellingham",
@@ -168,7 +204,9 @@
     "approved": 2,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 42.0868,
+    "lng": -71.4745
   },
   {
     "name": "Belmont",
@@ -177,7 +215,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 42.3959,
+    "lng": -71.1787
   },
   {
     "name": "Berkley",
@@ -186,7 +226,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 41.8459,
+    "lng": -71.0826
   },
   {
     "name": "Berlin",
@@ -195,7 +237,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.3812,
+    "lng": -71.637
   },
   {
     "name": "Beverly",
@@ -204,7 +248,9 @@
     "approved": 8,
     "rejected": 0,
     "detached_apps": 5,
-    "attached_apps": 3
+    "attached_apps": 3,
+    "lat": 42.5584,
+    "lng": -70.88
   },
   {
     "name": "Billerica",
@@ -213,7 +259,9 @@
     "approved": 13,
     "rejected": 1,
     "detached_apps": 6,
-    "attached_apps": 12
+    "attached_apps": 12,
+    "lat": 42.5584,
+    "lng": -71.269
   },
   {
     "name": "Blackstone",
@@ -222,7 +270,9 @@
     "approved": 2,
     "rejected": 0,
     "detached_apps": 2,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.0179,
+    "lng": -71.5412
   },
   {
     "name": "Blandford",
@@ -231,7 +281,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.1823,
+    "lng": -72.9362
   },
   {
     "name": "Bolton",
@@ -240,7 +292,9 @@
     "approved": 2,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.4334,
+    "lng": -71.6076
   },
   {
     "name": "Boston",
@@ -249,7 +303,9 @@
     "approved": 15,
     "rejected": 0,
     "detached_apps": 6,
-    "attached_apps": 57
+    "attached_apps": 57,
+    "lat": 42.3601,
+    "lng": -71.0589
   },
   {
     "name": "Braintree",
@@ -258,7 +314,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.204,
+    "lng": -71.0012
   },
   {
     "name": "Brewster",
@@ -267,7 +325,9 @@
     "approved": 2,
     "rejected": 0,
     "detached_apps": 2,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 41.7601,
+    "lng": -70.0823
   },
   {
     "name": "Brimfield",
@@ -276,7 +336,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.1223,
+    "lng": -72.1884
   },
   {
     "name": "Brookline",
@@ -285,7 +347,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 42.3318,
+    "lng": -71.1212
   },
   {
     "name": "Burlington",
@@ -294,7 +358,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 42.5043,
+    "lng": -71.1951
   },
   {
     "name": "Cambridge",
@@ -303,7 +369,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 2,
-    "attached_apps": 4
+    "attached_apps": 4,
+    "lat": 42.3736,
+    "lng": -71.1097
   },
   {
     "name": "Canton",
@@ -312,7 +380,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.1584,
+    "lng": -71.1451
   },
   {
     "name": "Carlisle",
@@ -321,7 +391,9 @@
     "approved": 0,
     "rejected": 1,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.529,
+    "lng": -71.3487
   },
   {
     "name": "Charlton",
@@ -330,7 +402,9 @@
     "approved": 3,
     "rejected": 0,
     "detached_apps": 2,
-    "attached_apps": 3
+    "attached_apps": 3,
+    "lat": 42.1362,
+    "lng": -71.9701
   },
   {
     "name": "Chatham",
@@ -339,7 +413,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 41.6823,
+    "lng": -69.9598
   },
   {
     "name": "Chelmsford",
@@ -348,7 +424,9 @@
     "approved": 7,
     "rejected": 0,
     "detached_apps": 3,
-    "attached_apps": 4
+    "attached_apps": 4,
+    "lat": 42.5998,
+    "lng": -71.3673
   },
   {
     "name": "Cheshire",
@@ -357,7 +435,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.5612,
+    "lng": -73.1598
   },
   {
     "name": "Chester",
@@ -366,7 +446,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.279,
+    "lng": -72.9876
   },
   {
     "name": "Chesterfield",
@@ -375,7 +457,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.3901,
+    "lng": -72.8398
   },
   {
     "name": "Chilmark",
@@ -384,7 +468,9 @@
     "approved": 6,
     "rejected": 0,
     "detached_apps": 6,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 41.3584,
+    "lng": -70.7451
   },
   {
     "name": "Cohasset",
@@ -393,7 +479,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.2418,
+    "lng": -70.8076
   },
   {
     "name": "Cummington",
@@ -402,7 +490,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.4623,
+    "lng": -72.9048
   },
   {
     "name": "Dalton",
@@ -411,7 +501,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.4737,
+    "lng": -73.1651
   },
   {
     "name": "Danvers",
@@ -420,7 +512,9 @@
     "approved": 2,
     "rejected": 3,
     "detached_apps": 3,
-    "attached_apps": 6
+    "attached_apps": 6,
+    "lat": 42.5751,
+    "lng": -70.9329
   },
   {
     "name": "Deerfield",
@@ -429,7 +523,9 @@
     "approved": 1,
     "rejected": 1,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.5412,
+    "lng": -72.6076
   },
   {
     "name": "Dighton",
@@ -438,7 +534,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 41.8168,
+    "lng": -71.1298
   },
   {
     "name": "Douglas",
@@ -447,7 +545,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.0512,
+    "lng": -71.7387
   },
   {
     "name": "Dracut",
@@ -456,7 +556,9 @@
     "approved": 4,
     "rejected": 0,
     "detached_apps": 4,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 42.6701,
+    "lng": -71.302
   },
   {
     "name": "Dudley",
@@ -465,7 +567,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.0451,
+    "lng": -71.9387
   },
   {
     "name": "Duxbury",
@@ -474,7 +578,9 @@
     "approved": 2,
     "rejected": 0,
     "detached_apps": 3,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.0418,
+    "lng": -70.6726
   },
   {
     "name": "East Bridgewater",
@@ -483,7 +589,9 @@
     "approved": 3,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 3
+    "attached_apps": 3,
+    "lat": 42.0334,
+    "lng": -70.9451
   },
   {
     "name": "East Longmeadow",
@@ -492,7 +600,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.0645,
+    "lng": -72.5126
   },
   {
     "name": "Eastham",
@@ -501,7 +611,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 41.8334,
+    "lng": -69.9734
   },
   {
     "name": "Easthampton",
@@ -510,7 +622,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 2,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.2668,
+    "lng": -72.6687
   },
   {
     "name": "Easton",
@@ -519,7 +633,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 42.0245,
+    "lng": -71.1284
   },
   {
     "name": "Edgartown",
@@ -528,7 +644,9 @@
     "approved": 4,
     "rejected": 0,
     "detached_apps": 11,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 41.389,
+    "lng": -70.5134
   },
   {
     "name": "Egremont",
@@ -537,7 +655,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.1834,
+    "lng": -73.4298
   },
   {
     "name": "Everett",
@@ -546,7 +666,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.4084,
+    "lng": -71.0537
   },
   {
     "name": "Fairhaven",
@@ -555,7 +677,9 @@
     "approved": 18,
     "rejected": 0,
     "detached_apps": 9,
-    "attached_apps": 9
+    "attached_apps": 9,
+    "lat": 41.6376,
+    "lng": -70.9034
   },
   {
     "name": "Falmouth",
@@ -564,7 +688,9 @@
     "approved": 14,
     "rejected": 0,
     "detached_apps": 5,
-    "attached_apps": 9
+    "attached_apps": 9,
+    "lat": 41.5515,
+    "lng": -70.6148
   },
   {
     "name": "Foxborough",
@@ -573,7 +699,9 @@
     "approved": 3,
     "rejected": 0,
     "detached_apps": 2,
-    "attached_apps": 4
+    "attached_apps": 4,
+    "lat": 42.0651,
+    "lng": -71.2476
   },
   {
     "name": "Framingham",
@@ -582,7 +710,9 @@
     "approved": 6,
     "rejected": 2,
     "detached_apps": 2,
-    "attached_apps": 6
+    "attached_apps": 6,
+    "lat": 42.2793,
+    "lng": -71.4162
   },
   {
     "name": "Franklin",
@@ -591,7 +721,9 @@
     "approved": 4,
     "rejected": 0,
     "detached_apps": 4,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.0834,
+    "lng": -71.3962
   },
   {
     "name": "Freetown",
@@ -600,7 +732,9 @@
     "approved": 5,
     "rejected": 0,
     "detached_apps": 4,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 41.7668,
+    "lng": -71.0326
   },
   {
     "name": "Aquinnah",
@@ -609,7 +743,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 41.3334,
+    "lng": -70.8334
   },
   {
     "name": "Georgetown",
@@ -618,7 +754,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.7251,
+    "lng": -70.9776
   },
   {
     "name": "Gloucester",
@@ -627,7 +765,9 @@
     "approved": 1,
     "rejected": 1,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.6159,
+    "lng": -70.662
   },
   {
     "name": "Goshen",
@@ -636,7 +776,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.4423,
+    "lng": -72.8048
   },
   {
     "name": "Grafton",
@@ -645,7 +787,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.2068,
+    "lng": -71.6862
   },
   {
     "name": "Granby",
@@ -654,7 +798,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.2551,
+    "lng": -72.5151
   },
   {
     "name": "Great Barrington",
@@ -663,7 +809,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.1959,
+    "lng": -73.362
   },
   {
     "name": "Groton",
@@ -672,7 +820,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.6112,
+    "lng": -71.5726
   },
   {
     "name": "Groveland",
@@ -681,7 +831,9 @@
     "approved": 2,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 3
+    "attached_apps": 3,
+    "lat": 42.7584,
+    "lng": -71.0326
   },
   {
     "name": "Hadley",
@@ -690,7 +842,9 @@
     "approved": 5,
     "rejected": 0,
     "detached_apps": 3,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 42.3576,
+    "lng": -72.5715
   },
   {
     "name": "Halifax",
@@ -699,7 +853,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 41.9918,
+    "lng": -70.8623
   },
   {
     "name": "Hamilton",
@@ -708,7 +864,9 @@
     "approved": 4,
     "rejected": 0,
     "detached_apps": 3,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.6168,
+    "lng": -70.8626
   },
   {
     "name": "Hampden",
@@ -717,7 +875,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.0645,
+    "lng": -72.4126
   },
   {
     "name": "Hanson",
@@ -726,7 +886,9 @@
     "approved": 2,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 42.0751,
+    "lng": -70.8798
   },
   {
     "name": "Harvard",
@@ -735,7 +897,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.5001,
+    "lng": -71.5826
   },
   {
     "name": "Harwich",
@@ -744,7 +908,9 @@
     "approved": 3,
     "rejected": 0,
     "detached_apps": 9,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 41.6834,
+    "lng": -70.0734
   },
   {
     "name": "Haverhill",
@@ -753,7 +919,9 @@
     "approved": 9,
     "rejected": 0,
     "detached_apps": 11,
-    "attached_apps": 6
+    "attached_apps": 6,
+    "lat": 42.7762,
+    "lng": -71.0773
   },
   {
     "name": "Hingham",
@@ -762,7 +930,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.2418,
+    "lng": -70.8898
   },
   {
     "name": "Holbrook",
@@ -771,7 +941,9 @@
     "approved": 1,
     "rejected": 1,
     "detached_apps": 2,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.1551,
+    "lng": -71.0087
   },
   {
     "name": "Holliston",
@@ -780,7 +952,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.2001,
+    "lng": -71.4245
   },
   {
     "name": "Holyoke",
@@ -789,7 +963,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.2043,
+    "lng": -72.6162
   },
   {
     "name": "Hopkinton",
@@ -798,7 +974,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.229,
+    "lng": -71.5223
   },
   {
     "name": "Hubbardston",
@@ -807,7 +985,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.4834,
+    "lng": -72.0048
   },
   {
     "name": "Hudson",
@@ -816,7 +996,9 @@
     "approved": 4,
     "rejected": 0,
     "detached_apps": 2,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 42.3918,
+    "lng": -71.5662
   },
   {
     "name": "Hull",
@@ -825,7 +1007,9 @@
     "approved": 2,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 3
+    "attached_apps": 3,
+    "lat": 42.3018,
+    "lng": -70.9076
   },
   {
     "name": "Huntington",
@@ -834,7 +1018,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.2362,
+    "lng": -72.8876
   },
   {
     "name": "Ipswich",
@@ -843,7 +1029,9 @@
     "approved": 3,
     "rejected": 0,
     "detached_apps": 5,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.679,
+    "lng": -70.8412
   },
   {
     "name": "Lakeville",
@@ -852,7 +1040,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 2,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 41.8468,
+    "lng": -70.9526
   },
   {
     "name": "Lancaster",
@@ -861,7 +1051,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.4551,
+    "lng": -71.6826
   },
   {
     "name": "Lanesborough",
@@ -870,7 +1062,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.5168,
+    "lng": -73.2298
   },
   {
     "name": "Lawrence",
@@ -879,7 +1073,9 @@
     "approved": 7,
     "rejected": 0,
     "detached_apps": 6,
-    "attached_apps": 8
+    "attached_apps": 8,
+    "lat": 42.707,
+    "lng": -71.1631
   },
   {
     "name": "Lee",
@@ -888,7 +1084,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.3051,
+    "lng": -73.2476
   },
   {
     "name": "Leicester",
@@ -897,7 +1095,9 @@
     "approved": 2,
     "rejected": 0,
     "detached_apps": 2,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.2459,
+    "lng": -71.9076
   },
   {
     "name": "Lenox",
@@ -906,7 +1106,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.3568,
+    "lng": -73.2848
   },
   {
     "name": "Leominster",
@@ -915,7 +1117,9 @@
     "approved": 2,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.5251,
+    "lng": -71.7598
   },
   {
     "name": "Lexington",
@@ -924,7 +1128,9 @@
     "approved": 2,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 4
+    "attached_apps": 4,
+    "lat": 42.4473,
+    "lng": -71.2245
   },
   {
     "name": "Littleton",
@@ -933,7 +1139,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.5401,
+    "lng": -71.4776
   },
   {
     "name": "Longmeadow",
@@ -942,7 +1150,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.0501,
+    "lng": -72.5826
   },
   {
     "name": "Lowell",
@@ -951,7 +1161,9 @@
     "approved": 11,
     "rejected": 0,
     "detached_apps": 4,
-    "attached_apps": 7
+    "attached_apps": 7,
+    "lat": 42.6334,
+    "lng": -71.3162
   },
   {
     "name": "Lunenburg",
@@ -960,7 +1172,9 @@
     "approved": 0,
     "rejected": 1,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.5934,
+    "lng": -71.7262
   },
   {
     "name": "Lynn",
@@ -969,7 +1183,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 6
+    "attached_apps": 6,
+    "lat": 42.4668,
+    "lng": -70.9495
   },
   {
     "name": "Lynnfield",
@@ -978,7 +1194,9 @@
     "approved": 4,
     "rejected": 0,
     "detached_apps": 2,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 42.532,
+    "lng": -71.0481
   },
   {
     "name": "Malden",
@@ -987,16 +1205,20 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 2,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 42.4251,
+    "lng": -71.0662
   },
   {
-    "name": "Manchester-by-the-Sea",
+    "name": "Manchester",
     "muni_id": 166,
     "applications": 2,
     "approved": 2,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 42.5768,
+    "lng": -70.7676
   },
   {
     "name": "Mansfield",
@@ -1005,7 +1227,9 @@
     "approved": 3,
     "rejected": 0,
     "detached_apps": 2,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 42.0334,
+    "lng": -71.2198
   },
   {
     "name": "Marion",
@@ -1014,7 +1238,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 41.7001,
+    "lng": -70.7626
   },
   {
     "name": "Mashpee",
@@ -1023,7 +1249,9 @@
     "approved": 2,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 41.6484,
+    "lng": -70.4798
   },
   {
     "name": "Mattapoisett",
@@ -1032,7 +1260,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 41.6584,
+    "lng": -70.8126
   },
   {
     "name": "Maynard",
@@ -1041,7 +1271,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.4334,
+    "lng": -71.4498
   },
   {
     "name": "Medfield",
@@ -1050,7 +1282,9 @@
     "approved": 2,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.1868,
+    "lng": -71.3076
   },
   {
     "name": "Medford",
@@ -1059,7 +1293,9 @@
     "approved": 4,
     "rejected": 0,
     "detached_apps": 5,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.4184,
+    "lng": -71.1062
   },
   {
     "name": "Medway",
@@ -1068,7 +1304,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 2,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 42.1418,
+    "lng": -71.3962
   },
   {
     "name": "Melrose",
@@ -1077,7 +1315,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 2,
-    "attached_apps": 5
+    "attached_apps": 5,
+    "lat": 42.4584,
+    "lng": -71.0662
   },
   {
     "name": "Mendon",
@@ -1086,7 +1326,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.1051,
+    "lng": -71.5526
   },
   {
     "name": "Methuen",
@@ -1095,7 +1337,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 5,
-    "attached_apps": 6
+    "attached_apps": 6,
+    "lat": 42.7262,
+    "lng": -71.1909
   },
   {
     "name": "Middleborough",
@@ -1104,7 +1348,9 @@
     "approved": 10,
     "rejected": 0,
     "detached_apps": 7,
-    "attached_apps": 3
+    "attached_apps": 3,
+    "lat": 41.8934,
+    "lng": -70.9126
   },
   {
     "name": "Millbury",
@@ -1113,7 +1359,9 @@
     "approved": 10,
     "rejected": 3,
     "detached_apps": 8,
-    "attached_apps": 3
+    "attached_apps": 3,
+    "lat": 42.1934,
+    "lng": -71.7626
   },
   {
     "name": "Millis",
@@ -1122,7 +1370,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.1668,
+    "lng": -71.3576
   },
   {
     "name": "Milton",
@@ -1131,7 +1381,9 @@
     "approved": 24,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 24
+    "attached_apps": 24,
+    "lat": 42.2498,
+    "lng": -71.0662
   },
   {
     "name": "Montague",
@@ -1140,7 +1392,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 2,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.5412,
+    "lng": -72.5376
   },
   {
     "name": "Monterey",
@@ -1149,7 +1403,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.1834,
+    "lng": -73.2148
   },
   {
     "name": "Montgomery",
@@ -1158,7 +1414,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.2001,
+    "lng": -72.8398
   },
   {
     "name": "Mount Washington",
@@ -1167,7 +1425,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.1001,
+    "lng": -73.4698
   },
   {
     "name": "Nantucket",
@@ -1176,7 +1436,9 @@
     "approved": 12,
     "rejected": 0,
     "detached_apps": 11,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 41.2834,
+    "lng": -70.0998
   },
   {
     "name": "Natick",
@@ -1185,7 +1447,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.283,
+    "lng": -71.3468
   },
   {
     "name": "Needham",
@@ -1194,7 +1458,9 @@
     "approved": 3,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 3
+    "attached_apps": 3,
+    "lat": 42.2804,
+    "lng": -71.2372
   },
   {
     "name": "New Bedford",
@@ -1203,7 +1469,9 @@
     "approved": 2,
     "rejected": 2,
     "detached_apps": 2,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 41.6362,
+    "lng": -70.9342
   },
   {
     "name": "New Marlborough",
@@ -1212,7 +1480,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.1251,
+    "lng": -73.2298
   },
   {
     "name": "Newbury",
@@ -1221,7 +1491,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 42.7668,
+    "lng": -70.8626
   },
   {
     "name": "Newburyport",
@@ -1230,7 +1502,9 @@
     "approved": 4,
     "rejected": 1,
     "detached_apps": 3,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 42.8126,
+    "lng": -70.8773
   },
   {
     "name": "Newton",
@@ -1239,7 +1513,9 @@
     "approved": 7,
     "rejected": 6,
     "detached_apps": 9,
-    "attached_apps": 10
+    "attached_apps": 10,
+    "lat": 42.337,
+    "lng": -71.2092
   },
   {
     "name": "North Adams",
@@ -1248,7 +1524,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.7001,
+    "lng": -73.1087
   },
   {
     "name": "North Andover",
@@ -1257,7 +1535,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.6984,
+    "lng": -71.1326
   },
   {
     "name": "North Brookfield",
@@ -1266,7 +1546,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.2668,
+    "lng": -72.0826
   },
   {
     "name": "North Reading",
@@ -1275,7 +1557,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.5751,
+    "lng": -71.0787
   },
   {
     "name": "Northampton",
@@ -1284,7 +1568,9 @@
     "approved": 7,
     "rejected": 0,
     "detached_apps": 2,
-    "attached_apps": 5
+    "attached_apps": 5,
+    "lat": 42.3251,
+    "lng": -72.6412
   },
   {
     "name": "Northborough",
@@ -1293,7 +1579,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 2,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.3168,
+    "lng": -71.6426
   },
   {
     "name": "Norton",
@@ -1302,7 +1590,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 41.9668,
+    "lng": -71.1826
   },
   {
     "name": "Norwell",
@@ -1311,7 +1601,9 @@
     "approved": 3,
     "rejected": 0,
     "detached_apps": 2,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.1618,
+    "lng": -70.7926
   },
   {
     "name": "Norwood",
@@ -1320,7 +1612,9 @@
     "approved": 4,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 3
+    "attached_apps": 3,
+    "lat": 42.1945,
+    "lng": -71.1995
   },
   {
     "name": "Oak Bluffs",
@@ -1329,7 +1623,9 @@
     "approved": 8,
     "rejected": 2,
     "detached_apps": 7,
-    "attached_apps": 3
+    "attached_apps": 3,
+    "lat": 41.4534,
+    "lng": -70.5598
   },
   {
     "name": "Oakham",
@@ -1338,7 +1634,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.3512,
+    "lng": -72.0476
   },
   {
     "name": "Orleans",
@@ -1347,7 +1645,9 @@
     "approved": 6,
     "rejected": 0,
     "detached_apps": 4,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 41.789,
+    "lng": -69.9898
   },
   {
     "name": "Otis",
@@ -1356,7 +1656,9 @@
     "approved": 0,
     "rejected": 1,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.1934,
+    "lng": -73.0848
   },
   {
     "name": "Oxford",
@@ -1365,7 +1667,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.1168,
+    "lng": -71.8626
   },
   {
     "name": "Palmer",
@@ -1374,7 +1678,9 @@
     "approved": 1,
     "rejected": 1,
     "detached_apps": 0,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 42.1584,
+    "lng": -72.3287
   },
   {
     "name": "Peabody",
@@ -1383,7 +1689,9 @@
     "approved": 7,
     "rejected": 0,
     "detached_apps": 4,
-    "attached_apps": 8
+    "attached_apps": 8,
+    "lat": 42.5279,
+    "lng": -70.9287
   },
   {
     "name": "Pembroke",
@@ -1392,7 +1700,9 @@
     "approved": 3,
     "rejected": 0,
     "detached_apps": 2,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.0668,
+    "lng": -70.8026
   },
   {
     "name": "Pepperell",
@@ -1401,7 +1711,9 @@
     "approved": 6,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 5
+    "attached_apps": 5,
+    "lat": 42.6668,
+    "lng": -71.5876
   },
   {
     "name": "Peru",
@@ -1410,7 +1722,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.4362,
+    "lng": -73.0498
   },
   {
     "name": "Pittsfield",
@@ -1419,7 +1733,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.4501,
+    "lng": -73.2526
   },
   {
     "name": "Plainfield",
@@ -1428,7 +1744,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.5168,
+    "lng": -72.9198
   },
   {
     "name": "Plainville",
@@ -1437,7 +1755,9 @@
     "approved": 2,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 42.0034,
+    "lng": -71.3326
   },
   {
     "name": "Plymouth",
@@ -1446,7 +1766,9 @@
     "approved": 12,
     "rejected": 14,
     "detached_apps": 12,
-    "attached_apps": 20
+    "attached_apps": 20,
+    "lat": 41.9584,
+    "lng": -70.6673
   },
   {
     "name": "Princeton",
@@ -1455,7 +1777,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.449,
+    "lng": -71.8798
   },
   {
     "name": "Provincetown",
@@ -1464,7 +1788,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.0584,
+    "lng": -70.1787
   },
   {
     "name": "Quincy",
@@ -1473,7 +1799,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 6
+    "attached_apps": 6,
+    "lat": 42.2529,
+    "lng": -71.0023
   },
   {
     "name": "Randolph",
@@ -1482,7 +1810,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.1668,
+    "lng": -71.0412
   },
   {
     "name": "Raynham",
@@ -1491,7 +1821,9 @@
     "approved": 7,
     "rejected": 1,
     "detached_apps": 1,
-    "attached_apps": 7
+    "attached_apps": 7,
+    "lat": 41.9334,
+    "lng": -71.0526
   },
   {
     "name": "Reading",
@@ -1500,7 +1832,9 @@
     "approved": 2,
     "rejected": 2,
     "detached_apps": 3,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.5251,
+    "lng": -71.0951
   },
   {
     "name": "Revere",
@@ -1509,7 +1843,9 @@
     "approved": 9,
     "rejected": 1,
     "detached_apps": 0,
-    "attached_apps": 17
+    "attached_apps": 17,
+    "lat": 42.4084,
+    "lng": -71.012
   },
   {
     "name": "Rochester",
@@ -1518,7 +1854,9 @@
     "approved": 2,
     "rejected": 0,
     "detached_apps": 2,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 41.7334,
+    "lng": -70.8226
   },
   {
     "name": "Rockland",
@@ -1527,7 +1865,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.1334,
+    "lng": -70.9076
   },
   {
     "name": "Rockport",
@@ -1536,7 +1876,9 @@
     "approved": 3,
     "rejected": 0,
     "detached_apps": 2,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.6584,
+    "lng": -70.6198
   },
   {
     "name": "Rowley",
@@ -1545,7 +1887,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.7168,
+    "lng": -70.8776
   },
   {
     "name": "Russell",
@@ -1554,7 +1898,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.1623,
+    "lng": -72.8498
   },
   {
     "name": "Rutland",
@@ -1563,7 +1909,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.3668,
+    "lng": -71.9476
   },
   {
     "name": "Salem",
@@ -1572,7 +1920,9 @@
     "approved": 2,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 5
+    "attached_apps": 5,
+    "lat": 42.5195,
+    "lng": -70.8967
   },
   {
     "name": "Salisbury",
@@ -1581,7 +1931,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.8418,
+    "lng": -70.8609
   },
   {
     "name": "Sandwich",
@@ -1590,7 +1942,9 @@
     "approved": 4,
     "rejected": 0,
     "detached_apps": 4,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 41.759,
+    "lng": -70.4934
   },
   {
     "name": "Saugus",
@@ -1599,7 +1953,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 42.4668,
+    "lng": -71.0126
   },
   {
     "name": "Savoy",
@@ -1608,7 +1964,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.579,
+    "lng": -73.0198
   },
   {
     "name": "Seekonk",
@@ -1617,7 +1975,9 @@
     "approved": 3,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 41.8084,
+    "lng": -71.3326
   },
   {
     "name": "Sharon",
@@ -1626,7 +1986,9 @@
     "approved": 0,
     "rejected": 1,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.1234,
+    "lng": -71.1787
   },
   {
     "name": "Sheffield",
@@ -1635,7 +1997,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.1112,
+    "lng": -73.3548
   },
   {
     "name": "Shirley",
@@ -1644,7 +2008,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.5479,
+    "lng": -71.6498
   },
   {
     "name": "Shrewsbury",
@@ -1653,7 +2019,9 @@
     "approved": 4,
     "rejected": 0,
     "detached_apps": 4,
-    "attached_apps": 4
+    "attached_apps": 4,
+    "lat": 42.2959,
+    "lng": -71.7126
   },
   {
     "name": "Somerset",
@@ -1662,7 +2030,9 @@
     "approved": 6,
     "rejected": 0,
     "detached_apps": 4,
-    "attached_apps": 3
+    "attached_apps": 3,
+    "lat": 41.7418,
+    "lng": -71.1526
   },
   {
     "name": "Somerville",
@@ -1671,7 +2041,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.3876,
+    "lng": -71.0995
   },
   {
     "name": "South Hadley",
@@ -1680,7 +2052,9 @@
     "approved": 4,
     "rejected": 0,
     "detached_apps": 2,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 42.2584,
+    "lng": -72.5748
   },
   {
     "name": "Southborough",
@@ -1689,7 +2063,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.3068,
+    "lng": -71.5226
   },
   {
     "name": "Southbridge",
@@ -1698,7 +2074,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.0751,
+    "lng": -72.0334
   },
   {
     "name": "Southwick",
@@ -1707,7 +2085,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.0501,
+    "lng": -72.7698
   },
   {
     "name": "Spencer",
@@ -1716,7 +2096,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.2468,
+    "lng": -71.9926
   },
   {
     "name": "Springfield",
@@ -1725,7 +2107,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.1015,
+    "lng": -72.5898
   },
   {
     "name": "Sterling",
@@ -1734,7 +2118,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.439,
+    "lng": -71.7598
   },
   {
     "name": "Stockbridge",
@@ -1743,7 +2129,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.2834,
+    "lng": -73.3148
   },
   {
     "name": "Stoughton",
@@ -1752,7 +2140,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 2,
-    "attached_apps": 2
+    "attached_apps": 2,
+    "lat": 42.1251,
+    "lng": -71.1026
   },
   {
     "name": "Sudbury",
@@ -1761,7 +2151,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.3834,
+    "lng": -71.4162
   },
   {
     "name": "Sunderland",
@@ -1770,7 +2162,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.4612,
+    "lng": -72.5698
   },
   {
     "name": "Swansea",
@@ -1779,7 +2173,9 @@
     "approved": 4,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 3
+    "attached_apps": 3,
+    "lat": 41.7484,
+    "lng": -71.1926
   },
   {
     "name": "Taunton",
@@ -1788,7 +2184,9 @@
     "approved": 4,
     "rejected": 0,
     "detached_apps": 5,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 41.9001,
+    "lng": -71.0898
   },
   {
     "name": "Templeton",
@@ -1797,7 +2195,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.5568,
+    "lng": -72.0676
   },
   {
     "name": "Tewksbury",
@@ -1806,7 +2206,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.6101,
+    "lng": -71.234
   },
   {
     "name": "Tisbury",
@@ -1815,7 +2217,9 @@
     "approved": 11,
     "rejected": 1,
     "detached_apps": 6,
-    "attached_apps": 6
+    "attached_apps": 6,
+    "lat": 41.4534,
+    "lng": -70.5998
   },
   {
     "name": "Townsend",
@@ -1824,7 +2228,9 @@
     "approved": 4,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 3
+    "attached_apps": 3,
+    "lat": 42.6668,
+    "lng": -71.7076
   },
   {
     "name": "Truro",
@@ -1833,7 +2239,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.0084,
+    "lng": -70.0498
   },
   {
     "name": "Tyngsborough",
@@ -1842,7 +2250,9 @@
     "approved": 2,
     "rejected": 0,
     "detached_apps": 3,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.6768,
+    "lng": -71.4226
   },
   {
     "name": "Tyringham",
@@ -1851,7 +2261,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.2434,
+    "lng": -73.2048
   },
   {
     "name": "Upton",
@@ -1860,7 +2272,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.1751,
+    "lng": -71.6026
   },
   {
     "name": "Wakefield",
@@ -1869,7 +2283,9 @@
     "approved": 0,
     "rejected": 1,
     "detached_apps": 1,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.5068,
+    "lng": -71.0726
   },
   {
     "name": "Wales",
@@ -1878,7 +2294,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.0668,
+    "lng": -72.2226
   },
   {
     "name": "Walpole",
@@ -1887,7 +2305,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.1418,
+    "lng": -71.2498
   },
   {
     "name": "Waltham",
@@ -1896,7 +2316,9 @@
     "approved": 3,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 3
+    "attached_apps": 3,
+    "lat": 42.3765,
+    "lng": -71.2356
   },
   {
     "name": "Wareham",
@@ -1905,7 +2327,9 @@
     "approved": 1,
     "rejected": 1,
     "detached_apps": 2,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 41.7618,
+    "lng": -70.7198
   },
   {
     "name": "Warren",
@@ -1914,7 +2338,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.2123,
+    "lng": -72.1876
   },
   {
     "name": "Watertown",
@@ -1923,7 +2349,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.3709,
+    "lng": -71.1828
   },
   {
     "name": "Wayland",
@@ -1932,7 +2360,9 @@
     "approved": 2,
     "rejected": 0,
     "detached_apps": 6,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.3626,
+    "lng": -71.3615
   },
   {
     "name": "Webster",
@@ -1941,7 +2371,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.0501,
+    "lng": -71.8798
   },
   {
     "name": "Wellesley",
@@ -1950,7 +2382,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.2968,
+    "lng": -71.2924
   },
   {
     "name": "Wenham",
@@ -1959,7 +2393,9 @@
     "approved": 2,
     "rejected": 0,
     "detached_apps": 2,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.6034,
+    "lng": -70.8926
   },
   {
     "name": "West Boylston",
@@ -1968,7 +2404,9 @@
     "approved": 2,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.3668,
+    "lng": -71.7876
   },
   {
     "name": "West Bridgewater",
@@ -1977,7 +2415,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.0168,
+    "lng": -71.0076
   },
   {
     "name": "West Newbury",
@@ -1986,7 +2426,9 @@
     "approved": 4,
     "rejected": 0,
     "detached_apps": 5,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.7934,
+    "lng": -71.0076
   },
   {
     "name": "West Springfield",
@@ -1995,7 +2437,9 @@
     "approved": 3,
     "rejected": 2,
     "detached_apps": 1,
-    "attached_apps": 4
+    "attached_apps": 4,
+    "lat": 42.1068,
+    "lng": -72.6412
   },
   {
     "name": "West Stockbridge",
@@ -2004,7 +2448,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.3168,
+    "lng": -73.3698
   },
   {
     "name": "West Tisbury",
@@ -2013,7 +2459,9 @@
     "approved": 4,
     "rejected": 2,
     "detached_apps": 2,
-    "attached_apps": 3
+    "attached_apps": 3,
+    "lat": 41.3834,
+    "lng": -70.6698
   },
   {
     "name": "Westborough",
@@ -2022,7 +2470,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.269,
+    "lng": -71.6162
   },
   {
     "name": "Westfield",
@@ -2031,7 +2481,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.1251,
+    "lng": -72.7498
   },
   {
     "name": "Westhampton",
@@ -2040,7 +2492,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.3034,
+    "lng": -72.7748
   },
   {
     "name": "Westminster",
@@ -2049,7 +2503,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.5468,
+    "lng": -71.9098
   },
   {
     "name": "Westwood",
@@ -2058,7 +2514,9 @@
     "approved": 2,
     "rejected": 0,
     "detached_apps": 2,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.2184,
+    "lng": -71.2248
   },
   {
     "name": "Weymouth",
@@ -2067,7 +2525,9 @@
     "approved": 2,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.2209,
+    "lng": -70.9395
   },
   {
     "name": "Wilbraham",
@@ -2076,7 +2536,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.1251,
+    "lng": -72.4326
   },
   {
     "name": "Williamsburg",
@@ -2085,7 +2547,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.3934,
+    "lng": -72.7298
   },
   {
     "name": "Wilmington",
@@ -2094,7 +2558,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 1
+    "attached_apps": 1,
+    "lat": 42.5468,
+    "lng": -71.1737
   },
   {
     "name": "Winchendon",
@@ -2103,7 +2569,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.6862,
+    "lng": -72.0426
   },
   {
     "name": "Winchester",
@@ -2112,7 +2580,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 2,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.4523,
+    "lng": -71.137
   },
   {
     "name": "Windsor",
@@ -2121,7 +2591,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.5112,
+    "lng": -73.0448
   },
   {
     "name": "Winthrop",
@@ -2130,7 +2602,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.3751,
+    "lng": -70.9826
   },
   {
     "name": "Woburn",
@@ -2139,7 +2613,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.4793,
+    "lng": -71.1523
   },
   {
     "name": "Worcester",
@@ -2148,7 +2624,9 @@
     "approved": 24,
     "rejected": 3,
     "detached_apps": 13,
-    "attached_apps": 11
+    "attached_apps": 11,
+    "lat": 42.2626,
+    "lng": -71.8023
   },
   {
     "name": "Worthington",
@@ -2157,7 +2635,9 @@
     "approved": 0,
     "rejected": 0,
     "detached_apps": 0,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.3979,
+    "lng": -72.9398
   },
   {
     "name": "Wrentham",
@@ -2166,7 +2646,9 @@
     "approved": 1,
     "rejected": 0,
     "detached_apps": 1,
-    "attached_apps": 0
+    "attached_apps": 0,
+    "lat": 42.0668,
+    "lng": -71.3326
   },
   {
     "name": "Yarmouth",
@@ -2175,6 +2657,8 @@
     "approved": 6,
     "rejected": 0,
     "detached_apps": 2,
-    "attached_apps": 6
+    "attached_apps": 6,
+    "lat": 41.7068,
+    "lng": -70.2287
   }
 ]

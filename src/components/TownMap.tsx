@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
-import { Town } from '@/lib/supabase'
+import { HLCTown } from '@/lib/hlcData'
 
 const townCoords: Record<string, [number, number]> = {
   'Boston': [42.3601, -71.0589],
@@ -107,7 +107,7 @@ function getActivityColor(approved: number): { fill: string; stroke: string } {
 }
 
 interface TownMapProps {
-  towns: Town[]
+  towns: HLCTown[]
 }
 
 export default function TownMap({ towns }: TownMapProps) {
@@ -125,7 +125,7 @@ export default function TownMap({ towns }: TownMapProps) {
     )
   }
 
-  const maxApproved = Math.max(...towns.map(t => t.total_approved || 1), 1)
+  const maxApproved = Math.max(...towns.map(t => t.approved || 1), 1)
 
   return (
     <MapContainer
@@ -140,13 +140,13 @@ export default function TownMap({ towns }: TownMapProps) {
         url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
       />
       {towns.map(town => {
-        const coords = townCoords[town.name]
-        if (!coords || !town.total_approved) return null
-        const radius = Math.max(5, Math.min((town.total_approved / maxApproved) * 20, 20))
-        const colors = getActivityColor(town.total_approved)
+        const coords = town.lat && town.lng ? [town.lat, town.lng] as [number, number] : townCoords[town.name]
+        if (!coords || !town.approved) return null
+        const radius = Math.max(5, Math.min((town.approved / maxApproved) * 20, 20))
+        const colors = getActivityColor(town.approved)
         return (
           <CircleMarker
-            key={town.id}
+            key={town.name}
             center={coords}
             radius={radius}
             fillColor={colors.fill}
@@ -157,8 +157,8 @@ export default function TownMap({ towns }: TownMapProps) {
             <Popup>
               <div className="text-black text-sm">
                 <strong>{town.name}</strong><br/>
-                {town.total_approved} approved<br/>
-                {town.total_applications} applications
+                {town.approved} approved<br/>
+                {town.applications} applications
               </div>
             </Popup>
           </CircleMarker>

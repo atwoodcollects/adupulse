@@ -5,8 +5,8 @@ module.exports = {
     extend: {
       colors: {
         'void': '#0a0a0b',
-        'surface': '#141416',
-        'surface-raised': '#1c1c1f',
+        'surface': '#1f2937',
+        'surface-raised': '#374151',
         'border': '#2a2a2e',
         'accent': '#3b82f6',
         'accent-bright': '#60a5fa',

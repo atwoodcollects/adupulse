@@ -34,11 +34,11 @@ export default function AndoverPage() {
           <div className="w-24"></div>
         </div>
         <div className="flex gap-2 md:gap-4 mb-8">
-          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-4 text-center flex-1 min-w-0"><div className="text-xl md:text-3xl font-bold text-white">{totalPermits}</div><div className="text-gray-400 text-xs">Applications</div></div>
+          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-4 text-center flex-1 min-w-0"><div className="text-xl md:text-3xl font-bold text-white">{totalPermits}</div><div className="text-gray-400 text-xs">Apps</div></div>
           <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-4 text-center flex-1 min-w-0"><div className="text-xl md:text-3xl font-bold text-green-400">{totalPermits}</div><div className="text-gray-400 text-xs">Approved</div></div>
-          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-4 text-center flex-1 min-w-0"><div className="text-xl md:text-3xl font-bold text-blue-400">${(avgCost / 1000).toFixed(0)}K</div><div className="text-gray-400 text-xs">Avg Cost</div></div>
-          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-4 text-center flex-1 min-w-0"><div className="text-xl md:text-3xl font-bold text-purple-400">${(totalInvestment / 1000000).toFixed(1)}M</div><div className="text-gray-400 text-xs">Total Investment</div></div>
-          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-4 text-center flex-1 min-w-0"><div className="text-xl md:text-3xl font-bold text-yellow-400">{Object.keys(typeBreakdown).length}</div><div className="text-gray-400 text-xs">ADU Types</div></div>
+          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-4 text-center flex-1 min-w-0"><div className="text-xl md:text-3xl font-bold text-blue-400">${(avgCost / 1000).toFixed(0)}K</div><div className="text-gray-400 text-xs">Avg</div></div>
+          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-4 text-center flex-1 min-w-0"><div className="text-xl md:text-3xl font-bold text-purple-400">${(totalInvestment / 1000000).toFixed(1)}M</div><div className="text-gray-400 text-xs">Invested</div></div>
+          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-4 text-center flex-1 min-w-0"><div className="text-xl md:text-3xl font-bold text-yellow-400">{Object.keys(typeBreakdown).length}</div><div className="text-gray-400 text-xs">Types</div></div>
         </div>
         <div className="flex gap-2 mb-6">
           <button onClick={() => setActiveTab('insights')} className={`px-4 py-2 rounded-lg text-sm font-medium ${activeTab === 'insights' ? 'bg-blue-600 text-white' : 'bg-gray-800 text-gray-300'}`}>Insights</button>
@@ -51,7 +51,7 @@ export default function AndoverPage() {
               <ResponsiveContainer width="100%" height={200}><BarChart data={costRanges}><XAxis dataKey="range" tick={{ fill: '#9ca3af', fontSize: 12 }} /><YAxis tick={{ fill: '#9ca3af', fontSize: 12 }} /><Tooltip /><Bar dataKey="count" fill="#3b82f6" radius={[4, 4, 0, 0]} /></BarChart></ResponsiveContainer>
             </div>
             <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-6">
-              <h3 className="text-white font-semibold mb-4">ADU Types</h3>
+              <h3 className="text-white font-semibold mb-4">Types</h3>
               <ResponsiveContainer width="100%" height={200}><PieChart><Pie data={typeData} cx="50%" cy="50%" innerRadius={50} outerRadius={80} dataKey="value" label={({ percent }) => `${((percent ?? 0) * 100).toFixed(0)}%`}>{typeData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}</Pie><Tooltip /></PieChart></ResponsiveContainer>
               <div className="flex flex-wrap justify-center gap-2 mt-2">{typeData.map((e, i) => <div key={e.name} className="flex items-center gap-1 text-xs"><div className="w-2 h-2 rounded-full" style={{ backgroundColor: COLORS[i % COLORS.length] }}></div><span className="text-gray-300">{e.name}</span></div>)}</div>
             </div>

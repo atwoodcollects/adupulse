@@ -277,27 +277,27 @@ export default function BostonPage() {
         {stats && (
           <div className="flex gap-2 md:gap-4 mb-8">
             <div className="bg-gray-800 rounded-lg border border-gray-700 p-4">
-              <div className="text-3xl font-bold text-white">{stats.total}</div>
+              <div className="text-xl md:text-3xl font-bold text-white">{stats.total}</div>
               <div className="text-sm text-gray-400">Applications</div>
             </div>
             <div className="bg-gray-800 rounded-lg border border-gray-700 p-4">
-              <div className="text-3xl font-bold text-green-400">{stats.approved}</div>
+              <div className="text-xl md:text-3xl font-bold text-green-400">{stats.approved}</div>
               <div className="text-sm text-gray-400">Approved</div>
             </div>
             <div className="bg-gray-800 rounded-lg border border-gray-700 p-4">
-              <div className="text-3xl font-bold text-yellow-400">{stats.pending}</div>
+              <div className="text-xl md:text-3xl font-bold text-yellow-400">{stats.pending}</div>
               <div className="text-sm text-gray-400">Pending</div>
             </div>
             <div className="bg-gray-800 rounded-lg border border-gray-700 p-4">
-              <div className="text-3xl font-bold text-red-400">{stats.abandoned}</div>
+              <div className="text-xl md:text-3xl font-bold text-red-400">{stats.abandoned}</div>
               <div className="text-sm text-gray-400">Abandoned</div>
             </div>
             <div className="bg-gray-800 rounded-lg border border-gray-700 p-4">
-              <div className="text-3xl font-bold text-blue-400">{stats.medianDays}</div>
+              <div className="text-xl md:text-3xl font-bold text-blue-400">{stats.medianDays}</div>
               <div className="text-sm text-gray-400">Median Days</div>
             </div>
             <div className="bg-gray-800 rounded-lg border border-gray-700 p-4">
-              <div className="text-3xl font-bold text-purple-400">{stats.byRightPct}%</div>
+              <div className="text-xl md:text-3xl font-bold text-purple-400">{stats.byRightPct}%</div>
               <div className="text-sm text-gray-400">By-Right</div>
             </div>
           </div>

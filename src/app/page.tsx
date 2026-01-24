@@ -37,7 +37,7 @@ function TownRow({ rank, town }: { rank: number, town: HLCTown }) {
         <div className="town-count">{town.approved}<span className="text-text-muted text-sm font-normal">/{town.applications}</span></div>
         <div className="text-xs text-text-muted">
           {approvalRate}% approved
-          {null && ` · ${Math.round(null)}d avg`}
+          
         </div>
       </div>
     </div>
@@ -159,8 +159,8 @@ export default function Dashboard() {
               label="Applied" 
             />
             <StatCard 
-              value={stats.avgDays > 0 ? `${stats.avgDays}d` : '—'} 
-              label="Avg Days" 
+              value={stats.totalRejected} 
+              label="Rejected" 
             />
             <StatCard 
               value={stats.townsReporting} 
@@ -177,7 +177,7 @@ export default function Dashboard() {
           {/* Map */}
           <div className="lg:col-span-2">
             <div className="bg-surface border border-border rounded-lg overflow-hidden">
-              <TownMap towns={towns} />
+              <TownMap towns={[]} />
             </div>
             {/* Map Legend */}
             <div className="flex flex-wrap items-center gap-3 md:gap-6 mt-4 text-xs md:text-sm">
@@ -227,7 +227,7 @@ export default function Dashboard() {
               {activeTab === 'leaderboard' ? (
                 towns.length > 0 ? (
                   towns.slice(0, 15).map((town, i) => (
-                    <TownRow key={town.id} rank={i + 1} town={town} />
+                    <TownRow key={town.name} rank={i + 1} town={town} />
                   ))
                 ) : (
                   <div className="p-8 text-center text-text-muted">

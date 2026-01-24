@@ -3,7 +3,8 @@
 import TownNav from '@/components/TownNav'
 
 import { useEffect, useState } from 'react'
-import { getTowns, getStats, getRecentPermits, Town, Permit } from '@/lib/supabase'
+import { getRecentPermits, Permit } from '@/lib/supabase'
+import { getHLCStats, getHLCTopTowns, HLCTown } from '@/lib/hlcData'
 import dynamic from 'next/dynamic'
 
 const TownMap = dynamic(() => import('@/components/TownMap'), { ssr: false })
@@ -20,9 +21,9 @@ function StatCard({ value, label, trend }: { value: string | number, label: stri
 }
 
 // Town Leaderboard Row
-function TownRow({ rank, town }: { rank: number, town: Town }) {
-  const approvalRate = town.total_applications > 0 
-    ? Math.round((town.total_approved / town.total_applications) * 100)
+function TownRow({ rank, town }: { rank: number, town: HLCTown }) {
+  const approvalRate = town.applications > 0 
+    ? Math.round((town.approved / town.applications) * 100)
     : 0
 
   return (
@@ -33,10 +34,10 @@ function TownRow({ rank, town }: { rank: number, town: Town }) {
         
       </div>
       <div className="text-right">
-        <div className="town-count">{town.total_approved}<span className="text-text-muted text-sm font-normal">/{town.total_applications}</span></div>
+        <div className="town-count">{town.approved}<span className="text-text-muted text-sm font-normal">/{town.applications}</span></div>
         <div className="text-xs text-text-muted">
           {approvalRate}% approved
-          {town.avg_days_to_approve && ` · ${Math.round(town.avg_days_to_approve)}d avg`}
+          {null && ` · ${Math.round(null)}d avg`}
         </div>
       </div>
     </div>
@@ -85,9 +86,9 @@ function PermitRow({ permit }: { permit: Permit }) {
 
 // Main Dashboard
 export default function Dashboard() {
-  const [towns, setTowns] = useState<Town[]>([])
+  const [towns, setTowns] = useState<HLCTown[]>([])
   const [permits, setPermits] = useState<Permit[]>([])
-  const [stats, setStats] = useState({ totalApplications: 0, totalApproved: 0, totalDenied: 0, avgDays: 0, townsWithData: 0 })
+  const [stats, setStats] = useState({ totalApplications: 0, totalApproved: 0, totalRejected: 0, townsReporting: 0, townsWithData: 0 })
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState<'leaderboard' | 'recent'>('leaderboard')
 
@@ -95,8 +96,8 @@ export default function Dashboard() {
     async function fetchData() {
       try {
         const [townsData, statsData, permitsData] = await Promise.all([
-          getTowns(),
-          getStats(),
+          getHLCTopTowns(20),
+          Promise.resolve(getHLCStats()),
           getRecentPermits(20)
         ])
         setTowns(townsData)
@@ -162,7 +163,7 @@ export default function Dashboard() {
               label="Avg Days" 
             />
             <StatCard 
-              value={stats.townsWithData} 
+              value={stats.townsReporting} 
               label="Towns" 
             />
           </div>

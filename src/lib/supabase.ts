@@ -32,7 +32,7 @@ export async function getTowns(): Promise<Town[]> {
     .from('towns')
     .select('*')
     .order('total_approved', { ascending: false })
-  if (error) throw error
+  if (error) return []
   return data || []
 }
 
@@ -57,6 +57,6 @@ export async function getRecentPermits(limit = 10): Promise<Permit[]> {
     .eq('status', 'approved')
     .order('approved_date', { ascending: false })
     .limit(limit)
-  if (error) throw error
+  if (error) return []
   return data || []
 }

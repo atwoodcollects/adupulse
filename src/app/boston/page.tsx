@@ -369,7 +369,7 @@ export default function BostonPage() {
                           innerRadius={40}
                           outerRadius={70}
                           dataKey="value"
-                          label={({ name, percent }) => `${(percent * 100).toFixed(0)}%`}
+                          label={({ name, percent }) => `${((percent ?? 0) * 100).toFixed(0)}%`}
                           labelLine={false}
                         >
                           {statusData.map((entry, index) => (
@@ -398,7 +398,7 @@ export default function BostonPage() {
                           innerRadius={40}
                           outerRadius={70}
                           dataKey="value"
-                          label={({ name, percent }) => `${(percent * 100).toFixed(0)}%`}
+                          label={({ name, percent }) => `${((percent ?? 0) * 100).toFixed(0)}%`}
                           labelLine={false}
                         >
                           {zoningData.map((entry, index) => (

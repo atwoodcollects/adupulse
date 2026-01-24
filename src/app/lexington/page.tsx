@@ -43,24 +43,24 @@ export default function LexingtonPage() {
           <div className="w-24"></div>
         </div>
         <div className="flex gap-2 md:gap-4 mb-8">
-          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-4 text-center">
-            <div className="text-3xl font-bold text-white">{totalPermits}</div>
+          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-4 text-center flex-1 min-w-0">
+            <div className="text-xl md:text-3xl font-bold text-white">{totalPermits}</div>
             <div className="text-gray-400 text-sm">Applications</div>
           </div>
-          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-4 text-center">
-            <div className="text-3xl font-bold text-green-400">{totalPermits}</div>
+          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-4 text-center flex-1 min-w-0">
+            <div className="text-xl md:text-3xl font-bold text-green-400">{totalPermits}</div>
             <div className="text-gray-400 text-sm">Approved</div>
           </div>
-          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-4 text-center">
-            <div className="text-3xl font-bold text-blue-400">${(avgCost / 1000).toFixed(0)}K</div>
+          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-4 text-center flex-1 min-w-0">
+            <div className="text-xl md:text-3xl font-bold text-blue-400">${(avgCost / 1000).toFixed(0)}K</div>
             <div className="text-gray-400 text-sm">Avg Cost</div>
           </div>
-          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-4 text-center">
-            <div className="text-3xl font-bold text-purple-400">${(totalInvestment / 1000000).toFixed(1)}M</div>
+          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-4 text-center flex-1 min-w-0">
+            <div className="text-xl md:text-3xl font-bold text-purple-400">${(totalInvestment / 1000000).toFixed(1)}M</div>
             <div className="text-gray-400 text-sm">Total Investment</div>
           </div>
-          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-4 text-center">
-            <div className="text-3xl font-bold text-yellow-400">{Object.keys(typeBreakdown).length}</div>
+          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-4 text-center flex-1 min-w-0">
+            <div className="text-xl md:text-3xl font-bold text-yellow-400">{Object.keys(typeBreakdown).length}</div>
             <div className="text-gray-400 text-sm">ADU Types</div>
           </div>
         </div>

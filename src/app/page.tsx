@@ -145,7 +145,7 @@ export default function Dashboard() {
       {/* Stats */}
       <section className="border-b border-border">
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+          <div className="flex gap-2 md:gap-4 overflow-x-auto">
             <StatCard 
               value={stats.totalApproved} 
               label="Approved" 

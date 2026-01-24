@@ -33,7 +33,7 @@ export default function AndoverPage() {
           </div>
           <div className="w-24"></div>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+        <div className="flex gap-2 md:gap-4 overflow-x-auto mb-8">
           <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-4 text-center"><div className="text-3xl font-bold text-white">{totalPermits}</div><div className="text-gray-400 text-sm">Applications</div></div>
           <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-4 text-center"><div className="text-3xl font-bold text-green-400">{totalPermits}</div><div className="text-gray-400 text-sm">Approved</div></div>
           <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-4 text-center"><div className="text-3xl font-bold text-blue-400">${(avgCost / 1000).toFixed(0)}K</div><div className="text-gray-400 text-sm">Avg Cost</div></div>

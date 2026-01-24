@@ -275,7 +275,7 @@ export default function BostonPage() {
       <main className="max-w-7xl mx-auto px-4 py-8">
         {/* Stats Cards */}
         {stats && (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+          <div className="flex gap-2 md:gap-4 overflow-x-auto mb-8">
             <div className="bg-gray-800 rounded-lg border border-gray-700 p-4">
               <div className="text-3xl font-bold text-white">{stats.total}</div>
               <div className="text-sm text-gray-400">Applications</div>

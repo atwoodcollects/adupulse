@@ -29,16 +29,16 @@ export default function AndoverPage() {
           <Link href="/" className="text-blue-400 hover:text-blue-300 text-sm">Back to ADU Pulse</Link>
           <div className="text-center flex-1">
             <h1 className="text-2xl font-bold text-white">Andover ADU Permits</h1>
-            <p className="text-gray-400 text-sm">Since Feb 2, 2025</p>
+            <p className="text-gray-400 text-xs">Since Feb 2, 2025</p>
           </div>
           <div className="w-24"></div>
         </div>
         <div className="flex gap-2 md:gap-4 mb-8">
-          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-4 text-center flex-1 min-w-0"><div className="text-xl md:text-3xl font-bold text-white">{totalPermits}</div><div className="text-gray-400 text-sm">Applications</div></div>
-          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-4 text-center flex-1 min-w-0"><div className="text-xl md:text-3xl font-bold text-green-400">{totalPermits}</div><div className="text-gray-400 text-sm">Approved</div></div>
-          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-4 text-center flex-1 min-w-0"><div className="text-xl md:text-3xl font-bold text-blue-400">${(avgCost / 1000).toFixed(0)}K</div><div className="text-gray-400 text-sm">Avg Cost</div></div>
-          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-4 text-center flex-1 min-w-0"><div className="text-xl md:text-3xl font-bold text-purple-400">${(totalInvestment / 1000000).toFixed(1)}M</div><div className="text-gray-400 text-sm">Total Investment</div></div>
-          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-4 text-center flex-1 min-w-0"><div className="text-xl md:text-3xl font-bold text-yellow-400">{Object.keys(typeBreakdown).length}</div><div className="text-gray-400 text-sm">ADU Types</div></div>
+          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-4 text-center flex-1 min-w-0"><div className="text-xl md:text-3xl font-bold text-white">{totalPermits}</div><div className="text-gray-400 text-xs">Applications</div></div>
+          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-4 text-center flex-1 min-w-0"><div className="text-xl md:text-3xl font-bold text-green-400">{totalPermits}</div><div className="text-gray-400 text-xs">Approved</div></div>
+          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-4 text-center flex-1 min-w-0"><div className="text-xl md:text-3xl font-bold text-blue-400">${(avgCost / 1000).toFixed(0)}K</div><div className="text-gray-400 text-xs">Avg Cost</div></div>
+          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-4 text-center flex-1 min-w-0"><div className="text-xl md:text-3xl font-bold text-purple-400">${(totalInvestment / 1000000).toFixed(1)}M</div><div className="text-gray-400 text-xs">Total Investment</div></div>
+          <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-4 text-center flex-1 min-w-0"><div className="text-xl md:text-3xl font-bold text-yellow-400">{Object.keys(typeBreakdown).length}</div><div className="text-gray-400 text-xs">ADU Types</div></div>
         </div>
         <div className="flex gap-2 mb-6">
           <button onClick={() => setActiveTab('insights')} className={`px-4 py-2 rounded-lg text-sm font-medium ${activeTab === 'insights' ? 'bg-blue-600 text-white' : 'bg-gray-800 text-gray-300'}`}>Insights</button>

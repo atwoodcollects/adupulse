@@ -111,14 +111,14 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
         <div className="text-text-secondary">Loading permit data...</div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-900" style={{ backgroundColor: '#0c0c0c' }}>
+    <div className="min-h-screen bg-gray-900">
       {/* Header */}
       <header className="border-b border-border">
         <div className="max-w-7xl mx-auto px-6 py-6">

@@ -265,41 +265,6 @@ export default function Dashboard() {
           </div>
         </div>
       </section>
-
-      {/* Full Permits Table */}
-      <section className="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8">
-        <h2 className="font-display text-lg font-semibold mb-4">All Permits</h2>
-        <div className="bg-surface border border-border rounded-lg overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="data-table">
-              <thead>
-                <tr>
-                  <th>Location</th>
-                  <th>Status</th>
-                  <th>Type</th>
-                  <th>Size</th>
-                  <th>Approved</th>
-                  <th className="text-right">Time</th>
-                </tr>
-              </thead>
-              <tbody>
-                {permits.length > 0 ? (
-                  permits.map(permit => (
-                    <PermitRow key={permit.id} permit={permit} />
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan={6} className="py-12 text-center text-text-muted">
-                      Individual permit details coming soon. Aggregate data shown in Top Towns.
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
       {/* Footer */}
       <footer className="border-t border-border mt-16">
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8">

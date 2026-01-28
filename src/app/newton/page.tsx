@@ -179,7 +179,7 @@ export default function NewtonPage() {
                   <YAxis type="category" dataKey="type" tick={{ fill: '#9ca3af', fontSize: 12 }} width={80} />
                   <Tooltip 
                     contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px' }}
-                    formatter={(value: number) => [`$${value}K`, 'Avg Cost']}
+                    formatter={(value) => [`$${value}K`, "Avg Cost"]}
                   />
                   <Bar dataKey="avg" fill="#6366f1" radius={[0, 4, 4, 0]} />
                 </BarChart>

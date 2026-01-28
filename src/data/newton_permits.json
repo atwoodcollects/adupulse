@@ -1,0 +1,122 @@
+[
+  {
+    "address": "Freeman Street,25",
+    "applied": "",
+    "issued": "12/19/25",
+    "permit": "BAA-25-26",
+    "status": "Permit Issued",
+    "sqft": 1110,
+    "type": "Internal",
+    "cost": 400000
+  },
+  {
+    "address": "Mt Alvernia Road,51",
+    "applied": "",
+    "issued": "09/10/25",
+    "permit": "BAA-25-19",
+    "status": "Permit Issued",
+    "sqft": 899,
+    "type": "Detached",
+    "cost": 722355
+  },
+  {
+    "address": "Gate House Road, 61",
+    "applied": "",
+    "issued": "08/29/25",
+    "permit": "BAA-25-17",
+    "status": "Permit Issued",
+    "sqft": 900,
+    "type": "Detached",
+    "cost": 359000
+  },
+  {
+    "address": "Lexington Street,82",
+    "applied": "",
+    "issued": "06/30/25",
+    "permit": "BAA-25-5",
+    "status": "Permit Issued",
+    "sqft": 982,
+    "type": "Internal",
+    "cost": 167000
+  },
+  {
+    "address": "Auburndale Ave, 50-52",
+    "applied": "",
+    "issued": "06/25/25",
+    "permit": "BAA-25-7",
+    "status": "Permit Issued",
+    "sqft": 557,
+    "type": "Internal",
+    "cost": 85000
+  },
+  {
+    "address": "Washington Street,2077",
+    "applied": "",
+    "issued": "06/03/25",
+    "permit": "BAA-25-8",
+    "status": "Permit Issued",
+    "sqft": 1278,
+    "type": "Internal",
+    "cost": 785000
+  },
+  {
+    "address": "Washington Street,1599",
+    "applied": "",
+    "issued": "02/24/25",
+    "permit": "BAA-25-3",
+    "status": "CO Issued",
+    "sqft": 874,
+    "type": "Internal",
+    "cost": 200000
+  },
+  {
+    "address": "Dorset Road,261",
+    "applied": "",
+    "issued": "02/19/25",
+    "permit": "BAA-25-1",
+    "status": "Permit Issued",
+    "sqft": 999,
+    "type": "Internal",
+    "cost": 275000
+  },
+  {
+    "address": "Lincoln Street,75",
+    "applied": "",
+    "issued": "01/15/26",
+    "permit": "BAA-25-27",
+    "status": "Permit Issued",
+    "sqft": 603,
+    "type": "Detached",
+    "cost": 226000
+  },
+  {
+    "address": "Judkins Street, 58-60",
+    "applied": "",
+    "issued": "01/14/26",
+    "permit": "BAA-25-33",
+    "status": "Permit Issued",
+    "sqft": 528,
+    "type": "Internal",
+    "cost": 62301
+  },
+  {
+    "address": "Cragmore Road,66",
+    "applied": "",
+    "issued": "01/09/25",
+    "permit": "BAA-24-27",
+    "status": "Permit Issued",
+    "sqft": 920,
+    "type": "Internal",
+    "cost": 10000
+  },
+  {
+    "address": "Pelham Street,40",
+    "applied": "",
+    "issued": "01/09/25",
+    "permit": "BAA-24-24",
+    "status": "Permit Issued",
+    "sqft": 956,
+    "type": "Internal",
+    "cost": 416355
+  }
+]

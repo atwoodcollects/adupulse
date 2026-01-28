@@ -7,7 +7,8 @@
     "status": "Permit Issued",
     "sqft": 1110,
     "type": "Internal",
-    "cost": 400000
+    "cost": 400000,
+    "notes": "Special Permit; construct addition above garage"
   },
   {
     "address": "Mt Alvernia Road,51",
@@ -17,7 +18,8 @@
     "status": "Permit Issued",
     "sqft": 899,
     "type": "Detached",
-    "cost": 722355
+    "cost": 722355,
+    "notes": "New garage w/ ADU above"
   },
   {
     "address": "Gate House Road, 61",
@@ -27,7 +29,8 @@
     "status": "Permit Issued",
     "sqft": 900,
     "type": "Detached",
-    "cost": 359000
+    "cost": 359000,
+    "notes": "Create ADU above existing garage"
   },
   {
     "address": "Lexington Street,82",
@@ -37,7 +40,8 @@
     "status": "Permit Issued",
     "sqft": 982,
     "type": "Internal",
-    "cost": 167000
+    "cost": 167000,
+    "notes": "New house w/ ADU"
   },
   {
     "address": "Auburndale Ave, 50-52",
@@ -47,7 +51,8 @@
     "status": "Permit Issued",
     "sqft": 557,
     "type": "Internal",
-    "cost": 85000
+    "cost": 85000,
+    "notes": ""
   },
   {
     "address": "Washington Street,2077",
@@ -57,7 +62,8 @@
     "status": "Permit Issued",
     "sqft": 1278,
     "type": "Internal",
-    "cost": 785000
+    "cost": 785000,
+    "notes": "Special Permit; constructing addition"
   },
   {
     "address": "Washington Street,1599",
@@ -67,7 +73,8 @@
     "status": "CO Issued",
     "sqft": 874,
     "type": "Internal",
-    "cost": 200000
+    "cost": 200000,
+    "notes": ""
   },
   {
     "address": "Dorset Road,261",
@@ -77,7 +84,8 @@
     "status": "Permit Issued",
     "sqft": 999,
     "type": "Internal",
-    "cost": 275000
+    "cost": 275000,
+    "notes": "Constructing addition for ADU"
   },
   {
     "address": "Lincoln Street,75",
@@ -87,7 +95,8 @@
     "status": "Permit Issued",
     "sqft": 603,
     "type": "Detached",
-    "cost": 226000
+    "cost": 226000,
+    "notes": ""
   },
   {
     "address": "Judkins Street, 58-60",
@@ -97,7 +106,8 @@
     "status": "Permit Issued",
     "sqft": 528,
     "type": "Internal",
-    "cost": 62301
+    "cost": 62301,
+    "notes": ""
   },
   {
     "address": "Cragmore Road,66",
@@ -107,7 +117,8 @@
     "status": "Permit Issued",
     "sqft": 920,
     "type": "Internal",
-    "cost": 10000
+    "cost": 10000,
+    "notes": ""
   },
   {
     "address": "Pelham Street,40",
@@ -117,6 +128,7 @@
     "status": "Permit Issued",
     "sqft": 956,
     "type": "Internal",
-    "cost": 416355
+    "cost": 416355,
+    "notes": "Constructing rear addition for ADU"
   }
 ]

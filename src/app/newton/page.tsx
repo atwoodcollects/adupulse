@@ -179,6 +179,8 @@ export default function NewtonPage() {
                   <ZAxis dataKey="ppsf" range={[40, 200]} name="$/sqft" />
                   <Tooltip 
                     contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px', fontSize: '12px' }}
+                    labelStyle={{ color: '#fff' }}
+                    itemStyle={{ color: '#fff' }}
                     formatter={(value, name) => {
                       if (name === 'Cost') return [`$${value}K`, name]
                       if (name === '$/sqft') return [`$${value}`, name]

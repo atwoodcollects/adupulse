@@ -47,7 +47,7 @@ export default function NewtonPage() {
           <div>
             <Link href="/" className="text-blue-400 text-sm mb-2 inline-block">← Back to Dashboard</Link>
             <h1 className="text-2xl md:text-3xl font-bold text-white">Newton ADU Permits</h1>
-            <p className="text-text-secondary text-sm">Cape Cod · Data via PermitEyes</p>
+            <p className="text-text-secondary text-sm">Newton · Data via City of Newton FOIA</p>
           </div>
           <TownNav current="Newton" />
         </div>
@@ -113,7 +113,7 @@ export default function NewtonPage() {
         </div>
 
         <p className="text-text-muted text-xs mt-4 text-center">
-          Data source: <a href="https://permiteyes.online/newton/publicview.php" target="_blank" className="text-blue-400 hover:underline">Newton PermitEyes Portal</a>
+          Data source: <a href="https://permiteyes.online/newton/publicview.php" target="_blank" className="text-blue-400 hover:underline">Newton City of Newton FOIA Portal</a>
         </p>
       </div>
     </div>

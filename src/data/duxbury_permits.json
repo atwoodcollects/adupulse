@@ -1,47 +1,52 @@
 [
   {
-    "permitNumber": "BPO-25-79",
+    "permit": "BPO-25-79",
     "address": "275 Powder Point Ave",
-    "issueDate": "2025-05-14",
+    "issued": "2025-05-14",
     "status": "Issued",
     "type": "Detached",
-    "squareFeet": 899,
-    "estimatedCost": 319500
+    "sqft": 899,
+    "cost": 319500,
+    "contractor": "Thomas J Dacey"
   },
   {
-    "permitNumber": "BPO-25-75",
+    "permit": "BPO-25-75",
     "address": "36 Elm St",
-    "issueDate": "2025-06-27",
+    "issued": "2025-06-27",
     "status": "Issued",
     "type": "Conversion",
-    "squareFeet": null,
-    "estimatedCost": 290500
+    "sqft": 0,
+    "cost": 290500,
+    "contractor": "Jeffrey W Lind"
   },
   {
-    "permitNumber": "BPO-25-167",
+    "permit": "BPO-25-167",
     "address": "45 Driftwood Dr",
-    "issueDate": "2025-07-09",
+    "issued": "2025-07-09",
     "status": "Issued",
     "type": "Detached",
-    "squareFeet": 640,
-    "estimatedCost": 224250
+    "sqft": 640,
+    "cost": 224250,
+    "contractor": "Backyard ADUs LLC"
   },
   {
-    "permitNumber": "BPO-25-259",
+    "permit": "BPO-25-259",
     "address": "25 Sprague Farm Ln",
-    "issueDate": "2025-10-02",
+    "issued": "2025-10-02",
     "status": "Issued",
     "type": "Conversion",
-    "squareFeet": null,
-    "estimatedCost": 9300
+    "sqft": 0,
+    "cost": 9300,
+    "contractor": "William McManus"
   },
   {
-    "permitNumber": "BPO-25-426",
+    "permit": "BPO-25-426",
     "address": "58 Franklin Ter",
-    "issueDate": "2025-12-22",
+    "issued": "2025-12-22",
     "status": "Issued",
     "type": "Detached",
-    "squareFeet": 900,
-    "estimatedCost": 248000
+    "sqft": 900,
+    "cost": 248000,
+    "contractor": "Thomas M Gonet"
   }
 ]

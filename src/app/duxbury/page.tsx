@@ -11,13 +11,13 @@ export default function DuxburyPage() {
 
   const permitsWithPPSF = permits.map(p => ({
     ...p,
-    ppsf: (p.squareFeet ?? 0) > 0 && p.estimatedCost > 0 ? Math.round(p.estimatedCost / (p.squareFeet ?? 1)) : 0
+    ppsf: p.sqft > 0 && p.cost > 0 ? Math.round(p.cost / p.sqft) : 0
   }))
 
   const stats = {
     total: permits.length,
     issued: permits.filter(p => p.status === 'Issued').length,
-    avgCost: Math.round(permits.filter(p => p.estimatedCost > 0).reduce((a, b) => a + b.estimatedCost, 0) / permits.filter(p => p.estimatedCost > 0).length)
+    avgCost: Math.round(permits.filter(p => p.cost > 0).reduce((a, b) => a + b.cost, 0) / permits.filter(p => p.cost > 0).length)
   }
 
   const typeData = [
@@ -105,17 +105,18 @@ export default function DuxburyPage() {
               <div className="flex justify-between items-start mb-2">
                 <div className="flex-1 min-w-0">
                   <p className="text-white text-sm font-medium truncate">{permit.address}</p>
-                  <p className="text-text-muted text-xs">{permit.permitNumber} • {permit.issueDate}</p>
+                  <p className="text-text-muted text-xs">{permit.permit} • {permit.issued}</p>
                 </div>
                 <span className={'px-2 py-0.5 rounded text-[10px] ml-2 ' + getStatusColor(permit.status)}>{permit.status}</span>
               </div>
               <div className="flex gap-3 text-xs">
-                {(permit.squareFeet ?? 0) > 0 && <span className="text-text-secondary">{permit.squareFeet}sf</span>}
-                {permit.estimatedCost > 0 && <span className="text-white">{formatCost(permit.estimatedCost)}</span>}
+                {permit.sqft > 0 && <span className="text-text-secondary">{permit.sqft}sf</span>}
+                {permit.cost > 0 && <span className="text-white">{formatCost(permit.cost)}</span>}
                 <span className={'px-1.5 py-0.5 rounded ' + getTypeColor(permit.type)}>{permit.type}</span>
               </div>
               {expandedRow === i && (
                 <div className="mt-2 pt-2 border-t border-border/50 text-xs">
+                  <div className="mb-1"><span className="text-text-muted">Contractor: </span><span className="text-text-secondary">{permit.contractor}</span></div>
                 </div>
               )}
             </div>
@@ -138,12 +139,13 @@ export default function DuxburyPage() {
             <tbody>
               {permitsWithPPSF.map((permit, i) => (
                 <tr key={i} className="border-b border-border/50 hover:bg-gray-800/30">
-                  <td className="p-3 text-text-secondary text-xs">{permit.permitNumber}</td>
+                  <td className="p-3 text-text-secondary text-xs">{permit.permit}</td>
                   <td className="p-3 text-white font-medium">{permit.address}</td>
-                  <td className="p-3 text-text-secondary">{permit.issueDate}</td>
+                  <td className="p-3 text-text-secondary">{permit.issued}</td>
                   <td className="p-3"><span className={'px-2 py-1 rounded text-xs ' + getTypeColor(permit.type)}>{permit.type}</span></td>
-                  <td className="p-3 text-text-secondary">{formatCost(permit.estimatedCost)}</td>
-                  <td className="p-3 text-text-secondary">{(permit.squareFeet ?? 0) > 0 ? permit.squareFeet : '—'}</td>
+                  <td className="p-3 text-text-secondary">{formatCost(permit.cost)}</td>
+                  <td className="p-3 text-text-secondary">{permit.sqft > 0 ? permit.sqft : '—'}</td>
+                  <td className="p-3 text-text-secondary text-xs">{permit.contractor}</td>
                 </tr>
               ))}
             </tbody>

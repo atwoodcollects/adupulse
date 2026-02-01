@@ -1,0 +1,12 @@
+[
+  {"permit": "62182", "address": "1450 Canton Ave", "issued": "2025-05-01", "status": "Issued", "type": "Detached", "sqft": 701, "cost": 82000, "contractor": "", "bedrooms": 1, "notes": "Nest Home Plans 'Farmhouse Lena'"},
+  {"permit": "62191", "address": "4 School St", "issued": "2025-02-21", "status": "Complete", "type": "Conversion", "sqft": 898, "cost": 0, "contractor": "", "bedrooms": null, "notes": "Basement conversion"},
+  {"permit": "62100", "address": "11 Sias Ln", "issued": "2025-06-09", "status": "Issued", "type": "Conversion", "sqft": 0, "cost": 0, "contractor": "", "bedrooms": null, "notes": "Garage conversion"},
+  {"permit": "62725", "address": "45 Woodland Rd", "issued": "2025-03-21", "status": "Issued", "type": "Conversion", "sqft": 0, "cost": 0, "contractor": "", "bedrooms": 2, "notes": "Above garage"},
+  {"permit": "62883", "address": "286 Blue Hill Ave", "issued": "2025-06-03", "status": "Issued", "type": "Conversion", "sqft": 0, "cost": 0, "contractor": "", "bedrooms": null, "notes": "Barn conversion"},
+  {"permit": "62922", "address": "109 Whitelawn Ave", "issued": "2025-08-01", "status": "Issued", "type": "Attached", "sqft": 900, "cost": 253358, "contractor": "Enda Earls", "bedrooms": 2, "notes": "Accessibility/medical"},
+  {"permit": "63178", "address": "6 School St", "issued": "2025-06-06", "status": "Final Inspection", "type": "Conversion", "sqft": 0, "cost": 0, "contractor": "", "bedrooms": null, "notes": "Basement conversion"},
+  {"permit": "64894", "address": "1112 Randolph Ave", "issued": "2025-09-30", "status": "Issued", "type": "Detached", "sqft": 900, "cost": 200000, "contractor": "", "bedrooms": 1, "notes": "ADU above 2-car garage"},
+  {"permit": "65999", "address": "59 Hilltop St", "issued": "2025-12-29", "status": "Issued", "type": "Detached", "sqft": 0, "cost": 0, "contractor": "", "bedrooms": 2, "notes": ""},
+  {"permit": "66277", "address": "565 Brook Rd", "issued": "2026-01-23", "status": "Issued", "type": "Conversion", "sqft": 0, "cost": 0, "contractor": "", "bedrooms": null, "notes": ""}
+]

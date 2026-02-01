@@ -9,6 +9,7 @@ const towns = [
   { name: 'Andover', href: '/andover' },
     { name: 'Falmouth', href: '/falmouth' },
   { name: 'Newton', href: '/newton' },
+  { name: 'Sudbury', href: '/sudbury' },
   { name: 'Needham', href: '/needham' },
 ]
 

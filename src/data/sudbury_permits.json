@@ -1,0 +1,5 @@
+[
+  {"permit":"B-24-948","address":"56 Oakwood Ave","applied":"","issued":"1/17/25","status":"Issued","cost":50000,"sqft":0,"type":"Internal","contractor":"DIY (Homeowner)","notes":"Garage conversion to accessory apartment. ZBA special permit approved."},
+  {"permit":"B-25-867","address":"20 Willow Rd","applied":"","issued":"11/26/25","status":"Issued","cost":297000,"sqft":874,"type":"Detached","contractor":"Backyard ADUs","notes":"Detached 874sf ADU in rear yard. Contractor from Brunswick, ME."},
+  {"permit":"B-25-848","address":"33 Fox Run","applied":"","issued":"12/11/25","status":"Issued","cost":300000,"sqft":0,"type":"Attached","contractor":"Top of the Line Construction","notes":"ADU attached through garage with bedroom, living room, kitchen, and new garage bay."}
+]

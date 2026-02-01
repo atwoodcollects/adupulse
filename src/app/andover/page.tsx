@@ -114,14 +114,14 @@ export default function AndoverPage() {
               <div className="bg-gray-800/50 border border-border rounded-lg p-3 sm:p-4">
                 <h3 className="text-white text-sm sm:text-base font-medium mb-3">Application Status</h3>
                 <ResponsiveContainer width="100%" height={160}>
-                  <PieChart><Pie data={statusData} cx="50%" cy="50%" innerRadius={35} outerRadius={55} dataKey="value" label={({ name, value }) => `${name}: ${value}`} labelLine={false}>{statusData.map((entry, index) => (<Cell key={`cell-${index}`} fill={entry.color} />))}</Pie><Tooltip contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px', fontSize: '12px' }} /></PieChart>
+                  <PieChart><Pie data={statusData} cx="50%" cy="50%" innerRadius={35} outerRadius={55} dataKey="value" label={({ name, value }) => `${name}: ${value}`} labelLine={false}>{statusData.map((entry, index) => (<Cell key={`cell-${index}`} fill={entry.color} />))}</Pie><Tooltip contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px', fontSize: '12px' }} labelStyle={{ color: '#fff' }} itemStyle={{ color: '#fff' }} /></PieChart>
                 </ResponsiveContainer>
               </div>
 
               <div className="bg-gray-800/50 border border-border rounded-lg p-3 sm:p-4">
                 <h3 className="text-white text-sm sm:text-base font-medium mb-3">ADU Types</h3>
                 <ResponsiveContainer width="100%" height={160}>
-                  <PieChart><Pie data={typeData} cx="50%" cy="50%" innerRadius={35} outerRadius={55} dataKey="value" label={({ name, value }) => `${name}: ${value}`} labelLine={false}>{typeData.map((entry, index) => (<Cell key={`cell-${index}`} fill={entry.color} />))}</Pie><Tooltip contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px', fontSize: '12px' }} /></PieChart>
+                  <PieChart><Pie data={typeData} cx="50%" cy="50%" innerRadius={35} outerRadius={55} dataKey="value" label={({ name, value }) => `${name}: ${value}`} labelLine={false}>{typeData.map((entry, index) => (<Cell key={`cell-${index}`} fill={entry.color} />))}</Pie><Tooltip contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px', fontSize: '12px' }} labelStyle={{ color: '#fff' }} itemStyle={{ color: '#fff' }} /></PieChart>
                 </ResponsiveContainer>
               </div>
 

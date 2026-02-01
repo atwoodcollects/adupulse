@@ -77,7 +77,7 @@ export default function LexingtonPage() {
                 <BarChart data={costRanges}>
                   <XAxis dataKey="range" tick={{ fill: '#9ca3af', fontSize: 12 }} />
                   <YAxis tick={{ fill: '#9ca3af', fontSize: 12 }} />
-                  <Tooltip />
+                  <Tooltip contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px', fontSize: '12px' }} labelStyle={{ color: '#fff' }} itemStyle={{ color: '#fff' }} />
                   <Bar dataKey="count" fill="#3b82f6" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
@@ -89,7 +89,7 @@ export default function LexingtonPage() {
                   <Pie data={typeData} cx="50%" cy="50%" innerRadius={50} outerRadius={80} dataKey="value">
                     {typeData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
                   </Pie>
-                  <Tooltip />
+                  <Tooltip contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px', fontSize: '12px' }} labelStyle={{ color: '#fff' }} itemStyle={{ color: '#fff' }} />
                 </PieChart>
               </ResponsiveContainer>
             </div>

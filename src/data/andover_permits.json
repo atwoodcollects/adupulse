@@ -1,0 +1,10 @@
+[
+  {"permit":"ADU-25-4","address":"218 Holt Rd","applied":"2/3/25","issued":"","status":"Pending","cost":150000,"sqft":900,"type":"Internal","contractor":"DIY (Homeowner)","notes":"Renovate 900sf ADU within existing west side of living space"},
+  {"permit":"ADU-25-5","address":"11 Judson Rd","applied":"6/2/25","issued":"","status":"Pending","cost":175000,"sqft":565,"type":"Attached","contractor":"TBD","notes":"Two car garage with ADU above"},
+  {"permit":"ADU-25-6","address":"2 Kathleen Dr","applied":"6/4/25","issued":"","status":"Withdrawn","cost":0,"sqft":0,"type":"Attached","contractor":"Ted's Construction & Sons LLC","notes":"ADU in basement - canceled by applicant"},
+  {"permit":"ADU-25-7","address":"11 Starwood Crossing","applied":"6/13/25","issued":"","status":"Pending","cost":450000,"sqft":900,"type":"Attached","contractor":"Connor Building & Remodeling LLC","notes":"New attached ADU + breezeway, full build"},
+  {"permit":"ADU-25-8","address":"61 Chestnut St","applied":"9/8/25","issued":"","status":"Stopped","cost":810000,"sqft":865,"type":"Attached","contractor":"Ted's Construction & Sons LLC","notes":"Attached addition with ADU and garage"},
+  {"permit":"ADU-25-9","address":"7 Stafford Ln","applied":"9/7/25","issued":"","status":"Rejected","cost":175000,"sqft":840,"type":"Attached","contractor":"Dave Martin Remodeling & Contracting LLC","notes":"Rejected: Applied for ADU but needed Family Dwelling Unit permit"},
+  {"permit":"ADU-25-10","address":"12 Bayberry Ln","applied":"9/5/25","issued":"","status":"Pending","cost":440000,"sqft":864,"type":"Detached","contractor":"Mass ADU Inc","notes":"Build detached 900sf ADU"},
+  {"permit":"ADU-25-11","address":"97 Reservation Rd","applied":"11/24/25","issued":"1/20/26","status":"Issued","cost":406618,"sqft":800,"type":"Detached","contractor":"Bradford Construction Management LLC","notes":"1BR ADU with garage below. ICF construction. First issued permit!"}
+]

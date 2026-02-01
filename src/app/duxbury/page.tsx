@@ -21,7 +21,7 @@ export default function DuxburyPage() {
   }
 
   const typeData = [
-    { name: 'Conversion', value: permits.filter(p => p.type === 'Conversion').length, color: '#10b981' },
+    { name: 'Conv', value: permits.filter(p => p.type === 'Conversion').length, color: '#10b981' },
     { name: 'Attached', value: permits.filter(p => p.type === 'Attached').length, color: '#6366f1' },
     { name: 'Detached', value: permits.filter(p => p.type === 'Detached').length, color: '#f59e0b' },
   ].filter(d => d.value > 0)

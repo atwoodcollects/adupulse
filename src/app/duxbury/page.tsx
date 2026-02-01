@@ -21,7 +21,7 @@ export default function DuxburyPage() {
   }
 
   const typeData = [
-    { name: 'Internal', value: permits.filter(p => p.type === 'Internal').length, color: '#10b981' },
+    { name: 'Conversion', value: permits.filter(p => p.type === 'Conversion').length, color: '#10b981' },
     { name: 'Attached', value: permits.filter(p => p.type === 'Attached').length, color: '#6366f1' },
     { name: 'Detached', value: permits.filter(p => p.type === 'Detached').length, color: '#f59e0b' },
   ].filter(d => d.value > 0)
@@ -92,9 +92,9 @@ export default function DuxburyPage() {
           <div className="bg-gray-800/50 border border-border rounded-lg p-3 sm:p-4">
             <h3 className="text-white text-sm sm:text-base font-medium mb-3">Key Insights</h3>
             <div className="space-y-2 text-xs sm:text-sm">
-              <div className="flex justify-between"><span className="text-text-secondary">Detached $/sf</span><span className="text-white">$340/sf</span></div>
-              <div className="flex justify-between"><span className="text-text-secondary">DIY Internal</span><span className="text-white">$50K</span></div>
-              <div className="flex justify-between"><span className="text-text-secondary">Contractor Builds</span><span className="text-white">$297-300K</span></div>
+              <div className="flex justify-between"><span className="text-text-secondary">Detached $/sf</span><span className="text-white">$325/sf</span></div>
+              <div className="flex justify-between"><span className="text-text-secondary">Conversion Avg</span><span className="text-white">$150K</span></div>
+              <div className="flex justify-between"><span className="text-text-secondary">Detached Avg</span><span className="text-white">$264K</span></div>
             </div>
           </div>
         </div>

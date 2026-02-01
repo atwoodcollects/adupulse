@@ -11,6 +11,7 @@ const towns = [
   { name: 'Newton', href: '/newton' },
   { name: 'Sudbury', href: '/sudbury' },
   { name: 'Needham', href: '/needham' },
+  { name: 'Duxbury', href: '/duxbury' },
 ]
 
 export default function TownNav({ current }: { current: string }) {

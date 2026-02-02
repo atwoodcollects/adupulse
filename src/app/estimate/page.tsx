@@ -59,7 +59,6 @@ const allComparisons = [
   { town: 'newton', label: '64 Windermere Rd', type: 'conversion', sqft: 999, cost: 150000, builder: 'contractor', ppsf: 150, notes: '' },
 ]
 
-// Count permits by type and builder for confidence
 const getPermitCounts = () => {
   const counts: Record<string, number> = {}
   allComparisons.forEach(c => {
@@ -74,6 +73,13 @@ export default function EstimatePage() {
   const [type, setType] = useState<'detached' | 'attached' | 'conversion'>('detached')
   const [sqft, setSqft] = useState(800)
   const [builder, setBuilder] = useState<'diy' | 'contractor'>('contractor')
+  
+  // Email form state
+  const [email, setEmail] = useState('')
+  const [requestedTown, setRequestedTown] = useState('')
+  const [considering, setConsidering] = useState('')
+  const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
 
   const permitCounts = getPermitCounts()
 
@@ -96,18 +102,12 @@ export default function EstimatePage() {
     return '$' + cost
   }
 
-  // Filter comparisons based on selections - prioritize exact matches, then similar
   const getFilteredComparisons = () => {
-    // First try exact type match
     let filtered = allComparisons.filter(c => c.type === type)
-    
-    // If town selected and has data, prioritize that town
     const townFiltered = filtered.filter(c => c.town === town)
     if (townFiltered.length >= 2) {
       filtered = townFiltered
     }
-    
-    // Sort by relevance
     return filtered.sort((a, b) => {
       const aScore = (a.town === town ? 4 : 0) + (a.type === type ? 2 : 0) + (a.builder === builder ? 1 : 0)
       const bScore = (b.town === town ? 4 : 0) + (b.type === type ? 2 : 0) + (b.builder === builder ? 1 : 0)
@@ -148,6 +148,29 @@ export default function EstimatePage() {
   }
 
   const confidence = getConfidenceLevel()
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setSubmitting(true)
+    
+    // Send to Formspree (replace with your form ID)
+    try {
+      await fetch('https://formspree.io/f/xzdvvzyr', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          town: requestedTown,
+          considering,
+          source: 'estimate_page'
+        })
+      })
+      setSubmitted(true)
+    } catch (err) {
+      console.error(err)
+    }
+    setSubmitting(false)
+  }
 
   return (
     <div className="min-h-screen bg-gray-900">
@@ -361,6 +384,61 @@ export default function EstimatePage() {
               </Link>
             ))}
           </div>
+        </div>
+
+        {/* Email Capture */}
+        <div className="mt-6 bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-500/30 rounded-lg p-4 sm:p-6">
+          {submitted ? (
+            <div className="text-center py-4">
+              <div className="text-2xl mb-2">✓</div>
+              <h3 className="text-white font-medium mb-1">You're on the list!</h3>
+              <p className="text-text-secondary text-sm">We'll notify you when we add your town.</p>
+            </div>
+          ) : (
+            <>
+              <h2 className="text-white font-medium mb-2">Don't see your town?</h2>
+              <p className="text-text-secondary text-sm mb-4">Tell us which town you want and we'll prioritize it.</p>
+              
+              <form onSubmit={handleSubmit} className="space-y-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <input
+                    type="email"
+                    required
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-400"
+                  />
+                  <input
+                    type="text"
+                    required
+                    placeholder="Town you want tracked"
+                    value={requestedTown}
+                    onChange={(e) => setRequestedTown(e.target.value)}
+                    className="bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-400"
+                  />
+                  <select
+                    required
+                    value={considering}
+                    onChange={(e) => setConsidering(e.target.value)}
+                    className="bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm"
+                  >
+                    <option value="" disabled>Building an ADU?</option>
+                    <option value="yes">Yes, planning to</option>
+                    <option value="maybe">Maybe / Researching</option>
+                    <option value="no">No, just curious</option>
+                  </select>
+                </div>
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="w-full sm:w-auto px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium disabled:opacity-50"
+                >
+                  {submitting ? 'Submitting...' : 'Notify me'}
+                </button>
+              </form>
+            </>
+          )}
         </div>
       </div>
     </div>

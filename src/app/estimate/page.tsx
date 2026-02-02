@@ -214,7 +214,7 @@ export default function EstimatePage() {
                   <option value="needham">Needham</option>
                   <option value="andover">Andover</option>
                   <option value="sudbury">Sudbury</option>
-                  <option value="other">Other MA Town</option>
+                  
                 </select>
               </div>
               <div>

@@ -32,31 +32,50 @@ const townMultipliers: Record<string, number> = {
 
 const allComparisons = [
   // Milton
-  { town: 'milton', label: '1450 Canton Ave', type: 'detached', sqft: 701, cost: 82000, builder: 'diy', ppsf: 117 },
-  { town: 'milton', label: '1112 Randolph Ave', type: 'detached', sqft: 900, cost: 200000, builder: 'diy', ppsf: 222 },
-  { town: 'milton', label: '109 Whitelawn Ave', type: 'attached', sqft: 900, cost: 253358, builder: 'contractor', ppsf: 281 },
+  { town: 'milton', label: '1450 Canton Ave', type: 'detached', sqft: 701, cost: 82000, builder: 'diy', ppsf: 117, notes: 'Nest Home Plans design' },
+  { town: 'milton', label: '1112 Randolph Ave', type: 'detached', sqft: 900, cost: 200000, builder: 'diy', ppsf: 222, notes: 'ADU above 2-car garage' },
+  { town: 'milton', label: '109 Whitelawn Ave', type: 'attached', sqft: 900, cost: 253358, builder: 'contractor', ppsf: 281, notes: '2BR, accessibility features' },
   // Plymouth
-  { town: 'plymouth', label: '16 Jessica Way', type: 'detached', sqft: 936, cost: 325000, builder: 'contractor', ppsf: 347 },
-  { town: 'plymouth', label: '1 Brandies Ln', type: 'detached', sqft: 896, cost: 125000, builder: 'contractor', ppsf: 139 },
-  { town: 'plymouth', label: '899 Old Sandwich Rd', type: 'attached', sqft: 812, cost: 150000, builder: 'contractor', ppsf: 185 },
-  { town: 'plymouth', label: '19 Country Club Dr', type: 'detached', sqft: 1000, cost: 350000, builder: 'contractor', ppsf: 350 },
-  { town: 'plymouth', label: '12 Copper Lantern Dr', type: 'attached', sqft: 496, cost: 228000, builder: 'contractor', ppsf: 459 },
-  { town: 'plymouth', label: '58 Tananger Rd', type: 'attached', sqft: 788, cost: 462834, builder: 'contractor', ppsf: 587 },
-  { town: 'plymouth', label: '26 Quail Run', type: 'detached', sqft: 900, cost: 370000, builder: 'contractor', ppsf: 411 },
+  { town: 'plymouth', label: '16 Jessica Way', type: 'detached', sqft: 936, cost: 325000, builder: 'contractor', ppsf: 347, notes: '' },
+  { town: 'plymouth', label: '1 Brandies Ln', type: 'detached', sqft: 896, cost: 125000, builder: 'contractor', ppsf: 139, notes: 'Lowest $/sf detached' },
+  { town: 'plymouth', label: '899 Old Sandwich Rd', type: 'attached', sqft: 812, cost: 150000, builder: 'contractor', ppsf: 185, notes: '3-car garage with ADU' },
+  { town: 'plymouth', label: '19 Country Club Dr', type: 'detached', sqft: 1000, cost: 350000, builder: 'contractor', ppsf: 350, notes: '' },
+  { town: 'plymouth', label: '12 Copper Lantern Dr', type: 'attached', sqft: 496, cost: 228000, builder: 'contractor', ppsf: 459, notes: 'Small unit, high $/sf' },
+  { town: 'plymouth', label: '58 Tananger Rd', type: 'attached', sqft: 788, cost: 462834, builder: 'contractor', ppsf: 587, notes: '1BR with garage below' },
+  { town: 'plymouth', label: '26 Quail Run', type: 'detached', sqft: 900, cost: 370000, builder: 'contractor', ppsf: 411, notes: '2BR/1BA with 2-car garage' },
   // Duxbury
-  { town: 'duxbury', label: '275 Powder Point Ave', type: 'detached', sqft: 899, cost: 319500, builder: 'contractor', ppsf: 355 },
-  { town: 'duxbury', label: '36 Elm St', type: 'conversion', sqft: 0, cost: 290500, builder: 'contractor', ppsf: 0 },
-  { town: 'duxbury', label: '45 Driftwood Dr', type: 'detached', sqft: 640, cost: 224250, builder: 'contractor', ppsf: 350 },
-  { town: 'duxbury', label: '58 Franklin Ter', type: 'detached', sqft: 900, cost: 248000, builder: 'contractor', ppsf: 276 },
+  { town: 'duxbury', label: '275 Powder Point Ave', type: 'detached', sqft: 899, cost: 319500, builder: 'contractor', ppsf: 355, notes: '' },
+  { town: 'duxbury', label: '36 Elm St', type: 'conversion', sqft: 0, cost: 290500, builder: 'contractor', ppsf: 0, notes: 'Internal conversion' },
+  { town: 'duxbury', label: '45 Driftwood Dr', type: 'detached', sqft: 640, cost: 224250, builder: 'contractor', ppsf: 350, notes: 'Modular (Backyard ADUs LLC)' },
+  { town: 'duxbury', label: '58 Franklin Ter', type: 'detached', sqft: 900, cost: 248000, builder: 'contractor', ppsf: 276, notes: '' },
   // Needham
-  { town: 'needham', label: '61 Grant St', type: 'conversion', sqft: 0, cost: 69000, builder: 'contractor', ppsf: 0 },
+  { town: 'needham', label: '61 Grant St', type: 'conversion', sqft: 0, cost: 69000, builder: 'contractor', ppsf: 0, notes: 'Internal conversion' },
+  // Newton
+  { town: 'newton', label: '38 Circuit Ave', type: 'detached', sqft: 1110, cost: 785000, builder: 'contractor', ppsf: 707, notes: 'High-end build' },
+  { town: 'newton', label: '143 Valentine St', type: 'conversion', sqft: 982, cost: 400000, builder: 'contractor', ppsf: 407, notes: 'Basement conversion' },
+  { town: 'newton', label: '87 Auburndale Ave', type: 'detached', sqft: 557, cost: 150000, builder: 'contractor', ppsf: 269, notes: '' },
+  { town: 'newton', label: '15 Crescent St', type: 'conversion', sqft: 1278, cost: 750000, builder: 'contractor', ppsf: 587, notes: '' },
+  { town: 'newton', label: '28 Hillcrest Rd', type: 'conversion', sqft: 874, cost: 100000, builder: 'contractor', ppsf: 114, notes: 'Lowest cost conversion' },
+  { town: 'newton', label: '64 Windermere Rd', type: 'conversion', sqft: 999, cost: 150000, builder: 'contractor', ppsf: 150, notes: '' },
 ]
+
+// Count permits by type and builder for confidence
+const getPermitCounts = () => {
+  const counts: Record<string, number> = {}
+  allComparisons.forEach(c => {
+    const key = `${c.type}-${c.builder}`
+    counts[key] = (counts[key] || 0) + 1
+  })
+  return counts
+}
 
 export default function EstimatePage() {
   const [town, setTown] = useState('milton')
   const [type, setType] = useState<'detached' | 'attached' | 'conversion'>('detached')
   const [sqft, setSqft] = useState(800)
   const [builder, setBuilder] = useState<'diy' | 'contractor'>('contractor')
+
+  const permitCounts = getPermitCounts()
 
   const calculate = () => {
     const base = costData[type][builder]
@@ -77,21 +96,28 @@ export default function EstimatePage() {
     return '$' + cost
   }
 
-  // Filter comparisons based on selections
-  const filteredComparisons = allComparisons.filter(c => {
-    // Prioritize same town, then same type, then same builder
-    const townMatch = c.town === town
-    const typeMatch = c.type === type
-    const builderMatch = c.builder === builder
+  // Filter comparisons based on selections - prioritize exact matches, then similar
+  const getFilteredComparisons = () => {
+    // First try exact type match
+    let filtered = allComparisons.filter(c => c.type === type)
     
-    // Show if matches at least type OR (town + builder)
-    return typeMatch || (townMatch && builderMatch) || townMatch
-  }).sort((a, b) => {
-    // Sort by relevance: town match > type match > builder match
-    const aScore = (a.town === town ? 4 : 0) + (a.type === type ? 2 : 0) + (a.builder === builder ? 1 : 0)
-    const bScore = (b.town === town ? 4 : 0) + (b.type === type ? 2 : 0) + (b.builder === builder ? 1 : 0)
-    return bScore - aScore
-  }).slice(0, 5)
+    // If town selected and has data, prioritize that town
+    const townFiltered = filtered.filter(c => c.town === town)
+    if (townFiltered.length >= 2) {
+      filtered = townFiltered
+    }
+    
+    // Sort by relevance
+    return filtered.sort((a, b) => {
+      const aScore = (a.town === town ? 4 : 0) + (a.type === type ? 2 : 0) + (a.builder === builder ? 1 : 0)
+      const bScore = (b.town === town ? 4 : 0) + (b.type === type ? 2 : 0) + (b.builder === builder ? 1 : 0)
+      return bScore - aScore
+    }).slice(0, 5)
+  }
+
+  const filteredComparisons = getFilteredComparisons()
+  const dataCount = permitCounts[`${type}-${builder}`] || 0
+  const totalTypeCount = allComparisons.filter(c => c.type === type).length
 
   const townNames: Record<string, string> = {
     milton: 'Milton',
@@ -103,6 +129,25 @@ export default function EstimatePage() {
     andover: 'Andover',
     sudbury: 'Sudbury'
   }
+
+  const townLinks: Record<string, string> = {
+    milton: '/milton',
+    plymouth: '/plymouth',
+    duxbury: '/duxbury',
+    needham: '/needham',
+    newton: '/newton',
+    boston: '/boston',
+    andover: '/andover',
+    sudbury: '/sudbury'
+  }
+
+  const getConfidenceLevel = () => {
+    if (dataCount >= 5) return { label: 'High', color: 'text-emerald-400', bg: 'bg-emerald-500/20' }
+    if (dataCount >= 2) return { label: 'Medium', color: 'text-amber-400', bg: 'bg-amber-500/20' }
+    return { label: 'Limited', color: 'text-red-400', bg: 'bg-red-500/20' }
+  }
+
+  const confidence = getConfidenceLevel()
 
   return (
     <div className="min-h-screen bg-gray-900">
@@ -200,7 +245,12 @@ export default function EstimatePage() {
           </div>
 
           <div className="bg-gray-800/50 border border-border rounded-lg p-4 sm:p-6">
-            <h2 className="text-white font-medium mb-4">Estimated Cost</h2>
+            <div className="flex justify-between items-start mb-4">
+              <h2 className="text-white font-medium">Estimated Cost</h2>
+              <span className={`px-2 py-1 rounded text-xs ${confidence.bg} ${confidence.color}`}>
+                {confidence.label} confidence
+              </span>
+            </div>
             
             <div className="text-center py-4">
               <div className="text-4xl sm:text-5xl font-bold text-white mb-2">
@@ -214,7 +264,15 @@ export default function EstimatePage() {
               </div>
             </div>
 
-            <div className="border-t border-border pt-4 mt-4">
+            <div className="bg-gray-700/30 rounded-lg p-3 mb-4">
+              <div className="text-xs text-text-muted mb-1">$/sf range for {type} + {builder === 'diy' ? 'DIY' : 'Contractor'}</div>
+              <div className="text-sm text-white">
+                ${costData[type][builder].min} - ${costData[type][builder].max}/sf
+                <span className="text-text-muted ml-2">({dataCount > 0 ? dataCount : totalTypeCount} permits)</span>
+              </div>
+            </div>
+
+            <div className="border-t border-border pt-4">
               <h3 className="text-text-secondary text-sm mb-3">Cost Breakdown (typical)</h3>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
@@ -243,7 +301,15 @@ export default function EstimatePage() {
         </div>
 
         <div className="mt-6 bg-gray-800/50 border border-border rounded-lg p-4 sm:p-6">
-          <h2 className="text-white font-medium mb-4">Similar Permitted Projects</h2>
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-white font-medium">Similar Permitted Projects</h2>
+            {townLinks[town] && (
+              <Link href={townLinks[town]} className="text-blue-400 text-xs hover:underline">
+                View all {townNames[town]} permits →
+              </Link>
+            )}
+          </div>
+          
           {filteredComparisons.length > 0 ? (
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
@@ -254,14 +320,15 @@ export default function EstimatePage() {
                     <th className="text-left p-2">Sqft</th>
                     <th className="text-left p-2">Cost</th>
                     <th className="text-left p-2">$/sf</th>
-                    <th className="text-left p-2">Builder</th>
+                    <th className="text-left p-2 hidden sm:table-cell">Notes</th>
                   </tr>
                 </thead>
                 <tbody>
                   {filteredComparisons.map((c, i) => (
                     <tr key={i} className="border-b border-border/50">
-                      <td className="p-2 text-white">
-                        <span className="text-text-muted">{townNames[c.town] || c.town}</span> {c.label}
+                      <td className="p-2">
+                        <span className="text-white">{c.label}</span>
+                        <span className="text-text-muted text-xs block">{townNames[c.town]}</span>
                       </td>
                       <td className="p-2">
                         <span className={`px-2 py-0.5 rounded text-xs capitalize ${
@@ -271,24 +338,29 @@ export default function EstimatePage() {
                         </span>
                       </td>
                       <td className="p-2 text-text-secondary">{c.sqft > 0 ? c.sqft : '—'}</td>
-                      <td className="p-2 text-text-secondary">{formatCost(c.cost)}</td>
+                      <td className="p-2 text-white font-medium">{formatCost(c.cost)}</td>
                       <td className="p-2 text-text-secondary">{c.ppsf > 0 ? '$' + c.ppsf : '—'}</td>
-                      <td className="p-2">
-                        <span className={`px-2 py-0.5 rounded text-xs uppercase ${
-                          c.builder === 'diy' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-400'
-                        }`}>
-                          {c.builder}
-                        </span>
-                      </td>
+                      <td className="p-2 text-text-muted text-xs hidden sm:table-cell">{c.notes}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
           ) : (
-            <p className="text-text-muted text-sm">No matching permits found. Try adjusting your filters.</p>
+            <div className="text-center py-6">
+              <p className="text-text-muted text-sm mb-2">Limited data for {townNames[town]} + {type}.</p>
+              <p className="text-text-secondary text-xs">Showing estimates based on similar MA towns.</p>
+            </div>
           )}
-          <p className="text-text-muted text-xs mt-3">Source: Town building permit applications (2025)</p>
+          
+          <div className="mt-4 pt-4 border-t border-border flex flex-wrap gap-2">
+            <span className="text-text-muted text-xs">Explore town data:</span>
+            {['milton', 'plymouth', 'newton', 'duxbury'].map(t => (
+              <Link key={t} href={townLinks[t]} className="text-blue-400 text-xs hover:underline">
+                {townNames[t]}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </div>

@@ -29,7 +29,7 @@ export default function TownNav({ current }: { current: string }) {
         {current} <span className="text-xs">▼</span>
       </button>
       {open && (
-        <div className="absolute top-full mt-1 bg-gray-800 border border-gray-700 rounded-lg overflow-hidden z-50 min-w-[140px]">
+        <div className="absolute top-full mt-1 bg-gray-800 border border-gray-700 rounded-lg overflow-hidden z-[9999] min-w-[140px]">
           {towns.map(town => (
             <Link 
               key={town.href}

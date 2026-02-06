@@ -165,7 +165,7 @@ export default function Dashboard() {
                 Massachusetts ADU permit tracking
               </p>
               <p className="text-text-muted text-xs mt-1">
-                Data: MA EOHLC Survey 2025 + detailed permit records
+                Data: EOHLC Survey (statewide totals) + direct permit scraping (town pages)
               </p>
             </div>
             <div className="flex items-center gap-3">
@@ -311,7 +311,7 @@ export default function Dashboard() {
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-text-muted text-sm">
-              Data: MA EOHLC ADU Survey 2025. 85 towns with activity shown.
+              EOHLC survey data is self-reported by towns (mid-2025 snapshot). Town pages show real-time permit data scraped directly from municipal portals.
             </div>
             <div className="flex items-center gap-6 text-sm">
               <a href="/statewide" className="text-text-secondary hover:text-accent transition-colors">

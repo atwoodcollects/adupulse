@@ -90,7 +90,7 @@ export default function Dashboard() {
   const [search, setSearch] = useState('')
 
   const totalSubmitted = 989
-  const totalApproved = 710
+  const totalApproved = 1224
   const totalDetached = 447
   const totalAttached = 542
 
@@ -165,7 +165,7 @@ export default function Dashboard() {
                 Massachusetts ADU permit tracking
               </p>
               <p className="text-text-muted text-xs mt-1">
-                Data: EOHLC Survey (statewide totals) + direct permit scraping (town pages)
+                Data: EOHLC Survey Jan 2026 (statewide totals) + direct permit scraping (town pages)
               </p>
             </div>
             <div className="flex items-center gap-3">
@@ -311,7 +311,7 @@ export default function Dashboard() {
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-text-muted text-sm">
-              EOHLC survey data is self-reported by towns (mid-2025 snapshot). Town pages show real-time permit data scraped directly from municipal portals.
+              EOHLC survey data is self-reported by towns (Jan 2026 update: 1,224 approved in 217 communities). Town pages show real-time permit data scraped directly from municipal portals.
             </div>
             <div className="flex items-center gap-6 text-sm">
               <a href="/statewide" className="text-text-secondary hover:text-accent transition-colors">

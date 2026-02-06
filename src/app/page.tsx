@@ -89,10 +89,10 @@ export default function Dashboard() {
   const [sortAsc, setSortAsc] = useState(false)
   const [search, setSearch] = useState('')
 
-  const totalSubmitted = 989
+  const totalSubmitted = 1639
   const totalApproved = 1224
-  const totalDetached = 447
-  const totalAttached = 542
+  const totalDetached = 775
+  const totalAttached = 864
 
   const filtered = data.filter(t => 
     t.name.toLowerCase().includes(search.toLowerCase())

@@ -213,7 +213,7 @@ export default function ComparePage() {
           <p className="text-gray-400 text-sm mb-3">Share this matchup</p>
           <div className="flex justify-center gap-3">
             <a 
-              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${townA} vs ${townB} in the ADU race:\n\n${townA}: ${dataA.approved} approved (${Math.round(rateA * 100)}%)\n${townB}: ${dataB.approved} approved (${Math.round(rateB * 100)}%)\n\nWho's winning in your town? #MillionBackyardMarch`)}&url=${encodeURIComponent('https://adupulse.com/compare')}`}
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${townA} vs ${townB} in the ADU race:\n\n${townA}: ${dataA.approved} approved (${Math.round(rateA * 100)}%)\n${townB}: ${dataB.approved} approved (${Math.round(rateB * 100)}%)\n\nWho's winning in your town?`)}&url=${encodeURIComponent('https://adupulse.com/compare')}`}
               target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm font-medium"
@@ -231,10 +231,6 @@ export default function ComparePage() {
           </div>
         </div>
 
-        {/* Hashtag */}
-        <div className="mt-8 text-center">
-          <span className="text-blue-400 font-medium">#MillionBackyardMarch</span>
-        </div>
       </main>
 
       {/* Footer */}

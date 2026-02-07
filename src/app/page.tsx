@@ -214,7 +214,7 @@ export default function Dashboard() {
             onClick={() => setMobileView('list')}
             className={`flex-1 py-3 text-sm font-medium transition-colors ${
               mobileView === 'list'
-                ? 'text-white border-b-2 border-blue-500 bg-gray-800/50'
+                ? 'text-white bg-blue-600 rounded-t-lg'
                 : 'text-gray-400'
             }`}
           >
@@ -224,7 +224,7 @@ export default function Dashboard() {
             onClick={() => setMobileView('map')}
             className={`flex-1 py-3 text-sm font-medium transition-colors ${
               mobileView === 'map'
-                ? 'text-white border-b-2 border-blue-500 bg-gray-800/50'
+                ? 'text-white bg-blue-600 rounded-t-lg'
                 : 'text-gray-400'
             }`}
           >

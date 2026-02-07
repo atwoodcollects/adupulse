@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import TownNav from '@/components/TownNav'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 const towns = [
   'Andover', 'Arlington', 'Attleboro', 'Barnstable', 'Beverly', 'Billerica',
@@ -16,54 +16,42 @@ const towns = [
   'Taunton', 'Tisbury', 'Wayland', 'Westport', 'Worcester',
 ]
 
+// Replace with your Formspree form ID from https://formspree.io
+const FORMSPREE_ID = process.env.NEXT_PUBLIC_FORMSPREE_ID || ''
+
 export default function ClubPage() {
   const [email, setEmail] = useState('')
   const [town, setTown] = useState('')
   const [interestType, setInterestType] = useState('')
   const [role, setRole] = useState('')
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error' | 'duplicate'>('idle')
-  const [counts, setCounts] = useState<Record<string, number>>({})
-  const [total, setTotal] = useState(0)
-
-  useEffect(() => {
-    fetch('/api/club')
-      .then(r => r.json())
-      .then(d => {
-        setCounts(d.counts || {})
-        setTotal(d.total || 0)
-      })
-      .catch(() => {})
-  }, [])
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
 
   const handleSubmit = async () => {
     if (!email || !town || !interestType || !role) return
     setStatus('loading')
 
     try {
-      const res = await fetch('/api/club', {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, town, interest_type: interestType, role }),
+        body: JSON.stringify({
+          email,
+          town,
+          interest_type: interestType,
+          role,
+          _subject: `ADU Club Signup: ${town}`,
+        }),
       })
 
-      if (res.status === 409) {
-        setStatus('duplicate')
-        return
+      if (res.ok) {
+        setStatus('success')
+      } else {
+        throw new Error()
       }
-
-      if (!res.ok) throw new Error()
-
-      setStatus('success')
-      setCounts(prev => ({ ...prev, [town]: (prev[town] || 0) + 1 }))
-      setTotal(prev => prev + 1)
     } catch {
       setStatus('error')
     }
   }
-
-  const topTowns = Object.entries(counts)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 10)
 
   return (
     <div className="min-h-screen bg-gray-900">
@@ -82,6 +70,9 @@ export default function ClubPage() {
       <main className="max-w-4xl mx-auto px-4 py-8 md:py-12">
         {/* Hero */}
         <div className="text-center mb-10">
+          <div className="inline-block bg-emerald-900/30 border border-emerald-500/30 rounded-full px-4 py-1 text-emerald-400 text-sm font-medium mb-4">
+            New: Group ADU Buying
+          </div>
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
             Join Your Town&apos;s ADU Group
           </h1>
@@ -90,16 +81,6 @@ export default function ClubPage() {
             neighbors exploring ADUs in your town and unlock group rates from vetted builders.
           </p>
         </div>
-
-        {/* Stats bar */}
-        {total > 0 && (
-          <div className="bg-gray-800 border border-gray-700 rounded-xl p-4 mb-8 text-center">
-            <span className="text-2xl font-bold text-emerald-400">{total}</span>
-            <span className="text-gray-400 ml-2">homeowners interested across</span>
-            <span className="text-2xl font-bold text-white ml-2">{Object.keys(counts).length}</span>
-            <span className="text-gray-400 ml-2">towns</span>
-          </div>
-        )}
 
         <div className="grid md:grid-cols-2 gap-8">
           {/* Signup Form */}
@@ -112,12 +93,9 @@ export default function ClubPage() {
                   <div className="text-3xl mb-2">&#127881;</div>
                   <p className="text-emerald-400 font-bold text-lg mb-1">You&apos;re in!</p>
                   <p className="text-gray-400">
-                    {counts[town] && counts[town] > 1
-                      ? `You're one of ${counts[town]} homeowners interested in ADUs in ${town}.`
-                      : `You're the first in ${town}! Share this page to build your group.`
-                    }
+                    We&apos;ll notify you when more homeowners in {town} sign up or when a builder partnership is available.
                   </p>
-                  <p className="text-gray-500 text-sm mt-3">We&apos;ll email you when your town reaches 5+ signups or when a builder partnership is available.</p>
+                  <p className="text-gray-500 text-sm mt-3">Share this page to grow your town&apos;s group.</p>
                 </div>
               ) : (
                 <div className="space-y-4">
@@ -130,9 +108,7 @@ export default function ClubPage() {
                     >
                       <option value="">Select your town...</option>
                       {towns.map(t => (
-                        <option key={t} value={t}>
-                          {t} {counts[t] ? `(${counts[t]} interested)` : ''}
-                        </option>
+                        <option key={t} value={t}>{t}</option>
                       ))}
                     </select>
                   </div>
@@ -187,9 +163,6 @@ export default function ClubPage() {
                     {status === 'loading' ? 'Joining...' : 'Join the Group'}
                   </button>
 
-                  {status === 'duplicate' && (
-                    <p className="text-yellow-400 text-sm text-center">You&apos;ve already signed up for this town!</p>
-                  )}
                   {status === 'error' && (
                     <p className="text-red-400 text-sm text-center">Something went wrong. Try again.</p>
                   )}
@@ -200,35 +173,10 @@ export default function ClubPage() {
             </div>
           </div>
 
-          {/* Town Interest Leaderboard */}
+          {/* Right column */}
           <div>
-            <div className="bg-gray-800 border border-gray-700 rounded-xl p-6">
-              <h2 className="text-xl font-bold text-white mb-4">Town Interest</h2>
-
-              {topTowns.length > 0 ? (
-                <div className="space-y-2">
-                  {topTowns.map(([townName, count], i) => (
-                    <div key={townName} className="flex items-center justify-between py-2.5 px-3 bg-gray-900 rounded-lg">
-                      <div className="flex items-center gap-3">
-                        <span className="text-gray-500 w-6 text-sm">#{i + 1}</span>
-                        <span className="text-white font-medium">{townName}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-emerald-400 font-bold">{count}</span>
-                        <span className="text-gray-500 text-sm">interested</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-8">
-                  <p className="text-gray-500">No signups yet. Be the first!</p>
-                </div>
-              )}
-            </div>
-
             {/* How it works */}
-            <div className="bg-gray-800 border border-gray-700 rounded-xl p-6 mt-6">
+            <div className="bg-gray-800 border border-gray-700 rounded-xl p-6">
               <h2 className="text-xl font-bold text-white mb-4">How it works</h2>
               <div className="space-y-4">
                 <div className="flex gap-3">
@@ -255,14 +203,39 @@ export default function ClubPage() {
               </div>
             </div>
 
-            {/* Value props */}
+            {/* Why it works */}
             <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-500/20 rounded-xl p-6 mt-6">
               <h3 className="text-white font-bold mb-2">Why group ADU buying works</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">
+              <p className="text-gray-400 text-sm leading-relaxed mb-4">
                 A builder doing 5 ADUs in the same town prices them 15-20% lower than one-offs.
                 Shared permitting knowledge, bulk materials, and crew efficiency all drive costs down.
-                Your town already has the demand &mdash; we just need to organize it.
               </p>
+              <div className="grid grid-cols-3 gap-3 text-center">
+                <div className="bg-gray-900/50 rounded-lg p-3">
+                  <div className="text-xl font-bold text-emerald-400">15-20%</div>
+                  <div className="text-gray-500 text-xs">Group savings</div>
+                </div>
+                <div className="bg-gray-900/50 rounded-lg p-3">
+                  <div className="text-xl font-bold text-white">5+</div>
+                  <div className="text-gray-500 text-xs">Homes per group</div>
+                </div>
+                <div className="bg-gray-900/50 rounded-lg p-3">
+                  <div className="text-xl font-bold text-white">$30-60K</div>
+                  <div className="text-gray-500 text-xs">Avg. saved</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Grandparent angle */}
+            <div className="bg-gray-800 border border-gray-700 rounded-xl p-6 mt-6">
+              <h3 className="text-white font-bold mb-2">Building to be near family?</h3>
+              <p className="text-gray-400 text-sm leading-relaxed mb-3">
+                Many of our signups are grandparents exploring ADUs to live closer to their grandchildren.
+                Massachusetts&apos; new by-right law makes this easier than ever.
+              </p>
+              <Link href="/blog/grandparent-adu-massachusetts" className="text-blue-400 text-sm hover:underline">
+                Read: The Grandparent ADU &rarr;
+              </Link>
             </div>
           </div>
         </div>

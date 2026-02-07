@@ -448,6 +448,7 @@ export default function Dashboard() {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 text-xs text-gray-500">
             <div>Data: EOHLC Survey Feb 2026 • 1,224 ADUs in 217 towns</div><div className="text-gray-600 mt-1">Blue towns have detailed permit data scraped directly from town portals.</div>
             <div className="flex gap-4">
+              <a href="/blog" className="hover:text-white">Blog</a>
               <a href="/statewide" className="hover:text-white">Full Data</a>
               <a href="/estimate" className="hover:text-white">Estimator</a>
             </div>

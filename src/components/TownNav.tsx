@@ -4,7 +4,6 @@ import { useState } from 'react'
 
 const towns = [
   { name: 'All Towns', href: '/' },
-  { name: 'Blog', href: '/blog' },
   { name: 'Boston', href: '/boston' },
   { name: 'Lexington', href: '/lexington' },
   { name: 'Andover', href: '/andover' },

@@ -103,8 +103,8 @@ export default function TownMap() {
       )}
 
       <svg viewBox="0 0 400 500" className="w-full h-[500px]">
-        <path d="M50,180 L80,150 L150,130 L200,120 L250,130 L290,120 L330,140 L360,170 L370,200 L360,220 L370,250 L350,280 L360,320 L340,360 L380,380 L390,420 L360,450 L320,440 L300,400 L280,380 L250,370 L220,350 L200,320 L180,300 L150,280 L100,260 L60,240 L40,210 Z" fill="#1f2937" stroke="#374151" strokeWidth="2"/>
-        <path d="M300,400 L320,380 L350,375 L380,380 L390,400 L380,420 L350,430 L320,420 L300,400" fill="#1f2937" stroke="#374151" strokeWidth="2"/>
+        <path d="M50,180 L80,150 L150,130 L200,120 L250,130 L290,120 L330,140 L360,170 L370,200 L360,220 L370,250 L350,280 L360,320 L340,360 L380,380 L390,420 L360,450 L320,440 L300,400 L280,380 L250,370 L220,350 L200,320 L180,300 L150,280 L100,260 L60,240 L40,210 Z" fill="#111827" stroke="#4b5563" strokeWidth="2"/>
+        <path d="M300,400 L320,380 L350,375 L380,380 L390,400 L380,420 L350,430 L320,420 L300,400" fill="#111827" stroke="#4b5563" strokeWidth="2"/>
         {towns.map(town => (
           <Link key={town.name} href={town.hasDetail ? `/${town.name.toLowerCase()}` : `/town/${encodeURIComponent(town.name)}`}>
             <circle

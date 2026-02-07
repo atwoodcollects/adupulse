@@ -17,7 +17,7 @@ const towns = [
 ]
 
 // Replace with your Formspree form ID from https://formspree.io
-const FORMSPREE_ID = process.env.NEXT_PUBLIC_FORMSPREE_ID || ''
+const FORMSPREE_ID = 'mzdabkvb'
 
 export default function ClubPage() {
   const [email, setEmail] = useState('')

@@ -91,11 +91,13 @@ const data = [
 ]
 
 type SortKey = 'name' | 'submitted' | 'approved' | 'rate'
+type MobileView = 'list' | 'map'
 
 export default function Dashboard() {
   const [sortKey, setSortKey] = useState<SortKey>('submitted')
   const [sortAsc, setSortAsc] = useState(false)
   const [search, setSearch] = useState('')
+  const [mobileView, setMobileView] = useState<MobileView>('list')
 
   const totalSubmitted = 1639
   const totalApproved = 1224
@@ -148,7 +150,6 @@ export default function Dashboard() {
     return 'text-red-400'
   }
 
-  // Convert data for map component
   const mapTowns: HLCTown[] = data.map(t => ({
     name: t.name,
     muni_id: null,
@@ -165,154 +166,157 @@ export default function Dashboard() {
     <div className="min-h-screen bg-gray-900">
       {/* Header */}
       <header className="border-b border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 py-4 md:py-5">
+        <div className="max-w-7xl mx-auto px-4 py-3 md:py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-                <h1 className="text-xl md:text-2xl font-bold text-white tracking-tight">
-                  ADU Pulse
-                </h1>
-              </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+              <h1 className="text-lg md:text-xl font-bold text-white tracking-tight">
+                ADU Pulse
+              </h1>
             </div>
             <TownNav current="All Towns" />
           </div>
-          <p className="text-gray-400 text-sm mt-2">
-            Tracking Massachusetts ADU permits in real-time
-          </p>
         </div>
       </header>
 
-      {/* Stats Banner */}
-      <section className="bg-gray-800/50 border-b border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 py-5 md:py-6">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
+      {/* Stats - Horizontal scroll on mobile */}
+      <section className="border-b border-gray-800 overflow-x-auto">
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          <div className="flex gap-6 md:gap-8 min-w-max md:min-w-0 md:justify-center">
             <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-white">{totalSubmitted.toLocaleString()}</div>
-              <div className="text-xs md:text-sm text-gray-400 mt-1">Submitted</div>
+              <div className="text-xl md:text-2xl font-bold text-white">{totalSubmitted.toLocaleString()}</div>
+              <div className="text-xs text-gray-500">Submitted</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-emerald-400">{totalApproved.toLocaleString()}</div>
-              <div className="text-xs md:text-sm text-gray-400 mt-1">Approved</div>
+              <div className="text-xl md:text-2xl font-bold text-emerald-400">{totalApproved.toLocaleString()}</div>
+              <div className="text-xs text-gray-500">Approved</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-blue-400">{approvalRate}%</div>
-              <div className="text-xs md:text-sm text-gray-400 mt-1">Approval Rate</div>
+              <div className="text-xl md:text-2xl font-bold text-blue-400">{approvalRate}%</div>
+              <div className="text-xs text-gray-500">Rate</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-white">{totalDetached.toLocaleString()}</div>
-              <div className="text-xs md:text-sm text-gray-400 mt-1">Detached</div>
+              <div className="text-xl md:text-2xl font-bold text-white">{totalDetached.toLocaleString()}</div>
+              <div className="text-xs text-gray-500">Detached</div>
             </div>
-            <div className="text-center col-span-2 md:col-span-1">
-              <div className="text-2xl md:text-3xl font-bold text-white">{totalAttached.toLocaleString()}</div>
-              <div className="text-xs md:text-sm text-gray-400 mt-1">Attached</div>
+            <div className="text-center">
+              <div className="text-xl md:text-2xl font-bold text-white">{totalAttached.toLocaleString()}</div>
+              <div className="text-xs text-gray-500">Attached</div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Mobile Tab Toggle */}
+      <div className="md:hidden border-b border-gray-800">
+        <div className="flex">
+          <button
+            onClick={() => setMobileView('list')}
+            className={`flex-1 py-3 text-sm font-medium transition-colors ${
+              mobileView === 'list'
+                ? 'text-white border-b-2 border-blue-500 bg-gray-800/50'
+                : 'text-gray-400'
+            }`}
+          >
+            📋 Towns
+          </button>
+          <button
+            onClick={() => setMobileView('map')}
+            className={`flex-1 py-3 text-sm font-medium transition-colors ${
+              mobileView === 'map'
+                ? 'text-white border-b-2 border-blue-500 bg-gray-800/50'
+                : 'text-gray-400'
+            }`}
+          >
+            🗺️ Map
+          </button>
+        </div>
+      </div>
+
       {/* Main Content */}
-      <section className="max-w-7xl mx-auto px-4 py-6 md:py-8">
-        <div className="grid lg:grid-cols-5 gap-6 lg:gap-8">
-          
-          {/* Map - spans 3 cols on desktop */}
-          <div className="lg:col-span-3 order-2 lg:order-1">
+      <section className="max-w-7xl mx-auto">
+        {/* Desktop Layout */}
+        <div className="hidden md:grid md:grid-cols-5 gap-6 p-6">
+          {/* Map - 3 cols */}
+          <div className="col-span-3">
             <div className="bg-gray-800 border border-gray-700 rounded-xl overflow-hidden">
               <TownMap towns={mapTowns} />
             </div>
-            
-            {/* Legend */}
-            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 mt-4 text-xs md:text-sm">
+            <div className="flex items-center justify-center gap-6 mt-3 text-xs">
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-emerald-400"></div>
-                <span className="text-gray-400">10+ approved</span>
+                <div className="w-2.5 h-2.5 rounded-full bg-emerald-400"></div>
+                <span className="text-gray-500">10+</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-amber-400"></div>
-                <span className="text-gray-400">4-9 approved</span>
+                <div className="w-2.5 h-2.5 rounded-full bg-amber-400"></div>
+                <span className="text-gray-500">4-9</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-gray-500"></div>
-                <span className="text-gray-400">1-3 approved</span>
+                <div className="w-2.5 h-2.5 rounded-full bg-gray-500"></div>
+                <span className="text-gray-500">1-3</span>
               </div>
             </div>
-
-            {/* Insights - Desktop only */}
-            <div className="hidden md:grid grid-cols-3 gap-4 mt-6">
-              <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-4">
-                <h3 className="text-emerald-400 text-sm font-semibold mb-2">🏆 100% Approval</h3>
-                <p className="text-gray-400 text-xs leading-relaxed">Nantucket, Lowell, Fairhaven, Middleborough, Raynham, Harwich</p>
+            {/* Insights */}
+            <div className="grid grid-cols-3 gap-3 mt-4">
+              <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-3">
+                <h3 className="text-emerald-400 text-xs font-semibold mb-1">🏆 100% Approval</h3>
+                <p className="text-gray-500 text-xs">Nantucket, Lowell, Fairhaven, Harwich</p>
               </div>
-              <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-4">
-                <h3 className="text-red-400 text-sm font-semibold mb-2">⚠️ Low Approval</h3>
-                <p className="text-gray-400 text-xs leading-relaxed">Gardner (0%), Barnstable (19%), Danvers (22%), Everett (29%)</p>
+              <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-3">
+                <h3 className="text-red-400 text-xs font-semibold mb-1">⚠️ Low Approval</h3>
+                <p className="text-gray-500 text-xs">Gardner (0%), Barnstable (19%)</p>
               </div>
-              <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-4">
-                <h3 className="text-blue-400 text-sm font-semibold mb-2">📈 Highest Volume</h3>
-                <p className="text-gray-400 text-xs leading-relaxed">Boston (69), Lawrence (44), Plymouth (42), Newton (40)</p>
+              <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-3">
+                <h3 className="text-blue-400 text-xs font-semibold mb-1">📈 Top Volume</h3>
+                <p className="text-gray-500 text-xs">Boston (69), Lawrence (44)</p>
               </div>
             </div>
           </div>
 
-          {/* Town List - spans 2 cols on desktop */}
-          <div className="lg:col-span-2 order-1 lg:order-2">
+          {/* Town List - 2 cols */}
+          <div className="col-span-2">
             <div className="bg-gray-800 border border-gray-700 rounded-xl overflow-hidden">
-              {/* Search */}
               <div className="p-3 border-b border-gray-700">
                 <input
                   type="text"
                   placeholder="Search 217 towns..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="w-full px-3 py-2.5 bg-gray-900 border border-gray-600 rounded-lg text-white text-sm placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  className="w-full px-3 py-2 bg-gray-900 border border-gray-600 rounded-lg text-white text-sm placeholder-gray-500 focus:outline-none focus:border-blue-500"
                 />
               </div>
-              
-              {/* Table */}
-              <div className="max-h-[400px] md:max-h-[500px] overflow-y-auto">
+              <div className="max-h-[480px] overflow-y-auto">
                 <table className="w-full text-sm">
                   <thead className="sticky top-0 bg-gray-800 z-10">
                     <tr className="text-gray-400 border-b border-gray-700">
-                      <th 
-                        className="text-left py-3 px-3 cursor-pointer hover:text-white transition-colors"
-                        onClick={() => handleSort('name')}
-                      >
+                      <th className="text-left py-2.5 px-3 cursor-pointer hover:text-white" onClick={() => handleSort('name')}>
                         Town {sortKey === 'name' && (sortAsc ? '↑' : '↓')}
                       </th>
-                      <th 
-                        className="text-right py-3 px-3 cursor-pointer hover:text-white transition-colors"
-                        onClick={() => handleSort('submitted')}
-                      >
+                      <th className="text-right py-2.5 px-3 cursor-pointer hover:text-white" onClick={() => handleSort('submitted')}>
                         Apps {sortKey === 'submitted' && (sortAsc ? '↑' : '↓')}
                       </th>
-                      <th 
-                        className="text-right py-3 px-3 cursor-pointer hover:text-white transition-colors"
-                        onClick={() => handleSort('rate')}
-                      >
+                      <th className="text-right py-2.5 px-3 cursor-pointer hover:text-white" onClick={() => handleSort('rate')}>
                         Rate {sortKey === 'rate' && (sortAsc ? '↑' : '↓')}
                       </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-700/50">
                     {sorted.map((town) => (
-                      <tr key={town.name} className="hover:bg-gray-700/30 transition-colors">
-                        <td className="py-3 px-3">
+                      <tr key={town.name} className="hover:bg-gray-700/30">
+                        <td className="py-2.5 px-3">
                           {town.hasPage ? (
-                            <Link 
-                              href={`/${town.name.toLowerCase().replace(/ /g, '-')}`} 
-                              className="text-blue-400 hover:text-blue-300 hover:underline font-medium"
-                            >
+                            <Link href={`/${town.name.toLowerCase().replace(/ /g, '-')}`} className="text-blue-400 hover:underline">
                               {town.name}
                             </Link>
                           ) : (
                             <span className="text-white">{town.name}</span>
                           )}
                         </td>
-                        <td className="text-right py-3 px-3">
-                          <span className="text-white font-medium">{town.approved}</span>
+                        <td className="text-right py-2.5 px-3">
+                          <span className="text-white">{town.approved}</span>
                           <span className="text-gray-500">/{town.submitted}</span>
                         </td>
-                        <td className={`text-right py-3 px-3 font-semibold ${getRateColor(town.approved, town.submitted)}`}>
+                        <td className={`text-right py-2.5 px-3 font-medium ${getRateColor(town.approved, town.submitted)}`}>
                           {getRate(town.approved, town.submitted)}
                         </td>
                       </tr>
@@ -320,44 +324,118 @@ export default function Dashboard() {
                   </tbody>
                 </table>
               </div>
-              
-              {/* Footer */}
-              <div className="p-3 border-t border-gray-700 bg-gray-800/50">
-                <p className="text-xs text-gray-500 text-center">
-                  {sorted.length} towns shown • Blue = detailed permit data available
-                </p>
-              </div>
             </div>
           </div>
         </div>
-      </section>
 
-      {/* Mobile Insights */}
-      <section className="md:hidden max-w-7xl mx-auto px-4 pb-6">
-        <div className="grid grid-cols-1 gap-3">
-          <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-4">
-            <h3 className="text-emerald-400 text-sm font-semibold mb-1">🏆 100% Approval</h3>
-            <p className="text-gray-400 text-xs">Nantucket, Lowell, Fairhaven, Harwich</p>
-          </div>
-          <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-4">
-            <h3 className="text-red-400 text-sm font-semibold mb-1">⚠️ Low Approval</h3>
-            <p className="text-gray-400 text-xs">Gardner (0%), Barnstable (19%), Danvers (22%)</p>
-          </div>
+        {/* Mobile Layout */}
+        <div className="md:hidden">
+          {mobileView === 'list' ? (
+            <div className="p-4">
+              {/* Search */}
+              <input
+                type="text"
+                placeholder="Search towns..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full px-3 py-2.5 bg-gray-800 border border-gray-700 rounded-lg text-white text-sm placeholder-gray-500 focus:outline-none focus:border-blue-500 mb-3"
+              />
+              
+              {/* Sort buttons */}
+              <div className="flex gap-2 mb-3">
+                <button
+                  onClick={() => handleSort('submitted')}
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium ${
+                    sortKey === 'submitted' ? 'bg-blue-600 text-white' : 'bg-gray-800 text-gray-400'
+                  }`}
+                >
+                  Volume {sortKey === 'submitted' && (sortAsc ? '↑' : '↓')}
+                </button>
+                <button
+                  onClick={() => handleSort('rate')}
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium ${
+                    sortKey === 'rate' ? 'bg-blue-600 text-white' : 'bg-gray-800 text-gray-400'
+                  }`}
+                >
+                  Rate {sortKey === 'rate' && (sortAsc ? '↑' : '↓')}
+                </button>
+                <button
+                  onClick={() => handleSort('name')}
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium ${
+                    sortKey === 'name' ? 'bg-blue-600 text-white' : 'bg-gray-800 text-gray-400'
+                  }`}
+                >
+                  A-Z {sortKey === 'name' && (sortAsc ? '↑' : '↓')}
+                </button>
+              </div>
+
+              {/* Town Cards */}
+              <div className="space-y-2">
+                {sorted.map((town) => (
+                  <div key={town.name} className="bg-gray-800 border border-gray-700 rounded-lg p-3 flex items-center justify-between">
+                    <div>
+                      {town.hasPage ? (
+                        <Link href={`/${town.name.toLowerCase().replace(/ /g, '-')}`} className="text-blue-400 font-medium">
+                          {town.name}
+                        </Link>
+                      ) : (
+                        <span className="text-white font-medium">{town.name}</span>
+                      )}
+                      <div className="text-xs text-gray-500 mt-0.5">
+                        {town.approved} approved / {town.submitted} submitted
+                      </div>
+                    </div>
+                    <div className={`text-lg font-bold ${getRateColor(town.approved, town.submitted)}`}>
+                      {getRate(town.approved, town.submitted)}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="p-4">
+              <div className="bg-gray-800 border border-gray-700 rounded-xl overflow-hidden">
+                <TownMap towns={mapTowns} />
+              </div>
+              <div className="flex items-center justify-center gap-4 mt-3 text-xs">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-400"></div>
+                  <span className="text-gray-500">10+</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2.5 h-2.5 rounded-full bg-amber-400"></div>
+                  <span className="text-gray-500">4-9</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2.5 h-2.5 rounded-full bg-gray-500"></div>
+                  <span className="text-gray-500">1-3</span>
+                </div>
+              </div>
+              {/* Mobile Insights */}
+              <div className="mt-4 space-y-2">
+                <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-3 flex items-center justify-between">
+                  <span className="text-emerald-400 text-sm">🏆 100% Approval</span>
+                  <span className="text-gray-400 text-xs">Nantucket, Lowell, Harwich</span>
+                </div>
+                <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-3 flex items-center justify-between">
+                  <span className="text-red-400 text-sm">⚠️ Low Approval</span>
+                  <span className="text-gray-400 text-xs">Gardner 0%, Barnstable 19%</span>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
       {/* CTA */}
-      <section className="max-w-7xl mx-auto px-4 pb-8">
-        <div className="bg-gradient-to-r from-blue-900/40 to-purple-900/40 border border-blue-500/30 rounded-xl p-5 md:p-6">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <section className="max-w-7xl mx-auto px-4 py-6">
+        <div className="bg-gradient-to-r from-blue-900/40 to-purple-900/40 border border-blue-500/30 rounded-xl p-4 md:p-5">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
             <div>
-              <h2 className="text-lg md:text-xl font-bold text-white">What will an ADU cost in your town?</h2>
-              <p className="text-gray-400 text-sm mt-1">Get estimates based on real permit data from your area.</p>
+              <h2 className="text-base md:text-lg font-bold text-white">What will an ADU cost in your town?</h2>
+              <p className="text-gray-400 text-sm">Based on real permit data</p>
             </div>
-            <a 
-              href="/estimate" 
-              className="inline-flex items-center justify-center px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium transition-colors text-sm"
-            >
+            <a href="/estimate" className="inline-flex items-center justify-center px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium text-sm">
               Get Estimate →
             </a>
           </div>
@@ -366,23 +444,13 @@ export default function Dashboard() {
 
       {/* Footer */}
       <footer className="border-t border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <div className="text-gray-500 text-xs md:text-sm max-w-xl">
-              Data: EOHLC Survey (Feb 2026) — 1,224 ADUs approved in 217 communities. 
-              Town pages include permit-level data scraped from municipal portals.
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 text-xs text-gray-500">
+            <div>Data: EOHLC Survey Feb 2026 • 1,224 ADUs in 217 towns</div>
+            <div className="flex gap-4">
+              <a href="/statewide" className="hover:text-white">Full Data</a>
+              <a href="/estimate" className="hover:text-white">Estimator</a>
             </div>
-            <div className="flex items-center gap-4 text-sm">
-              <a href="/statewide" className="text-gray-400 hover:text-white transition-colors">
-                Full Data
-              </a>
-              <a href="/estimate" className="text-gray-400 hover:text-white transition-colors">
-                Estimator
-              </a>
-            </div>
-          </div>
-          <div className="text-gray-600 text-xs mt-4">
-            Built by Nick Welch • Powered by public data
           </div>
         </div>
       </footer>

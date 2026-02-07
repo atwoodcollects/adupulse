@@ -312,7 +312,7 @@ export default function Home() {
             <h2 className="text-lg font-bold text-white mb-3">Map</h2>
             <div className="bg-gray-800 border border-gray-700 rounded-xl overflow-hidden">
               <iframe 
-                src="/eohlc"
+                src="/statewide"
                 className="w-full h-[500px] border-0"
                 title="Massachusetts ADU Map"
               />

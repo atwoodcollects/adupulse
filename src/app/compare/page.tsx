@@ -6,68 +6,66 @@ import { useState, useEffect } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 
 const towns = [
-  { name: 'Boston', submitted: 69, approved: 44, detached: 11, attached: 58, population: 675647 },
-  { name: 'Lawrence', submitted: 44, approved: 32, detached: 18, attached: 26, population: 89143 },
-  { name: 'Plymouth', submitted: 42, approved: 34, detached: 18, attached: 24, population: 61217 },
-  { name: 'Newton', submitted: 40, approved: 18, detached: 16, attached: 24, population: 88923 },
-  { name: 'Somerville', submitted: 40, approved: 24, detached: 34, attached: 6, population: 81045 },
-  { name: 'Barnstable', submitted: 31, approved: 6, detached: 13, attached: 18, population: 48237 },
-  { name: 'Worcester', submitted: 31, approved: 23, detached: 15, attached: 16, population: 206518 },
-  { name: 'Haverhill', submitted: 29, approved: 13, detached: 13, attached: 16, population: 67787 },
-  { name: 'Methuen', submitted: 28, approved: 21, detached: 9, attached: 19, population: 50706 },
-  { name: 'Nantucket', submitted: 27, approved: 27, detached: 24, attached: 3, population: 14255 },
-  { name: 'Lowell', submitted: 26, approved: 26, detached: 9, attached: 17, population: 115554 },
-  { name: 'Fall River', submitted: 25, approved: 13, detached: 9, attached: 16, population: 94000 },
-  { name: 'Milton', submitted: 25, approved: 24, detached: 1, attached: 24, population: 27620 },
-  { name: 'Marshfield', submitted: 24, approved: 11, detached: 18, attached: 6, population: 26100 },
-  { name: 'Amherst', submitted: 23, approved: 12, detached: 14, attached: 9, population: 40096 },
-  { name: 'Lynn', submitted: 22, approved: 9, detached: 5, attached: 17, population: 101253 },
-  { name: 'Medford', submitted: 22, approved: 19, detached: 13, attached: 9, population: 59659 },
-  { name: 'Northampton', submitted: 20, approved: 15, detached: 7, attached: 13, population: 29571 },
-  { name: 'Billerica', submitted: 18, approved: 13, detached: 6, attached: 12, population: 43799 },
-  { name: 'Fairhaven', submitted: 18, approved: 18, detached: 9, attached: 9, population: 16441 },
-  { name: 'Middleborough', submitted: 18, approved: 18, detached: 14, attached: 4, population: 25726 },
-  { name: 'Raynham', submitted: 18, approved: 18, detached: 1, attached: 17, population: 14921 },
-  { name: 'Freetown', submitted: 17, approved: 13, detached: 12, attached: 5, population: 9513 },
-  { name: 'Quincy', submitted: 17, approved: 6, detached: 3, attached: 14, population: 101636 },
-  { name: 'Revere', submitted: 17, approved: 9, detached: 0, attached: 17, population: 62186 },
-  { name: 'Brockton', submitted: 16, approved: 5, detached: 8, attached: 8, population: 105643 },
-  { name: 'Shrewsbury', submitted: 16, approved: 9, detached: 3, attached: 13, population: 38526 },
-  { name: 'Attleboro', submitted: 15, approved: 10, detached: 3, attached: 12, population: 46036 },
-  { name: 'Harwich', submitted: 15, approved: 15, detached: 15, attached: 0, population: 13336 },
-  { name: 'Tisbury', submitted: 15, approved: 14, detached: 6, attached: 9, population: 4815 },
-  { name: 'Brookline', submitted: 14, approved: 10, detached: 8, attached: 6, population: 63191 },
-  { name: 'Taunton', submitted: 14, approved: 7, detached: 11, attached: 3, population: 60897 },
-  { name: 'Westport', submitted: 14, approved: 14, detached: 5, attached: 9, population: 16118 },
-  { name: 'Beverly', submitted: 12, approved: 12, detached: 10, attached: 2, population: 42670 },
-  { name: 'Dracut', submitted: 12, approved: 10, detached: 7, attached: 5, population: 32377 },
-  { name: 'Falmouth', submitted: 12, approved: 12, detached: 7, attached: 5, population: 33696 },
-  { name: 'Ipswich', submitted: 12, approved: 9, detached: 7, attached: 5, population: 14150 },
-  { name: 'Peabody', submitted: 12, approved: 7, detached: 4, attached: 8, population: 54458 },
-  { name: 'Randolph', submitted: 12, approved: 5, detached: 5, attached: 7, population: 34984 },
-  { name: 'Lexington', submitted: 6, approved: 6, detached: 2, attached: 4, population: 34454 },
-  { name: 'Needham', submitted: 4, approved: 4, detached: 1, attached: 3, population: 31388 },
-  { name: 'Duxbury', submitted: 3, approved: 2, detached: 3, attached: 0, population: 16090 },
-  { name: 'Sudbury', submitted: 3, approved: 3, detached: 2, attached: 1, population: 19655 },
-  { name: 'Andover', submitted: 10, approved: 9, detached: 3, attached: 7, population: 36480 },
-  { name: 'Arlington', submitted: 7, approved: 6, detached: 3, attached: 4, population: 46308 },
-  { name: 'Cambridge', submitted: 8, approved: 6, detached: 4, attached: 4, population: 118403 },
-  { name: 'Framingham', submitted: 8, approved: 6, detached: 2, attached: 6, population: 72362 },
-  { name: 'Malden', submitted: 8, approved: 5, detached: 3, attached: 5, population: 66263 },
-  { name: 'Salem', submitted: 9, approved: 9, detached: 2, attached: 7, population: 44480 },
-  { name: 'Chelmsford', submitted: 7, approved: 7, detached: 3, attached: 4, population: 35939 },
-  { name: 'Danvers', submitted: 9, approved: 2, detached: 3, attached: 6, population: 28549 },
-  { name: 'Gardner', submitted: 7, approved: 0, detached: 2, attached: 5, population: 21557 },
-  { name: 'Everett', submitted: 7, approved: 2, detached: 3, attached: 4, population: 49075 },
-  { name: 'Wayland', submitted: 7, approved: 2, detached: 6, attached: 1, population: 13835 },
+  { name: 'Boston', submitted: 69, approved: 44, detached: 11, attached: 58, population: 673458 },
+  { name: 'Lawrence', submitted: 44, approved: 32, detached: 18, attached: 26, population: 89332 },
+  { name: 'Plymouth', submitted: 42, approved: 34, detached: 18, attached: 24, population: 66663 },
+  { name: 'Newton', submitted: 40, approved: 18, detached: 16, attached: 24, population: 90700 },
+  { name: 'Somerville', submitted: 40, approved: 24, detached: 34, attached: 6, population: 82149 },
+  { name: 'Barnstable', submitted: 31, approved: 6, detached: 13, attached: 18, population: 49831 },
+  { name: 'Worcester', submitted: 31, approved: 23, detached: 15, attached: 16, population: 211286 },
+  { name: 'Haverhill', submitted: 29, approved: 13, detached: 13, attached: 16, population: 68291 },
+  { name: 'Methuen', submitted: 28, approved: 21, detached: 9, attached: 19, population: 53043 },
+  { name: 'Nantucket', submitted: 27, approved: 27, detached: 24, attached: 3, population: 14670 },
+  { name: 'Lowell', submitted: 26, approved: 26, detached: 9, attached: 17, population: 120418 },
+  { name: 'Fall River', submitted: 25, approved: 13, detached: 9, attached: 16, population: 94689 },
+  { name: 'Milton', submitted: 25, approved: 24, detached: 1, attached: 24, population: 28811 },
+  { name: 'Marshfield', submitted: 24, approved: 11, detached: 18, attached: 6, population: 26043 },
+  { name: 'Amherst', submitted: 23, approved: 12, detached: 14, attached: 9, population: 40989 },
+  { name: 'Lynn', submitted: 22, approved: 9, detached: 5, attached: 17, population: 103489 },
+  { name: 'Medford', submitted: 22, approved: 19, detached: 13, attached: 9, population: 59898 },
+  { name: 'Northampton', submitted: 20, approved: 15, detached: 7, attached: 13, population: 31315 },
+  { name: 'Billerica', submitted: 18, approved: 13, detached: 6, attached: 12, population: 42978 },
+  { name: 'Fairhaven', submitted: 18, approved: 18, detached: 9, attached: 9, population: 16005 },
+  { name: 'Middleborough', submitted: 18, approved: 18, detached: 14, attached: 4, population: 24847 },
+  { name: 'Raynham', submitted: 18, approved: 18, detached: 1, attached: 17, population: 15861 },
+  { name: 'Freetown', submitted: 17, approved: 13, detached: 12, attached: 5, population: 9380 },
+  { name: 'Quincy', submitted: 17, approved: 6, detached: 3, attached: 14, population: 103434 },
+  { name: 'Revere', submitted: 17, approved: 9, detached: 0, attached: 17, population: 60702 },
+  { name: 'Brockton', submitted: 16, approved: 5, detached: 8, attached: 8, population: 105788 },
+  { name: 'Shrewsbury', submitted: 16, approved: 9, detached: 3, attached: 13, population: 39620 },
+  { name: 'Attleboro', submitted: 15, approved: 10, detached: 3, attached: 12, population: 47085 },
+  { name: 'Harwich', submitted: 15, approved: 15, detached: 15, attached: 0, population: 13620 },
+  { name: 'Tisbury', submitted: 15, approved: 14, detached: 6, attached: 9, population: 4927 },
+  { name: 'Brookline', submitted: 14, approved: 10, detached: 8, attached: 6, population: 63925 },
+  { name: 'Taunton', submitted: 14, approved: 7, detached: 11, attached: 3, population: 61936 },
+  { name: 'Westport', submitted: 14, approved: 14, detached: 5, attached: 9, population: 16705 },
+  { name: 'Beverly', submitted: 12, approved: 12, detached: 10, attached: 2, population: 43223 },
+  { name: 'Dracut', submitted: 12, approved: 10, detached: 7, attached: 5, population: 32972 },
+  { name: 'Falmouth', submitted: 12, approved: 12, detached: 7, attached: 5, population: 33227 },
+  { name: 'Ipswich', submitted: 12, approved: 9, detached: 7, attached: 5, population: 14110 },
+  { name: 'Peabody', submitted: 12, approved: 7, detached: 4, attached: 8, population: 55418 },
+  { name: 'Randolph', submitted: 12, approved: 5, detached: 5, attached: 7, population: 35114 },
+  { name: 'Lexington', submitted: 6, approved: 6, detached: 2, attached: 4, population: 34743 },
+  { name: 'Needham', submitted: 4, approved: 4, detached: 1, attached: 3, population: 32931 },
+  { name: 'Duxbury', submitted: 3, approved: 2, detached: 3, attached: 0, population: 16377 },
+  { name: 'Sudbury', submitted: 3, approved: 3, detached: 2, attached: 1, population: 19805 },
+  { name: 'Andover', submitted: 10, approved: 9, detached: 3, attached: 7, population: 36927 },
+  { name: 'Arlington', submitted: 7, approved: 6, detached: 3, attached: 4, population: 47112 },
+  { name: 'Cambridge', submitted: 8, approved: 6, detached: 4, attached: 4, population: 121186 },
+  { name: 'Framingham', submitted: 8, approved: 6, detached: 2, attached: 6, population: 73361 },
+  { name: 'Malden', submitted: 8, approved: 5, detached: 3, attached: 5, population: 66693 },
+  { name: 'Salem', submitted: 9, approved: 9, detached: 2, attached: 7, population: 45677 },
+  { name: 'Chelmsford', submitted: 7, approved: 7, detached: 3, attached: 4, population: 36953 },
+  { name: 'Danvers', submitted: 9, approved: 2, detached: 3, attached: 6, population: 28590 },
+  { name: 'Gardner', submitted: 7, approved: 0, detached: 2, attached: 5, population: 21381 },
+  { name: 'Everett', submitted: 7, approved: 2, detached: 3, attached: 4, population: 51825 },
+  { name: 'Wayland', submitted: 7, approved: 2, detached: 6, attached: 1, population: 14054 },
 ].sort((a, b) => a.name.localeCompare(b.name))
 
-// Find suggested rivals based on similar population or nearby ranking
 function getSuggestedRivals(townName: string) {
   const town = towns.find(t => t.name === townName)
   if (!town) return []
   
-  // Sort by population similarity
   return towns
     .filter(t => t.name !== townName)
     .sort((a, b) => Math.abs(a.population - town.population) - Math.abs(b.population - town.population))
@@ -108,7 +106,6 @@ function StatCompare({
     <div className="py-4 border-b border-gray-700/50">
       <div className="text-center text-gray-400 text-sm mb-3">{label}</div>
       <div className="grid grid-cols-2 gap-4">
-        {/* Left side */}
         <div className="text-right">
           <div className={`text-lg font-bold mb-1 ${aWins ? 'text-emerald-400' : tie ? 'text-white' : 'text-gray-400'}`}>
             {formatValue(valueA)} {aWins && '✓'}
@@ -120,7 +117,6 @@ function StatCompare({
             />
           </div>
         </div>
-        {/* Right side */}
         <div className="text-left">
           <div className={`text-lg font-bold mb-1 ${bWins ? 'text-emerald-400' : tie ? 'text-white' : 'text-gray-400'}`}>
             {bWins && '✓'} {formatValue(valueB)}
@@ -144,7 +140,6 @@ export default function ComparePage() {
   const [townA, setTownA] = useState('Newton')
   const [townB, setTownB] = useState('Lexington')
 
-  // Load from URL params on mount
   useEffect(() => {
     const a = searchParams.get('a')
     const b = searchParams.get('b')
@@ -152,7 +147,6 @@ export default function ComparePage() {
     if (b && towns.find(t => t.name === b)) setTownB(b)
   }, [searchParams])
 
-  // Update URL when towns change
   const updateUrl = (a: string, b: string) => {
     router.push(`/compare?a=${encodeURIComponent(a)}&b=${encodeURIComponent(b)}`, { scroll: false })
   }
@@ -184,14 +178,12 @@ export default function ComparePage() {
   const perCapitaA = (dataA.approved / dataA.population) * 10000
   const perCapitaB = (dataB.approved / dataB.population) * 10000
 
-  // Get max values for progress bars
   const maxApproved = Math.max(dataA.approved, dataB.approved, 1)
   const maxSubmitted = Math.max(dataA.submitted, dataB.submitted, 1)
   const maxPerCapita = Math.max(perCapitaA, perCapitaB, 1)
   const maxDetached = Math.max(dataA.detached, dataB.detached, 1)
   const maxAttached = Math.max(dataA.attached, dataB.attached, 1)
 
-  // Count wins
   let winsA = 0
   let winsB = 0
   
@@ -205,7 +197,6 @@ export default function ComparePage() {
 
   return (
     <div className="min-h-screen bg-gray-900">
-      {/* Header */}
       <header className="border-b border-gray-800">
         <div className="max-w-4xl mx-auto px-4 py-3 md:py-4">
           <div className="flex items-center justify-between">
@@ -222,7 +213,6 @@ export default function ComparePage() {
         <h1 className="text-2xl md:text-3xl font-bold text-white text-center mb-2">Town vs Town</h1>
         <p className="text-gray-400 text-center mb-8">Compare ADU progress between Massachusetts towns</p>
 
-        {/* Town Selectors with Swap */}
         <div className="flex items-center gap-2 mb-8">
           <select
             value={townA}
@@ -253,7 +243,6 @@ export default function ComparePage() {
           </select>
         </div>
 
-        {/* Score Banner */}
         <div className="bg-gradient-to-r from-blue-900/40 to-purple-900/40 border border-blue-500/30 rounded-xl p-6 mb-6">
           <div className="grid grid-cols-3 items-center">
             <div className="text-center">
@@ -273,7 +262,6 @@ export default function ComparePage() {
           )}
         </div>
 
-        {/* Stats Comparison */}
         <div className="bg-gray-800 border border-gray-700 rounded-xl p-4 md:p-6">
           <StatCompare 
             label="Approved" 
@@ -315,7 +303,6 @@ export default function ComparePage() {
           />
         </div>
 
-        {/* Suggested Rivals */}
         <div className="mt-6">
           <p className="text-gray-400 text-sm mb-3">Challenge {townA} against:</p>
           <div className="flex flex-wrap gap-2">
@@ -331,7 +318,6 @@ export default function ComparePage() {
           </div>
         </div>
 
-        {/* Share CTA */}
         <div className="mt-8 text-center">
           <p className="text-gray-400 text-sm mb-3">Share this matchup</p>
           <div className="flex justify-center gap-3">
@@ -354,7 +340,6 @@ export default function ComparePage() {
           </div>
         </div>
 
-        {/* Link to Leaderboard */}
         <div className="mt-8 text-center">
           <Link href="/leaderboard" className="text-blue-400 hover:underline text-sm">
             View full leaderboard →
@@ -362,11 +347,10 @@ export default function ComparePage() {
         </div>
       </main>
 
-      {/* Footer */}
       <footer className="border-t border-gray-800 mt-12">
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 text-xs text-gray-500">
-            <div>Data: EOHLC Survey Feb 2026</div>
+            <div>Data: EOHLC Survey Feb 2026 · Population: Census 2024</div>
             <div className="flex gap-4">
               <Link href="/" className="hover:text-white">Home</Link>
               <Link href="/blog" className="hover:text-white">Blog</Link>

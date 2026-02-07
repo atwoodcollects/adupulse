@@ -1,8 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import TownMap from '@/components/TownMap'
 import TownNav from '@/components/TownNav'
+import TownMap from '@/components/TownMap'
 import { useState } from 'react'
 
 const towns = [
@@ -64,7 +64,6 @@ const towns = [
 
 const topTowns = [...towns].sort((a, b) => b.approved - a.approved).slice(0, 5)
 
-// Sample active challenges (in real app, this would come from storage)
 const activeChallenges = [
   { townA: 'Newton', townB: 'Brookline', end: '2026-05-31', daysLeft: 113 },
   { townA: 'Plymouth', townB: 'Marshfield', end: '2026-05-31', daysLeft: 113 },
@@ -90,7 +89,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-900">
-      {/* Header */}
       <header className="border-b border-gray-800">
         <div className="max-w-6xl mx-auto px-4 py-3 md:py-4">
           <div className="flex items-center justify-between">
@@ -107,9 +105,7 @@ export default function Home() {
         
         {/* Hero Stats */}
         <div className="text-center mb-8">
-          <h1 className="text-2xl md:text-4xl font-bold text-white mb-2">
-            Tracking MA's ADU Progress
-          </h1>
+          <h1 className="text-2xl md:text-4xl font-bold text-white mb-2">Tracking MA's ADU Progress</h1>
           <p className="text-gray-400 mb-6">Real permit data from 217 towns</p>
           
           <div className="grid grid-cols-3 gap-4 max-w-lg mx-auto mb-8">
@@ -127,108 +123,10 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Primary CTAs */}
           <div className="flex flex-wrap justify-center gap-3 mb-8">
-            <Link 
-              href="/town"
-              className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium"
-            >
-              Find Your Town
-            </Link>
-            <Link 
-              href="/leaderboard"
-              className="px-5 py-2.5 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium"
-            >
-              Leaderboard
-            </Link>
-            <Link 
-              href="/compare"
-              className="px-5 py-2.5 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium"
-            >
-              Compare Towns
-            </Link>
-          </div>
-        </div>
-
-        {/* Two Column: Challenges + Top Towns */}
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
-          
-          {/* Active Challenges */}
-          <div className="bg-gray-800 border border-gray-700 rounded-xl p-4 md:p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-bold text-white">🏆 Active Challenges</h2>
-              <div className="flex gap-3">
-                <Link href="/challenges" className="text-blue-400 text-sm hover:underline">All</Link>
-                <Link href="/challenge/new" className="text-blue-400 text-sm hover:underline">Create</Link>
-              </div>
-            </div>
-            {activeChallenges.length > 0 ? (
-              <div className="space-y-3">
-                {activeChallenges.map((c, i) => (
-                  <Link
-                    key={i}
-                    href={`/challenge?a=${c.townA}&b=${c.townB}&start=2026-03-01&end=${c.end}`}
-                    className="block bg-gray-900 rounded-lg p-3 hover:bg-gray-700/50 transition-colors"
-                  >
-                    <div className="flex justify-between items-center">
-                      <span className="text-white font-medium">{c.townA} vs {c.townB}</span>
-                      <span className="text-gray-400 text-sm">{c.daysLeft} days left</span>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            ) : (
-              <p className="text-gray-500 text-sm">No active challenges yet.</p>
-            )}
-            <Link 
-              href="/challenge/new"
-              className="block mt-4 text-center py-2 border border-dashed border-gray-600 rounded-lg text-gray-400 hover:text-white hover:border-gray-500 transition-colors text-sm"
-            >
-              + Issue a Challenge
-            </Link>
-          </div>
-
-          {/* Top Towns */}
-          <div className="bg-gray-800 border border-gray-700 rounded-xl p-4 md:p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-bold text-white">📊 Top Towns</h2>
-              <Link href="/leaderboard" className="text-blue-400 text-sm hover:underline">
-                Full list →
-              </Link>
-            </div>
-            <div className="space-y-2">
-              {topTowns.map((town, i) => (
-                <Link
-                  key={town.name}
-                  href={`/town/${encodeURIComponent(town.name)}`}
-                  className="flex items-center justify-between py-2 px-3 bg-gray-900 rounded-lg hover:bg-gray-700/50 transition-colors"
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="text-gray-500 w-6">#{i + 1}</span>
-                    <span className="text-white font-medium">{town.name}</span>
-                  </div>
-                  <span className="text-emerald-400 font-bold">{town.approved}</span>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Blog Preview */}
-        <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-500/20 rounded-xl p-4 md:p-6 mb-8">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <div className="text-blue-400 text-sm font-medium mb-1">Latest Analysis</div>
-              <h3 className="text-lg md:text-xl font-bold text-white mb-2">
-                What 1,224 ADU Permits Taught Me About Massachusetts Housing
-              </h3>
-              <p className="text-gray-400 text-sm mb-3 hidden md:block">
-                One year in: which towns are succeeding, which are stalling, and why the numbers tell a more complicated story.
-              </p>
-              <Link href="/blog/massachusetts-adu-year-one" className="text-blue-400 text-sm hover:underline">
-                Read the full analysis →
-              </Link>
-            </div>
+            <Link href="/town" className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium">Find Your Town</Link>
+            <Link href="/leaderboard" className="px-5 py-2.5 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium">Leaderboard</Link>
+            <Link href="/compare" className="px-5 py-2.5 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium">Compare Towns</Link>
           </div>
         </div>
 
@@ -236,28 +134,20 @@ export default function Home() {
         <div className="md:hidden flex mb-4">
           <button
             onClick={() => setMobileTab('towns')}
-            className={`flex-1 py-2 text-center font-medium transition-colors ${
-              mobileTab === 'towns' 
-                ? 'bg-blue-600 text-white rounded-t-lg' 
-                : 'bg-gray-800 text-gray-400'
-            }`}
+            className={`flex-1 py-2 text-center font-medium transition-colors ${mobileTab === 'towns' ? 'bg-blue-600 text-white rounded-t-lg' : 'bg-gray-800 text-gray-400'}`}
           >
             📋 Towns
           </button>
           <button
             onClick={() => setMobileTab('map')}
-            className={`flex-1 py-2 text-center font-medium transition-colors ${
-              mobileTab === 'map' 
-                ? 'bg-blue-600 text-white rounded-t-lg' 
-                : 'bg-gray-800 text-gray-400'
-            }`}
+            className={`flex-1 py-2 text-center font-medium transition-colors ${mobileTab === 'map' ? 'bg-blue-600 text-white rounded-t-lg' : 'bg-gray-800 text-gray-400'}`}
           >
             🗺️ Map
           </button>
         </div>
 
-        {/* Desktop: Side by side / Mobile: Tabs */}
-        <div className="grid md:grid-cols-2 gap-6">
+        {/* Towns + Map Grid */}
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
           
           {/* Town List */}
           <div className={`${mobileTab === 'towns' ? 'block' : 'hidden'} md:block`}>
@@ -268,9 +158,7 @@ export default function Home() {
                   <button
                     key={key}
                     onClick={() => setSortBy(key)}
-                    className={`px-2 py-1 text-xs rounded-full ${
-                      sortBy === key ? 'bg-blue-600 text-white' : 'bg-gray-800 text-gray-400'
-                    }`}
+                    className={`px-2 py-1 text-xs rounded-full ${sortBy === key ? 'bg-blue-600 text-white' : 'bg-gray-800 text-gray-400'}`}
                   >
                     {key === 'volume' && 'Volume'}
                     {key === 'rate' && 'Rate'}
@@ -303,50 +191,95 @@ export default function Home() {
                 )
               })}
             </div>
-            <p className="text-gray-500 text-xs mt-2">
-              <span className="text-blue-400">●</span> = Detailed permit data available
-            </p>
+            <p className="text-gray-500 text-xs mt-2"><span className="text-blue-400">●</span> = Detailed permit data available</p>
           </div>
 
           {/* Map */}
           <div className={`${mobileTab === 'map' ? 'block' : 'hidden'} md:block`}>
             <h2 className="text-lg font-bold text-white mb-3">Map</h2>
-            <div className="bg-gray-800 border border-gray-700 rounded-xl overflow-hidden">
-              <iframe 
-                src="/statewide"
-                className="w-full h-[500px] border-0"
-                title="Massachusetts ADU Map"
-              />
+            <TownMap />
+          </div>
+        </div>
+
+        {/* Challenges + Top Towns */}
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          
+          <div className="bg-gray-800 border border-gray-700 rounded-xl p-4 md:p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-bold text-white">🏆 Active Challenges</h2>
+              <div className="flex gap-3">
+                <Link href="/challenges" className="text-blue-400 text-sm hover:underline">All</Link>
+                <Link href="/challenge/new" className="text-blue-400 text-sm hover:underline">Create</Link>
+              </div>
+            </div>
+            <div className="space-y-3">
+              {activeChallenges.map((c, i) => (
+                <Link
+                  key={i}
+                  href={`/challenge?a=${c.townA}&b=${c.townB}&start=2026-03-01&end=${c.end}`}
+                  className="block bg-gray-900 rounded-lg p-3 hover:bg-gray-700/50 transition-colors"
+                >
+                  <div className="flex justify-between items-center">
+                    <span className="text-white font-medium">{c.townA} vs {c.townB}</span>
+                    <span className="text-gray-400 text-sm">{c.daysLeft} days left</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            <Link href="/challenge/new" className="block mt-4 text-center py-2 border border-dashed border-gray-600 rounded-lg text-gray-400 hover:text-white hover:border-gray-500 transition-colors text-sm">
+              + Issue a Challenge
+            </Link>
+          </div>
+
+          <div className="bg-gray-800 border border-gray-700 rounded-xl p-4 md:p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-bold text-white">📊 Top Towns</h2>
+              <Link href="/leaderboard" className="text-blue-400 text-sm hover:underline">Full list →</Link>
+            </div>
+            <div className="space-y-2">
+              {topTowns.map((town, i) => (
+                <Link
+                  key={town.name}
+                  href={`/town/${encodeURIComponent(town.name)}`}
+                  className="flex items-center justify-between py-2 px-3 bg-gray-900 rounded-lg hover:bg-gray-700/50 transition-colors"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-gray-500 w-6">#{i + 1}</span>
+                    <span className="text-white font-medium">{town.name}</span>
+                  </div>
+                  <span className="text-emerald-400 font-bold">{town.approved}</span>
+                </Link>
+              ))}
             </div>
           </div>
         </div>
 
+        {/* Blog Preview */}
+        <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-500/20 rounded-xl p-4 md:p-6 mb-8">
+          <div className="text-blue-400 text-sm font-medium mb-1">Latest Analysis</div>
+          <h3 className="text-lg md:text-xl font-bold text-white mb-2">What 1,224 ADU Permits Taught Me About Massachusetts Housing</h3>
+          <p className="text-gray-400 text-sm mb-3 hidden md:block">One year in: which towns are succeeding, which are stalling, and why the numbers tell a more complicated story.</p>
+          <Link href="/blog/massachusetts-adu-year-one" className="text-blue-400 text-sm hover:underline">Read the full analysis →</Link>
+        </div>
+
         {/* Cost Estimator CTA */}
-        <div className="mt-8 bg-gray-800 border border-gray-700 rounded-xl p-4 md:p-6">
+        <div className="bg-gray-800 border border-gray-700 rounded-xl p-4 md:p-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
               <h3 className="text-lg font-bold text-white">💰 Planning an ADU?</h3>
               <p className="text-gray-400 text-sm">Get a rough cost estimate based on real permit data.</p>
             </div>
-            <Link 
-              href="/estimate"
-              className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-medium text-center"
-            >
-              Cost Estimator →
-            </Link>
+            <Link href="/estimate" className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-medium text-center">Cost Estimator →</Link>
           </div>
         </div>
       </main>
 
-      {/* Footer */}
       <footer className="border-t border-gray-800 mt-12">
         <div className="max-w-6xl mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-sm text-gray-500">
             <div>
               <p>Data: EOHLC Survey Feb 2026 · Population: Census 2024</p>
-              <p className="text-xs mt-1">
-                <span className="text-blue-400">●</span> Blue towns have detailed permit data scraped directly from town portals.
-              </p>
+              <p className="text-xs mt-1"><span className="text-blue-400">●</span> Blue towns have detailed permit data scraped directly from town portals.</p>
             </div>
             <div className="flex gap-6">
               <Link href="/blog" className="hover:text-white">Blog</Link>

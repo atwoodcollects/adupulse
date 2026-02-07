@@ -2,7 +2,8 @@
 
 import Link from 'next/link'
 import TownNav from '@/components/TownNav'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useSearchParams, useRouter } from 'next/navigation'
 
 const towns = [
   { name: 'Boston', submitted: 69, approved: 44, detached: 11, attached: 58, population: 675647 },
@@ -49,18 +50,42 @@ const towns = [
   { name: 'Duxbury', submitted: 3, approved: 2, detached: 3, attached: 0, population: 16090 },
   { name: 'Sudbury', submitted: 3, approved: 3, detached: 2, attached: 1, population: 19655 },
   { name: 'Andover', submitted: 10, approved: 9, detached: 3, attached: 7, population: 36480 },
+  { name: 'Arlington', submitted: 7, approved: 6, detached: 3, attached: 4, population: 46308 },
+  { name: 'Cambridge', submitted: 8, approved: 6, detached: 4, attached: 4, population: 118403 },
+  { name: 'Framingham', submitted: 8, approved: 6, detached: 2, attached: 6, population: 72362 },
+  { name: 'Malden', submitted: 8, approved: 5, detached: 3, attached: 5, population: 66263 },
+  { name: 'Salem', submitted: 9, approved: 9, detached: 2, attached: 7, population: 44480 },
+  { name: 'Chelmsford', submitted: 7, approved: 7, detached: 3, attached: 4, population: 35939 },
+  { name: 'Danvers', submitted: 9, approved: 2, detached: 3, attached: 6, population: 28549 },
+  { name: 'Gardner', submitted: 7, approved: 0, detached: 2, attached: 5, population: 21557 },
+  { name: 'Everett', submitted: 7, approved: 2, detached: 3, attached: 4, population: 49075 },
+  { name: 'Wayland', submitted: 7, approved: 2, detached: 6, attached: 1, population: 13835 },
 ].sort((a, b) => a.name.localeCompare(b.name))
+
+// Find suggested rivals based on similar population or nearby ranking
+function getSuggestedRivals(townName: string) {
+  const town = towns.find(t => t.name === townName)
+  if (!town) return []
+  
+  // Sort by population similarity
+  return towns
+    .filter(t => t.name !== townName)
+    .sort((a, b) => Math.abs(a.population - town.population) - Math.abs(b.population - town.population))
+    .slice(0, 3)
+}
 
 function StatCompare({ 
   label, 
   valueA, 
   valueB, 
+  maxValue,
   format = 'number',
   higherWins = true 
 }: { 
   label: string
   valueA: number
   valueB: number
+  maxValue: number
   format?: 'number' | 'percent' | 'perCapita'
   higherWins?: boolean
 }) {
@@ -74,22 +99,79 @@ function StatCompare({
     return val.toLocaleString()
   }
 
+  const getBarWidth = (val: number) => {
+    if (format === 'percent') return Math.min(val * 100, 100)
+    return maxValue > 0 ? (val / maxValue) * 100 : 0
+  }
+
   return (
-    <div className="grid grid-cols-3 items-center py-3 border-b border-gray-700/50">
-      <div className={`text-right text-lg font-bold ${aWins ? 'text-emerald-400' : tie ? 'text-white' : 'text-gray-400'}`}>
-        {formatValue(valueA)} {aWins && '✓'}
-      </div>
-      <div className="text-center text-gray-500 text-sm">{label}</div>
-      <div className={`text-left text-lg font-bold ${bWins ? 'text-emerald-400' : tie ? 'text-white' : 'text-gray-400'}`}>
-        {bWins && '✓'} {formatValue(valueB)}
+    <div className="py-4 border-b border-gray-700/50">
+      <div className="text-center text-gray-400 text-sm mb-3">{label}</div>
+      <div className="grid grid-cols-2 gap-4">
+        {/* Left side */}
+        <div className="text-right">
+          <div className={`text-lg font-bold mb-1 ${aWins ? 'text-emerald-400' : tie ? 'text-white' : 'text-gray-400'}`}>
+            {formatValue(valueA)} {aWins && '✓'}
+          </div>
+          <div className="h-2 bg-gray-700 rounded-full overflow-hidden flex justify-end">
+            <div 
+              className={`h-full rounded-full transition-all duration-500 ${aWins ? 'bg-emerald-500' : 'bg-gray-500'}`}
+              style={{ width: `${getBarWidth(valueA)}%` }}
+            />
+          </div>
+        </div>
+        {/* Right side */}
+        <div className="text-left">
+          <div className={`text-lg font-bold mb-1 ${bWins ? 'text-emerald-400' : tie ? 'text-white' : 'text-gray-400'}`}>
+            {bWins && '✓'} {formatValue(valueB)}
+          </div>
+          <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
+            <div 
+              className={`h-full rounded-full transition-all duration-500 ${bWins ? 'bg-emerald-500' : 'bg-gray-500'}`}
+              style={{ width: `${getBarWidth(valueB)}%` }}
+            />
+          </div>
+        </div>
       </div>
     </div>
   )
 }
 
 export default function ComparePage() {
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  
   const [townA, setTownA] = useState('Newton')
   const [townB, setTownB] = useState('Lexington')
+
+  // Load from URL params on mount
+  useEffect(() => {
+    const a = searchParams.get('a')
+    const b = searchParams.get('b')
+    if (a && towns.find(t => t.name === a)) setTownA(a)
+    if (b && towns.find(t => t.name === b)) setTownB(b)
+  }, [searchParams])
+
+  // Update URL when towns change
+  const updateUrl = (a: string, b: string) => {
+    router.push(`/compare?a=${encodeURIComponent(a)}&b=${encodeURIComponent(b)}`, { scroll: false })
+  }
+
+  const handleTownAChange = (name: string) => {
+    setTownA(name)
+    updateUrl(name, townB)
+  }
+
+  const handleTownBChange = (name: string) => {
+    setTownB(name)
+    updateUrl(townA, name)
+  }
+
+  const swapTowns = () => {
+    setTownA(townB)
+    setTownB(townA)
+    updateUrl(townB, townA)
+  }
 
   const dataA = towns.find(t => t.name === townA)
   const dataB = towns.find(t => t.name === townB)
@@ -102,6 +184,13 @@ export default function ComparePage() {
   const perCapitaA = (dataA.approved / dataA.population) * 10000
   const perCapitaB = (dataB.approved / dataB.population) * 10000
 
+  // Get max values for progress bars
+  const maxApproved = Math.max(dataA.approved, dataB.approved, 1)
+  const maxSubmitted = Math.max(dataA.submitted, dataB.submitted, 1)
+  const maxPerCapita = Math.max(perCapitaA, perCapitaB, 1)
+  const maxDetached = Math.max(dataA.detached, dataB.detached, 1)
+  const maxAttached = Math.max(dataA.attached, dataB.attached, 1)
+
   // Count wins
   let winsA = 0
   let winsB = 0
@@ -110,6 +199,9 @@ export default function ComparePage() {
   if (rateA > rateB) winsA++; else if (rateB > rateA) winsB++;
   if (perCapitaA > perCapitaB) winsA++; else if (perCapitaB > perCapitaA) winsB++;
   if (dataA.submitted > dataB.submitted) winsA++; else if (dataB.submitted > dataA.submitted) winsB++;
+
+  const suggestedRivals = getSuggestedRivals(townA)
+  const shareUrl = `https://adupulse.com/compare?a=${encodeURIComponent(townA)}&b=${encodeURIComponent(townB)}`
 
   return (
     <div className="min-h-screen bg-gray-900">
@@ -130,21 +222,30 @@ export default function ComparePage() {
         <h1 className="text-2xl md:text-3xl font-bold text-white text-center mb-2">Town vs Town</h1>
         <p className="text-gray-400 text-center mb-8">Compare ADU progress between Massachusetts towns</p>
 
-        {/* Town Selectors */}
-        <div className="grid grid-cols-2 gap-4 mb-8">
+        {/* Town Selectors with Swap */}
+        <div className="flex items-center gap-2 mb-8">
           <select
             value={townA}
-            onChange={(e) => setTownA(e.target.value)}
-            className="bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-3 text-lg font-medium focus:outline-none focus:border-blue-500"
+            onChange={(e) => handleTownAChange(e.target.value)}
+            className="flex-1 bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-3 text-lg font-medium focus:outline-none focus:border-blue-500"
           >
             {towns.map(t => (
               <option key={t.name} value={t.name}>{t.name}</option>
             ))}
           </select>
+          
+          <button
+            onClick={swapTowns}
+            className="p-3 bg-gray-700 hover:bg-gray-600 rounded-lg text-white transition-colors"
+            title="Swap towns"
+          >
+            ⇄
+          </button>
+          
           <select
             value={townB}
-            onChange={(e) => setTownB(e.target.value)}
-            className="bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-3 text-lg font-medium focus:outline-none focus:border-blue-500"
+            onChange={(e) => handleTownBChange(e.target.value)}
+            className="flex-1 bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-3 text-lg font-medium focus:outline-none focus:border-blue-500"
           >
             {towns.map(t => (
               <option key={t.name} value={t.name}>{t.name}</option>
@@ -177,35 +278,57 @@ export default function ComparePage() {
           <StatCompare 
             label="Approved" 
             valueA={dataA.approved} 
-            valueB={dataB.approved} 
+            valueB={dataB.approved}
+            maxValue={maxApproved}
           />
           <StatCompare 
             label="Approval Rate" 
             valueA={rateA} 
-            valueB={rateB} 
+            valueB={rateB}
+            maxValue={1}
             format="percent"
           />
           <StatCompare 
             label="Per 10k Residents" 
             valueA={perCapitaA} 
-            valueB={perCapitaB} 
+            valueB={perCapitaB}
+            maxValue={maxPerCapita}
             format="perCapita"
           />
           <StatCompare 
             label="Submitted" 
             valueA={dataA.submitted} 
-            valueB={dataB.submitted} 
+            valueB={dataB.submitted}
+            maxValue={maxSubmitted}
           />
           <StatCompare 
             label="Detached" 
             valueA={dataA.detached} 
-            valueB={dataB.detached} 
+            valueB={dataB.detached}
+            maxValue={maxDetached}
           />
           <StatCompare 
             label="Attached" 
             valueA={dataA.attached} 
-            valueB={dataB.attached} 
+            valueB={dataB.attached}
+            maxValue={maxAttached}
           />
+        </div>
+
+        {/* Suggested Rivals */}
+        <div className="mt-6">
+          <p className="text-gray-400 text-sm mb-3">Challenge {townA} against:</p>
+          <div className="flex flex-wrap gap-2">
+            {suggestedRivals.map(rival => (
+              <button
+                key={rival.name}
+                onClick={() => handleTownBChange(rival.name)}
+                className="px-3 py-1.5 bg-gray-800 hover:bg-gray-700 border border-gray-700 text-gray-300 rounded-full text-sm transition-colors"
+              >
+                {rival.name}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Share CTA */}
@@ -213,7 +336,7 @@ export default function ComparePage() {
           <p className="text-gray-400 text-sm mb-3">Share this matchup</p>
           <div className="flex justify-center gap-3">
             <a 
-              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${townA} vs ${townB} in the ADU race:\n\n${townA}: ${dataA.approved} approved (${Math.round(rateA * 100)}%)\n${townB}: ${dataB.approved} approved (${Math.round(rateB * 100)}%)\n\nWho's winning in your town?`)}&url=${encodeURIComponent('https://adupulse.com/compare')}`}
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${townA} vs ${townB} in the MA ADU race:\n\n${townA}: ${dataA.approved} approved (${Math.round(rateA * 100)}%)\n${townB}: ${dataB.approved} approved (${Math.round(rateB * 100)}%)\n\nHow's your town doing?`)}&url=${encodeURIComponent(shareUrl)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm font-medium"
@@ -222,7 +345,7 @@ export default function ComparePage() {
             </a>
             <button
               onClick={() => {
-                navigator.clipboard.writeText(`${townA} vs ${townB} ADU comparison: adupulse.com/compare`)
+                navigator.clipboard.writeText(shareUrl)
               }}
               className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm font-medium"
             >
@@ -231,6 +354,12 @@ export default function ComparePage() {
           </div>
         </div>
 
+        {/* Link to Leaderboard */}
+        <div className="mt-8 text-center">
+          <Link href="/leaderboard" className="text-blue-400 hover:underline text-sm">
+            View full leaderboard →
+          </Link>
+        </div>
       </main>
 
       {/* Footer */}

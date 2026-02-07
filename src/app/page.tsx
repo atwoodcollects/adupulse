@@ -101,6 +101,15 @@ export default function Home() {
         </div>
       </header>
 
+      {/* Club Banner */}
+      <Link href="/club" className="block bg-gradient-to-r from-emerald-900/40 to-blue-900/40 border-b border-emerald-500/20 hover:from-emerald-900/60 hover:to-blue-900/60 transition-colors">
+        <div className="max-w-6xl mx-auto px-4 py-2.5 flex items-center justify-center gap-2 text-sm">
+          <span className="bg-emerald-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">NEW</span>
+          <span className="text-gray-300">Join your town&apos;s ADU group — save 15-20% with group builder rates</span>
+          <span className="text-emerald-400">→</span>
+        </div>
+      </Link>
+
       <main className="max-w-6xl mx-auto px-4 py-6 md:py-8">
         
         {/* Hero Stats */}

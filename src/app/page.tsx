@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import TownMap from '@/components/TownMap'
 import TownNav from '@/components/TownNav'
 import { useState } from 'react'
 

@@ -10,62 +10,91 @@ interface TownData {
   approved: number
   region: string
   hasDetail: boolean
-  sfParcels?: number
-  medianReviewDays?: number
-  varianceRate?: number
-  avgValue?: number
 }
 
 const towns: TownData[] = [
-  { name: 'Boston', submitted: 69, approved: 44, region: 'Metro Boston', hasDetail: true, sfParcels: 48200, medianReviewDays: 52, varianceRate: 12, avgValue: 285000 },
-  { name: 'Lawrence', submitted: 44, approved: 32, region: 'Merrimack Valley', hasDetail: false, sfParcels: 7100, medianReviewDays: 38, varianceRate: 5, avgValue: 195000 },
-  { name: 'Plymouth', submitted: 42, approved: 34, region: 'South Shore', hasDetail: true, sfParcels: 22800, medianReviewDays: 41, varianceRate: 8, avgValue: 245000 },
-  { name: 'Newton', submitted: 40, approved: 18, region: 'Metro Boston', hasDetail: true, sfParcels: 23500, medianReviewDays: 68, varianceRate: 22, avgValue: 340000 },
-  { name: 'Somerville', submitted: 40, approved: 24, region: 'Metro Boston', hasDetail: false, sfParcels: 8900, medianReviewDays: 45, varianceRate: 15, avgValue: 275000 },
-  { name: 'Barnstable', submitted: 31, approved: 6, region: 'Cape Cod', hasDetail: false, sfParcels: 18500, medianReviewDays: 78, varianceRate: 35, avgValue: 265000 },
-  { name: 'Worcester', submitted: 31, approved: 23, region: 'Central MA', hasDetail: false, sfParcels: 32600, medianReviewDays: 44, varianceRate: 9, avgValue: 210000 },
-  { name: 'Haverhill', submitted: 29, approved: 13, region: 'Merrimack Valley', hasDetail: false, sfParcels: 15200, medianReviewDays: 55, varianceRate: 18, avgValue: 225000 },
-  { name: 'Methuen', submitted: 28, approved: 21, region: 'Merrimack Valley', hasDetail: false, sfParcels: 12800, medianReviewDays: 35, varianceRate: 6, avgValue: 215000 },
-  { name: 'Nantucket', submitted: 27, approved: 27, region: 'Islands', hasDetail: false, sfParcels: 5200, medianReviewDays: 32, varianceRate: 0, avgValue: 420000 },
-  { name: 'Lowell', submitted: 26, approved: 26, region: 'Merrimack Valley', hasDetail: false, sfParcels: 14100, medianReviewDays: 28, varianceRate: 0, avgValue: 190000 },
-  { name: 'Fall River', submitted: 25, approved: 13, region: 'South Coast', hasDetail: false, sfParcels: 16400, medianReviewDays: 62, varianceRate: 20, avgValue: 175000 },
-  { name: 'Milton', submitted: 25, approved: 24, region: 'Metro Boston', hasDetail: true, sfParcels: 8600, medianReviewDays: 36, varianceRate: 4, avgValue: 310000 },
-  { name: 'Marshfield', submitted: 24, approved: 11, region: 'South Shore', hasDetail: false, sfParcels: 10200, medianReviewDays: 58, varianceRate: 25, avgValue: 255000 },
-  { name: 'Amherst', submitted: 23, approved: 12, region: 'Pioneer Valley', hasDetail: false, sfParcels: 6800, medianReviewDays: 50, varianceRate: 15, avgValue: 235000 },
-  { name: 'Lexington', submitted: 6, approved: 6, region: 'Metro Boston', hasDetail: true, sfParcels: 10500, medianReviewDays: 42, varianceRate: 0, avgValue: 365000 },
-  { name: 'Needham', submitted: 4, approved: 4, region: 'Metro Boston', hasDetail: true, sfParcels: 9800, medianReviewDays: 39, varianceRate: 0, avgValue: 355000 },
-  { name: 'Andover', submitted: 10, approved: 9, region: 'Merrimack Valley', hasDetail: true, sfParcels: 11200, medianReviewDays: 40, varianceRate: 5, avgValue: 295000 },
-  { name: 'Falmouth', submitted: 12, approved: 12, region: 'Cape Cod', hasDetail: true, sfParcels: 14600, medianReviewDays: 34, varianceRate: 0, avgValue: 275000 },
-  { name: 'Duxbury', submitted: 3, approved: 2, region: 'South Shore', hasDetail: true, sfParcels: 5400, medianReviewDays: 48, varianceRate: 10, avgValue: 325000 },
-  { name: 'Sudbury', submitted: 3, approved: 3, region: 'Metro Boston', hasDetail: true, sfParcels: 6100, medianReviewDays: 38, varianceRate: 0, avgValue: 350000 },
-  { name: 'Revere', submitted: 17, approved: 9, region: 'Metro Boston', hasDetail: true, sfParcels: 7800, medianReviewDays: 55, varianceRate: 18, avgValue: 235000 },
+  { name: 'Boston', submitted: 69, approved: 44, region: 'Metro Boston', hasDetail: true },
+  { name: 'Lawrence', submitted: 44, approved: 32, region: 'Merrimack Valley', hasDetail: false },
+  { name: 'Plymouth', submitted: 42, approved: 34, region: 'South Shore', hasDetail: true },
+  { name: 'Newton', submitted: 40, approved: 18, region: 'Metro Boston', hasDetail: true },
+  { name: 'Somerville', submitted: 40, approved: 24, region: 'Metro Boston', hasDetail: false },
+  { name: 'Barnstable', submitted: 31, approved: 6, region: 'Cape Cod', hasDetail: false },
+  { name: 'Worcester', submitted: 31, approved: 23, region: 'Central MA', hasDetail: false },
+  { name: 'Haverhill', submitted: 29, approved: 13, region: 'Merrimack Valley', hasDetail: false },
+  { name: 'Methuen', submitted: 28, approved: 21, region: 'Merrimack Valley', hasDetail: false },
+  { name: 'Nantucket', submitted: 27, approved: 27, region: 'Islands', hasDetail: false },
+  { name: 'Lowell', submitted: 26, approved: 26, region: 'Merrimack Valley', hasDetail: false },
+  { name: 'Fall River', submitted: 25, approved: 13, region: 'South Coast', hasDetail: false },
+  { name: 'Milton', submitted: 25, approved: 24, region: 'Metro Boston', hasDetail: true },
+  { name: 'Marshfield', submitted: 24, approved: 11, region: 'South Shore', hasDetail: false },
+  { name: 'Amherst', submitted: 23, approved: 12, region: 'Pioneer Valley', hasDetail: false },
+  { name: 'Lynn', submitted: 22, approved: 9, region: 'North Shore', hasDetail: false },
+  { name: 'Medford', submitted: 22, approved: 19, region: 'Metro Boston', hasDetail: false },
+  { name: 'Northampton', submitted: 20, approved: 15, region: 'Pioneer Valley', hasDetail: false },
+  { name: 'Billerica', submitted: 18, approved: 13, region: 'Merrimack Valley', hasDetail: false },
+  { name: 'Fairhaven', submitted: 18, approved: 18, region: 'South Coast', hasDetail: false },
+  { name: 'Middleborough', submitted: 18, approved: 18, region: 'South Shore', hasDetail: false },
+  { name: 'Raynham', submitted: 18, approved: 18, region: 'South Shore', hasDetail: false },
+  { name: 'Freetown', submitted: 17, approved: 13, region: 'South Coast', hasDetail: false },
+  { name: 'Quincy', submitted: 17, approved: 6, region: 'Metro Boston', hasDetail: false },
+  { name: 'Revere', submitted: 17, approved: 9, region: 'Metro Boston', hasDetail: true },
+  { name: 'Brockton', submitted: 16, approved: 5, region: 'South Shore', hasDetail: false },
+  { name: 'Shrewsbury', submitted: 16, approved: 9, region: 'Central MA', hasDetail: false },
+  { name: 'Attleboro', submitted: 15, approved: 10, region: 'South Coast', hasDetail: false },
+  { name: 'Harwich', submitted: 15, approved: 15, region: 'Cape Cod', hasDetail: false },
+  { name: 'Tisbury', submitted: 15, approved: 14, region: 'Islands', hasDetail: false },
+  { name: 'Brookline', submitted: 14, approved: 10, region: 'Metro Boston', hasDetail: false },
+  { name: 'Taunton', submitted: 14, approved: 7, region: 'South Coast', hasDetail: false },
+  { name: 'Westport', submitted: 14, approved: 14, region: 'South Coast', hasDetail: false },
+  { name: 'Beverly', submitted: 12, approved: 12, region: 'North Shore', hasDetail: false },
+  { name: 'Dracut', submitted: 12, approved: 10, region: 'Merrimack Valley', hasDetail: false },
+  { name: 'Falmouth', submitted: 12, approved: 12, region: 'Cape Cod', hasDetail: true },
+  { name: 'Ipswich', submitted: 12, approved: 9, region: 'North Shore', hasDetail: false },
+  { name: 'Peabody', submitted: 12, approved: 7, region: 'North Shore', hasDetail: false },
+  { name: 'Randolph', submitted: 12, approved: 5, region: 'Metro Boston', hasDetail: false },
+  { name: 'Lexington', submitted: 6, approved: 6, region: 'Metro Boston', hasDetail: true },
+  { name: 'Needham', submitted: 4, approved: 4, region: 'Metro Boston', hasDetail: true },
+  { name: 'Duxbury', submitted: 3, approved: 2, region: 'South Shore', hasDetail: true },
+  { name: 'Sudbury', submitted: 3, approved: 3, region: 'Metro Boston', hasDetail: true },
+  { name: 'Andover', submitted: 10, approved: 9, region: 'Merrimack Valley', hasDetail: true },
+  { name: 'Arlington', submitted: 7, approved: 6, region: 'Metro Boston', hasDetail: false },
+  { name: 'Cambridge', submitted: 8, approved: 6, region: 'Metro Boston', hasDetail: false },
+  { name: 'Framingham', submitted: 8, approved: 6, region: 'Metro Boston', hasDetail: false },
+  { name: 'Malden', submitted: 8, approved: 5, region: 'Metro Boston', hasDetail: false },
+  { name: 'Salem', submitted: 9, approved: 9, region: 'North Shore', hasDetail: false },
+  { name: 'Chelmsford', submitted: 7, approved: 7, region: 'Merrimack Valley', hasDetail: false },
+  { name: 'Danvers', submitted: 9, approved: 2, region: 'North Shore', hasDetail: false },
+  { name: 'Gardner', submitted: 7, approved: 0, region: 'Central MA', hasDetail: false },
+  { name: 'Everett', submitted: 7, approved: 2, region: 'Metro Boston', hasDetail: false },
+  { name: 'Wayland', submitted: 7, approved: 2, region: 'Metro Boston', hasDetail: false },
 ]
 
-function getGrade(rate: number, reviewDays: number, varianceRate: number): { letter: string, color: string } {
-  let score = 0
-  if (rate >= 80) score += 3; else if (rate >= 60) score += 2; else if (rate >= 40) score += 1
-  if (reviewDays <= 35) score += 3; else if (reviewDays <= 50) score += 2; else if (reviewDays <= 65) score += 1
-  if (varianceRate <= 5) score += 3; else if (varianceRate <= 15) score += 2; else if (varianceRate <= 25) score += 1
-
-  if (score >= 8) return { letter: 'A', color: 'text-emerald-400' }
-  if (score >= 6) return { letter: 'B', color: 'text-blue-400' }
-  if (score >= 4) return { letter: 'C', color: 'text-yellow-400' }
-  return { letter: 'D', color: 'text-red-400' }
+function getRateColor(rate: number): string {
+  if (rate >= 80) return 'text-emerald-400'
+  if (rate >= 60) return 'text-blue-400'
+  if (rate >= 40) return 'text-yellow-400'
+  return 'text-red-400'
 }
 
-type SortKey = 'grade' | 'rate' | 'speed' | 'density' | 'alpha'
+function getRateLabel(rate: number): string {
+  if (rate >= 80) return 'High'
+  if (rate >= 60) return 'Moderate'
+  if (rate >= 40) return 'Low'
+  return 'Very Low'
+}
+
+type SortKey = 'rate' | 'volume' | 'approved' | 'alpha'
 
 export default function ScorecardsPage() {
-  const [sortBy, setSortBy] = useState<SortKey>('grade')
+  const [sortBy, setSortBy] = useState<SortKey>('rate')
   const [regionFilter, setRegionFilter] = useState('')
 
   const regions = Array.from(new Set(towns.map(t => t.region))).sort()
 
   const enriched = towns.map(t => {
     const rate = t.submitted > 0 ? Math.round((t.approved / t.submitted) * 100) : 0
-    const per1k = t.sfParcels ? ((t.approved / t.sfParcels) * 1000).toFixed(1) : '—'
-    const grade = getGrade(rate, t.medianReviewDays || 60, t.varianceRate || 20)
-    return { ...t, rate, per1k, grade }
+    const pending = t.submitted - t.approved
+    return { ...t, rate, pending }
   })
 
   const filtered = regionFilter ? enriched.filter(t => t.region === regionFilter) : enriched
@@ -73,11 +102,9 @@ export default function ScorecardsPage() {
   const sorted = [...filtered].sort((a, b) => {
     if (sortBy === 'alpha') return a.name.localeCompare(b.name)
     if (sortBy === 'rate') return b.rate - a.rate
-    if (sortBy === 'speed') return (a.medianReviewDays || 99) - (b.medianReviewDays || 99)
-    if (sortBy === 'density') return parseFloat(String(b.per1k)) - parseFloat(String(a.per1k))
-    // grade
-    const gradeOrder: Record<string, number> = { A: 4, B: 3, C: 2, D: 1 }
-    return (gradeOrder[b.grade.letter] || 0) - (gradeOrder[a.grade.letter] || 0)
+    if (sortBy === 'volume') return b.submitted - a.submitted
+    if (sortBy === 'approved') return b.approved - a.approved
+    return 0
   })
 
   return (
@@ -98,24 +125,22 @@ export default function ScorecardsPage() {
         <div className="text-center mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">Town Scorecards</h1>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            How ADU-friendly is your town? We grade each town on approval rate, review speed, and
-            whether you&apos;ll need a variance.
+            How is your town handling ADU permits? Compare approval rates, volume, and pending applications across Massachusetts.
           </p>
         </div>
 
         {/* Filters */}
         <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
           <div className="flex gap-2 flex-wrap">
-            {(['grade', 'rate', 'speed', 'density', 'alpha'] as const).map(key => (
+            {(['rate', 'volume', 'approved', 'alpha'] as const).map(key => (
               <button
                 key={key}
                 onClick={() => setSortBy(key)}
                 className={`px-3 py-1.5 text-xs rounded-full ${sortBy === key ? 'bg-blue-600 text-white' : 'bg-gray-800 text-gray-400 hover:text-white'}`}
               >
-                {key === 'grade' && 'Overall Grade'}
                 {key === 'rate' && 'Approval Rate'}
-                {key === 'speed' && 'Fastest Review'}
-                {key === 'density' && 'Per 1K Parcels'}
+                {key === 'volume' && 'Most Submitted'}
+                {key === 'approved' && 'Most Approved'}
                 {key === 'alpha' && 'A-Z'}
               </button>
             ))}
@@ -134,10 +159,10 @@ export default function ScorecardsPage() {
 
         {/* Legend */}
         <div className="flex flex-wrap gap-4 mb-6 text-xs text-gray-500">
-          <span><span className="text-emerald-400 font-bold">A</span> = ADU-friendly</span>
-          <span><span className="text-blue-400 font-bold">B</span> = Mostly smooth</span>
-          <span><span className="text-yellow-400 font-bold">C</span> = Some friction</span>
-          <span><span className="text-red-400 font-bold">D</span> = Significant barriers</span>
+          <span><span className="text-emerald-400 font-bold">80%+</span> = High approval</span>
+          <span><span className="text-blue-400 font-bold">60-79%</span> = Moderate</span>
+          <span><span className="text-yellow-400 font-bold">40-59%</span> = Low</span>
+          <span><span className="text-red-400 font-bold">&lt;40%</span> = Very low</span>
         </div>
 
         {/* Scorecard grid */}
@@ -155,36 +180,30 @@ export default function ScorecardsPage() {
                     <h3 className="text-white font-bold text-lg group-hover:text-blue-400 transition-colors">{town.name}</h3>
                     <span className="text-gray-500 text-xs">{town.region}</span>
                   </div>
-                  <div className={`text-3xl font-black ${town.grade.color}`}>{town.grade.letter}</div>
+                  <div className={`text-3xl font-black ${getRateColor(town.rate)}`}>{town.rate}%</div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3 text-sm">
+                <div className="grid grid-cols-3 gap-3 text-sm">
                   <div>
-                    <div className="text-gray-500 text-xs">Approval Rate</div>
-                    <div className="text-white font-medium">{town.rate}%</div>
+                    <div className="text-gray-500 text-xs">Submitted</div>
+                    <div className="text-white font-medium">{town.submitted}</div>
                   </div>
                   <div>
-                    <div className="text-gray-500 text-xs">Median Review</div>
-                    <div className="text-white font-medium">{town.medianReviewDays || '—'} days</div>
+                    <div className="text-gray-500 text-xs">Approved</div>
+                    <div className="text-emerald-400 font-medium">{town.approved}</div>
                   </div>
                   <div>
-                    <div className="text-gray-500 text-xs">Per 1K Parcels</div>
-                    <div className="text-white font-medium">{town.per1k}</div>
-                  </div>
-                  <div>
-                    <div className="text-gray-500 text-xs">Variance Needed</div>
-                    <div className="text-white font-medium">{town.varianceRate || 0}%</div>
+                    <div className="text-gray-500 text-xs">Pending/Denied</div>
+                    <div className="text-gray-400 font-medium">{town.pending}</div>
                   </div>
                 </div>
 
-                {town.avgValue && (
-                  <div className="mt-3 pt-3 border-t border-gray-700/50">
-                    <div className="flex justify-between text-xs">
-                      <span className="text-gray-500">Avg. Construction Value</span>
-                      <span className="text-emerald-400 font-medium">${(town.avgValue / 1000).toFixed(0)}K</span>
-                    </div>
+                <div className="mt-3 pt-3 border-t border-gray-700/50">
+                  <div className="flex justify-between items-center text-xs">
+                    <span className={`font-medium ${getRateColor(town.rate)}`}>{getRateLabel(town.rate)} approval rate</span>
+                    {town.hasDetail && <span className="text-blue-400">Detailed data ●</span>}
                   </div>
-                )}
+                </div>
               </Link>
             )
           })}
@@ -209,7 +228,7 @@ export default function ScorecardsPage() {
         <div className="max-w-6xl mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-sm text-gray-500">
             <div>
-              <p>Data: EOHLC Survey Feb 2026 · Review times and variance rates are estimates based on available permit data.</p>
+              <p>Data: EOHLC Survey Feb 2026</p>
             </div>
             <div className="flex gap-6">
               <Link href="/" className="hover:text-white">Home</Link>

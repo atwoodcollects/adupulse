@@ -43,7 +43,7 @@ export default function GrandparentADUMassachusetts() {
           </p>
 
           <p className="text-gray-300 leading-relaxed mb-6">
-            In Massachusetts, that conversation is turning into construction permits.
+            It's not a hypothetical. According to the National Association of Realtors, the number one reason Americans move is to be closer to family. And in Massachusetts, that conversation is turning into construction permits — in an estimated 900,000 backyards across the Commonwealth.
           </p>
 
           <p className="text-gray-300 leading-relaxed mb-8">
@@ -60,6 +60,10 @@ export default function GrandparentADUMassachusetts() {
             Most of that wealth is locked in their homes. But unlike previous generations of retirees, today's boomers aren't rushing to sell. They're staying put. Nearly 12,000 Americans turn 65 every day, and the so-called "silver tsunami" of home sales has been more of a slow drip. Boomers aren't looking to downsize into a condo in Florida. They're looking for ways to stay connected to family — on their own terms.
           </p>
 
+          <p className="text-gray-300 leading-relaxed mb-6">
+            Meanwhile, a Boston University study predicts that 96,000 residents could leave Massachusetts due to housing costs. ADUs offer a way to retain families by creating affordable living options on land that's already owned — no new subdivision required.
+          </p>
+
           <p className="text-gray-300 leading-relaxed mb-8">
             An ADU gives them exactly that.
           </p>
@@ -74,7 +78,9 @@ export default function GrandparentADUMassachusetts() {
             In Massachusetts, ADUs under 900 square feet can now be built by right in any single-family zoning district. That means a converted garage, a finished basement apartment, or a new backyard cottage. No special permit required.
           </p>
 
-          <p className="text-gray-300 leading-relaxed mb-4">Here's what this looks like in practice:</p>
+          <p className="text-gray-300 leading-relaxed mb-4">
+            Think of it as a triple option hiding in plain sight on properties across the state — like the old school football play where every path leads to a gain. Here's what it looks like in practice:
+          </p>
 
           <p className="text-gray-300 leading-relaxed mb-4">
             <strong className="text-emerald-400">Scenario 1: Grandparents build on their own lot.</strong> They stay in their home and rent or offer the ADU to a family member — or move into the ADU themselves and let their adult child's family use the main house. Either way, the grandkids are steps away.
@@ -85,7 +91,7 @@ export default function GrandparentADUMassachusetts() {
           </p>
 
           <p className="text-gray-300 leading-relaxed mb-8">
-            <strong className="text-emerald-400">Scenario 3: Aging in place, with backup.</strong> A grandparent builds an ADU as a future caregiver suite. When the time comes, a family member or aide can live on-site. This avoids or delays assisted living, which in Massachusetts averages over $6,000 per month.
+            <strong className="text-emerald-400">Scenario 3: Aging in place, with backup.</strong> A grandparent builds an ADU as a future caregiver suite. When the time comes, a family member or aide can live on-site. This avoids or delays assisted living, which in Massachusetts averages over $6,000 per month. That's over $72,000 a year — money that could instead go toward everyday essentials, family needs, or simply staying independent longer.
           </p>
 
           <h2 className="text-2xl font-bold text-white mt-10 mb-4">Massachusetts is making it easier</h2>
@@ -103,7 +109,7 @@ export default function GrandparentADUMassachusetts() {
           </p>
 
           <p className="text-gray-300 leading-relaxed mb-6">
-            <strong className="text-white">The ADU Incentive Program</strong>, run through the Massachusetts Housing Partnership, is providing outreach, technical assistance, and financial support to homeowners looking to build.
+            <strong className="text-white">The ADU Incentive Program</strong>, run through the Massachusetts Housing Partnership, is providing outreach, technical assistance, and financial support to homeowners looking to build. MHP has a long track record of creative housing solutions in the state — dating back decades to programs like its original Homebuyers Club grants.
           </p>
 
           <p className="text-gray-300 leading-relaxed mb-8">
@@ -116,9 +122,27 @@ export default function GrandparentADUMassachusetts() {
             If you're an adult child in Massachusetts wondering whether your parents would ever consider this — they probably already are. A Freddie Mac survey found that three-quarters of boomer homeowners plan to pass their housing wealth to their children. But only 9% plan to use their home equity to fund retirement. That means there's a massive pool of capital sitting in boomer-owned homes, waiting for a purpose.
           </p>
 
-          <p className="text-gray-300 leading-relaxed mb-6">
-            An ADU gives that capital a purpose that benefits everyone: the grandparent gets proximity to family, the adult child gets help with childcare (or eventually, a way to care for aging parents), and the grandchildren get something no amount of money can buy — time with their grandparents.
+          <p className="text-gray-300 leading-relaxed mb-4">
+            An ADU gives that capital a purpose that benefits everyone. The returns go well beyond the personal:
           </p>
+
+          <div className="space-y-3 mb-6 pl-4 border-l-2 border-emerald-400/30">
+            <p className="text-gray-300 leading-relaxed">
+              <strong className="text-emerald-400">1. Proximity to family</strong> — the grandparent is steps away, not a three-hour drive.
+            </p>
+            <p className="text-gray-300 leading-relaxed">
+              <strong className="text-emerald-400">2. Childcare and eldercare</strong> — the adult child gets help with the kids now, and a way to care for aging parents later.
+            </p>
+            <p className="text-gray-300 leading-relaxed">
+              <strong className="text-emerald-400">3. Time with grandchildren</strong> — something no amount of money can buy.
+            </p>
+            <p className="text-gray-300 leading-relaxed">
+              <strong className="text-emerald-400">4. Property value</strong> — an ADU adds real ROI to an existing asset, increasing the home's long-term worth.
+            </p>
+            <p className="text-gray-300 leading-relaxed">
+              <strong className="text-emerald-400">5. Health and longevity</strong> — studies consistently show that grandparents who live near family and stay socially engaged experience better health outcomes and added vitality.
+            </p>
+          </div>
 
           <p className="text-gray-300 leading-relaxed mb-8">
             And if you're a grandparent reading this? You already know. The holidays aren't long enough. The FaceTime calls aren't the same. And your equity isn't doing anything sitting in your walls.
@@ -138,8 +162,16 @@ export default function GrandparentADUMassachusetts() {
             <strong className="text-white">Understand the costs.</strong> Detached ADUs in Massachusetts typically range from $150,000 to $400,000. Attached conversions (basement, garage) can come in between $80,000 and $200,000. ADU Pulse's <Link href="/estimate" className="text-blue-400 hover:underline">cost estimator</Link> can give you a rough sense based on real permit data.
           </p>
 
-          <p className="text-gray-300 leading-relaxed mb-8">
+          <p className="text-gray-300 leading-relaxed mb-4">
+            <strong className="text-white">Save money by building together.</strong> You're probably not the only family in your town thinking about this. ADU Pulse's <Link href="/club" className="text-blue-400 hover:underline">ADU Club</Link> groups homeowners by town so you can unlock 15–20% group discounts from vetted builders. When a builder can do five ADUs in the same town instead of one, shared permitting knowledge, bulk materials, and crew efficiency all drive costs down. <Link href="/club" className="text-blue-400 hover:underline">Join your town's group</Link> — it's free, and we'll only reach out when there's a real deal to share.
+          </p>
+
+          <p className="text-gray-300 leading-relaxed mb-4">
             <strong className="text-white">Explore financing options.</strong> HELOCs, FHA 203(k) renovation loans, and the state's no-interest financing program for homeowners over 60 are all worth investigating. Boston's ADU Pilot Program also offers up to $50,000 in grants for income-qualified homeowners.
+          </p>
+
+          <p className="text-gray-300 leading-relaxed mb-8">
+            <strong className="text-white">If you're a builder or contractor</strong>, the demand is real and growing. ADU Pulse connects <Link href="/builders" className="text-blue-400 hover:underline">builders</Link> with pre-qualified, geographically clustered homeowner leads — not scattered one-offs. <Link href="/builders" className="text-blue-400 hover:underline">Join the builder network</Link> to see where interest is building in your region.
           </p>
 
           <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-6 mb-8">
@@ -164,6 +196,12 @@ export default function GrandparentADUMassachusetts() {
               className="inline-flex items-center px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm font-medium"
             >
               Cost Estimator
+            </Link>
+            <Link
+              href="/club"
+              className="inline-flex items-center px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-sm font-medium"
+            >
+              Join ADU Club
             </Link>
           </div>
         </div>

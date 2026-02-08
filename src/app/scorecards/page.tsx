@@ -59,7 +59,7 @@ export default function ScorecardsPage() {
   const [sortBy, setSortBy] = useState<SortKey>('grade')
   const [regionFilter, setRegionFilter] = useState('')
 
-  const regions = [...new Set(towns.map(t => t.region))].sort()
+  const regions = Array.from(new Set(towns.map(t => t.region))).sort()
 
   const enriched = towns.map(t => {
     const rate = t.submitted > 0 ? Math.round((t.approved / t.submitted) * 100) : 0

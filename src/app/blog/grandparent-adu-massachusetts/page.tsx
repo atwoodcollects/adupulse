@@ -50,6 +50,16 @@ export default function GrandparentADUMassachusetts() {
             Since the Affordable Homes Act went into effect in February 2025, homeowners across the state can build an accessory dwelling unit — an ADU — by right on single-family lots. No special permits, no zoning variances. And while the law was designed to address the state's housing crisis broadly, one group is uniquely positioned to act on it: grandparents.
           </p>
 
+          <div className="bg-emerald-900/20 border border-emerald-500/30 rounded-lg p-4 mb-8">
+            <Link href="/quiz" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
+              <span className="text-2xl">🏡</span>
+              <div>
+                <div className="text-emerald-400 text-sm font-medium">Not sure where to start?</div>
+                <div className="text-white text-sm">Take the 2-minute ADU quiz to get a personalized plan →</div>
+              </div>
+            </Link>
+          </div>
+
           <h2 className="text-2xl font-bold text-white mt-10 mb-4">The numbers tell the story</h2>
 
           <p className="text-gray-300 leading-relaxed mb-6">

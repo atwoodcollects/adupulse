@@ -6,6 +6,7 @@ import { useState } from 'react'
 const navItems = [
   { name: 'All Towns', href: '/' },
   { name: '— Pages —', href: '', divider: true },
+  { name: 'ADU Quiz', href: '/quiz' },
   { name: 'ADU Club', href: '/club' },
   { name: 'For Builders', href: '/builders' },
   { name: 'Scorecards', href: '/scorecards' },

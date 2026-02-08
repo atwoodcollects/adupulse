@@ -41,6 +41,20 @@ export default function BlogIndex() {
         <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">Blog</h1>
         <p className="text-gray-400 mb-8">Analysis and insights from Massachusetts ADU permit data.</p>
 
+        <Link
+          href="/quiz"
+          className="block bg-emerald-900/20 border border-emerald-500/30 rounded-xl p-5 mb-8 hover:border-emerald-500/50 transition-colors"
+        >
+          <div className="flex items-center gap-4">
+            <span className="text-3xl">🏡</span>
+            <div>
+              <div className="text-emerald-400 text-sm font-medium mb-1">New: ADU Decision Tree</div>
+              <h2 className="text-lg font-bold text-white">Not sure where to start? Take the 2-minute quiz →</h2>
+              <p className="text-gray-400 text-sm mt-1">Get a personalized ADU plan based on your goals, budget, and town.</p>
+            </div>
+          </div>
+        </Link>
+
         {posts.filter(p => p.featured).map(post => (
           <Link
             key={post.slug}

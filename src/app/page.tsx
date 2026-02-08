@@ -105,18 +105,16 @@ export default function Home() {
       <Link href="/club" className="block bg-gradient-to-r from-emerald-900/40 to-blue-900/40 border-b border-emerald-500/20 hover:from-emerald-900/60 hover:to-blue-900/60 transition-colors">
         <div className="max-w-6xl mx-auto px-4 py-2.5 flex items-center justify-center gap-2 text-sm">
           <span className="bg-emerald-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">NEW</span>
-          <span className="text-gray-300">Join your town&apos;s ADU group — save 15-20% with group builder rates</span>
-          <span className="text-emerald-400">→</span>
+          <span className="text-gray-300">Join your town&apos;s ADU group &mdash; save 15-20% with group builder rates</span>
+          <span className="text-emerald-400">&rarr;</span>
         </div>
       </Link>
 
       <main className="max-w-6xl mx-auto px-4 py-6 md:py-8">
-        
         {/* Hero Stats */}
         <div className="text-center mb-8">
-          <h1 className="text-2xl md:text-4xl font-bold text-white mb-2">Tracking MA's ADU Progress</h1>
+          <h1 className="text-2xl md:text-4xl font-bold text-white mb-2">Tracking MA&apos;s ADU Progress</h1>
           <p className="text-gray-400 mb-6">Real permit data from 217 towns</p>
-          
           <div className="grid grid-cols-3 gap-4 max-w-lg mx-auto mb-8">
             <div className="bg-gray-800 border border-gray-700 rounded-xl p-4">
               <div className="text-2xl md:text-3xl font-bold text-emerald-400">1,224</div>
@@ -131,9 +129,9 @@ export default function Home() {
               <div className="text-gray-400 text-xs md:text-sm">Approval Rate</div>
             </div>
           </div>
-
           <div className="flex flex-wrap justify-center gap-3 mb-8">
             <Link href="/town" className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium">Find Your Town</Link>
+            <Link href="/scorecards" className="px-5 py-2.5 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium">Town Scorecards</Link>
             <Link href="/leaderboard" className="px-5 py-2.5 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium">Leaderboard</Link>
             <Link href="/compare" className="px-5 py-2.5 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium">Compare Towns</Link>
           </div>
@@ -157,7 +155,6 @@ export default function Home() {
 
         {/* Towns + Map Grid */}
         <div className="grid md:grid-cols-2 gap-6 mb-8">
-          
           {/* Town List */}
           <div className={`${mobileTab === 'towns' ? 'block' : 'hidden'} md:block`}>
             <div className="flex items-center justify-between mb-3">
@@ -176,7 +173,6 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            
             <div className="bg-gray-800 border border-gray-700 rounded-xl overflow-hidden max-h-[500px] overflow-y-auto">
               {sortedTowns.map(town => {
                 const rate = town.submitted > 0 ? Math.round((town.approved / town.submitted) * 100) : 0
@@ -210,9 +206,29 @@ export default function Home() {
           </div>
         </div>
 
+        {/* Club + Builders CTAs */}
+        <div className="grid md:grid-cols-2 gap-4 mb-8">
+          <Link href="/club" className="bg-gradient-to-r from-emerald-900/30 to-blue-900/30 border border-emerald-500/20 rounded-xl p-5 hover:from-emerald-900/50 hover:to-blue-900/50 transition-colors group">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-lg">🏘️</span>
+              <h3 className="text-lg font-bold text-white">ADU Club</h3>
+              <span className="bg-emerald-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">NEW</span>
+            </div>
+            <p className="text-gray-400 text-sm mb-2">Join homeowners in your town to unlock 15-20% group rates from vetted builders.</p>
+            <span className="text-emerald-400 text-sm group-hover:underline">Join your town&apos;s group &rarr;</span>
+          </Link>
+          <Link href="/builders" className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-500/20 rounded-xl p-5 hover:from-blue-900/50 hover:to-purple-900/50 transition-colors group">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-lg">🏗️</span>
+              <h3 className="text-lg font-bold text-white">For Builders</h3>
+            </div>
+            <p className="text-gray-400 text-sm mb-2">Get clustered, pre-qualified leads from homeowners in towns you serve.</p>
+            <span className="text-blue-400 text-sm group-hover:underline">Join builder network &rarr;</span>
+          </Link>
+        </div>
+
         {/* Challenges + Top Towns */}
         <div className="grid md:grid-cols-2 gap-6 mb-8">
-          
           <div className="bg-gray-800 border border-gray-700 rounded-xl p-4 md:p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-bold text-white">🏆 Active Challenges</h2>
@@ -292,8 +308,10 @@ export default function Home() {
             </div>
             <div className="flex gap-6">
               <Link href="/blog" className="hover:text-white">Blog</Link>
+              <Link href="/club" className="hover:text-white">Club</Link>
+              <Link href="/builders" className="hover:text-white">Builders</Link>
+              <Link href="/scorecards" className="hover:text-white">Scorecards</Link>
               <Link href="/leaderboard" className="hover:text-white">Leaderboard</Link>
-              <Link href="/compare" className="hover:text-white">Compare</Link>
               <Link href="/challenge/new" className="hover:text-white">Challenge</Link>
             </div>
           </div>

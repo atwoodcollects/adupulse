@@ -210,7 +210,7 @@ export default function ClubPage() {
             <FAQItem question="How many homeowners are needed for a group?" answer="It depends on the town and builder, but typically 5-10+ interested homeowners in the same area make group pricing viable. We'll let you know when your town reaches that point." />
             <FAQItem question="What's the typical timeline?" answer="It varies by town. Once there's enough interest, we connect the group with a builder who presents a proposal within 2-4 weeks. You then decide individually whether to proceed." />
             <FAQItem question="Am I committed to building if I sign up?" answer="Absolutely not. Expressing interest just means you'd like to hear about group pricing when it becomes available. Each homeowner decides individually." />
-            <FAQItem question="Do builders pay ADU Pulse?" answer="No. Builders don't pay for leads. We aggregate demand so builders can offer volume pricing. Homeowner access will always be free." />
+            <FAQItem question="Do builders pay ADU Pulse?" answer="Homeowners never pay. When a group deal closes, we earn a small referral fee from the builder — which is already built into the group discount. You still save 15-20% compared to going solo." />
             <FAQItem question="What if my town isn't listed?" answer="Select the closest town — we're constantly adding new ones. Or email us and we'll add your town to the list." />
           </div>
         </div>

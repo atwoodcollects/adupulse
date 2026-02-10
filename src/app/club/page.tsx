@@ -60,7 +60,7 @@ export default function ClubPage() {
     formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  const handleSubmit = async () => {
+  const handleSubmit = async () => { import('@/lib/analytics').then(m => m.trackClubSignup(selectedTown || undefined));
     if (!isFormComplete) return
     setStatus('loading')
     try {

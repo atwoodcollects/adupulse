@@ -290,7 +290,7 @@ export default function Home() {
               {/* Mobile: Show more / Show less */}
               {!showAllTowns && sortedTowns.length > MOBILE_INITIAL_COUNT && (
                 <button
-                  onClick={() => setShowAllTowns(true)}
+                  onClick={() => { setShowAllTowns(true); import('@/lib/analytics').then(m => m.trackShowAllTowns()) }}
                   className="md:hidden w-full py-3.5 text-blue-400 text-sm font-medium hover:bg-gray-700/30 active:bg-gray-700/50 transition-colors min-h-[48px] border-t border-gray-700/50"
                 >
                   Show all {sortedTowns.length} towns ↓

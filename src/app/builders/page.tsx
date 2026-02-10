@@ -49,7 +49,7 @@ export default function BuildersPage() {
     formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  const handleSubmit = async () => {
+  const handleSubmit = async () => { import('@/lib/analytics').then(m => m.trackBuilderSignup(company || undefined));
     if (!name || !company || !email) return
     setStatus('loading')
     try {

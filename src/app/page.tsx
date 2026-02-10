@@ -350,7 +350,7 @@ export default function Home() {
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-bold text-white">🏆 Active Challenges</h2>
               <div className="flex gap-4">
-                <Link href="/challenges" className="text-blue-400 text-sm hover:underline min-h-[44px] flex items-center">All</Link>
+                <Link href="/challenge" className="text-blue-400 text-sm hover:underline min-h-[44px] flex items-center">All</Link>
                 <Link href="/challenge/new" className="text-blue-400 text-sm hover:underline min-h-[44px] flex items-center">Create</Link>
               </div>
             </div>

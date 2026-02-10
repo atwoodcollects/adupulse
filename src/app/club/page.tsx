@@ -5,19 +5,37 @@ import TownNav from '@/components/TownNav'
 import { useState } from 'react'
 
 const towns = [
-  'Andover', 'Arlington', 'Attleboro', 'Barnstable', 'Beverly', 'Billerica',
-  'Boston', 'Brockton', 'Brookline', 'Cambridge', 'Chelmsford', 'Danvers',
-  'Dracut', 'Duxbury', 'Everett', 'Fairhaven', 'Fall River', 'Falmouth',
-  'Framingham', 'Freetown', 'Gardner', 'Harwich', 'Haverhill', 'Ipswich',
-  'Lawrence', 'Lexington', 'Lowell', 'Lynn', 'Malden', 'Marshfield',
-  'Medford', 'Methuen', 'Middleborough', 'Milton', 'Nantucket', 'Needham',
-  'Newton', 'Northampton', 'Peabody', 'Plymouth', 'Quincy', 'Randolph',
-  'Raynham', 'Revere', 'Salem', 'Shrewsbury', 'Somerville', 'Sudbury',
-  'Taunton', 'Tisbury', 'Wayland', 'Westport', 'Worcester',
+  'Andover', 'Arlington', 'Attleboro', 'Barnstable', 'Beverly', 'Billerica', 'Boston',
+  'Brockton', 'Brookline', 'Cambridge', 'Chelmsford', 'Danvers', 'Dracut', 'Duxbury',
+  'Everett', 'Fairhaven', 'Fall River', 'Falmouth', 'Framingham', 'Freetown', 'Gardner',
+  'Harwich', 'Haverhill', 'Ipswich', 'Lawrence', 'Lexington', 'Lowell', 'Lynn', 'Malden',
+  'Marshfield', 'Medford', 'Methuen', 'Middleborough', 'Milton', 'Nantucket', 'Needham',
+  'Newton', 'Northampton', 'Peabody', 'Plymouth', 'Quincy', 'Randolph', 'Raynham',
+  'Revere', 'Salem', 'Shrewsbury', 'Somerville', 'Sudbury', 'Taunton', 'Tisbury',
+  'Wayland', 'Westport', 'Worcester',
 ]
 
-// Replace with your Formspree form ID from https://formspree.io
 const FORMSPREE_ID = 'mzdabkvb'
+
+function FAQItem({ question, answer }: { question: string; answer: string }) {
+  const [open, setOpen] = useState(false)
+  return (
+    <div className="border-b border-gray-700 last:border-0">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex justify-between items-center py-4 text-left"
+      >
+        <span className="text-white text-sm font-medium pr-4">{question}</span>
+        <span className="text-gray-500 text-lg shrink-0">{open ? '−' : '+'}</span>
+      </button>
+      {open && (
+        <div className="pb-4 text-gray-400 text-sm leading-relaxed">
+          {answer}
+        </div>
+      )}
+    </div>
+  )
+}
 
 export default function ClubPage() {
   const [email, setEmail] = useState('')
@@ -29,28 +47,18 @@ export default function ClubPage() {
   const handleSubmit = async () => {
     if (!email || !town || !interestType || !role) return
     setStatus('loading')
-
     try {
       const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          email,
-          town,
-          interest_type: interestType,
-          role,
+          email, town, interest_type: interestType, role,
           _subject: `ADU Club Signup: ${town}`,
         }),
       })
-
-      if (res.ok) {
-        setStatus('success')
-      } else {
-        throw new Error()
-      }
-    } catch {
-      setStatus('error')
-    }
+      if (res.ok) setStatus('success')
+      else throw new Error()
+    } catch { setStatus('error') }
   }
 
   return (
@@ -77,8 +85,7 @@ export default function ClubPage() {
             Join Your Town&apos;s ADU Group
           </h1>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Homeowners building ADUs together get better pricing. Sign up to connect with
-            neighbors exploring ADUs in your town and unlock group rates from vetted builders.
+            Homeowners building ADUs together get better pricing. Sign up to connect with neighbors exploring ADUs in your town and unlock group rates from vetted builders.
           </p>
         </div>
 
@@ -101,25 +108,14 @@ export default function ClubPage() {
                 <div className="space-y-4">
                   <div>
                     <label className="block text-gray-400 text-sm mb-1">Your town</label>
-                    <select
-                      value={town}
-                      onChange={e => setTown(e.target.value)}
-                      className="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2.5 text-white focus:border-blue-500 focus:outline-none"
-                    >
+                    <select value={town} onChange={e => setTown(e.target.value)} className="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2.5 text-white focus:border-blue-500 focus:outline-none">
                       <option value="">Select your town...</option>
-                      {towns.map(t => (
-                        <option key={t} value={t}>{t}</option>
-                      ))}
+                      {towns.map(t => (<option key={t} value={t}>{t}</option>))}
                     </select>
                   </div>
-
                   <div>
                     <label className="block text-gray-400 text-sm mb-1">I&apos;m a...</label>
-                    <select
-                      value={role}
-                      onChange={e => setRole(e.target.value)}
-                      className="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2.5 text-white focus:border-blue-500 focus:outline-none"
-                    >
+                    <select value={role} onChange={e => setRole(e.target.value)} className="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2.5 text-white focus:border-blue-500 focus:outline-none">
                       <option value="">Select...</option>
                       <option value="homeowner">Homeowner considering an ADU</option>
                       <option value="grandparent">Grandparent / want to be near family</option>
@@ -128,14 +124,9 @@ export default function ClubPage() {
                       <option value="other">Other</option>
                     </select>
                   </div>
-
                   <div>
                     <label className="block text-gray-400 text-sm mb-1">Type of ADU</label>
-                    <select
-                      value={interestType}
-                      onChange={e => setInterestType(e.target.value)}
-                      className="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2.5 text-white focus:border-blue-500 focus:outline-none"
-                    >
+                    <select value={interestType} onChange={e => setInterestType(e.target.value)} className="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2.5 text-white focus:border-blue-500 focus:outline-none">
                       <option value="">Select...</option>
                       <option value="detached">Detached (backyard cottage)</option>
                       <option value="conversion">Conversion (basement, garage)</option>
@@ -143,33 +134,42 @@ export default function ClubPage() {
                       <option value="not_sure">Not sure yet</option>
                     </select>
                   </div>
-
                   <div>
                     <label className="block text-gray-400 text-sm mb-1">Email</label>
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={e => setEmail(e.target.value)}
-                      placeholder="you@email.com"
-                      className="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2.5 text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none"
-                    />
+                    <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@email.com" className="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2.5 text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none" />
                   </div>
-
-                  <button
-                    onClick={handleSubmit}
-                    disabled={!email || !town || !interestType || !role || status === 'loading'}
-                    className="w-full py-3 bg-blue-600 hover:bg-blue-500 disabled:bg-gray-700 disabled:text-gray-500 text-white rounded-lg font-medium transition-colors"
-                  >
+                  <button onClick={handleSubmit} disabled={!email || !town || !interestType || !role || status === 'loading'} className="w-full py-3 bg-blue-600 hover:bg-blue-500 disabled:bg-gray-700 disabled:text-gray-500 text-white rounded-lg font-medium transition-colors">
                     {status === 'loading' ? 'Joining...' : 'Join the Group'}
                   </button>
-
                   {status === 'error' && (
                     <p className="text-red-400 text-sm text-center">Something went wrong. Try again.</p>
                   )}
-
                   <p className="text-gray-600 text-xs text-center">No spam. We&apos;ll only email when your town group hits critical mass or a builder deal is available.</p>
                 </div>
               )}
+            </div>
+
+            {/* What happens next - trust element */}
+            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 mt-4">
+              <h3 className="text-white font-medium text-sm mb-3">What happens after you sign up?</h3>
+              <div className="space-y-2.5 text-sm">
+                <div className="flex gap-2.5 items-start">
+                  <span className="text-emerald-400 mt-0.5">✓</span>
+                  <span className="text-gray-400">You get a confirmation email within 24 hours</span>
+                </div>
+                <div className="flex gap-2.5 items-start">
+                  <span className="text-emerald-400 mt-0.5">✓</span>
+                  <span className="text-gray-400">We notify you monthly with your town&apos;s group size</span>
+                </div>
+                <div className="flex gap-2.5 items-start">
+                  <span className="text-emerald-400 mt-0.5">✓</span>
+                  <span className="text-gray-400">At 5+ homeowners, we connect the group with a vetted builder</span>
+                </div>
+                <div className="flex gap-2.5 items-start">
+                  <span className="text-emerald-400 mt-0.5">✓</span>
+                  <span className="text-gray-400">Builder presents a group proposal — no obligation to proceed</span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -203,12 +203,37 @@ export default function ClubPage() {
               </div>
             </div>
 
+            {/* What "vetted" means - trust element */}
+            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 mt-4">
+              <h3 className="text-white font-medium text-sm mb-2">What does &ldquo;vetted builder&rdquo; mean?</h3>
+              <p className="text-gray-400 text-sm leading-relaxed mb-3">
+                We only connect groups with builders who meet all of the following criteria:
+              </p>
+              <div className="space-y-2 text-sm">
+                <div className="flex gap-2.5 items-start">
+                  <span className="text-blue-400 mt-0.5">•</span>
+                  <span className="text-gray-400">Licensed and insured in Massachusetts</span>
+                </div>
+                <div className="flex gap-2.5 items-start">
+                  <span className="text-blue-400 mt-0.5">•</span>
+                  <span className="text-gray-400">Completed at least 3 ADU projects with verifiable references</span>
+                </div>
+                <div className="flex gap-2.5 items-start">
+                  <span className="text-blue-400 mt-0.5">•</span>
+                  <span className="text-gray-400">Agreed to transparent, itemized pricing for group projects</span>
+                </div>
+                <div className="flex gap-2.5 items-start">
+                  <span className="text-blue-400 mt-0.5">•</span>
+                  <span className="text-gray-400">No unresolved complaints with the Better Business Bureau</span>
+                </div>
+              </div>
+            </div>
+
             {/* Why it works */}
-            <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-500/20 rounded-xl p-6 mt-6">
+            <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-500/20 rounded-xl p-6 mt-4">
               <h3 className="text-white font-bold mb-2">Why group ADU buying works</h3>
               <p className="text-gray-400 text-sm leading-relaxed mb-4">
-                A builder doing 5 ADUs in the same town prices them 15-20% lower than one-offs.
-                Shared permitting knowledge, bulk materials, and crew efficiency all drive costs down.
+                A builder doing 5 ADUs in the same town prices them 15-20% lower than one-offs. Shared permitting knowledge, bulk materials, and crew efficiency all drive costs down.
               </p>
               <div className="grid grid-cols-3 gap-3 text-center">
                 <div className="bg-gray-900/50 rounded-lg p-3">
@@ -227,16 +252,50 @@ export default function ClubPage() {
             </div>
 
             {/* Grandparent angle */}
-            <div className="bg-gray-800 border border-gray-700 rounded-xl p-6 mt-6">
+            <div className="bg-gray-800 border border-gray-700 rounded-xl p-6 mt-4">
               <h3 className="text-white font-bold mb-2">Building to be near family?</h3>
               <p className="text-gray-400 text-sm leading-relaxed mb-3">
-                Many of our signups are grandparents exploring ADUs to live closer to their grandchildren.
-                Massachusetts&apos; new by-right law makes this easier than ever.
+                Many of our signups are grandparents exploring ADUs to live closer to their grandchildren. Massachusetts&apos; new by-right law makes this easier than ever.
               </p>
               <Link href="/blog/grandparent-adu-massachusetts" className="text-blue-400 text-sm hover:underline">
                 Read: The Grandparent ADU &rarr;
               </Link>
             </div>
+          </div>
+        </div>
+
+        {/* FAQ Section */}
+        <div className="mt-10">
+          <h2 className="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+          <div className="bg-gray-800 border border-gray-700 rounded-xl px-6">
+            <FAQItem
+              question="Is there a cost to join?"
+              answer="No. Signing up for your town's group is completely free. There's no obligation to proceed with any builder, and you can unsubscribe at any time."
+            />
+            <FAQItem
+              question="How many homeowners are needed for a group deal?"
+              answer="We typically look for 5 or more interested homeowners in the same town before connecting the group with a builder. Larger groups can negotiate even better rates — some towns with 10+ signups have seen 20%+ discounts."
+            />
+            <FAQItem
+              question="What's the typical timeline?"
+              answer="It depends on how quickly your town's group grows. Some towns reach critical mass within 2-3 months, others take longer. Once a group is formed, the builder typically presents a proposal within 2-4 weeks. From there, individual project timelines vary (usually 4-8 months for construction)."
+            />
+            <FAQItem
+              question="Do builders pay ADU Pulse?"
+              answer="Builders do not pay to be listed or connected with homeowner groups. Our goal is to aggregate demand so builders can offer volume pricing. In the future, we may offer premium placement or lead prioritization as a paid service, but homeowner access to group deals will always be free."
+            />
+            <FAQItem
+              question="Am I committed to building if I sign up?"
+              answer="Absolutely not. Signing up just means you're interested and want to be notified when a group forms. When a builder presents a proposal, each homeowner decides individually whether to proceed."
+            />
+            <FAQItem
+              question="Can I see what other homeowners in my town are considering?"
+              answer="We share aggregate data (e.g., '7 homeowners in Plymouth are exploring detached ADUs') but never share individual contact information between homeowners without consent."
+            />
+            <FAQItem
+              question="What if my town isn't listed?"
+              answer="Select the closest town and note your actual town in the email — or use the 'Don't see your town?' form on the Cost Estimator page. We're constantly adding new towns."
+            />
           </div>
         </div>
       </main>
@@ -249,6 +308,7 @@ export default function ClubPage() {
               <Link href="/" className="hover:text-white">Home</Link>
               <Link href="/blog" className="hover:text-white">Blog</Link>
               <Link href="/estimate" className="hover:text-white">Estimator</Link>
+              <Link href="/methodology" className="hover:text-white">Methodology</Link>
             </div>
           </div>
         </div>

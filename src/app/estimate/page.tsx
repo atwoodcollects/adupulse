@@ -40,7 +40,7 @@ const allComparisons = [
   { town: 'newton', label: '64 Windermere Rd', type: 'conversion', sqft: 999, cost: 150000, builder: 'contractor', ppsf: 150, notes: '' },
 ]
 
-// --- NEW: MARKET DATA FOR ROI CALCULATOR ---
+// --- MARKET DATA FOR ROI CALCULATOR ---
 const townMarketData: Record<string, { avgRent: number; rentYoY: number; medianHome: number; propertyUplift: number }> = {
   boston:    { avgRent: 2850, rentYoY: -0.8, medianHome: 785000, propertyUplift: 0.18 },
   newton:   { avgRent: 2950, rentYoY: -0.3, medianHome: 1150000, propertyUplift: 0.15 },
@@ -54,7 +54,7 @@ const townMarketData: Record<string, { avgRent: number; rentYoY: number; medianH
 
 const NATIONAL_RENT_YOY = -1.4
 const NATIONAL_AVG_RENT = 1695
-const ASSISTED_LIVING_MONTHLY_MA = 6500
+const ASSISTED_LIVING_MONTHLY_MA = 6000
 
 type GoalKey = 'rental' | 'family' | 'aging' | 'value'
 
@@ -93,23 +93,18 @@ function RentMarketCallout({ town, townKey }: { town: string; townKey: string })
       <div className="text-xs uppercase tracking-widest text-blue-400 mb-3 font-medium">
         📍 National Headlines vs. Your Town
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6">
         <div>
           <div className="text-text-muted text-xs mb-1">US Avg Rent YoY</div>
           <div className="text-2xl font-bold text-red-400">{fmtPct(NATIONAL_RENT_YOY)}</div>
           <div className="text-text-muted text-xs mt-0.5">{fmt(NATIONAL_AVG_RENT)}/mo avg</div>
         </div>
-        <div className="hidden sm:block border-l border-blue-500/20 pl-6">
+        <div className="sm:border-l sm:border-blue-500/20 sm:pl-6">
           <div className="text-text-muted text-xs mb-1">{town} Rent YoY</div>
           <div className={`text-2xl font-bold ${better ? 'text-emerald-400' : 'text-amber-400'}`}>{fmtPct(data.rentYoY)}</div>
           <div className="text-text-muted text-xs mt-0.5">{fmt(data.avgRent)}/mo avg</div>
         </div>
-        <div className="sm:hidden">
-          <div className="text-text-muted text-xs mb-1">{town} Rent YoY</div>
-          <div className={`text-2xl font-bold ${better ? 'text-emerald-400' : 'text-amber-400'}`}>{fmtPct(data.rentYoY)}</div>
-          <div className="text-text-muted text-xs mt-0.5">{fmt(data.avgRent)}/mo avg</div>
-        </div>
-        <div className="hidden sm:block border-l border-blue-500/20 pl-6">
+        <div className="col-span-2 sm:col-span-1 sm:border-l sm:border-blue-500/20 sm:pl-6">
           <div className="text-text-muted text-xs mb-1">Local Context</div>
           <div className="text-text-secondary text-sm leading-relaxed">
             {better
@@ -186,9 +181,8 @@ function ValueBreakdown({
   const data = townMarketData[townKey]
   if (!data) return null
 
-  const monthlyRent = data.avgRent * 0.85 // conservative: 85% of market for ADU
+  const monthlyRent = data.avgRent * 0.85
 
-  // Cumulative rent over N years with scenario growth
   let cumulativeRent = 0
   let currentRent = monthlyRent
   for (let y = 0; y < years; y++) {
@@ -217,7 +211,6 @@ function ValueBreakdown({
   const roi = ((totalValue - aduCost) / aduCost * 100)
   const paybackYears = goal === 'rental' ? (aduCost / (monthlyRent * 12)) : null
 
-  // Colors for bar segments (raw tailwind doesn't work for dynamic widths, using inline for the bar)
   const barColors: Record<string, string> = {
     'text-blue-400': '#60a5fa',
     'text-emerald-400': '#34d399',
@@ -231,13 +224,11 @@ function ValueBreakdown({
         {years}-Year Value Breakdown — {GOALS[goal]?.icon} {GOALS[goal]?.label}
       </div>
 
-      {/* Cost line */}
       <div className="flex justify-between items-center py-2.5 border-b border-border">
         <span className="text-text-secondary text-sm">Est. ADU construction cost</span>
         <span className="text-red-400 font-semibold font-mono">-{fmt(aduCost)}</span>
       </div>
 
-      {/* Value lines */}
       {lines.map((line, i) => (
         <div key={i} className="flex justify-between items-center py-2.5 border-b border-border/50">
           <span className="text-text-muted text-sm">{line.label}</span>
@@ -245,7 +236,6 @@ function ValueBreakdown({
         </div>
       ))}
 
-      {/* Bar visualization */}
       <div className="mt-4 mb-3 h-2 rounded-full bg-gray-700/50 overflow-hidden flex">
         {lines.map((line, i) => (
           <div
@@ -259,7 +249,6 @@ function ValueBreakdown({
         ))}
       </div>
 
-      {/* Totals */}
       <div className="flex justify-between items-center pt-4 border-t-2 border-border mt-2">
         <div>
           <div className="text-text-secondary text-sm">Total est. value created</div>
@@ -343,8 +332,6 @@ export default function EstimatePage() {
   const [type, setType] = useState<'detached' | 'attached' | 'conversion'>('detached')
   const [sqft, setSqft] = useState(800)
   const [builder, setBuilder] = useState<'diy' | 'contractor'>('contractor')
-
-  // New state for ROI section
   const [goal, setGoal] = useState<GoalKey>('rental')
   const [rentScenario, setRentScenario] = useState(0)
   const [roiYears, setRoiYears] = useState(10)
@@ -387,7 +374,6 @@ export default function EstimatePage() {
     milton: 'Milton', plymouth: 'Plymouth', duxbury: 'Duxbury', needham: 'Needham',
     newton: 'Newton', boston: 'Boston', andover: 'Andover', sudbury: 'Sudbury'
   }
-
   const townLinks: Record<string, string> = {
     milton: '/milton', plymouth: '/plymouth', duxbury: '/duxbury', needham: '/needham',
     newton: '/newton', boston: '/boston', andover: '/andover', sudbury: '/sudbury'
@@ -407,9 +393,9 @@ export default function EstimatePage() {
       <div className="max-w-4xl mx-auto px-4 py-6">
         <Link href="/" className="text-blue-400 text-sm mb-2 inline-block">← Back</Link>
         <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">ADU Cost Estimator</h1>
-        <p className="text-text-secondary text-sm mb-6">Based on real MA permit data from 2025</p>
+        <p className="text-text-secondary text-sm mb-6">Based on real MA permit data from 2025. <Link href="/methodology" className="text-blue-400 hover:underline">See methodology →</Link></p>
 
-        {/* ========== EXISTING: Cost Estimator ========== */}
+        {/* Cost Estimator */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-gray-800/50 border border-border rounded-lg p-4 sm:p-6">
             <h2 className="text-white font-medium mb-4">Your Project</h2>
@@ -477,15 +463,14 @@ export default function EstimatePage() {
           </div>
         </div>
 
-        {/* ========== EXISTING: Savings Calculator + Email ========== */}
+        {/* Savings Calculator */}
         <div className="mt-6">
           <SavingsCalculator />
         </div>
 
-        {/* ========== NEW: Goal-Based ROI Section ========== */}
+        {/* Goal-Based ROI Section */}
         {hasMarketData && (
           <div className="mt-6 space-y-4">
-            {/* Section header */}
             <div className="border-t border-border pt-6">
               <div className="flex items-center gap-3 mb-1">
                 <span className="text-xl">⚡</span>
@@ -496,16 +481,13 @@ export default function EstimatePage() {
               </p>
             </div>
 
-            {/* Rent market callout */}
             <RentMarketCallout town={townNames[town] || town} townKey={town} />
 
-            {/* Goal selector */}
             <div>
               <label className="text-text-secondary text-sm block mb-2">What&apos;s your primary goal?</label>
               <GoalSelector selected={goal} onSelect={setGoal} />
             </div>
 
-            {/* Controls row */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <RentScenarioSlider value={rentScenario} onChange={setRentScenario} />
               <div className="bg-gray-800/30 border border-border rounded-lg p-4">
@@ -524,7 +506,6 @@ export default function EstimatePage() {
               </div>
             </div>
 
-            {/* Value breakdown */}
             <ValueBreakdown
               goal={goal}
               townKey={town}
@@ -533,19 +514,18 @@ export default function EstimatePage() {
               years={roiYears}
             />
 
-            {/* Disclaimer */}
             <div className="text-text-muted text-xs leading-relaxed p-3 bg-gray-800/20 rounded-lg border border-border/50">
-              ⚠️ Estimates are illustrative and based on local market averages. Actual costs, rents, and property values vary significantly. Assisted living cost based on MA state average of $6,500/mo. Consult a financial advisor before making investment decisions.
+              ⚠️ Estimates are illustrative and based on local market averages. Actual costs, rents, and property values vary significantly. Assisted living cost based on MA state average of $6,000/mo. Consult a financial advisor before making investment decisions. <Link href="/methodology" className="text-blue-400 hover:underline">See our methodology</Link>.
             </div>
           </div>
         )}
 
-        {/* ========== EXISTING: Email Capture ========== */}
+        {/* Email Capture */}
         <div className="mt-6">
           <EmailCapture />
         </div>
 
-        {/* ========== EXISTING: Similar Permitted Projects ========== */}
+        {/* Similar Permitted Projects */}
         <div className="mt-6 bg-gray-800/50 border border-border rounded-lg p-4 sm:p-6">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-white font-medium">Similar Permitted Projects</h2>

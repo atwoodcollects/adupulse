@@ -6,6 +6,26 @@ import { useState } from 'react'
 
 const FORMSPREE_ID = 'mzdabkvb'
 
+function FAQItem({ question, answer }: { question: string; answer: string }) {
+  const [open, setOpen] = useState(false)
+  return (
+    <div className="border-b border-gray-700 last:border-0">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex justify-between items-center py-4 text-left"
+      >
+        <span className="text-white text-sm font-medium pr-4">{question}</span>
+        <span className="text-gray-500 text-lg shrink-0">{open ? '−' : '+'}</span>
+      </button>
+      {open && (
+        <div className="pb-4 text-gray-400 text-sm leading-relaxed">
+          {answer}
+        </div>
+      )}
+    </div>
+  )
+}
+
 export default function BuildersPage() {
   const [name, setName] = useState('')
   const [company, setCompany] = useState('')
@@ -24,18 +44,12 @@ export default function BuildersPage() {
         body: JSON.stringify({
           _subject: `Builder Signup: ${company}`,
           form_type: 'builder',
-          name,
-          company,
-          email,
-          regions,
-          adu_types: aduTypes,
+          name, company, email, regions, adu_types: aduTypes,
         }),
       })
       if (res.ok) setStatus('success')
       else throw new Error()
-    } catch {
-      setStatus('error')
-    }
+    } catch { setStatus('error') }
   }
 
   return (
@@ -61,8 +75,7 @@ export default function BuildersPage() {
             Get Clustered ADU Leads By Town
           </h1>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            We group homeowners exploring ADUs by town. You get pre-qualified, geographically clustered
-            leads &mdash; not scattered one-offs.
+            We group homeowners exploring ADUs by town. You get pre-qualified, geographically clustered leads &mdash; not scattered one-offs.
           </p>
         </div>
 
@@ -103,8 +116,9 @@ export default function BuildersPage() {
               </div>
             </div>
 
-            <div className="bg-gradient-to-r from-emerald-900/30 to-blue-900/30 border border-emerald-500/20 rounded-xl p-6">
-              <h3 className="text-white font-bold mb-2">The numbers</h3>
+            {/* Outcome math */}
+            <div className="bg-gradient-to-r from-emerald-900/30 to-blue-900/30 border border-emerald-500/20 rounded-xl p-6 mb-6">
+              <h3 className="text-white font-bold mb-3">The math on clustered leads</h3>
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <div className="bg-gray-900/50 rounded-lg p-3 text-center">
                   <div className="text-2xl font-bold text-emerald-400">1,224</div>
@@ -115,7 +129,59 @@ export default function BuildersPage() {
                   <div className="text-gray-500 text-xs">Towns tracked</div>
                 </div>
               </div>
-              <p className="text-gray-400 text-sm">Massachusetts&apos; by-right ADU law is driving permit volume across the state. Homeowners are ready &mdash; they just need a builder they trust at a price that works.</p>
+              <p className="text-gray-400 text-sm mb-4">Massachusetts&apos; by-right ADU law is driving permit volume across the state. Homeowners are ready &mdash; they just need a builder they trust at a price that works.</p>
+
+              {/* Example scenario */}
+              <div className="bg-gray-900/70 rounded-lg p-4 border border-gray-700/50">
+                <div className="text-emerald-400 text-xs uppercase tracking-wider mb-2 font-medium">Example: 5 detached ADUs in one town</div>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Typical one-off price</span>
+                    <span className="text-white">$300K × 5 = $1.5M revenue</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Group price (−15%)</span>
+                    <span className="text-white">$255K × 5 = $1.275M revenue</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Your cost savings (shared permits, bulk, crew)</span>
+                    <span className="text-emerald-400">−$150K+ in overhead</span>
+                  </div>
+                  <div className="flex justify-between border-t border-gray-700 pt-2 mt-2">
+                    <span className="text-gray-300 font-medium">Net margin improvement</span>
+                    <span className="text-emerald-400 font-bold">+$75K+ vs. 5 scattered one-offs</span>
+                  </div>
+                </div>
+                <p className="text-gray-500 text-xs mt-3">
+                  Savings come from: one permit application template (~$5K saved), bulk materials discount (~8-12%), reduced crew travel/mobilization (~$15K per project), and shared design/engineering fees.
+                </p>
+              </div>
+            </div>
+
+            {/* What "vetted" means */}
+            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5">
+              <h3 className="text-white font-medium text-sm mb-2">Our builder screening criteria</h3>
+              <p className="text-gray-400 text-sm leading-relaxed mb-3">
+                We vet builders before connecting them with homeowner groups. This protects homeowners and ensures you&apos;re joining a quality network:
+              </p>
+              <div className="space-y-2 text-sm">
+                <div className="flex gap-2.5 items-start">
+                  <span className="text-emerald-400 mt-0.5">✓</span>
+                  <span className="text-gray-400">Active MA contractor&apos;s license + current insurance</span>
+                </div>
+                <div className="flex gap-2.5 items-start">
+                  <span className="text-emerald-400 mt-0.5">✓</span>
+                  <span className="text-gray-400">3+ completed ADU projects with verifiable references</span>
+                </div>
+                <div className="flex gap-2.5 items-start">
+                  <span className="text-emerald-400 mt-0.5">✓</span>
+                  <span className="text-gray-400">Willingness to provide itemized, transparent group pricing</span>
+                </div>
+                <div className="flex gap-2.5 items-start">
+                  <span className="text-emerald-400 mt-0.5">✓</span>
+                  <span className="text-gray-400">No unresolved BBB complaints or active legal disputes</span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -129,49 +195,28 @@ export default function BuildersPage() {
                   <div className="text-3xl mb-2">&#127881;</div>
                   <p className="text-emerald-400 font-bold text-lg mb-1">You&apos;re in!</p>
                   <p className="text-gray-400">We&apos;ll reach out when homeowner groups form in your service areas.</p>
+                  <div className="mt-4 bg-gray-900/50 rounded-lg p-3 text-sm text-gray-400">
+                    <p className="font-medium text-white mb-1">What happens next:</p>
+                    <p>Within 48 hours, we&apos;ll email you a brief questionnaire about your ADU experience, pricing structure, and capacity. Once verified, you&apos;ll be matched with homeowner groups in your region.</p>
+                  </div>
                 </div>
               ) : (
                 <div className="space-y-4">
                   <div>
                     <label className="block text-gray-400 text-sm mb-1">Your name</label>
-                    <input
-                      type="text"
-                      value={name}
-                      onChange={e => setName(e.target.value)}
-                      placeholder="John Smith"
-                      className="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2.5 text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none"
-                    />
+                    <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="John Smith" className="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2.5 text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none" />
                   </div>
-
                   <div>
                     <label className="block text-gray-400 text-sm mb-1">Company</label>
-                    <input
-                      type="text"
-                      value={company}
-                      onChange={e => setCompany(e.target.value)}
-                      placeholder="ABC Builders"
-                      className="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2.5 text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none"
-                    />
+                    <input type="text" value={company} onChange={e => setCompany(e.target.value)} placeholder="ABC Builders" className="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2.5 text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none" />
                   </div>
-
                   <div>
                     <label className="block text-gray-400 text-sm mb-1">Email</label>
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={e => setEmail(e.target.value)}
-                      placeholder="you@company.com"
-                      className="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2.5 text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none"
-                    />
+                    <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@company.com" className="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2.5 text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none" />
                   </div>
-
                   <div>
                     <label className="block text-gray-400 text-sm mb-1">Regions you serve</label>
-                    <select
-                      value={regions}
-                      onChange={e => setRegions(e.target.value)}
-                      className="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2.5 text-white focus:border-blue-500 focus:outline-none"
-                    >
+                    <select value={regions} onChange={e => setRegions(e.target.value)} className="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2.5 text-white focus:border-blue-500 focus:outline-none">
                       <option value="">Select...</option>
                       <option value="metro_boston">Metro Boston</option>
                       <option value="north_shore">North Shore</option>
@@ -184,14 +229,9 @@ export default function BuildersPage() {
                       <option value="statewide">Statewide</option>
                     </select>
                   </div>
-
                   <div>
                     <label className="block text-gray-400 text-sm mb-1">ADU types you build</label>
-                    <select
-                      value={aduTypes}
-                      onChange={e => setAduTypes(e.target.value)}
-                      className="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2.5 text-white focus:border-blue-500 focus:outline-none"
-                    >
+                    <select value={aduTypes} onChange={e => setAduTypes(e.target.value)} className="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2.5 text-white focus:border-blue-500 focus:outline-none">
                       <option value="">Select...</option>
                       <option value="detached">Detached (backyard cottages)</option>
                       <option value="conversion">Conversions (basement, garage)</option>
@@ -199,23 +239,51 @@ export default function BuildersPage() {
                       <option value="all">All types</option>
                     </select>
                   </div>
-
-                  <button
-                    onClick={handleSubmit}
-                    disabled={!name || !company || !email || status === 'loading'}
-                    className="w-full py-3 bg-emerald-600 hover:bg-emerald-500 disabled:bg-gray-700 disabled:text-gray-500 text-white rounded-lg font-medium transition-colors"
-                  >
+                  <button onClick={handleSubmit} disabled={!name || !company || !email || status === 'loading'} className="w-full py-3 bg-emerald-600 hover:bg-emerald-500 disabled:bg-gray-700 disabled:text-gray-500 text-white rounded-lg font-medium transition-colors">
                     {status === 'loading' ? 'Joining...' : 'Join Builder Network'}
                   </button>
-
                   {status === 'error' && (
                     <p className="text-red-400 text-sm text-center">Something went wrong. Try again.</p>
                   )}
-
                   <p className="text-gray-600 text-xs text-center">No cost to join. We&apos;ll connect you with homeowner groups as they form in your area.</p>
                 </div>
               )}
             </div>
+          </div>
+        </div>
+
+        {/* FAQ Section */}
+        <div className="mt-10">
+          <h2 className="text-xl font-bold text-white mb-4">Builder FAQs</h2>
+          <div className="bg-gray-800 border border-gray-700 rounded-xl px-6">
+            <FAQItem
+              question="Is there a cost to join the builder network?"
+              answer="No. Joining is free. There are no listing fees, lead fees, or commissions. We may introduce optional premium features in the future (e.g., priority placement, verified badges), but basic access to homeowner group leads will remain free."
+            />
+            <FAQItem
+              question="How are leads distributed?"
+              answer="When a town reaches 5+ interested homeowners, we match the group with 1-2 builders who serve that region and build the requested ADU types. We don't blast leads to every builder — we curate matches so you get relevant, high-intent groups."
+            />
+            <FAQItem
+              question="What does the homeowner group expect?"
+              answer="Groups expect a transparent, itemized proposal for their ADU projects at a group rate. You present to the group (virtually or in person), and each homeowner decides individually. There's no pressure to accept all projects in a group — you can set your own capacity limits."
+            />
+            <FAQItem
+              question="How does pricing work for group deals?"
+              answer="You set your own pricing. We recommend 15-20% below your standard one-off rate, which is typically achievable through shared permits, bulk materials, and crew efficiency. Homeowners understand they're getting a volume discount, not a cut-rate job."
+            />
+            <FAQItem
+              question="What if I only build in specific towns?"
+              answer="That's fine — you'll only be matched with groups in your service area. We ask for your regions during signup and only send relevant leads."
+            />
+            <FAQItem
+              question="Can I see demand data before signing up?"
+              answer="Yes — our dashboard (adupulse.com) shows permit activity by town, and our leaderboard ranks towns by ADU volume. This gives you a sense of where demand is strongest before you commit."
+            />
+            <FAQItem
+              question="Is there a conflict of interest?"
+              answer="We don't take commissions or referral fees from builders. Our incentive is to grow the platform by connecting homeowners with quality builders at fair prices. If homeowners have bad experiences, they stop using the platform — so vetting builders carefully is in everyone's interest."
+            />
           </div>
         </div>
       </main>
@@ -229,6 +297,7 @@ export default function BuildersPage() {
               <Link href="/club" className="hover:text-white">Join Club</Link>
               <Link href="/blog" className="hover:text-white">Blog</Link>
               <Link href="/estimate" className="hover:text-white">Estimator</Link>
+              <Link href="/methodology" className="hover:text-white">Methodology</Link>
             </div>
           </div>
         </div>

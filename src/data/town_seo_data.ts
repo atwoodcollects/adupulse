@@ -1,5 +1,5 @@
 export interface TownSEOData {
-  slug: string; name: string; county: string; population: number; submitted: number; approved: number; denied: number; pending: number; approvalRate: number; byRight: boolean; source: string; avgRent?: number; medianHome?: number; notes?: string
+  slug: string; name: string; county: string; population: number; submitted: number; approved: number; denied: number; pending: number; approvalRate: number; byRight: boolean; source: string; localPermitUrl?: string; avgRent?: number; medianHome?: number; notes?: string
 }
 
 const townSEOData: TownSEOData[] = [

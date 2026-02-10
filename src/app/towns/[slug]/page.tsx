@@ -3,18 +3,17 @@ import { notFound } from 'next/navigation'
 import townSEOData, { getTownBySlug, getAllTownSlugs } from '@/data/town_seo_data'
 import TownSEOPageClient from './TownSEOPageClient'
 
-// Generate static paths for all towns in the data file
 export function generateStaticParams() {
   return getAllTownSlugs().map(slug => ({ slug }))
 }
 
-// Dynamic metadata for SEO
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const town = getTownBySlug(params.slug)
   if (!town) return { title: 'Town Not Found | ADU Pulse' }
 
   const title = `${town.name} ADU Permits & Data | ADU Pulse`
   const description = `${town.name}, MA has ${town.approved} approved ADU permits with a ${town.approvalRate}% approval rate. See local ADU data, costs, and how to get started.`
+  const ogImageUrl = `https://www.adupulse.com/api/og?town=${town.slug}`
 
   return {
     title,
@@ -25,11 +24,13 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
       url: `https://www.adupulse.com/towns/${town.slug}`,
       siteName: 'ADU Pulse',
       type: 'website',
+      images: [{ url: ogImageUrl, width: 1200, height: 630, alt: `${town.name} ADU Permit Data` }],
     },
     twitter: {
-      card: 'summary',
+      card: 'summary_large_image',
       title,
       description,
+      images: [ogImageUrl],
     },
     alternates: {
       canonical: `https://www.adupulse.com/towns/${town.slug}`,
@@ -41,23 +42,15 @@ export default function TownSEOPage({ params }: { params: { slug: string } }) {
   const town = getTownBySlug(params.slug)
   if (!town) notFound()
 
-  // JSON-LD structured data
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Dataset',
     name: `${town.name} ADU Permit Data`,
     description: `Accessory Dwelling Unit (ADU) permit data for ${town.name}, Massachusetts. Includes applications submitted, approved, denied, and approval rates.`,
     url: `https://www.adupulse.com/towns/${town.slug}`,
-    creator: {
-      '@type': 'Organization',
-      name: 'ADU Pulse',
-      url: 'https://www.adupulse.com',
-    },
+    creator: { '@type': 'Organization', name: 'ADU Pulse', url: 'https://www.adupulse.com' },
     temporalCoverage: '2024/2026',
-    spatialCoverage: {
-      '@type': 'Place',
-      name: `${town.name}, Massachusetts`,
-    },
+    spatialCoverage: { '@type': 'Place', name: `${town.name}, Massachusetts` },
     variableMeasured: [
       { '@type': 'PropertyValue', name: 'ADU Applications Submitted', value: town.submitted },
       { '@type': 'PropertyValue', name: 'ADU Applications Approved', value: town.approved },
@@ -65,12 +58,10 @@ export default function TownSEOPage({ params }: { params: { slug: string } }) {
     ],
   }
 
-  // Nearby towns for internal linking
   const nearbyTowns = townSEOData
     .filter(t => t.slug !== town.slug && t.county === town.county)
     .slice(0, 4)
 
-  // All other towns for broader linking
   const otherTowns = townSEOData
     .filter(t => t.slug !== town.slug && t.county !== town.county)
     .sort((a, b) => b.approved - a.approved)
@@ -78,15 +69,8 @@ export default function TownSEOPage({ params }: { params: { slug: string } }) {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <TownSEOPageClient
-        town={town}
-        nearbyTowns={nearbyTowns}
-        otherTowns={otherTowns}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <TownSEOPageClient town={town} nearbyTowns={nearbyTowns} otherTowns={otherTowns} />
     </>
   )
 }

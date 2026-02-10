@@ -22,9 +22,88 @@ body {
 .town-row {
   @apply flex items-center justify-between py-3 md:py-4 px-3 md:px-4 border-b border-border hover:bg-surface-raised cursor-pointer;
 }
-.badge-approved { @apply bg-approved/10 text-approved px-2 py-0.5 rounded-full text-xs; }
-.badge-denied { @apply bg-denied/10 text-denied px-2 py-0.5 rounded-full text-xs; }
-.badge-pending { @apply bg-pending/10 text-pending px-2 py-0.5 rounded-full text-xs; }
+.badge-approved {
+  @apply bg-approved/10 text-approved px-2 py-0.5 rounded-full text-xs;
+}
+.badge-denied {
+  @apply bg-denied/10 text-denied px-2 py-0.5 rounded-full text-xs;
+}
+.badge-pending {
+  @apply bg-pending/10 text-pending px-2 py-0.5 rounded-full text-xs;
+}
+
+/* Mobile-friendly range sliders */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  touch-action: none;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 8px;
+  border-radius: 4px;
+  background: #374151;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #3b82f6;
+  border: 3px solid #1e3a5f;
+  margin-top: -10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+input[type="range"]::-moz-range-track {
+  height: 8px;
+  border-radius: 4px;
+  background: #374151;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #3b82f6;
+  border: 3px solid #1e3a5f;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Even larger thumbs on touch devices */
+@media (pointer: coarse) {
+  input[type="range"]::-webkit-slider-thumb {
+    width: 36px;
+    height: 36px;
+    margin-top: -14px;
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* Smooth page transitions */
+.page-enter {
+  opacity: 0;
+  transform: translateY(8px);
+}
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+/* Progressive disclosure animations */
+.disclosure-panel {
+  overflow: hidden;
+  transition: max-height 300ms ease, opacity 200ms ease;
+}
+
 /* force deploy */
 body { background-color: #111827 !important; }
 html { background-color: #111827; }

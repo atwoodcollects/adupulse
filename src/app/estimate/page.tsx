@@ -12,8 +12,7 @@ const costData = {
 }
 
 const townMultipliers: Record<string, number> = {
-  newton: 1.15, milton: 1.0, plymouth: 0.95, duxbury: 1.05,
-  needham: 1.10, andover: 1.05, sudbury: 1.08, boston: 1.20, other: 1.0
+  newton: 1.15, milton: 1.0, plymouth: 0.95, duxbury: 1.05, needham: 1.10, andover: 1.05, sudbury: 1.08, boston: 1.20, other: 1.0
 }
 
 const allComparisons = [
@@ -42,14 +41,14 @@ const allComparisons = [
 
 // --- MARKET DATA FOR ROI CALCULATOR ---
 const townMarketData: Record<string, { avgRent: number; rentYoY: number; medianHome: number; propertyUplift: number }> = {
-  boston:    { avgRent: 2850, rentYoY: -0.8, medianHome: 785000, propertyUplift: 0.18 },
-  newton:   { avgRent: 2950, rentYoY: -0.3, medianHome: 1150000, propertyUplift: 0.15 },
-  milton:   { avgRent: 2400, rentYoY: -0.6, medianHome: 720000, propertyUplift: 0.18 },
+  boston: { avgRent: 2850, rentYoY: -0.8, medianHome: 785000, propertyUplift: 0.18 },
+  newton: { avgRent: 2950, rentYoY: -0.3, medianHome: 1150000, propertyUplift: 0.15 },
+  milton: { avgRent: 2400, rentYoY: -0.6, medianHome: 720000, propertyUplift: 0.18 },
   plymouth: { avgRent: 2100, rentYoY: -1.1, medianHome: 520000, propertyUplift: 0.20 },
-  duxbury:  { avgRent: 2700, rentYoY: -0.5, medianHome: 950000, propertyUplift: 0.16 },
-  needham:  { avgRent: 3000, rentYoY: -0.2, medianHome: 1250000, propertyUplift: 0.14 },
-  andover:  { avgRent: 2650, rentYoY: -0.4, medianHome: 880000, propertyUplift: 0.16 },
-  sudbury:  { avgRent: 2800, rentYoY: -0.3, medianHome: 1050000, propertyUplift: 0.15 },
+  duxbury: { avgRent: 2700, rentYoY: -0.5, medianHome: 950000, propertyUplift: 0.16 },
+  needham: { avgRent: 3000, rentYoY: -0.2, medianHome: 1250000, propertyUplift: 0.14 },
+  andover: { avgRent: 2650, rentYoY: -0.4, medianHome: 880000, propertyUplift: 0.16 },
+  sudbury: { avgRent: 2800, rentYoY: -0.3, medianHome: 1050000, propertyUplift: 0.15 },
 }
 
 const NATIONAL_RENT_YOY = -1.4
@@ -57,12 +56,11 @@ const NATIONAL_AVG_RENT = 1695
 const ASSISTED_LIVING_MONTHLY_MA = 6000
 
 type GoalKey = 'rental' | 'family' | 'aging' | 'value'
-
 const GOALS: Record<GoalKey, { icon: string; label: string; desc: string }> = {
   rental: { icon: '💰', label: 'Rental Income', desc: 'Generate monthly cash flow' },
   family: { icon: '👨‍👩‍👧', label: 'Family Housing', desc: 'House a family member' },
-  aging:  { icon: '🏡', label: 'Age in Place', desc: 'Stay home as you age' },
-  value:  { icon: '📈', label: 'Property Value', desc: 'Increase home equity' },
+  aging: { icon: '🏡', label: 'Age in Place', desc: 'Stay home as you age' },
+  value: { icon: '📈', label: 'Property Value', desc: 'Increase home equity' },
 }
 
 // --- HELPERS ---
@@ -78,12 +76,11 @@ const getPermitCounts = () => {
 const fmt = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const fmtPct = (n: number) => `${n > 0 ? '+' : ''}${n.toFixed(1)}%`
 
-// --- NEW COMPONENTS ---
+// --- COMPONENTS ---
 
 function RentMarketCallout({ town, townKey }: { town: string; townKey: string }) {
   const data = townMarketData[townKey]
   if (!data) return null
-
   const diff = data.rentYoY - NATIONAL_RENT_YOY
   const better = diff > 0
 
@@ -109,8 +106,7 @@ function RentMarketCallout({ town, townKey }: { town: string; townKey: string })
           <div className="text-text-secondary text-sm leading-relaxed">
             {better
               ? `${town} is outperforming the national average by ${diff.toFixed(1)}pp. Local demand remains stronger than headlines suggest.`
-              : `${town} is tracking close to national trends. Focus on non-rental value drivers like property uplift.`
-            }
+              : `${town} is tracking close to national trends. Focus on non-rental value drivers like property uplift.`}
           </div>
         </div>
       </div>
@@ -124,13 +120,9 @@ function GoalSelector({ selected, onSelect }: { selected: GoalKey; onSelect: (g:
       {(Object.entries(GOALS) as [GoalKey, typeof GOALS[GoalKey]][]).map(([key, { icon, label, desc }]) => {
         const active = selected === key
         return (
-          <button
-            key={key}
-            onClick={() => onSelect(key)}
-            className={`text-left rounded-lg p-3 transition-all border ${
-              active
-                ? 'bg-blue-600/20 border-blue-500/50'
-                : 'bg-gray-800/50 border-border hover:bg-gray-700/50'
+          <button key={key} onClick={() => onSelect(key)}
+            className={`text-left rounded-lg p-3 transition-all border min-h-[72px] ${
+              active ? 'bg-blue-600/20 border-blue-500/50' : 'bg-gray-800/50 border-border hover:bg-gray-700/50'
             }`}
           >
             <div className="text-xl mb-1">{icon}</div>
@@ -161,28 +153,39 @@ function RentScenarioSlider({ value, onChange }: { value: number; onChange: (v: 
           {value > 0 ? '+' : ''}{value}% YoY — {current.label}
         </span>
       </div>
-      <input
-        type="range" min={-2} max={2} step={1} value={value}
-        onChange={e => onChange(Number(e.target.value))}
-        className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-400"
-      />
-      <div className="flex justify-between text-xs text-text-muted mt-1">
-        <span>-2%</span><span>0%</span><span>+2%</span>
+      {/* Bigger slider with touch-friendly hit area */}
+      <div className="py-2">
+        <input
+          type="range" min={-2} max={2} step={1} value={value}
+          onChange={e => onChange(Number(e.target.value))}
+          className="w-full h-3 bg-gray-700 rounded-lg appearance-none cursor-pointer slider-touch"
+        />
+      </div>
+      {/* Tap-friendly step buttons on mobile */}
+      <div className="flex justify-between mt-2 sm:mt-1">
+        {scenarios.map(s => (
+          <button
+            key={s.val}
+            onClick={() => onChange(s.val)}
+            className={`text-xs px-1.5 py-1 rounded min-w-[40px] text-center transition-colors ${
+              value === s.val ? `${s.color} bg-gray-700/50 font-medium` : 'text-text-muted hover:text-white'
+            }`}
+          >
+            {s.val > 0 ? '+' : ''}{s.val}%
+          </button>
+        ))}
       </div>
     </div>
   )
 }
 
-function ValueBreakdown({
-  goal, townKey, aduCost, rentScenario, years
-}: {
+function ValueBreakdown({ goal, townKey, aduCost, rentScenario, years }: {
   goal: GoalKey; townKey: string; aduCost: number; rentScenario: number; years: number
 }) {
   const data = townMarketData[townKey]
   if (!data) return null
 
   const monthlyRent = data.avgRent * 0.85
-
   let cumulativeRent = 0
   let currentRent = monthlyRent
   for (let y = 0; y < years; y++) {
@@ -195,7 +198,6 @@ function ValueBreakdown({
   const agingSavings = ASSISTED_LIVING_MONTHLY_MA * 12 * Math.min(years, 5)
 
   const lines: { label: string; value: number; color: string }[] = []
-
   if (goal === 'rental' || goal === 'value') {
     lines.push({ label: `Rental income (${years}yr, ${rentScenario > 0 ? '+' : ''}${rentScenario}% scenario)`, value: cumulativeRent, color: 'text-blue-400' })
   }
@@ -212,10 +214,7 @@ function ValueBreakdown({
   const paybackYears = goal === 'rental' ? (aduCost / (monthlyRent * 12)) : null
 
   const barColors: Record<string, string> = {
-    'text-blue-400': '#60a5fa',
-    'text-emerald-400': '#34d399',
-    'text-amber-400': '#fbbf24',
-    'text-purple-400': '#a78bfa',
+    'text-blue-400': '#60a5fa', 'text-emerald-400': '#34d399', 'text-amber-400': '#fbbf24', 'text-purple-400': '#a78bfa',
   }
 
   return (
@@ -223,39 +222,29 @@ function ValueBreakdown({
       <div className="text-xs uppercase tracking-widest text-blue-400 mb-4 font-medium">
         {years}-Year Value Breakdown — {GOALS[goal]?.icon} {GOALS[goal]?.label}
       </div>
-
       <div className="flex justify-between items-center py-2.5 border-b border-border">
         <span className="text-text-secondary text-sm">Est. ADU construction cost</span>
         <span className="text-red-400 font-semibold font-mono">-{fmt(aduCost)}</span>
       </div>
-
       {lines.map((line, i) => (
-        <div key={i} className="flex justify-between items-center py-2.5 border-b border-border/50">
+        <div key={i} className="flex justify-between items-center py-2.5 border-b border-border/50 gap-2">
           <span className="text-text-muted text-sm">{line.label}</span>
-          <span className={`font-semibold font-mono ${line.color}`}>+{fmt(line.value)}</span>
+          <span className={`font-semibold font-mono shrink-0 ${line.color}`}>+{fmt(line.value)}</span>
         </div>
       ))}
-
       <div className="mt-4 mb-3 h-2 rounded-full bg-gray-700/50 overflow-hidden flex">
         {lines.map((line, i) => (
-          <div
-            key={i}
-            className="h-full transition-all duration-500"
-            style={{
-              width: `${(line.value / totalValue) * 100}%`,
-              backgroundColor: barColors[line.color] || '#60a5fa',
-            }}
-          />
+          <div key={i} className="h-full transition-all duration-500"
+            style={{ width: `${(line.value / totalValue) * 100}%`, backgroundColor: barColors[line.color] || '#60a5fa' }} />
         ))}
       </div>
-
       <div className="flex justify-between items-center pt-4 border-t-2 border-border mt-2">
         <div>
           <div className="text-text-secondary text-sm">Total est. value created</div>
-          <div className="text-3xl sm:text-4xl font-bold text-white font-mono">{fmt(totalValue)}</div>
+          <div className="text-2xl sm:text-4xl font-bold text-white font-mono">{fmt(totalValue)}</div>
         </div>
         <div className="text-right">
-          <div className={`text-xl sm:text-2xl font-bold font-mono ${roi > 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+          <div className={`text-lg sm:text-2xl font-bold font-mono ${roi > 0 ? 'text-emerald-400' : 'text-red-400'}`}>
             {roi > 0 ? '+' : ''}{roi.toFixed(0)}% ROI
           </div>
           {paybackYears && (
@@ -266,8 +255,6 @@ function ValueBreakdown({
     </div>
   )
 }
-
-// --- EXISTING COMPONENTS ---
 
 function EmailCapture() {
   const [email, setEmail] = useState('')
@@ -286,9 +273,7 @@ function EmailCapture() {
         body: JSON.stringify({ email, town: requestedTown, considering, source: 'estimate_page' })
       })
       setSubmitted(true)
-    } catch (err) {
-      console.error(err)
-    }
+    } catch (err) { console.error(err) }
     setSubmitting(false)
   }
 
@@ -308,16 +293,20 @@ function EmailCapture() {
       <p className="text-text-secondary text-sm mb-4">Tell us which town to add next. We&apos;ll email you when it&apos;s live.</p>
       <form onSubmit={handleSubmit} className="space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <input type="email" required placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-400" />
-          <input type="text" required placeholder="Town you want tracked" value={requestedTown} onChange={(e) => setRequestedTown(e.target.value)} className="bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-400" />
-          <select required value={considering} onChange={(e) => setConsidering(e.target.value)} className="bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm">
+          <input type="email" required placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}
+            className="bg-gray-700 border border-gray-600 rounded-lg px-3 py-3 sm:py-2 text-white text-base sm:text-sm placeholder-gray-400 min-h-[48px]" />
+          <input type="text" required placeholder="Town you want tracked" value={requestedTown} onChange={(e) => setRequestedTown(e.target.value)}
+            className="bg-gray-700 border border-gray-600 rounded-lg px-3 py-3 sm:py-2 text-white text-base sm:text-sm placeholder-gray-400 min-h-[48px]" />
+          <select required value={considering} onChange={(e) => setConsidering(e.target.value)}
+            className="bg-gray-700 border border-gray-600 rounded-lg px-3 py-3 sm:py-2 text-white text-base sm:text-sm min-h-[48px]">
             <option value="" disabled>Building an ADU?</option>
             <option value="yes">Yes, planning to</option>
             <option value="maybe">Maybe / Researching</option>
             <option value="no">No, just curious</option>
           </select>
         </div>
-        <button type="submit" disabled={submitting} className="w-full sm:w-auto px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium disabled:opacity-50">
+        <button type="submit" disabled={submitting}
+          className="w-full sm:w-auto px-6 py-3 sm:py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium disabled:opacity-50 min-h-[48px]">
           {submitting ? 'Submitting...' : 'Notify me'}
         </button>
       </form>
@@ -325,8 +314,43 @@ function EmailCapture() {
   )
 }
 
-// --- MAIN PAGE ---
+// --- MOBILE PERMIT CARD ---
+function PermitCard({ c, type, townNames }: { c: typeof allComparisons[0]; type: string; townNames: Record<string, string> }) {
+  const formatCost = (cost: number) => {
+    if (cost >= 1000000) return '$' + (cost / 1000000).toFixed(2) + 'M'
+    if (cost >= 1000) return '$' + Math.round(cost / 1000) + 'K'
+    return '$' + cost
+  }
 
+  return (
+    <div className="bg-gray-700/30 rounded-lg p-3 border border-border/30">
+      <div className="flex justify-between items-start mb-2">
+        <div>
+          <div className="text-white text-sm font-medium">{c.label}</div>
+          <div className="text-text-muted text-xs">{townNames[c.town] || c.town}</div>
+        </div>
+        <span className={`px-2 py-0.5 rounded text-xs capitalize ${c.type === type ? 'bg-blue-500/20 text-blue-400' : 'text-text-secondary bg-gray-700/50'}`}>{c.type}</span>
+      </div>
+      <div className="grid grid-cols-3 gap-2 text-center">
+        <div>
+          <div className="text-white font-medium text-sm">{formatCost(c.cost)}</div>
+          <div className="text-text-muted text-[10px]">Total</div>
+        </div>
+        <div>
+          <div className="text-white font-medium text-sm">{c.sqft > 0 ? c.sqft : '—'}</div>
+          <div className="text-text-muted text-[10px]">Sqft</div>
+        </div>
+        <div>
+          <div className="text-white font-medium text-sm">{c.ppsf > 0 ? `$${c.ppsf}` : '—'}</div>
+          <div className="text-text-muted text-[10px]">$/sf</div>
+        </div>
+      </div>
+      {c.notes && <div className="text-text-muted text-xs mt-2 pt-2 border-t border-border/30">{c.notes}</div>}
+    </div>
+  )
+}
+
+// --- MAIN PAGE ---
 export default function EstimatePage() {
   const [town, setTown] = useState('milton')
   const [type, setType] = useState<'detached' | 'attached' | 'conversion'>('detached')
@@ -384,7 +408,6 @@ export default function EstimatePage() {
     if (dataCount >= 2) return { label: 'Medium', color: 'text-amber-400', bg: 'bg-amber-500/20' }
     return { label: 'Limited', color: 'text-red-400', bg: 'bg-red-500/20' }
   }
-
   const confidence = getConfidenceLevel()
   const hasMarketData = !!townMarketData[town]
 
@@ -396,13 +419,15 @@ export default function EstimatePage() {
         <p className="text-text-secondary text-sm mb-6">Based on real MA permit data from 2025. <Link href="/methodology" className="text-blue-400 hover:underline">See methodology →</Link></p>
 
         {/* Cost Estimator */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           <div className="bg-gray-800/50 border border-border rounded-lg p-4 sm:p-6">
             <h2 className="text-white font-medium mb-4">Your Project</h2>
-            <div className="space-y-4">
+            <div className="space-y-5 sm:space-y-4">
+              {/* Town selector */}
               <div>
                 <label className="text-text-secondary text-sm block mb-2">Town</label>
-                <select value={town} onChange={(e) => setTown(e.target.value)} className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white">
+                <select value={town} onChange={(e) => setTown(e.target.value)}
+                  className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-3 sm:py-2 text-white text-base sm:text-sm min-h-[48px]">
                   <option value="boston">Boston</option>
                   <option value="newton">Newton</option>
                   <option value="milton">Milton</option>
@@ -413,29 +438,62 @@ export default function EstimatePage() {
                   <option value="sudbury">Sudbury</option>
                 </select>
               </div>
+
+              {/* ADU Type — bigger touch targets */}
               <div>
                 <label className="text-text-secondary text-sm block mb-2">ADU Type</label>
                 <div className="grid grid-cols-3 gap-2">
                   {(['detached', 'attached', 'conversion'] as const).map((t) => (
-                    <button key={t} onClick={() => setType(t)} className={`px-3 py-2 rounded-lg text-sm capitalize ${type === t ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`}>{t}</button>
+                    <button key={t} onClick={() => setType(t)}
+                      className={`px-3 py-3 sm:py-2 rounded-lg text-sm capitalize min-h-[48px] ${
+                        type === t ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                      }`}>{t}</button>
                   ))}
                 </div>
               </div>
+
+              {/* Square Feet — slider + numeric input */}
               <div>
-                <label className="text-text-secondary text-sm block mb-2">Square Feet: {sqft}</label>
-                <input type="range" min="300" max="1200" step="50" value={sqft} onChange={(e) => setSqft(Number(e.target.value))} className="w-full" />
-                <div className="flex justify-between text-xs text-text-muted mt-1"><span>300 sf</span><span>1200 sf</span></div>
+                <div className="flex justify-between items-center mb-2">
+                  <label className="text-text-secondary text-sm">Square Feet</label>
+                  <div className="flex items-center gap-1">
+                    <input
+                      type="number" min={300} max={1200} step={50} value={sqft}
+                      onChange={e => {
+                        const v = Math.min(1200, Math.max(300, Number(e.target.value)))
+                        setSqft(v)
+                      }}
+                      className="w-20 bg-gray-700 border border-gray-600 rounded px-2 py-1 text-white text-sm text-right min-h-[36px]"
+                    />
+                    <span className="text-text-muted text-xs">sf</span>
+                  </div>
+                </div>
+                <div className="py-2">
+                  <input type="range" min="300" max="1200" step="50" value={sqft}
+                    onChange={(e) => setSqft(Number(e.target.value))}
+                    className="w-full h-3 bg-gray-700 rounded-lg appearance-none cursor-pointer slider-touch" />
+                </div>
+                <div className="flex justify-between text-xs text-text-muted mt-0.5"><span>300 sf</span><span>1200 sf</span></div>
               </div>
+
+              {/* Builder — bigger touch targets */}
               <div>
                 <label className="text-text-secondary text-sm block mb-2">Builder</label>
                 <div className="grid grid-cols-2 gap-2">
-                  <button onClick={() => setBuilder('diy')} className={`px-3 py-2 rounded-lg text-sm ${builder === 'diy' ? 'bg-emerald-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`}>DIY / Homeowner</button>
-                  <button onClick={() => setBuilder('contractor')} className={`px-3 py-2 rounded-lg text-sm ${builder === 'contractor' ? 'bg-amber-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`}>Contractor</button>
+                  <button onClick={() => setBuilder('diy')}
+                    className={`px-3 py-3 sm:py-2 rounded-lg text-sm min-h-[48px] ${
+                      builder === 'diy' ? 'bg-emerald-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                    }`}>DIY / Homeowner</button>
+                  <button onClick={() => setBuilder('contractor')}
+                    className={`px-3 py-3 sm:py-2 rounded-lg text-sm min-h-[48px] ${
+                      builder === 'contractor' ? 'bg-amber-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                    }`}>Contractor</button>
                 </div>
               </div>
             </div>
           </div>
 
+          {/* Results panel */}
           <div className="bg-gray-800/50 border border-border rounded-lg p-4 sm:p-6">
             <div className="flex justify-between items-start mb-4">
               <h2 className="text-white font-medium">Estimated Cost</h2>
@@ -474,7 +532,7 @@ export default function EstimatePage() {
             <div className="border-t border-border pt-6">
               <div className="flex items-center gap-3 mb-1">
                 <span className="text-xl">⚡</span>
-                <h2 className="text-xl font-bold text-white">What&apos;s your ADU really worth?</h2>
+                <h2 className="text-lg sm:text-xl font-bold text-white">What&apos;s your ADU really worth?</h2>
               </div>
               <p className="text-text-secondary text-sm mb-4 ml-9">
                 See the full ROI picture based on your goal — not just the sticker price.
@@ -495,24 +553,29 @@ export default function EstimatePage() {
                   <span className="text-text-muted text-xs uppercase tracking-wider">Time Horizon</span>
                   <span className="text-sm font-semibold text-white">{roiYears} years</span>
                 </div>
-                <input
-                  type="range" min={5} max={20} step={5} value={roiYears}
-                  onChange={e => setRoiYears(Number(e.target.value))}
-                  className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-400"
-                />
-                <div className="flex justify-between text-xs text-text-muted mt-1">
-                  <span>5yr</span><span>10yr</span><span>15yr</span><span>20yr</span>
+                <div className="py-2">
+                  <input type="range" min={5} max={20} step={5} value={roiYears}
+                    onChange={e => setRoiYears(Number(e.target.value))}
+                    className="w-full h-3 bg-gray-700 rounded-lg appearance-none cursor-pointer slider-touch" />
+                </div>
+                {/* Tap-friendly year buttons */}
+                <div className="flex justify-between mt-2 sm:mt-1">
+                  {[5, 10, 15, 20].map(y => (
+                    <button
+                      key={y}
+                      onClick={() => setRoiYears(y)}
+                      className={`text-xs px-2 py-1 rounded min-w-[40px] text-center transition-colors ${
+                        roiYears === y ? 'text-white bg-gray-700/50 font-medium' : 'text-text-muted hover:text-white'
+                      }`}
+                    >
+                      {y}yr
+                    </button>
+                  ))}
                 </div>
               </div>
             </div>
 
-            <ValueBreakdown
-              goal={goal}
-              townKey={town}
-              aduCost={result.avg}
-              rentScenario={rentScenario}
-              years={roiYears}
-            />
+            <ValueBreakdown goal={goal} townKey={town} aduCost={result.avg} rentScenario={rentScenario} years={roiYears} />
 
             <div className="text-text-muted text-xs leading-relaxed p-3 bg-gray-800/20 rounded-lg border border-border/50">
               ⚠️ Estimates are illustrative and based on local market averages. Actual costs, rents, and property values vary significantly. Assisted living cost based on MA state average of $6,000/mo. Consult a financial advisor before making investment decisions. <Link href="/methodology" className="text-blue-400 hover:underline">See our methodology</Link>.
@@ -525,39 +588,48 @@ export default function EstimatePage() {
           <EmailCapture />
         </div>
 
-        {/* Similar Permitted Projects */}
+        {/* Similar Permitted Projects — card layout on mobile, table on desktop */}
         <div className="mt-6 bg-gray-800/50 border border-border rounded-lg p-4 sm:p-6">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-white font-medium">Similar Permitted Projects</h2>
-            {townLinks[town] && <Link href={townLinks[town]} className="text-blue-400 text-xs hover:underline">View all {townNames[town]} permits →</Link>}
+            {townLinks[town] && <Link href={townLinks[town]} className="text-blue-400 text-xs hover:underline">View all {townNames[town]} →</Link>}
           </div>
           {filteredComparisons.length > 0 ? (
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="text-text-secondary border-b border-border">
-                    <th className="text-left p-2">Location</th>
-                    <th className="text-left p-2">Type</th>
-                    <th className="text-left p-2">Sqft</th>
-                    <th className="text-left p-2">Cost</th>
-                    <th className="text-left p-2">$/sf</th>
-                    <th className="text-left p-2 hidden sm:table-cell">Notes</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredComparisons.map((c, i) => (
-                    <tr key={i} className="border-b border-border/50">
-                      <td className="p-2"><span className="text-white">{c.label}</span><span className="text-text-muted text-xs block">{townNames[c.town]}</span></td>
-                      <td className="p-2"><span className={`px-2 py-0.5 rounded text-xs capitalize ${c.type === type ? 'bg-blue-500/20 text-blue-400' : 'text-text-secondary'}`}>{c.type}</span></td>
-                      <td className="p-2 text-text-secondary">{c.sqft > 0 ? c.sqft : '—'}</td>
-                      <td className="p-2 text-white font-medium">{formatCost(c.cost)}</td>
-                      <td className="p-2 text-text-secondary">{c.ppsf > 0 ? '$' + c.ppsf : '—'}</td>
-                      <td className="p-2 text-text-muted text-xs hidden sm:table-cell">{c.notes}</td>
+            <>
+              {/* Mobile: card layout */}
+              <div className="sm:hidden space-y-3">
+                {filteredComparisons.map((c, i) => (
+                  <PermitCard key={i} c={c} type={type} townNames={townNames} />
+                ))}
+              </div>
+              {/* Desktop: table layout */}
+              <div className="hidden sm:block overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="text-text-secondary border-b border-border">
+                      <th className="text-left p-2">Location</th>
+                      <th className="text-left p-2">Type</th>
+                      <th className="text-left p-2">Sqft</th>
+                      <th className="text-left p-2">Cost</th>
+                      <th className="text-left p-2">$/sf</th>
+                      <th className="text-left p-2">Notes</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody>
+                    {filteredComparisons.map((c, i) => (
+                      <tr key={i} className="border-b border-border/50">
+                        <td className="p-2"><span className="text-white">{c.label}</span><span className="text-text-muted text-xs block">{townNames[c.town]}</span></td>
+                        <td className="p-2"><span className={`px-2 py-0.5 rounded text-xs capitalize ${c.type === type ? 'bg-blue-500/20 text-blue-400' : 'text-text-secondary'}`}>{c.type}</span></td>
+                        <td className="p-2 text-text-secondary">{c.sqft > 0 ? c.sqft : '—'}</td>
+                        <td className="p-2 text-white font-medium">{formatCost(c.cost)}</td>
+                        <td className="p-2 text-text-secondary">{c.ppsf > 0 ? '$' + c.ppsf : '—'}</td>
+                        <td className="p-2 text-text-muted text-xs">{c.notes}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </>
           ) : (
             <div className="text-center py-6">
               <p className="text-text-muted text-sm mb-2">Limited data for {townNames[town]} + {type}.</p>
@@ -567,7 +639,7 @@ export default function EstimatePage() {
           <div className="mt-4 pt-4 border-t border-border flex flex-wrap gap-2">
             <span className="text-text-muted text-xs">Explore town data:</span>
             {['milton', 'plymouth', 'newton', 'duxbury'].map(t => (
-              <Link key={t} href={townLinks[t]} className="text-blue-400 text-xs hover:underline">{townNames[t]}</Link>
+              <Link key={t} href={townLinks[t]} className="text-blue-400 text-xs hover:underline min-h-[32px] flex items-center">{townNames[t]}</Link>
             ))}
           </div>
         </div>

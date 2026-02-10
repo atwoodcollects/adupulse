@@ -4,6 +4,7 @@ import Link from 'next/link'
 import TownNav from '@/components/TownNav'
 import TownMap from '@/components/TownMap'
 import { useState } from 'react'
+import { useTown } from '@/contexts/TownContext'
 
 const towns = [
   { name: 'Boston', submitted: 69, approved: 44, region: 'Metro Boston', hasDetail: true },
@@ -69,7 +70,16 @@ const activeChallenges = [
   { townA: 'Plymouth', townB: 'Marshfield', end: '2026-05-31', daysLeft: 113 },
 ]
 
+// Intent-based entry points for mobile
+const intents = [
+  { icon: '✅', label: 'Check feasibility', desc: 'Can I build an ADU?', href: '/quiz', color: 'border-emerald-500/30 bg-emerald-900/20' },
+  { icon: '💰', label: 'Estimate cost & ROI', desc: 'What will it cost?', href: '/estimate', color: 'border-blue-500/30 bg-blue-900/20' },
+  { icon: '🏗️', label: 'Find a builder', desc: 'Get group rates', href: '/club', color: 'border-purple-500/30 bg-purple-900/20' },
+  { icon: '📊', label: 'Compare towns', desc: 'How does mine stack up?', href: '/leaderboard', color: 'border-amber-500/30 bg-amber-900/20' },
+]
+
 export default function Home() {
+  const { selectedTown, setSelectedTown } = useTown()
   const [mobileTab, setMobileTab] = useState<'towns' | 'map'>('towns')
   const [sortBy, setSortBy] = useState<'volume' | 'rate' | 'alpha'>('volume')
 
@@ -86,6 +96,9 @@ export default function Home() {
   const totalApproved = towns.reduce((sum, t) => sum + t.approved, 0)
   const totalSubmitted = towns.reduce((sum, t) => sum + t.submitted, 0)
   const overallRate = Math.round((totalApproved / totalSubmitted) * 100)
+
+  // Personalized town data if user has selected one
+  const myTownData = selectedTown ? towns.find(t => t.name === selectedTown) : null
 
   return (
     <div className="min-h-screen bg-gray-900">
@@ -105,16 +118,63 @@ export default function Home() {
       <Link href="/club" className="block bg-gradient-to-r from-emerald-900/40 to-blue-900/40 border-b border-emerald-500/20 hover:from-emerald-900/60 hover:to-blue-900/60 transition-colors">
         <div className="max-w-6xl mx-auto px-4 py-2.5 flex items-center justify-center gap-2 text-sm">
           <span className="bg-emerald-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">NEW</span>
-          <span className="text-gray-300">Join your town&apos;s ADU group &mdash; save 15-20% with group builder rates</span>
-          <span className="text-emerald-400">&rarr;</span>
+          <span className="text-gray-300">Join your town&apos;s ADU group — save 15-20% with group builder rates</span>
+          <span className="text-emerald-400">→</span>
         </div>
       </Link>
 
       <main className="max-w-6xl mx-auto px-4 py-6 md:py-8">
+        {/* MOBILE: Personalized town header if user has one */}
+        {myTownData && (
+          <div className="md:hidden bg-gray-800 border border-gray-700 rounded-xl p-4 mb-4">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <span className="text-lg">📍</span>
+                <span className="text-white font-bold">Your Town: {selectedTown}</span>
+              </div>
+              <button onClick={() => setSelectedTown('')} className="text-gray-500 text-xs hover:text-gray-300">Change</button>
+            </div>
+            <div className="grid grid-cols-3 gap-2 text-center mb-3">
+              <div className="bg-gray-900/50 rounded-lg p-2">
+                <div className="text-emerald-400 font-bold">{myTownData.approved}</div>
+                <div className="text-gray-500 text-[10px]">Approved</div>
+              </div>
+              <div className="bg-gray-900/50 rounded-lg p-2">
+                <div className="text-white font-bold">{myTownData.submitted}</div>
+                <div className="text-gray-500 text-[10px]">Submitted</div>
+              </div>
+              <div className="bg-gray-900/50 rounded-lg p-2">
+                <div className="text-white font-bold">{myTownData.submitted > 0 ? Math.round((myTownData.approved / myTownData.submitted) * 100) : 0}%</div>
+                <div className="text-gray-500 text-[10px]">Rate</div>
+              </div>
+            </div>
+            <Link href={`/towns/${selectedTown.toLowerCase().replace(/\s+/g, '-')}`}
+              className="block text-center text-blue-400 text-sm font-medium py-2 bg-blue-600/10 rounded-lg hover:bg-blue-600/20">
+              View full {selectedTown} data →
+            </Link>
+          </div>
+        )}
+
+        {/* MOBILE: Intent-based entry — "What are you trying to do?" */}
+        <div className="md:hidden mb-6">
+          <h2 className="text-gray-400 text-sm font-medium mb-3">What are you trying to do?</h2>
+          <div className="grid grid-cols-2 gap-2">
+            {intents.map(intent => (
+              <Link key={intent.href} href={intent.href}
+                className={`rounded-xl p-3.5 border ${intent.color} hover:opacity-90 active:opacity-75 transition-opacity min-h-[80px]`}>
+                <div className="text-2xl mb-1">{intent.icon}</div>
+                <div className="text-white font-medium text-sm">{intent.label}</div>
+                <div className="text-gray-400 text-xs">{intent.desc}</div>
+              </Link>
+            ))}
+          </div>
+        </div>
+
         {/* Hero Stats */}
         <div className="text-center mb-8">
           <h1 className="text-2xl md:text-4xl font-bold text-white mb-2">Tracking MA&apos;s ADU Progress</h1>
           <p className="text-gray-400 mb-6">Real permit data from 217 towns</p>
+
           <div className="grid grid-cols-3 gap-4 max-w-lg mx-auto mb-8">
             <div className="bg-gray-800 border border-gray-700 rounded-xl p-4">
               <div className="text-2xl md:text-3xl font-bold text-emerald-400">1,224</div>
@@ -129,7 +189,9 @@ export default function Home() {
               <div className="text-gray-400 text-xs md:text-sm">Approval Rate</div>
             </div>
           </div>
-          <div className="flex flex-wrap justify-center gap-3 mb-8">
+
+          {/* Desktop-only action buttons */}
+          <div className="hidden md:flex flex-wrap justify-center gap-3 mb-8">
             <Link href="/town" className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium">Find Your Town</Link>
             <Link href="/scorecards" className="px-5 py-2.5 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium">Town Scorecards</Link>
             <Link href="/leaderboard" className="px-5 py-2.5 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium">Leaderboard</Link>
@@ -139,33 +201,28 @@ export default function Home() {
 
         {/* Mobile Tabs */}
         <div className="md:hidden flex mb-4">
-          <button
-            onClick={() => setMobileTab('towns')}
-            className={`flex-1 py-2 text-center font-medium transition-colors ${mobileTab === 'towns' ? 'bg-blue-600 text-white rounded-t-lg' : 'bg-gray-800 text-gray-400'}`}
-          >
+          <button onClick={() => setMobileTab('towns')}
+            className={`flex-1 py-2.5 text-center font-medium transition-colors min-h-[44px] ${
+              mobileTab === 'towns' ? 'bg-blue-600 text-white rounded-t-lg' : 'bg-gray-800 text-gray-400'}`}>
             📋 Towns
           </button>
-          <button
-            onClick={() => setMobileTab('map')}
-            className={`flex-1 py-2 text-center font-medium transition-colors ${mobileTab === 'map' ? 'bg-blue-600 text-white rounded-t-lg' : 'bg-gray-800 text-gray-400'}`}
-          >
+          <button onClick={() => setMobileTab('map')}
+            className={`flex-1 py-2.5 text-center font-medium transition-colors min-h-[44px] ${
+              mobileTab === 'map' ? 'bg-blue-600 text-white rounded-t-lg' : 'bg-gray-800 text-gray-400'}`}>
             🗺️ Map
           </button>
         </div>
 
         {/* Towns + Map Grid */}
         <div className="grid md:grid-cols-2 gap-6 mb-8">
-          {/* Town List */}
           <div className={`${mobileTab === 'towns' ? 'block' : 'hidden'} md:block`}>
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-lg font-bold text-white">All Towns</h2>
               <div className="flex gap-2">
                 {(['volume', 'rate', 'alpha'] as const).map(key => (
-                  <button
-                    key={key}
-                    onClick={() => setSortBy(key)}
-                    className={`px-2 py-1 text-xs rounded-full ${sortBy === key ? 'bg-blue-600 text-white' : 'bg-gray-800 text-gray-400'}`}
-                  >
+                  <button key={key} onClick={() => setSortBy(key)}
+                    className={`px-2.5 py-1.5 text-xs rounded-full min-h-[32px] ${
+                      sortBy === key ? 'bg-blue-600 text-white' : 'bg-gray-800 text-gray-400'}`}>
                     {key === 'volume' && 'Volume'}
                     {key === 'rate' && 'Rate'}
                     {key === 'alpha' && 'A-Z'}
@@ -173,19 +230,23 @@ export default function Home() {
                 ))}
               </div>
             </div>
+
             <div className="bg-gray-800 border border-gray-700 rounded-xl overflow-hidden max-h-[500px] overflow-y-auto">
               {sortedTowns.map(town => {
                 const rate = town.submitted > 0 ? Math.round((town.approved / town.submitted) * 100) : 0
                 const href = town.hasDetail ? `/${town.name.toLowerCase()}` : `/town/${encodeURIComponent(town.name)}`
+                const isMyTown = town.name === selectedTown
+
                 return (
-                  <Link
-                    key={town.name}
-                    href={href}
-                    className="flex items-center justify-between px-4 py-3 border-b border-gray-700/50 hover:bg-gray-700/30 transition-colors"
-                  >
+                  <Link key={town.name} href={href}
+                    onClick={() => setSelectedTown(town.name)}
+                    className={`flex items-center justify-between px-4 py-3 border-b border-gray-700/50 hover:bg-gray-700/30 active:bg-gray-700/50 transition-colors min-h-[52px] ${
+                      isMyTown ? 'bg-blue-600/10 border-l-2 border-l-blue-500' : ''
+                    }`}>
                     <div>
                       <span className="text-white font-medium">{town.name}</span>
                       {town.hasDetail && <span className="ml-2 text-blue-400 text-xs">●</span>}
+                      {isMyTown && <span className="ml-2 text-blue-400 text-xs">📍</span>}
                       <span className="text-gray-500 text-xs ml-2">{town.region}</span>
                     </div>
                     <div className="text-right">
@@ -199,7 +260,6 @@ export default function Home() {
             <p className="text-gray-500 text-xs mt-2"><span className="text-blue-400">●</span> = Detailed permit data available</p>
           </div>
 
-          {/* Map */}
           <div className={`${mobileTab === 'map' ? 'block' : 'hidden'} md:block`}>
             <h2 className="text-lg font-bold text-white mb-3">Map</h2>
             <TownMap />
@@ -208,22 +268,22 @@ export default function Home() {
 
         {/* Club + Builders CTAs */}
         <div className="grid md:grid-cols-2 gap-4 mb-8">
-          <Link href="/club" className="bg-gradient-to-r from-emerald-900/30 to-blue-900/30 border border-emerald-500/20 rounded-xl p-5 hover:from-emerald-900/50 hover:to-blue-900/50 transition-colors group">
+          <Link href="/club" className="bg-gradient-to-r from-emerald-900/30 to-blue-900/30 border border-emerald-500/20 rounded-xl p-5 hover:from-emerald-900/50 hover:to-blue-900/50 transition-colors group min-h-[100px]">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-lg">🏘️</span>
               <h3 className="text-lg font-bold text-white">ADU Club</h3>
               <span className="bg-emerald-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">NEW</span>
             </div>
             <p className="text-gray-400 text-sm mb-2">Join homeowners in your town to unlock 15-20% group rates from vetted builders.</p>
-            <span className="text-emerald-400 text-sm group-hover:underline">Join your town&apos;s group &rarr;</span>
+            <span className="text-emerald-400 text-sm group-hover:underline">Join your town&apos;s group →</span>
           </Link>
-          <Link href="/builders" className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-500/20 rounded-xl p-5 hover:from-blue-900/50 hover:to-purple-900/50 transition-colors group">
+          <Link href="/builders" className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-500/20 rounded-xl p-5 hover:from-blue-900/50 hover:to-purple-900/50 transition-colors group min-h-[100px]">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-lg">🏗️</span>
               <h3 className="text-lg font-bold text-white">For Builders</h3>
             </div>
             <p className="text-gray-400 text-sm mb-2">Get clustered, pre-qualified leads from homeowners in towns you serve.</p>
-            <span className="text-blue-400 text-sm group-hover:underline">Join builder network &rarr;</span>
+            <span className="text-blue-400 text-sm group-hover:underline">Join builder network →</span>
           </Link>
         </div>
 
@@ -239,11 +299,8 @@ export default function Home() {
             </div>
             <div className="space-y-3">
               {activeChallenges.map((c, i) => (
-                <Link
-                  key={i}
-                  href={`/challenge?a=${c.townA}&b=${c.townB}&start=2026-03-01&end=${c.end}`}
-                  className="block bg-gray-900 rounded-lg p-3 hover:bg-gray-700/50 transition-colors"
-                >
+                <Link key={i} href={`/challenge?a=${c.townA}&b=${c.townB}&start=2026-03-01&end=${c.end}`}
+                  className="block bg-gray-900 rounded-lg p-3 hover:bg-gray-700/50 active:bg-gray-700 transition-colors min-h-[52px]">
                   <div className="flex justify-between items-center">
                     <span className="text-white font-medium">{c.townA} vs {c.townB}</span>
                     <span className="text-gray-400 text-sm">{c.daysLeft} days left</span>
@@ -251,7 +308,7 @@ export default function Home() {
                 </Link>
               ))}
             </div>
-            <Link href="/challenge/new" className="block mt-4 text-center py-2 border border-dashed border-gray-600 rounded-lg text-gray-400 hover:text-white hover:border-gray-500 transition-colors text-sm">
+            <Link href="/challenge/new" className="block mt-4 text-center py-2.5 border border-dashed border-gray-600 rounded-lg text-gray-400 hover:text-white hover:border-gray-500 transition-colors text-sm min-h-[44px]">
               + Issue a Challenge
             </Link>
           </div>
@@ -263,11 +320,8 @@ export default function Home() {
             </div>
             <div className="space-y-2">
               {topTowns.map((town, i) => (
-                <Link
-                  key={town.name}
-                  href={`/town/${encodeURIComponent(town.name)}`}
-                  className="flex items-center justify-between py-2 px-3 bg-gray-900 rounded-lg hover:bg-gray-700/50 transition-colors"
-                >
+                <Link key={town.name} href={`/town/${encodeURIComponent(town.name)}`}
+                  className="flex items-center justify-between py-2.5 px-3 bg-gray-900 rounded-lg hover:bg-gray-700/50 active:bg-gray-700 transition-colors min-h-[48px]">
                   <div className="flex items-center gap-3">
                     <span className="text-gray-500 w-6">#{i + 1}</span>
                     <span className="text-white font-medium">{town.name}</span>
@@ -294,7 +348,7 @@ export default function Home() {
               <h3 className="text-lg font-bold text-white">💰 Planning an ADU?</h3>
               <p className="text-gray-400 text-sm">Get a rough cost estimate based on real permit data.</p>
             </div>
-            <Link href="/estimate" className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-medium text-center">Cost Estimator →</Link>
+            <Link href="/estimate" className="px-5 py-3 md:py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-medium text-center min-h-[48px] flex items-center justify-center">Cost Estimator →</Link>
           </div>
         </div>
       </main>
@@ -306,13 +360,13 @@ export default function Home() {
               <p>Data: EOHLC Survey Feb 2026 · Population: Census 2024</p>
               <p className="text-xs mt-1"><span className="text-blue-400">●</span> Blue towns have detailed permit data scraped directly from town portals.</p>
             </div>
-            <div className="flex gap-6">
-              <Link href="/blog" className="hover:text-white">Blog</Link>
-              <Link href="/club" className="hover:text-white">Club</Link>
-              <Link href="/builders" className="hover:text-white">Builders</Link>
-              <Link href="/scorecards" className="hover:text-white">Scorecards</Link>
-              <Link href="/leaderboard" className="hover:text-white">Leaderboard</Link>
-              <Link href="/challenge/new" className="hover:text-white">Challenge</Link>
+            <div className="flex flex-wrap gap-4 sm:gap-6">
+              <Link href="/blog" className="hover:text-white min-h-[44px] flex items-center">Blog</Link>
+              <Link href="/club" className="hover:text-white min-h-[44px] flex items-center">Club</Link>
+              <Link href="/builders" className="hover:text-white min-h-[44px] flex items-center">Builders</Link>
+              <Link href="/scorecards" className="hover:text-white min-h-[44px] flex items-center">Scorecards</Link>
+              <Link href="/leaderboard" className="hover:text-white min-h-[44px] flex items-center">Leaderboard</Link>
+              <Link href="/challenge/new" className="hover:text-white min-h-[44px] flex items-center">Challenge</Link>
             </div>
           </div>
         </div>

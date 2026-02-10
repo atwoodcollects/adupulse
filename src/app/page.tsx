@@ -148,7 +148,7 @@ export default function Home() {
                 <div className="text-gray-500 text-[10px]">Rate</div>
               </div>
             </div>
-            <Link href={`/towns/${selectedTown.toLowerCase().replace(/\s+/g, '-')}`}
+            <Link href={`/towns/${selectedTown?.toLowerCase().replace(/\s+/g, '-')}`}
               className="block text-center text-blue-400 text-sm font-medium py-2 bg-blue-600/10 rounded-lg hover:bg-blue-600/20">
               View full {selectedTown} data →
             </Link>

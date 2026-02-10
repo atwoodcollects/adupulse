@@ -257,7 +257,7 @@ export default function BuildersPage() {
             <FAQItem question="How does pricing work for group deals?" answer="You set your own pricing. We recommend 15-20% below your standard one-off rate, which is typically achievable through shared permits, bulk materials, and crew efficiency. Homeowners understand they're getting a volume discount, not a cut-rate job." />
             <FAQItem question="What if I only build in specific towns?" answer="That's fine — you'll only be matched with groups in your service area. We ask for your regions during signup and only send relevant leads." />
             <FAQItem question="Can I see demand data before signing up?" answer="Yes — our dashboard (adupulse.com) shows permit activity by town, and our leaderboard ranks towns by ADU volume. This gives you a sense of where demand is strongest before you commit." />
-            <FAQItem question="Is there a conflict of interest?" answer="We don't take commissions or referral fees from builders. Our incentive is to grow the platform by connecting homeowners with quality builders at fair prices. If homeowners have bad experiences, they stop using the platform — so vetting builders carefully is in everyone's interest." />
+            <FAQItem question="Is there a conflict of interest?" answer="We earn a small referral fee when a group deal closes — it's built into the group discount so homeowners still save 15-20%. That means our incentive is aligned: we only succeed when homeowners get matched with quality builders at fair prices. If homeowners have bad experiences, they stop using the platform — so vetting builders carefully is in everyone's interest." />
           </div>
         </div>
       </main>

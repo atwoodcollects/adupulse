@@ -263,7 +263,7 @@ export default function Home() {
                   .slice(0, showAllTowns ? undefined : MOBILE_INITIAL_COUNT)
                   .map(town => {
                     const rate = town.submitted > 0 ? Math.round((town.approved / town.submitted) * 100) : 0
-                    const href = town.hasDetail ? `/${town.name.toLowerCase()}` : `/town/${encodeURIComponent(town.name)}`
+                    const href = `/towns/${town.name.toLowerCase().replace(/\s+/g, "-")}`
                     const isMyTown = town.name === selectedTown
 
                     return (

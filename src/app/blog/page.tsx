@@ -13,7 +13,6 @@ const posts = [
     readTime: '7 min read',
     featured: true,
   },
-  {
       {
     slug: 'massachusetts-adu-national-comparison',
     title: 'How Massachusetts Stacks Up in America\'s ADU Boom',

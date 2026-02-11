@@ -32,14 +32,14 @@ import newtonPermits from '@/data/newton_permits.json'
 import needhamPermits from '@/data/needham_permits.json'
 
 const permitDataMap: Record<string, PermitRecord[]> = {
-  andover: andoverPermits as PermitRecord[],
-  milton: miltonPermits as PermitRecord[],
-  plymouth: plymouthPermits as PermitRecord[],
-  duxbury: duxburyPermits as PermitRecord[],
-  falmouth: falmouthPermits as PermitRecord[],
-  sudbury: sudburyPermits as PermitRecord[],
-  newton: newtonPermits as PermitRecord[],
-  needham: needhamPermits as PermitRecord[],
+  andover: andoverPermits as unknown as PermitRecord[],
+  milton: miltonPermits as unknown as unknown as PermitRecord[],
+  plymouth: plymouthPermits as unknown as PermitRecord[],
+  duxbury: duxburyPermits as unknown as PermitRecord[],
+  falmouth: falmouthPermits as unknown as PermitRecord[],
+  sudbury: sudburyPermits as unknown as PermitRecord[],
+  newton: newtonPermits as unknown as PermitRecord[],
+  needham: needhamPermits as unknown as PermitRecord[],
 }
 
 // --- Share Component ---

@@ -14,6 +14,15 @@ const posts = [
     featured: true,
   },
   {
+      {
+    slug: 'massachusetts-adu-national-comparison',
+    title: 'How Massachusetts Stacks Up in America\'s ADU Boom',
+    description: 'Massachusetts ranks 11th nationally with ADUs making up 27% of new residential construction. How the state\'s first-year numbers compare to 2.8 million permits nationwide.',
+    date: '2026-02-11',
+    readTime: '7 min read',
+    featured: false,
+  },
+  {
     slug: 'massachusetts-adu-year-one',
     title: 'What 1,224 ADU Permits Taught Me About Massachusetts Housing',
     description: 'One year into MA\'s ADU law: what\'s working, what\'s not, and what the permit data reveals about housing in the state.',

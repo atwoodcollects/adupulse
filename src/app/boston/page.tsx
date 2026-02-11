@@ -3,7 +3,8 @@
 import { useEffect, useState, useMemo } from 'react'
 import { createClient } from '@supabase/supabase-js'
 import Link from 'next/link'
-import TownNav from '@/components/TownNav'
+import NavBar from '@/components/NavBar'
+import Footer from '@/components/Footer'
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   LineChart, Line, PieChart, Pie, Cell, Legend
@@ -260,18 +261,7 @@ export default function BostonPage() {
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100">
       {/* Header */}
-      <header className="bg-gray-800 border-b border-gray-700">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="text-blue-400 hover:text-blue-300">
-            ← Back to ADU Pulse
-          </Link>
-          <div className="text-center">
-            <h1 className="text-xl font-bold text-white">Boston ADU Permits</h1>
-            <p className="text-xs text-gray-400">Since Feb 2, 2025 (Statewide ADU Policy)</p>
-          </div>
-          <TownNav current="Boston" />
-        </div>
-      </header>
+      <NavBar current="Boston" />
 
       <main className="max-w-7xl mx-auto px-4 py-8">
         {/* Stats Cards */}

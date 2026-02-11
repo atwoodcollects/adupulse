@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import TownNav from '@/components/TownNav'
+import NavBar from '@/components/NavBar'
+import Footer from '@/components/Footer'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
@@ -28,17 +29,7 @@ export default function TownSelectPage() {
 
   return (
     <div className="min-h-screen bg-gray-900">
-      <header className="border-b border-gray-800">
-        <div className="max-w-4xl mx-auto px-4 py-3 md:py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-              <span className="text-lg md:text-xl font-bold text-white tracking-tight">ADU Pulse</span>
-            </Link>
-            <TownNav current="My Town" />
-          </div>
-        </div>
-      </header>
+      <NavBar current="My Town" />
 
       <main className="max-w-lg mx-auto px-4 py-12">
         <h1 className="text-2xl md:text-3xl font-bold text-white text-center mb-2">Find Your Town</h1>

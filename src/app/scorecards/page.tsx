@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import TownNav from '@/components/TownNav'
+import NavBar from '@/components/NavBar'
+import Footer from '@/components/Footer'
 import { useState } from 'react'
 
 interface TownData {
@@ -109,17 +110,7 @@ export default function ScorecardsPage() {
 
   return (
     <div className="min-h-screen bg-gray-900">
-      <header className="border-b border-gray-800">
-        <div className="max-w-6xl mx-auto px-4 py-3 md:py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-              <span className="text-lg md:text-xl font-bold text-white tracking-tight">ADU Pulse</span>
-            </Link>
-            <TownNav current="Scorecards" />
-          </div>
-        </div>
-      </header>
+      <NavBar current="Scorecards" />
 
       <main className="max-w-6xl mx-auto px-4 py-8 md:py-12">
         <div className="text-center mb-8">
@@ -223,22 +214,7 @@ export default function ScorecardsPage() {
           </Link>
         </div>
       </main>
-
-      <footer className="border-t border-gray-800 mt-12">
-        <div className="max-w-6xl mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-sm text-gray-500">
-            <div>
-              <p>Data: EOHLC Survey Feb 2026</p>
-            </div>
-            <div className="flex gap-6">
-              <Link href="/" className="hover:text-white">Home</Link>
-              <Link href="/club" className="hover:text-white">Club</Link>
-              <Link href="/builders" className="hover:text-white">Builders</Link>
-              <Link href="/blog" className="hover:text-white">Blog</Link>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

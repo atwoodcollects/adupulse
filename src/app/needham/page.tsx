@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import TownNav from '@/components/TownNav'
+import NavBar from '@/components/NavBar'
+import Footer from '@/components/Footer'
 import permits from '@/data/needham_permits.json'
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts'
 
@@ -47,7 +48,7 @@ export default function NeedhamPage() {
             <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">Needham ADU Permits</h1>
             <p className="text-text-secondary text-xs sm:text-sm">Data via Town of Needham Quarterly Permit Reports</p>
           </div>
-          <TownNav current="Needham" />
+          <NavBar current="Needham" />
         </div>
 
         <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 mb-4 sm:mb-6">

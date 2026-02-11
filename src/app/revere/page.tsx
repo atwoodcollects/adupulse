@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import TownNav from '@/components/TownNav'
+import NavBar from '@/components/NavBar'
+import Footer from '@/components/Footer'
 
 const permits = [
   { id: 'B25-001490', address: '43 Shawmut St', status: 'Issued', date: '2026-01-15', description: 'Built a 214SF Kitchen and living room addition connecting to existing master bedroom turning the total of 526SF ADU', sqft: 526, type: 'Addition' },
@@ -62,7 +63,7 @@ export default function ReverePage() {
   return (
     <div className="min-h-screen bg-gray-900">
       <div className="max-w-6xl mx-auto px-4 py-6">
-        <div className="flex justify-between items-center mb-4"><Link href="/" className="text-blue-400 text-sm">← Back</Link><TownNav current="Revere" /></div>
+        <div className="flex justify-between items-center mb-4"><Link href="/" className="text-blue-400 text-sm">← Back</Link><NavBar current="Revere" /></div>
         <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Revere ADU Permits</h1>
         <p className="text-text-secondary text-sm mb-6">Jan 2025 - Jan 2026</p>
 

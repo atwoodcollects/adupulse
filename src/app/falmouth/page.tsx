@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import TownNav from '@/components/TownNav'
+import NavBar from '@/components/NavBar'
+import Footer from '@/components/Footer'
 import permits from '@/data/falmouth_permits.json'
 
 export default function FalmouthPage() {
@@ -49,7 +50,7 @@ export default function FalmouthPage() {
             <h1 className="text-2xl md:text-3xl font-bold text-white">Falmouth ADU Permits</h1>
             <p className="text-text-secondary text-sm">Cape Cod · Data via PermitEyes</p>
           </div>
-          <TownNav current="Falmouth" />
+          <NavBar current="Falmouth" />
         </div>
 
         {/* Stats */}

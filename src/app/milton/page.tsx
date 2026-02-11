@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import TownNav from '@/components/TownNav'
+import NavBar from '@/components/NavBar'
+import Footer from '@/components/Footer'
 import permits from '@/data/milton_permits.json'
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts'
 
@@ -58,7 +59,7 @@ export default function MiltonPage() {
             <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">Milton ADU Permits</h1>
             <p className="text-text-secondary text-xs sm:text-sm">Data via Town of Milton Permit Portal</p>
           </div>
-          <TownNav current="Milton" />
+          <NavBar current="Milton" />
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 md:gap-4 mb-4 sm:mb-6">

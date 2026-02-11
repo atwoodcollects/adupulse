@@ -1,22 +1,13 @@
 'use client'
 
 import Link from 'next/link'
-import TownNav from '@/components/TownNav'
+import NavBar from '@/components/NavBar'
+import Footer from '@/components/Footer'
 
 export default function GrandparentADUMassachusetts() {
   return (
     <div className="min-h-screen bg-gray-900">
-      <header className="border-b border-gray-800">
-        <div className="max-w-4xl mx-auto px-4 py-3 md:py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-              <span className="text-lg md:text-xl font-bold text-white tracking-tight">ADU Pulse</span>
-            </Link>
-            <TownNav current="Blog" />
-          </div>
-        </div>
-      </header>
+      <NavBar current="Blog" />
 
       <article className="max-w-3xl mx-auto px-4 py-8 md:py-12">
         <Link href="/blog" className="text-blue-400 text-sm hover:underline">← Back to Blog</Link>
@@ -223,19 +214,7 @@ export default function GrandparentADUMassachusetts() {
           </p>
         </div>
       </article>
-
-      <footer className="border-t border-gray-800">
-        <div className="max-w-4xl mx-auto px-4 py-4">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 text-xs text-gray-500">
-            <div>© 2026 ADU Pulse</div>
-            <div className="flex gap-4">
-              <Link href="/" className="hover:text-white">Home</Link>
-              <Link href="/blog" className="hover:text-white">Blog</Link>
-              <Link href="/estimate" className="hover:text-white">Estimator</Link>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

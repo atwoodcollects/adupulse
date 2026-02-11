@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import TownNav from '@/components/TownNav'
+import NavBar from '@/components/NavBar'
+import Footer from '@/components/Footer'
 import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
@@ -181,17 +182,7 @@ function NewChallengeForm() {
 export default function NewChallengePage() {
   return (
     <div className="min-h-screen bg-gray-900">
-      <header className="border-b border-gray-800">
-        <div className="max-w-4xl mx-auto px-4 py-3 md:py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-              <span className="text-lg md:text-xl font-bold text-white tracking-tight">ADU Pulse</span>
-            </Link>
-            <TownNav current="Challenge" />
-          </div>
-        </div>
-      </header>
+      <NavBar current="Challenge" />
 
       <main className="max-w-lg mx-auto px-4 py-8">
         <h1 className="text-2xl md:text-3xl font-bold text-white text-center mb-2">🏆 Issue a Challenge</h1>
@@ -205,16 +196,7 @@ export default function NewChallengePage() {
           Challenges track which town approves more ADUs during the period.
         </p>
       </main>
-
-      <footer className="border-t border-gray-800 mt-12">
-        <div className="max-w-4xl mx-auto px-4 py-4">
-          <div className="flex justify-center gap-4 text-xs text-gray-500">
-            <Link href="/" className="hover:text-white">Home</Link>
-            <Link href="/compare" className="hover:text-white">Compare</Link>
-            <Link href="/leaderboard" className="hover:text-white">Leaderboard</Link>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

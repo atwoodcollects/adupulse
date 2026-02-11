@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import TownNav from '@/components/TownNav'
+import NavBar from '@/components/NavBar'
+import Footer from '@/components/Footer'
 import permits from '@/data/newton_permits.json'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, ScatterChart, Scatter, ZAxis } from 'recharts'
 
@@ -116,7 +117,7 @@ export default function NewtonPage() {
             <p className="text-text-secondary text-xs sm:text-sm">Data via City of Newton FOIA</p>
           </div>
           <div className="self-start">
-            <TownNav current="Newton" />
+            <NavBar current="Newton" />
           </div>
         </div>
 

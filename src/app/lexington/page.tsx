@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import TownNav from '@/components/TownNav'
+import NavBar from '@/components/NavBar'
+import Footer from '@/components/Footer'
 
 const permits = [
   {
@@ -165,7 +166,7 @@ export default function LexingtonPage() {
   return (
     <div className="min-h-screen bg-gray-900">
       <div className="max-w-6xl mx-auto px-4 py-6">
-        <div className="flex justify-between items-center mb-4"><Link href="/" className="text-blue-400 text-sm">← Back</Link><TownNav current="Lexington" /></div>
+        <div className="flex justify-between items-center mb-4"><Link href="/" className="text-blue-400 text-sm">← Back</Link><NavBar current="Lexington" /></div>
         <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Lexington ADU Permits</h1>
         <p className="text-text-secondary text-sm mb-6">Detailed permit data from 2025</p>
 

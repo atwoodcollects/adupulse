@@ -13,7 +13,7 @@ export default function Footer() {
             <p className="text-gray-500 text-xs leading-relaxed mb-3">
               Real permit data from 221 Massachusetts towns. Helping homeowners, builders, and lenders make smarter ADU decisions.
             </p>
-            <a href="mailto:nick@adupulse.com" className="text-blue-400 text-xs hover:underline">nick@adupulse.com</a>
+            
           </div>
           {/* Tools & Data */}
           <div>
@@ -63,7 +63,7 @@ export default function Footer() {
         <div className="border-t border-gray-800 pt-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-3 text-xs text-gray-500">
           <div>
             <p>Data: <a href="https://www.mass.gov/orgs/executive-office-of-housing-and-livable-communities" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">EOHLC</a> Survey Feb 2026 · Population: Census ACS 2024</p>
-            <p className="mt-0.5">&copy; 2026 ADU Pulse · Built by <a href="https://ntwelch.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">Nick Welch</a></p>
+            <p className="mt-0.5">&copy; 2026 ADU Pulse · ADU Pulse</p>
           </div>
           <div className="flex gap-3">
             <span className="text-gray-600">📊 Real data. No guesswork.</span>

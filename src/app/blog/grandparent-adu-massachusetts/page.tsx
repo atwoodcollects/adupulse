@@ -21,7 +21,7 @@ export default function GrandparentADUMassachusetts() {
           <span>•</span>
           <span>7 min read</span>
           <span>•</span>
-          <span>By Nick Welch</span>
+          <span>By ADU Pulse Team</span>
         </div>
 
         <div className="prose prose-invert prose-lg max-w-none">
@@ -209,7 +209,7 @@ export default function GrandparentADUMassachusetts() {
 
         <div className="mt-12 pt-8 border-t border-gray-800">
           <p className="text-gray-400 text-sm">
-            <strong className="text-white">Nick Welch</strong> is tracking ADU permits across Massachusetts at ADU Pulse.
+            <strong className="text-white">ADU Pulse</strong> tracks ADU permits across Massachusetts.
             The site includes statewide EOHLC survey data and detailed permit information scraped directly from 10+ town portals.
           </p>
         </div>

@@ -23,9 +23,9 @@ export default function Home() {
     return townSEOData.filter(t => t.name.toLowerCase().includes(q)).slice(0, 6)
   }, [search])
 
-  // Statewide stats from EOHLC survey (includes all 217 towns, not just the 54 with SEO data)
+  // Statewide stats from EOHLC survey (includes all 221 towns with applications, not just the 54 with SEO data)
   const totalApproved = 1224
-  const totalTowns = 217
+  const totalTowns = 221
   const overallRate = 68
 
   const myTownData = selectedTown

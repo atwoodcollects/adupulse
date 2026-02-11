@@ -56,7 +56,7 @@ export default function BuildersPage() {
   }
 
   const totalApproved = 1224
-  const totalTowns = 217
+  const totalTowns = 221
 
   return (
     <div className="min-h-screen bg-gray-900">

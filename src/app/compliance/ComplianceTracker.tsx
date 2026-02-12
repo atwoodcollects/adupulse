@@ -268,7 +268,7 @@ export default function ComplianceTracker() {
         <div className="mb-5">
           <div className="flex items-center justify-between mb-2">
             <p className="text-[11px] font-semibold uppercase tracking-wider text-gray-500">
-              Permit Activity
+              Permit Activity (EOHLC Survey 2025)
             </p>
             <p className="text-xs text-gray-400">
               {town.permits.approved} of {town.permits.submitted} approved (

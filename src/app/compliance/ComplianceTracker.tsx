@@ -10,6 +10,7 @@ import {
   type TownComplianceProfile,
   type ComplianceStatus,
   type ComplianceProvision,
+  type Citation,
 } from './compliance-data';
 
 // ── STATUS CONFIG ───────────────────────────────────────────────────────
@@ -58,6 +59,45 @@ function getTownStatusLabel(town: TownComplianceProfile): {
     return { label: 'NOT UPDATED', color: 'text-amber-400', bg: 'bg-amber-400/10' };
   }
   return { label: 'UPDATED', color: 'text-emerald-400', bg: 'bg-emerald-400/10' };
+}
+
+// ── CITATION LINKS ──────────────────────────────────────────────────────
+function CitationLinks({ citations }: { citations: Citation[] }) {
+  if (!citations || citations.length === 0) return null;
+
+  return (
+    <div className="mt-3">
+      <p className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 mb-1.5">
+        Sources
+      </p>
+      <div className="flex flex-wrap gap-1.5">
+        {citations.map((cite, i) => (
+          <a
+            key={i}
+            href={cite.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-[11px] font-medium text-blue-400 hover:text-blue-300 bg-blue-400/5 hover:bg-blue-400/10 border border-blue-400/20 hover:border-blue-400/30 px-2 py-1 rounded-md transition-colors"
+          >
+            <svg
+              className="w-3 h-3 flex-shrink-0"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+              />
+            </svg>
+            {cite.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 // ── PROVISION ROW ───────────────────────────────────────────────────────
@@ -124,6 +164,7 @@ function ProvisionRow({ provision }: { provision: ComplianceProvision }) {
               </p>
             </div>
           </div>
+
           <div className="mt-3">
             <p className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 mb-1">
               Impact
@@ -132,6 +173,7 @@ function ProvisionRow({ provision }: { provision: ComplianceProvision }) {
               {provision.impact}
             </p>
           </div>
+
           {provision.agDecision && (
             <div className="mt-3 p-3 bg-red-400/5 border border-red-400/20 rounded-lg">
               <p className="text-[11px] font-semibold uppercase tracking-wider text-red-400 mb-1">
@@ -142,6 +184,8 @@ function ProvisionRow({ provision }: { provision: ComplianceProvision }) {
               </p>
             </div>
           )}
+
+          <CitationLinks citations={provision.citations} />
         </div>
       )}
     </div>
@@ -151,13 +195,14 @@ function ProvisionRow({ provision }: { provision: ComplianceProvision }) {
 // ── MAIN COMPONENT ──────────────────────────────────────────────────────
 export default function ComplianceTracker() {
   const [selectedTown, setSelectedTown] = useState<string>(towns[0].slug);
-  const [statusFilter, setStatusFilter] = useState<ComplianceStatus | 'all'>('all');
+  const [statusFilter, setStatusFilter] = useState<ComplianceStatus | 'all'>(
+    'all',
+  );
 
   const town = useMemo(
     () => towns.find((t) => t.slug === selectedTown) ?? towns[0],
     [selectedTown],
   );
-
   const counts = useMemo(() => getStatusCounts(town.provisions), [town]);
   const statewide = useMemo(() => getStatewideStats(towns), []);
   const bottomLine = useMemo(() => generateBottomLine(town), [town]);
@@ -205,7 +250,6 @@ export default function ComplianceTracker() {
           const label = getTownStatusLabel(t);
           const tc = getStatusCounts(t.provisions);
           const isSelected = t.slug === selectedTown;
-
           return (
             <button
               key={t.slug}
@@ -338,7 +382,6 @@ export default function ComplianceTracker() {
                 ? 'bg-emerald-400/20 text-emerald-400 border-emerald-400/30'
                 : '',
             };
-
             return (
               <button
                 key={key}
@@ -376,7 +419,6 @@ export default function ComplianceTracker() {
               </div>
             </div>
           ))}
-
           {Object.keys(filteredProvisions).length === 0 && (
             <p className="text-center text-gray-500 py-8 text-sm">
               No provisions match the current filter.
@@ -399,14 +441,58 @@ export default function ComplianceTracker() {
       <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 text-xs text-gray-500 leading-relaxed">
         <p className="font-semibold text-gray-400 mb-1">Methodology</p>
         <p>
-          This analysis compares each town&apos;s published ADU zoning bylaw or ordinance against
-          Massachusetts Chapter 150 (2024), MGL c.40A §3, and 760 CMR 71.00. Per EOHLC guidance,
-          towns are not &ldquo;out of compliance&rdquo; if their local zoning has not been updated —
-          however, any local provisions inconsistent with the ADU statute are unenforceable as of
-          February 2, 2025. Local permitting decisions should not take into account zoning rules that
-          conflict with state law. Attorney General disapproval data sourced from published AG
-          Municipal Law Unit decisions. This is not legal advice — consult a zoning attorney for
-          project-specific guidance.
+          This analysis compares each town&apos;s published ADU zoning bylaw or
+          ordinance against Massachusetts{' '}
+          <a
+            href="https://malegislature.gov/Laws/SessionLaws/Acts/2024/Chapter150"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-400 hover:text-blue-300 underline underline-offset-2"
+          >
+            Chapter 150 (2024)
+          </a>
+          ,{' '}
+          <a
+            href="https://malegislature.gov/Laws/GeneralLaws/PartI/TitleVII/Chapter40A/Section3"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-400 hover:text-blue-300 underline underline-offset-2"
+          >
+            MGL c.40A §3
+          </a>
+          , and{' '}
+          <a
+            href="https://www.mass.gov/doc/760-cmr-7100-protected-use-adus-final-version/download"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-400 hover:text-blue-300 underline underline-offset-2"
+          >
+            760 CMR 71.00
+          </a>
+          . Per{' '}
+          <a
+            href="https://www.mass.gov/info-details/accessory-dwelling-units"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-400 hover:text-blue-300 underline underline-offset-2"
+          >
+            EOHLC guidance
+          </a>
+          , towns are not &ldquo;out of compliance&rdquo; if their local zoning has not
+          been updated — however, any local provisions inconsistent with the ADU statute
+          are unenforceable as of February 2, 2025. Local permitting decisions should not
+          take into account zoning rules that conflict with state law. Attorney General
+          disapproval data sourced from published{' '}
+          <a
+            href="https://massago.onbaseonline.com/Massago/1700PublicAccess/MLU.htm"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-400 hover:text-blue-300 underline underline-offset-2"
+          >
+            AG Municipal Law Unit decisions
+          </a>
+          . This is not legal advice — consult a zoning attorney for project-specific
+          guidance.
         </p>
       </div>
     </div>

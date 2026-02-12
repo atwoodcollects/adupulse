@@ -1,7 +1,9 @@
 // compliance-data.ts
-// ADU Bylaw Compliance Data — 7 towns profiled against 760 CMR 71.00 and Chapter 150
+// ADU Bylaw Consistency Data — 7 towns profiled against 760 CMR 71.00 and Chapter 150
+// Per EOHLC guidance: local zoning that conflicts with the ADU statute is unenforceable,
+// but towns are not "out of compliance" — state law simply overrides inconsistent provisions.
 
-export type ComplianceStatus = 'conflict' | 'review' | 'compliant';
+export type ComplianceStatus = 'inconsistent' | 'review' | 'compliant';
 
 export type ProvisionCategory =
   | 'Use & Occupancy'
@@ -17,7 +19,7 @@ export interface ComplianceProvision {
   stateLaw: string;
   localBylaw: string;
   impact: string;
-  agDecision?: string; // AG disapproval reference if applicable
+  agDecision?: string;
 }
 
 export interface TownPermitData {
@@ -54,127 +56,97 @@ export const towns: TownComplianceProfile[] = [
     bylawLastUpdated: 'October 2024',
     bylawSource: 'Plymouth Zoning Bylaw §205-51',
     agDisapprovals: 0,
-    permits: {
-      submitted: 42,
-      approved: 34,
-      denied: 8,
-      pending: 0,
-      approvalRate: 81,
-    },
+    permits: { submitted: 42, approved: 34, denied: 8, pending: 0, approvalRate: 81 },
     provisions: [
       {
         id: 'ply-01',
         provision: 'Owner-Occupancy Requirement',
         category: 'Use & Occupancy',
-        status: 'conflict',
-        stateLaw:
-          'MGL c.40A §3 (as amended by Ch. 150) — towns may not require owner-occupancy for ADUs as a protected use.',
-        localBylaw:
-          'Plymouth §205-51 requires the property owner to occupy either the principal dwelling or the ADU.',
-        impact:
-          'Blocks investor-owned ADU construction. Would disqualify properties purchased specifically for ADU rental income.',
+        status: 'inconsistent',
+        stateLaw: 'MGL c.40A §3 (as amended by Ch. 150) — towns may not require owner-occupancy for ADUs as a protected use.',
+        localBylaw: 'Plymouth §205-51 requires the property owner to occupy either the principal dwelling or the ADU.',
+        impact: 'This provision is unenforceable under state law. Homeowners may build ADUs regardless of occupancy status.',
       },
       {
         id: 'ply-02',
         provision: 'Bedroom-Based Parking',
         category: 'Dimensional & Parking',
-        status: 'conflict',
-        stateLaw:
-          '760 CMR 71.05(2) — parking for an ADU shall not exceed 1 space. May not impose bedroom-based ratios.',
-        localBylaw:
-          'Plymouth requires 1 parking space per bedroom for the ADU, which can exceed the state maximum of 1 total.',
-        impact:
-          'A 2-bedroom ADU would need 2 spaces — double the state max. Creates site plan barriers on smaller lots.',
+        status: 'inconsistent',
+        stateLaw: '760 CMR 71.05(2) — parking for an ADU shall not exceed 1 space. May not impose bedroom-based ratios.',
+        localBylaw: 'Plymouth requires 1 parking space per bedroom for the ADU, which can exceed the state maximum of 1 total.',
+        impact: 'The bedroom-based ratio is unenforceable — state law caps parking at 1 space regardless of bedroom count.',
       },
       {
         id: 'ply-03',
         provision: 'District Scope Limitation',
         category: 'Use & Occupancy',
-        status: 'conflict',
-        stateLaw:
-          'MGL c.40A §3 — ADUs are a protected use allowed by right on any lot with a single-family dwelling, in any zoning district.',
-        localBylaw:
-          'Plymouth limits ADUs to single-family residential zoning districts, excluding mixed-use and other zones where single-family homes exist.',
-        impact:
-          'Homeowners in mixed-use or rural districts with single-family homes cannot build ADUs despite state law protections.',
+        status: 'inconsistent',
+        stateLaw: 'MGL c.40A §3 — ADUs are a protected use allowed by right on any lot with a single-family dwelling, in any zoning district.',
+        localBylaw: 'Plymouth limits ADUs to single-family residential zoning districts, excluding mixed-use and other zones where single-family homes exist.',
+        impact: 'This district restriction is unenforceable. Homeowners in any zoning district with a single-family dwelling may build an ADU under state law.',
       },
       {
         id: 'ply-04',
         provision: 'Design Review / Compatibility',
         category: 'Building & Safety',
         status: 'review',
-        stateLaw:
-          '760 CMR 71.05(5) — towns may impose "reasonable" design standards for detached ADUs but may not use them to effectively prohibit construction.',
-        localBylaw:
-          'Plymouth requires architectural compatibility with the principal dwelling including materials, roof pitch, and fenestration patterns.',
-        impact:
-          'Ambiguous standard — could increase costs or delay permits if applied subjectively. Grey area until challenged.',
+        stateLaw: '760 CMR 71.05(5) — towns may impose "reasonable" design standards for detached ADUs but may not use them to effectively prohibit construction.',
+        localBylaw: 'Plymouth requires architectural compatibility with the principal dwelling including materials, roof pitch, and fenestration patterns.',
+        impact: 'Ambiguous standard — could increase costs or delay permits if applied subjectively. Grey area until challenged.',
       },
       {
         id: 'ply-05',
         provision: 'Setback Requirements',
         category: 'Dimensional & Parking',
         status: 'review',
-        stateLaw:
-          '760 CMR 71.05(1) — setbacks for detached ADUs may not exceed those for principal structures in the same district.',
-        localBylaw:
-          'Plymouth applies principal-structure setbacks but also adds a 10-foot minimum from the principal dwelling.',
-        impact:
-          'The 10-foot separation rule may be permissible as "reasonable" or may be challenged as exceeding state limits on narrow lots.',
+        stateLaw: '760 CMR 71.05(1) — setbacks for detached ADUs may not exceed those for principal structures in the same district.',
+        localBylaw: 'Plymouth applies principal-structure setbacks but also adds a 10-foot minimum from the principal dwelling.',
+        impact: 'The 10-foot separation rule may be permissible as "reasonable" or may be challenged as exceeding state limits on narrow lots.',
       },
       {
         id: 'ply-06',
         provision: 'ADU Size Limits',
         category: 'Dimensional & Parking',
         status: 'compliant',
-        stateLaw:
-          '760 CMR 71.05(3) — ADUs must be allowed up to 900 sq ft or 50% of principal dwelling living area, whichever is less.',
-        localBylaw:
-          'Plymouth allows ADUs up to 900 sq ft, consistent with state maximum.',
-        impact: 'No conflict — meets state minimum allowance.',
+        stateLaw: '760 CMR 71.05(3) — ADUs must be allowed up to 900 sq ft or 50% of principal dwelling living area, whichever is less.',
+        localBylaw: 'Plymouth allows ADUs up to 900 sq ft, consistent with state maximum.',
+        impact: 'Consistent with state law.',
       },
       {
         id: 'ply-07',
         provision: 'By-Right Permitting',
         category: 'Process & Administration',
         status: 'compliant',
-        stateLaw:
-          'MGL c.40A §3 — ADUs that meet state requirements must be allowed by right with no special permit or variance.',
-        localBylaw:
-          'Plymouth allows conforming ADUs by right through building permit process.',
-        impact: 'No conflict — by-right pathway exists.',
+        stateLaw: 'MGL c.40A §3 — ADUs that meet state requirements must be allowed by right with no special permit or variance.',
+        localBylaw: 'Plymouth allows conforming ADUs by right through building permit process.',
+        impact: 'Consistent with state law.',
       },
       {
         id: 'ply-08',
         provision: 'Number of ADUs Allowed',
         category: 'Use & Occupancy',
         status: 'compliant',
-        stateLaw:
-          'MGL c.40A §3 — at least one ADU must be allowed per single-family lot.',
+        stateLaw: 'MGL c.40A §3 — at least one ADU must be allowed per single-family lot.',
         localBylaw: 'Plymouth allows one ADU per single-family lot.',
-        impact: 'No conflict — meets state minimum.',
+        impact: 'Consistent with state law.',
       },
       {
         id: 'ply-09',
         provision: 'Building Code Compliance',
         category: 'Building & Safety',
         status: 'compliant',
-        stateLaw:
-          '760 CMR 71.05(4) — ADUs must meet Massachusetts building code (780 CMR) and Title 5 septic requirements.',
-        localBylaw:
-          'Plymouth requires full building code and Title 5 compliance for all ADUs.',
-        impact: 'No conflict — standard safety requirements.',
+        stateLaw: '760 CMR 71.05(4) — ADUs must meet Massachusetts building code (780 CMR) and Title 5 septic requirements.',
+        localBylaw: 'Plymouth requires full building code and Title 5 compliance for all ADUs.',
+        impact: 'Consistent with state law.',
       },
       {
         id: 'ply-10',
         provision: 'Detached ADU Allowance',
         category: 'Use & Occupancy',
         status: 'compliant',
-        stateLaw:
-          'MGL c.40A §3 — ADUs may be within, attached to, or detached from the principal dwelling.',
-        localBylaw:
-          'Plymouth allows internal, attached, and detached ADUs.',
-        impact: 'No conflict — all ADU types permitted.',
+        stateLaw: 'MGL c.40A §3 — ADUs may be within, attached to, or detached from the principal dwelling.',
+        localBylaw: 'Plymouth allows internal, attached, and detached ADUs.',
+        impact: 'Consistent with state law.',
       },
     ],
   },
@@ -188,96 +160,70 @@ export const towns: TownComplianceProfile[] = [
     bylawLastUpdated: 'Pre-2024 (not updated post-Chapter 150)',
     bylawSource: 'Nantucket Zoning Bylaw §139-16A',
     agDisapprovals: 0,
-    permits: {
-      submitted: 27,
-      approved: 27,
-      denied: 0,
-      pending: 0,
-      approvalRate: 100,
-    },
+    permits: { submitted: 27, approved: 27, denied: 0, pending: 0, approvalRate: 100 },
     provisions: [
       {
         id: 'nan-01',
         provision: 'Owner-Occupancy Requirement',
         category: 'Use & Occupancy',
-        status: 'conflict',
-        stateLaw:
-          'MGL c.40A §3 — towns may not require owner-occupancy for ADUs.',
-        localBylaw:
-          'Nantucket §139-16A requires the property owner to reside on the premises.',
-        impact:
-          'Prevents absentee owners from building ADUs — significant on an island with many seasonal/investment properties.',
+        status: 'inconsistent',
+        stateLaw: 'MGL c.40A §3 — towns may not require owner-occupancy for ADUs.',
+        localBylaw: 'Nantucket §139-16A requires the property owner to reside on the premises.',
+        impact: 'This provision is unenforceable under state law. Absentee owners may build ADUs regardless of this local requirement.',
       },
       {
         id: 'nan-02',
         provision: 'Internal-Only ADU Restriction',
         category: 'Use & Occupancy',
-        status: 'conflict',
-        stateLaw:
-          'MGL c.40A §3 — ADUs may be within, attached to, or detached from the principal dwelling.',
-        localBylaw:
-          'Pre-state-law bylaw only allows ADUs within the existing footprint of a single-family home. No detached or new-construction ADUs.',
-        impact:
-          'Eliminates detached ADU construction entirely. Forces costly interior conversions and limits ADU size to existing space.',
+        status: 'inconsistent',
+        stateLaw: 'MGL c.40A §3 — ADUs may be within, attached to, or detached from the principal dwelling.',
+        localBylaw: 'Pre-state-law bylaw only allows ADUs within the existing footprint of a single-family home. No detached or new-construction ADUs.',
+        impact: 'The internal-only restriction is unenforceable. Homeowners may build detached or attached ADUs under state law.',
       },
       {
         id: 'nan-03',
         provision: 'ADU Size Cap Below State Minimum',
         category: 'Dimensional & Parking',
-        status: 'conflict',
-        stateLaw:
-          '760 CMR 71.05(3) — ADUs must be allowed up to 900 sq ft.',
-        localBylaw:
-          'Nantucket caps ADUs at 800 sq ft under pre-existing bylaw.',
-        impact:
-          'Denies 100 sq ft of state-guaranteed space. May seem minor but impacts feasibility for 2-bedroom ADUs.',
+        status: 'inconsistent',
+        stateLaw: '760 CMR 71.05(3) — ADUs must be allowed up to 900 sq ft.',
+        localBylaw: 'Nantucket caps ADUs at 800 sq ft under pre-existing bylaw.',
+        impact: 'The 800 sq ft cap is unenforceable — state law guarantees up to 900 sq ft.',
       },
       {
         id: 'nan-04',
         provision: 'Principal Dwelling Scope',
         category: 'Use & Occupancy',
-        status: 'conflict',
-        stateLaw:
-          'MGL c.40A §3 — ADUs are a protected use on any lot with a "single-family dwelling."',
-        localBylaw:
-          'Nantucket restricts ADUs to "single-family residential" properties only, excluding properties with nonconforming uses or mixed designations.',
-        impact:
-          'Narrows eligible properties beyond state intent. Island has many grandfathered/nonconforming uses that would be excluded.',
+        status: 'inconsistent',
+        stateLaw: 'MGL c.40A §3 — ADUs are a protected use on any lot with a "single-family dwelling."',
+        localBylaw: 'Nantucket restricts ADUs to "single-family residential" properties only, excluding properties with nonconforming uses or mixed designations.',
+        impact: 'This restriction is unenforceable. Any lot with a single-family dwelling qualifies under state law, regardless of other designations.',
       },
       {
         id: 'nan-05',
         provision: 'Short-Term Rental of ADUs',
         category: 'Use & Occupancy',
         status: 'review',
-        stateLaw:
-          '760 CMR 71.00 is silent on short-term rental of ADUs. Towns may regulate STR separately but may not use STR restrictions to effectively ban ADUs.',
-        localBylaw:
-          'Nantucket has active STR litigation and imposed a moratorium on "tertiary dwellings." The interaction between ADU law and STR regulations is unresolved.',
-        impact:
-          'Legal uncertainty for builders and homeowners. STR income is a primary financial motivator for ADU construction on Nantucket.',
+        stateLaw: '760 CMR 71.00 is silent on short-term rental of ADUs. Towns may regulate STR separately but may not use STR restrictions to effectively ban ADUs.',
+        localBylaw: 'Nantucket has active STR litigation and imposed a moratorium on "tertiary dwellings." The interaction between ADU law and STR regulations is unresolved.',
+        impact: 'Legal uncertainty for builders and homeowners. STR income is a primary financial motivator for ADU construction on Nantucket.',
       },
       {
         id: 'nan-06',
         provision: 'By-Right Permitting',
         category: 'Process & Administration',
         status: 'compliant',
-        stateLaw:
-          'MGL c.40A §3 — conforming ADUs must be allowed by right.',
-        localBylaw:
-          'Nantucket allows conforming ADUs by right (though conformance is narrowly defined under current bylaw).',
-        impact:
-          'Technically compliant on process, but the restrictive eligibility criteria limit what qualifies for by-right treatment.',
+        stateLaw: 'MGL c.40A §3 — conforming ADUs must be allowed by right.',
+        localBylaw: 'Nantucket allows conforming ADUs by right (though conformance is narrowly defined under current bylaw).',
+        impact: 'Technically consistent on process, but the restrictive eligibility criteria limit what qualifies for by-right treatment.',
       },
       {
         id: 'nan-07',
         provision: 'Parking',
         category: 'Dimensional & Parking',
         status: 'compliant',
-        stateLaw:
-          '760 CMR 71.05(2) — parking may not exceed 1 space per ADU.',
-        localBylaw:
-          'Nantucket requires 1 additional parking space per ADU.',
-        impact: 'No conflict — meets state cap.',
+        stateLaw: '760 CMR 71.05(2) — parking may not exceed 1 space per ADU.',
+        localBylaw: 'Nantucket requires 1 additional parking space per ADU.',
+        impact: 'Consistent with state law.',
       },
     ],
   },
@@ -291,97 +237,73 @@ export const towns: TownComplianceProfile[] = [
     bylawLastUpdated: 'May 2025 (AG partial disapproval)',
     bylawSource: 'Leicester Zoning Bylaw — Town Meeting Article 9',
     agDisapprovals: 3,
-    permits: {
-      submitted: 2,
-      approved: 2,
-      denied: 0,
-      pending: 0,
-      approvalRate: 100,
-    },
+    permits: { submitted: 2, approved: 2, denied: 0, pending: 0, approvalRate: 100 },
     provisions: [
       {
         id: 'lei-01',
         provision: 'Bedroom Limit on ADUs',
         category: 'Dimensional & Parking',
-        status: 'conflict',
-        stateLaw:
-          '760 CMR 71.05 — no provision authorizes towns to limit the number of bedrooms in an ADU. Size is governed by square footage only.',
-        localBylaw:
-          'Leicester limited ADUs to a maximum of 2 bedrooms.',
-        impact:
-          'Restricts family-sized ADUs. A 900 sq ft ADU could accommodate 3 bedrooms but would be prohibited.',
-        agDecision:
-          'AG disapproved May 2025 — bedroom limits not authorized under Ch. 150 or 760 CMR 71.00.',
+        status: 'inconsistent',
+        stateLaw: '760 CMR 71.05 — no provision authorizes towns to limit the number of bedrooms in an ADU. Size is governed by square footage only.',
+        localBylaw: 'Leicester limited ADUs to a maximum of 2 bedrooms.',
+        impact: 'This bedroom limit is unenforceable under state law. The AG formally disapproved this provision.',
+        agDecision: 'AG disapproved May 2025 — bedroom limits not authorized under Ch. 150 or 760 CMR 71.00.',
       },
       {
         id: 'lei-02',
         provision: 'Single-Family Zoning District Restriction',
         category: 'Use & Occupancy',
-        status: 'conflict',
-        stateLaw:
-          'MGL c.40A §3 — ADUs allowed on any lot with a single-family dwelling, regardless of zoning district.',
-        localBylaw:
-          'Leicester restricted ADUs to single-family residential zoning districts only.',
-        impact:
-          'Excludes single-family homes in agricultural, rural, or mixed-use districts from building ADUs.',
-        agDecision:
-          'AG disapproved May 2025 — cannot limit ADUs to specific zoning districts.',
+        status: 'inconsistent',
+        stateLaw: 'MGL c.40A §3 — ADUs allowed on any lot with a single-family dwelling, regardless of zoning district.',
+        localBylaw: 'Leicester restricted ADUs to single-family residential zoning districts only.',
+        impact: 'This district restriction is unenforceable. The AG formally disapproved this provision.',
+        agDecision: 'AG disapproved May 2025 — cannot limit ADUs to specific zoning districts.',
       },
       {
         id: 'lei-03',
         provision: '"All Dimensional" Compliance Requirement',
         category: 'Dimensional & Parking',
-        status: 'conflict',
-        stateLaw:
-          '760 CMR 71.05(1) — setbacks and dimensional requirements for ADUs may not exceed those for principal structures.',
-        localBylaw:
-          'Leicester required ADUs to comply with "all applicable dimensional requirements" — interpreted to mean the combined footprint must meet lot coverage, FAR, and setback rules designed for single structures.',
-        impact:
-          'Effectively prevents ADUs on nonconforming lots (which are common in older MA towns), creating a de facto ban for many properties.',
-        agDecision:
-          'AG disapproved May 2025 — blanket dimensional compliance exceeds state limits.',
+        status: 'inconsistent',
+        stateLaw: '760 CMR 71.05(1) — setbacks and dimensional requirements for ADUs may not exceed those for principal structures.',
+        localBylaw: 'Leicester required ADUs to comply with "all applicable dimensional requirements" — interpreted to mean the combined footprint must meet lot coverage, FAR, and setback rules designed for single structures.',
+        impact: 'This blanket dimensional requirement is unenforceable. The AG disapproved it as exceeding state limits.',
+        agDecision: 'AG disapproved May 2025 — blanket dimensional compliance exceeds state limits.',
       },
       {
         id: 'lei-04',
         provision: 'ADU Size Limits',
         category: 'Dimensional & Parking',
         status: 'compliant',
-        stateLaw:
-          '760 CMR 71.05(3) — ADUs must be allowed up to 900 sq ft.',
+        stateLaw: '760 CMR 71.05(3) — ADUs must be allowed up to 900 sq ft.',
         localBylaw: 'Leicester allows ADUs up to 900 sq ft.',
-        impact: 'No conflict — meets state minimum.',
+        impact: 'Consistent with state law.',
       },
       {
         id: 'lei-05',
         provision: 'By-Right Permitting',
         category: 'Process & Administration',
         status: 'compliant',
-        stateLaw:
-          'MGL c.40A §3 — conforming ADUs must be allowed by right.',
-        localBylaw:
-          'Leicester allows conforming ADUs by right through building permit.',
-        impact: 'No conflict — by-right pathway exists.',
+        stateLaw: 'MGL c.40A §3 — conforming ADUs must be allowed by right.',
+        localBylaw: 'Leicester allows conforming ADUs by right through building permit.',
+        impact: 'Consistent with state law.',
       },
       {
         id: 'lei-06',
         provision: 'Detached ADU Allowance',
         category: 'Use & Occupancy',
         status: 'compliant',
-        stateLaw:
-          'MGL c.40A §3 — ADUs may be internal, attached, or detached.',
+        stateLaw: 'MGL c.40A §3 — ADUs may be internal, attached, or detached.',
         localBylaw: 'Leicester allows all three ADU types.',
-        impact: 'No conflict.',
+        impact: 'Consistent with state law.',
       },
       {
         id: 'lei-07',
         provision: 'Parking',
         category: 'Dimensional & Parking',
         status: 'compliant',
-        stateLaw:
-          '760 CMR 71.05(2) — parking may not exceed 1 space.',
-        localBylaw:
-          'Leicester requires no more than 1 parking space.',
-        impact: 'No conflict.',
+        stateLaw: '760 CMR 71.05(2) — parking may not exceed 1 space.',
+        localBylaw: 'Leicester requires no more than 1 parking space.',
+        impact: 'Consistent with state law.',
       },
     ],
   },
@@ -395,95 +317,72 @@ export const towns: TownComplianceProfile[] = [
     bylawLastUpdated: 'June 2025 (AG partial disapproval)',
     bylawSource: 'Brookline Zoning Bylaw — Town Meeting Article',
     agDisapprovals: 2,
-    permits: {
-      submitted: 5,
-      approved: 2,
-      denied: 3,
-      pending: 0,
-      approvalRate: 40,
-    },
+    permits: { submitted: 5, approved: 2, denied: 3, pending: 0, approvalRate: 40 },
     provisions: [
       {
         id: 'brk-01',
         provision: 'Floor Area Ratio (FAR) Cap on ADUs',
         category: 'Dimensional & Parking',
-        status: 'conflict',
-        stateLaw:
-          '760 CMR 71.05(1) — dimensional requirements for ADUs may not exceed those for principal structures in the same district.',
-        localBylaw:
-          'Brookline imposed a FAR cap on lots with ADUs that effectively limited ADU size below the 900 sq ft state minimum on smaller lots.',
-        impact:
-          'On Brookline\'s characteristically small urban lots, the FAR calculation leaves insufficient buildable area. Effectively a size ban for many properties.',
-        agDecision:
-          'AG disapproved June 2025 — FAR caps that reduce ADU size below state minimums violate Ch. 150.',
+        status: 'inconsistent',
+        stateLaw: '760 CMR 71.05(1) — dimensional requirements for ADUs may not exceed those for principal structures in the same district.',
+        localBylaw: 'Brookline imposed a FAR cap on lots with ADUs that effectively limited ADU size below the 900 sq ft state minimum on smaller lots.',
+        impact: 'This FAR cap is unenforceable where it reduces ADU size below 900 sq ft. The AG formally disapproved this provision.',
+        agDecision: 'AG disapproved June 2025 — FAR caps that reduce ADU size below state minimums violate Ch. 150.',
       },
       {
         id: 'brk-02',
         provision: 'Pre-Existing Nonconforming Conditions',
         category: 'Dimensional & Parking',
-        status: 'conflict',
-        stateLaw:
-          'MGL c.40A §3 — ADUs are a protected use and must be allowed by right. Nonconforming status of the lot should not prevent ADU construction.',
-        localBylaw:
-          'Brookline required that lots with pre-existing nonconforming conditions (setbacks, lot coverage) could not add ADUs unless the nonconformity was cured.',
-        impact:
-          'A large percentage of Brookline lots are nonconforming due to the town\'s dense, historic development pattern. This provision would block ADUs on most eligible properties.',
-        agDecision:
-          'AG disapproved June 2025 — pre-existing nonconformities cannot bar ADU construction.',
+        status: 'inconsistent',
+        stateLaw: 'MGL c.40A §3 — ADUs are a protected use and must be allowed by right. Nonconforming status of the lot should not prevent ADU construction.',
+        localBylaw: 'Brookline required that lots with pre-existing nonconforming conditions (setbacks, lot coverage) could not add ADUs unless the nonconformity was cured.',
+        impact: 'This provision is unenforceable. Pre-existing nonconformities cannot bar ADU construction under state law. The AG formally disapproved this.',
+        agDecision: 'AG disapproved June 2025 — pre-existing nonconformities cannot bar ADU construction.',
       },
       {
         id: 'brk-03',
         provision: 'Historic District Design Review',
         category: 'Building & Safety',
         status: 'review',
-        stateLaw:
-          '760 CMR 71.05(5) — towns may impose reasonable design standards but may not use them to effectively prohibit ADUs.',
-        localBylaw:
-          'Brookline requires Historic District Commission review for ADUs in designated areas, with authority to modify or deny based on architectural compatibility.',
-        impact:
-          'HDC review with denial authority could function as a de facto special permit. Unclear if this would survive a legal challenge.',
+        stateLaw: '760 CMR 71.05(5) — towns may impose reasonable design standards but may not use them to effectively prohibit ADUs.',
+        localBylaw: 'Brookline requires Historic District Commission review for ADUs in designated areas, with authority to modify or deny based on architectural compatibility.',
+        impact: 'HDC review with denial authority could function as a de facto special permit. Unclear if this would survive a legal challenge.',
       },
       {
         id: 'brk-04',
         provision: 'ADU Size Limits',
         category: 'Dimensional & Parking',
         status: 'compliant',
-        stateLaw:
-          '760 CMR 71.05(3) — must allow up to 900 sq ft.',
+        stateLaw: '760 CMR 71.05(3) — must allow up to 900 sq ft.',
         localBylaw: 'Brookline allows up to 900 sq ft.',
-        impact: 'No conflict.',
+        impact: 'Consistent with state law.',
       },
       {
         id: 'brk-05',
         provision: 'By-Right Permitting',
         category: 'Process & Administration',
         status: 'compliant',
-        stateLaw:
-          'MGL c.40A §3 — conforming ADUs must be allowed by right.',
-        localBylaw:
-          'Brookline allows conforming ADUs by right (outside historic districts).',
-        impact: 'No conflict for non-historic areas.',
+        stateLaw: 'MGL c.40A §3 — conforming ADUs must be allowed by right.',
+        localBylaw: 'Brookline allows conforming ADUs by right (outside historic districts).',
+        impact: 'Consistent with state law for non-historic areas.',
       },
       {
         id: 'brk-06',
         provision: 'Detached ADU Allowance',
         category: 'Use & Occupancy',
         status: 'compliant',
-        stateLaw:
-          'MGL c.40A §3 — internal, attached, or detached.',
+        stateLaw: 'MGL c.40A §3 — internal, attached, or detached.',
         localBylaw: 'All three types permitted.',
-        impact: 'No conflict.',
+        impact: 'Consistent with state law.',
       },
       {
         id: 'brk-07',
         provision: 'Parking',
         category: 'Dimensional & Parking',
         status: 'compliant',
-        stateLaw:
-          '760 CMR 71.05(2) — max 1 space; waived within 0.5 mi of transit.',
-        localBylaw:
-          'Brookline waives ADU parking within 0.5 miles of MBTA stations, otherwise 1 space max.',
-        impact: 'No conflict — transit waiver properly applied.',
+        stateLaw: '760 CMR 71.05(2) — max 1 space; waived within 0.5 mi of transit.',
+        localBylaw: 'Brookline waives ADU parking within 0.5 miles of MBTA stations, otherwise 1 space max.',
+        impact: 'Consistent with state law — transit waiver properly applied.',
       },
     ],
   },
@@ -497,89 +396,71 @@ export const towns: TownComplianceProfile[] = [
     bylawLastUpdated: 'June 2025 (AG partial disapproval)',
     bylawSource: 'Canton Zoning Bylaw — Town Meeting Article',
     agDisapprovals: 1,
-    permits: {
-      submitted: 2,
-      approved: 1,
-      denied: 1,
-      pending: 0,
-      approvalRate: 50,
-    },
+    permits: { submitted: 2, approved: 1, denied: 1, pending: 0, approvalRate: 50 },
     provisions: [
       {
         id: 'can-01',
         provision: 'Minimum Lot Size Requirement',
         category: 'Dimensional & Parking',
-        status: 'conflict',
-        stateLaw:
-          'MGL c.40A §3 — ADUs are a protected use on "any" lot with a single-family dwelling. No minimum lot size may be imposed beyond what applies to the principal dwelling.',
-        localBylaw:
-          'Canton imposed a minimum lot size of 10,000 sq ft for ADU eligibility.',
-        impact:
-          'Disqualifies a significant portion of Canton\'s housing stock — many older neighborhoods have lots under 10,000 sq ft. One of the most consequential AG rulings statewide.',
-        agDecision:
-          'AG disapproved June 2025 — minimum lot size requirements for ADUs violate Ch. 150.',
+        status: 'inconsistent',
+        stateLaw: 'MGL c.40A §3 — ADUs are a protected use on "any" lot with a single-family dwelling. No minimum lot size may be imposed beyond what applies to the principal dwelling.',
+        localBylaw: 'Canton imposed a minimum lot size of 10,000 sq ft for ADU eligibility.',
+        impact: 'This lot size requirement is unenforceable under state law. The AG formally disapproved this provision.',
+        agDecision: 'AG disapproved June 2025 — minimum lot size requirements for ADUs violate Ch. 150.',
       },
       {
         id: 'can-02',
         provision: 'Impervious Surface Cap',
         category: 'Dimensional & Parking',
         status: 'review',
-        stateLaw:
-          '760 CMR 71.05(1) — dimensional requirements may not exceed those for principal structures.',
-        localBylaw:
-          'Canton applies an impervious surface coverage limit that, on smaller lots, may prevent ADU construction when combined with existing driveway and structure coverage.',
-        impact:
-          'May function as a de facto size or feasibility restriction on constrained lots. Has not been formally challenged.',
+        stateLaw: '760 CMR 71.05(1) — dimensional requirements may not exceed those for principal structures.',
+        localBylaw: 'Canton applies an impervious surface coverage limit that, on smaller lots, may prevent ADU construction when combined with existing driveway and structure coverage.',
+        impact: 'May function as a de facto size or feasibility restriction on constrained lots. Has not been formally challenged.',
       },
       {
         id: 'can-03',
         provision: 'ADU Size Limits',
         category: 'Dimensional & Parking',
         status: 'compliant',
-        stateLaw:
-          '760 CMR 71.05(3) — must allow up to 900 sq ft.',
+        stateLaw: '760 CMR 71.05(3) — must allow up to 900 sq ft.',
         localBylaw: 'Canton allows up to 900 sq ft.',
-        impact: 'No conflict.',
+        impact: 'Consistent with state law.',
       },
       {
         id: 'can-04',
         provision: 'By-Right Permitting',
         category: 'Process & Administration',
         status: 'compliant',
-        stateLaw:
-          'MGL c.40A §3 — conforming ADUs by right.',
+        stateLaw: 'MGL c.40A §3 — conforming ADUs by right.',
         localBylaw: 'Canton allows conforming ADUs by right.',
-        impact: 'No conflict.',
+        impact: 'Consistent with state law.',
       },
       {
         id: 'can-05',
         provision: 'Detached ADU Allowance',
         category: 'Use & Occupancy',
         status: 'compliant',
-        stateLaw:
-          'MGL c.40A §3 — internal, attached, or detached.',
+        stateLaw: 'MGL c.40A §3 — internal, attached, or detached.',
         localBylaw: 'All three types permitted.',
-        impact: 'No conflict.',
+        impact: 'Consistent with state law.',
       },
       {
         id: 'can-06',
         provision: 'Parking',
         category: 'Dimensional & Parking',
         status: 'compliant',
-        stateLaw:
-          '760 CMR 71.05(2) — max 1 space.',
+        stateLaw: '760 CMR 71.05(2) — max 1 space.',
         localBylaw: 'Canton requires 1 space max.',
-        impact: 'No conflict.',
+        impact: 'Consistent with state law.',
       },
       {
         id: 'can-07',
         provision: 'Owner-Occupancy',
         category: 'Use & Occupancy',
         status: 'compliant',
-        stateLaw:
-          'MGL c.40A §3 — no owner-occupancy requirement allowed.',
+        stateLaw: 'MGL c.40A §3 — no owner-occupancy requirement allowed.',
         localBylaw: 'Canton does not require owner-occupancy.',
-        impact: 'No conflict — updated post-state-law.',
+        impact: 'Consistent with state law.',
       },
     ],
   },
@@ -593,79 +474,62 @@ export const towns: TownComplianceProfile[] = [
     bylawLastUpdated: '2025 (AG partial disapproval)',
     bylawSource: 'Hanson Zoning Bylaw — Town Meeting Article',
     agDisapprovals: 1,
-    permits: {
-      submitted: 3,
-      approved: 2,
-      denied: 1,
-      pending: 0,
-      approvalRate: 67,
-    },
+    permits: { submitted: 3, approved: 2, denied: 1, pending: 0, approvalRate: 67 },
     provisions: [
       {
         id: 'han-01',
         provision: 'Site Plan Review as De Facto Special Permit',
         category: 'Process & Administration',
-        status: 'conflict',
-        stateLaw:
-          'MGL c.40A §3 — ADUs must be allowed by right. No special permit, site plan review with denial authority, or discretionary approval may be required.',
-        localBylaw:
-          'Hanson requires site plan review with Planning Board authority to impose conditions and potentially deny applications based on subjective criteria.',
-        impact:
-          'Converts a by-right process into a discretionary one. Planning Board can effectively block ADUs through conditions or denial — violates the by-right mandate.',
-        agDecision:
-          'AG partial disapproval 2025 — site plan review functioning as special permit violates Ch. 150.',
+        status: 'inconsistent',
+        stateLaw: 'MGL c.40A §3 — ADUs must be allowed by right. No special permit, site plan review with denial authority, or discretionary approval may be required.',
+        localBylaw: 'Hanson requires site plan review with Planning Board authority to impose conditions and potentially deny applications based on subjective criteria.',
+        impact: 'This discretionary review process is unenforceable for Protected Use ADUs. The AG formally disapproved this provision.',
+        agDecision: 'AG partial disapproval 2025 — site plan review functioning as special permit violates Ch. 150.',
       },
       {
         id: 'han-02',
         provision: 'Deed Restriction Requirement',
         category: 'Use & Occupancy',
         status: 'review',
-        stateLaw:
-          '760 CMR 71.00 does not prohibit deed restrictions, but restrictions that effectively limit the protected use (e.g., requiring the ADU to be removed upon sale) may violate Ch. 150.',
-        localBylaw:
-          'Hanson requires a deed restriction recorded with the Registry of Deeds tying the ADU to the current property owner.',
-        impact:
-          'May discourage ADU construction if owners believe they\'d have to remove the unit upon selling. Creates legal ambiguity around property transfers.',
+        stateLaw: '760 CMR 71.00 does not prohibit deed restrictions, but restrictions that effectively limit the protected use (e.g., requiring the ADU to be removed upon sale) may violate Ch. 150.',
+        localBylaw: 'Hanson requires a deed restriction recorded with the Registry of Deeds tying the ADU to the current property owner.',
+        impact: 'May discourage ADU construction if owners believe they would have to remove the unit upon selling. Creates legal ambiguity around property transfers.',
       },
       {
         id: 'han-03',
         provision: 'ADU Size Limits',
         category: 'Dimensional & Parking',
         status: 'compliant',
-        stateLaw:
-          '760 CMR 71.05(3) — must allow up to 900 sq ft.',
+        stateLaw: '760 CMR 71.05(3) — must allow up to 900 sq ft.',
         localBylaw: 'Hanson allows up to 900 sq ft.',
-        impact: 'No conflict.',
+        impact: 'Consistent with state law.',
       },
       {
         id: 'han-04',
         provision: 'Detached ADU Allowance',
         category: 'Use & Occupancy',
         status: 'compliant',
-        stateLaw:
-          'MGL c.40A §3 — internal, attached, or detached.',
+        stateLaw: 'MGL c.40A §3 — internal, attached, or detached.',
         localBylaw: 'All three types permitted.',
-        impact: 'No conflict.',
+        impact: 'Consistent with state law.',
       },
       {
         id: 'han-05',
         provision: 'Parking',
         category: 'Dimensional & Parking',
         status: 'compliant',
-        stateLaw:
-          '760 CMR 71.05(2) — max 1 space.',
+        stateLaw: '760 CMR 71.05(2) — max 1 space.',
         localBylaw: 'Hanson requires 1 space max.',
-        impact: 'No conflict.',
+        impact: 'Consistent with state law.',
       },
       {
         id: 'han-06',
         provision: 'Owner-Occupancy',
         category: 'Use & Occupancy',
         status: 'compliant',
-        stateLaw:
-          'MGL c.40A §3 — no owner-occupancy requirement allowed.',
+        stateLaw: 'MGL c.40A §3 — no owner-occupancy requirement allowed.',
         localBylaw: 'Hanson does not require owner-occupancy.',
-        impact: 'No conflict.',
+        impact: 'Consistent with state law.',
       },
     ],
   },
@@ -679,126 +543,97 @@ export const towns: TownComplianceProfile[] = [
     bylawLastUpdated: 'September 2024',
     bylawSource: 'New Bedford Zoning Ordinance Ch. 9, §§2340 & 1200',
     agDisapprovals: 0,
-    permits: {
-      submitted: 0,
-      approved: 0,
-      denied: 0,
-      pending: 0,
-      approvalRate: 0,
-    },
+    permits: { submitted: 0, approved: 0, denied: 0, pending: 0, approvalRate: 0 },
     provisions: [
       {
         id: 'nb-01',
         provision: 'Short-Term Rental Restriction',
         category: 'Use & Occupancy',
         status: 'review',
-        stateLaw:
-          '760 CMR 71.00 is silent on short-term rental of ADUs. Towns may regulate STR separately but may not use STR restrictions to effectively ban or discourage ADU construction.',
-        localBylaw:
-          'New Bedford §2340 requires ADU lease terms of at least 31 days, effectively banning short-term rental use of ADUs.',
-        impact:
-          'Removes a key revenue model for homeowners considering ADU construction. While towns can regulate STRs generally, an ADU-specific STR ban may face challenge if shown to discourage ADU development.',
+        stateLaw: '760 CMR 71.00 is silent on short-term rental of ADUs. Towns may regulate STR separately but may not use STR restrictions to effectively ban or discourage ADU construction.',
+        localBylaw: 'New Bedford §2340 requires ADU lease terms of at least 31 days, effectively banning short-term rental use of ADUs.',
+        impact: 'Removes a key revenue model for homeowners considering ADU construction. While towns can regulate STRs generally, an ADU-specific STR ban may face challenge if shown to discourage ADU development.',
       },
       {
         id: 'nb-02',
         provision: 'Design Guidelines for Detached ADUs',
         category: 'Building & Safety',
         status: 'review',
-        stateLaw:
-          '760 CMR 71.05(5) — towns may impose "reasonable" design standards for detached ADUs but may not use them to effectively prohibit construction.',
-        localBylaw:
-          'New Bedford imposes optional design guidelines for by-right ADUs (≤900 sq ft) but makes them mandatory for special permit ADUs (900–1,200 sq ft), including architectural compatibility requirements.',
-        impact:
-          'By-right tier design guidelines are advisory and likely compliant. Mandatory guidelines for the special permit tier are permissible since that tier is beyond the state-guaranteed minimum. Grey area if advisory guidelines are applied as de facto requirements.',
+        stateLaw: '760 CMR 71.05(5) — towns may impose "reasonable" design standards for detached ADUs but may not use them to effectively prohibit construction.',
+        localBylaw: 'New Bedford imposes optional design guidelines for by-right ADUs (up to 900 sq ft) but makes them mandatory for special permit ADUs (900-1,200 sq ft), including architectural compatibility requirements.',
+        impact: 'By-right tier design guidelines are advisory and likely consistent. Mandatory guidelines for the special permit tier are permissible since that tier is beyond the state-guaranteed minimum. Grey area if advisory guidelines are applied as de facto requirements.',
       },
       {
         id: 'nb-03',
         provision: 'Special Permit for Larger ADUs',
         category: 'Process & Administration',
         status: 'review',
-        stateLaw:
-          'MGL c.40A §3 — ADUs meeting state requirements (up to 900 sq ft) must be allowed by right. Towns may create additional permitting tiers for ADUs exceeding the state minimum.',
-        localBylaw:
-          'New Bedford allows ADUs up to 900 sq ft by right but requires a special permit for ADUs between 900 and 1,200 sq ft.',
-        impact:
-          'The special permit tier for 900–1,200 sq ft is likely permissible since it exceeds the state-guaranteed by-right minimum. However, the discretionary approval process for the larger tier could be challenged if applied to restrict overall ADU development.',
+        stateLaw: 'MGL c.40A §3 — ADUs meeting state requirements (up to 900 sq ft) must be allowed by right. Towns may create additional permitting tiers for ADUs exceeding the state minimum.',
+        localBylaw: 'New Bedford allows ADUs up to 900 sq ft by right but requires a special permit for ADUs between 900 and 1,200 sq ft.',
+        impact: 'The special permit tier for 900-1,200 sq ft is likely permissible since it exceeds the state-guaranteed by-right minimum. However, the discretionary approval process for the larger tier could be challenged if applied to restrict overall ADU development.',
       },
       {
         id: 'nb-04',
         provision: 'By-Right Permitting',
         category: 'Process & Administration',
         status: 'compliant',
-        stateLaw:
-          'MGL c.40A §3 — conforming ADUs must be allowed by right with no special permit or variance.',
-        localBylaw:
-          'New Bedford allows ADUs up to 900 sq ft by right through the building permit process. No special permit, variance, or discretionary review required for conforming units.',
-        impact: 'No conflict — by-right pathway exists for state-minimum ADUs.',
+        stateLaw: 'MGL c.40A §3 — conforming ADUs must be allowed by right with no special permit or variance.',
+        localBylaw: 'New Bedford allows ADUs up to 900 sq ft by right through the building permit process. No special permit, variance, or discretionary review required for conforming units.',
+        impact: 'Consistent with state law.',
       },
       {
         id: 'nb-05',
         provision: 'ADU Size Limits',
         category: 'Dimensional & Parking',
         status: 'compliant',
-        stateLaw:
-          '760 CMR 71.05(3) — ADUs must be allowed up to 900 sq ft or 50% of principal dwelling living area, whichever is less.',
-        localBylaw:
-          'New Bedford allows ADUs up to 900 sq ft by right, with an additional special permit tier allowing up to 1,200 sq ft.',
-        impact: 'No conflict — meets and exceeds state minimum. The 1,200 sq ft special permit tier provides additional flexibility beyond state requirements.',
+        stateLaw: '760 CMR 71.05(3) — ADUs must be allowed up to 900 sq ft or 50% of principal dwelling living area, whichever is less.',
+        localBylaw: 'New Bedford allows ADUs up to 900 sq ft by right, with an additional special permit tier allowing up to 1,200 sq ft.',
+        impact: 'Consistent with state law — meets and exceeds the state minimum.',
       },
       {
         id: 'nb-06',
         provision: 'Detached ADU Allowance',
         category: 'Use & Occupancy',
         status: 'compliant',
-        stateLaw:
-          'MGL c.40A §3 — ADUs may be within, attached to, or detached from the principal dwelling.',
-        localBylaw:
-          'New Bedford allows internal, attached, and detached ADUs.',
-        impact: 'No conflict — all ADU types permitted.',
+        stateLaw: 'MGL c.40A §3 — ADUs may be within, attached to, or detached from the principal dwelling.',
+        localBylaw: 'New Bedford allows internal, attached, and detached ADUs.',
+        impact: 'Consistent with state law.',
       },
       {
         id: 'nb-07',
         provision: 'Owner-Occupancy',
         category: 'Use & Occupancy',
         status: 'compliant',
-        stateLaw:
-          'MGL c.40A §3 — towns may not require owner-occupancy for ADUs as a protected use.',
-        localBylaw:
-          'New Bedford does not require owner-occupancy for ADU properties.',
-        impact: 'No conflict — no owner-occupancy mandate.',
+        stateLaw: 'MGL c.40A §3 — towns may not require owner-occupancy for ADUs as a protected use.',
+        localBylaw: 'New Bedford does not require owner-occupancy for ADU properties.',
+        impact: 'Consistent with state law.',
       },
       {
         id: 'nb-08',
         provision: 'Parking',
         category: 'Dimensional & Parking',
         status: 'compliant',
-        stateLaw:
-          '760 CMR 71.05(2) — parking for an ADU shall not exceed 1 space. Must be waived within 0.5 miles of public transit.',
-        localBylaw:
-          'New Bedford requires a maximum of 1 parking space per ADU and waives the requirement for properties within 0.5 miles of SRTA transit stops.',
-        impact: 'No conflict — meets state parking cap and properly applies the transit proximity waiver.',
+        stateLaw: '760 CMR 71.05(2) — parking for an ADU shall not exceed 1 space. Must be waived within 0.5 miles of public transit.',
+        localBylaw: 'New Bedford requires a maximum of 1 parking space per ADU and waives the requirement for properties within 0.5 miles of SRTA transit stops.',
+        impact: 'Consistent with state law — transit proximity waiver properly applied.',
       },
       {
         id: 'nb-09',
         provision: 'District Scope',
         category: 'Use & Occupancy',
         status: 'compliant',
-        stateLaw:
-          'MGL c.40A §3 — ADUs are a protected use allowed by right on any lot with a single-family dwelling, in any zoning district.',
-        localBylaw:
-          'New Bedford allows ADUs in all zoning districts where single-family dwellings are permitted.',
-        impact: 'No conflict — no district-based restrictions on ADU eligibility.',
+        stateLaw: 'MGL c.40A §3 — ADUs are a protected use allowed by right on any lot with a single-family dwelling, in any zoning district.',
+        localBylaw: 'New Bedford allows ADUs in all zoning districts where single-family dwellings are permitted.',
+        impact: 'Consistent with state law.',
       },
       {
         id: 'nb-10',
         provision: 'Number of ADUs Allowed',
         category: 'Use & Occupancy',
         status: 'compliant',
-        stateLaw:
-          'MGL c.40A §3 — at least one ADU must be allowed per single-family lot.',
-        localBylaw:
-          'New Bedford allows one ADU per single-family lot.',
-        impact: 'No conflict — meets state minimum.',
+        stateLaw: 'MGL c.40A §3 — at least one ADU must be allowed per single-family lot.',
+        localBylaw: 'New Bedford allows one ADU per single-family lot.',
+        impact: 'Consistent with state law.',
       },
     ],
   },
@@ -810,39 +645,39 @@ export const towns: TownComplianceProfile[] = [
 
 export function getStatusCounts(provisions: ComplianceProvision[]) {
   return {
-    conflicts: provisions.filter((p) => p.status === 'conflict').length,
+    inconsistent: provisions.filter((p) => p.status === 'inconsistent').length,
     review: provisions.filter((p) => p.status === 'review').length,
     compliant: provisions.filter((p) => p.status === 'compliant').length,
   };
 }
 
 export function getStatewideStats(allTowns: TownComplianceProfile[]) {
-  const totalConflicts = allTowns.reduce(
-    (sum, t) => sum + t.provisions.filter((p) => p.status === 'conflict').length,
+  const totalInconsistent = allTowns.reduce(
+    (sum, t) => sum + t.provisions.filter((p) => p.status === 'inconsistent').length,
     0,
   );
   const totalAgDisapprovals = allTowns.reduce(
     (sum, t) => sum + t.agDisapprovals,
     0,
   );
-  const townsNotUpdated = allTowns.filter((t) =>
-    t.provisions.some((p) => p.status === 'conflict'),
+  const townsWithInconsistencies = allTowns.filter((t) =>
+    t.provisions.some((p) => p.status === 'inconsistent'),
   ).length;
-  return { totalConflicts, totalAgDisapprovals, townsNotUpdated, townsTracked: allTowns.length };
+  return { totalInconsistent, totalAgDisapprovals, townsWithInconsistencies, townsTracked: allTowns.length };
 }
 
 export function generateBottomLine(town: TownComplianceProfile): string {
   const counts = getStatusCounts(town.provisions);
   const hasAg = town.agDisapprovals > 0;
 
-  if (counts.conflicts === 0 && counts.review === 0) {
-    return `${town.name}'s ADU bylaw appears fully compliant with Chapter 150 and 760 CMR 71.00. No conflicts identified.`;
+  if (counts.inconsistent === 0 && counts.review === 0) {
+    return `${town.name}'s ADU bylaw appears fully consistent with Chapter 150 and 760 CMR 71.00. No inconsistencies identified.`;
   }
 
   const parts: string[] = [];
-  if (counts.conflicts > 0) {
+  if (counts.inconsistent > 0) {
     parts.push(
-      `${town.name} has ${counts.conflicts} provision${counts.conflicts > 1 ? 's' : ''} that conflict with state ADU law`,
+      `${town.name} has ${counts.inconsistent} provision${counts.inconsistent > 1 ? 's' : ''} inconsistent with state ADU law — these are unenforceable under Chapter 150`,
     );
   }
   if (hasAg) {

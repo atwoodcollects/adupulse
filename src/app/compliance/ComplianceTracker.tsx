@@ -17,8 +17,8 @@ const statusConfig: Record<
   ComplianceStatus,
   { label: string; color: string; bg: string; border: string; dot: string }
 > = {
-  conflict: {
-    label: 'Conflicts with State Law',
+  inconsistent: {
+    label: 'Inconsistent with State Law',
     color: 'text-red-400',
     bg: 'bg-red-400/10',
     border: 'border-red-400/30',
@@ -32,7 +32,7 @@ const statusConfig: Record<
     dot: 'bg-amber-400',
   },
   compliant: {
-    label: 'Compliant',
+    label: 'Consistent',
     color: 'text-emerald-400',
     bg: 'bg-emerald-400/10',
     border: 'border-emerald-400/30',
@@ -54,7 +54,7 @@ function getTownStatusLabel(town: TownComplianceProfile): {
     };
   }
   const counts = getStatusCounts(town.provisions);
-  if (counts.conflicts > 0) {
+  if (counts.inconsistent > 0) {
     return { label: 'NOT UPDATED', color: 'text-amber-400', bg: 'bg-amber-400/10' };
   }
   return { label: 'UPDATED', color: 'text-emerald-400', bg: 'bg-emerald-400/10' };
@@ -94,7 +94,12 @@ function ProvisionRow({ provision }: { provision: ComplianceProvision }) {
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 9l-7 7-7-7"
+            />
           </svg>
         </div>
       </button>
@@ -177,9 +182,9 @@ export default function ComplianceTracker() {
       {/* ── STATEWIDE SNAPSHOT ── */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
         {[
-          { value: statewide.totalConflicts, label: 'Total Conflicts', color: 'text-red-400' },
+          { value: statewide.totalInconsistent, label: 'Unenforceable Provisions', color: 'text-red-400' },
           { value: statewide.totalAgDisapprovals, label: 'AG Disapprovals', color: 'text-red-400' },
-          { value: statewide.townsNotUpdated, label: 'Towns w/ Conflicts', color: 'text-amber-400' },
+          { value: statewide.townsWithInconsistencies, label: 'Towns w/ Inconsistencies', color: 'text-amber-400' },
           { value: statewide.townsTracked, label: 'Towns Tracked', color: 'text-emerald-400' },
         ].map((stat) => (
           <div
@@ -217,13 +222,16 @@ export default function ComplianceTracker() {
               <p className="text-white font-semibold text-sm">{t.name}</p>
               <p className="text-gray-500 text-xs mt-0.5">{t.county} County</p>
               <div className="flex items-center gap-2 mt-2">
-                <span className={`text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded ${label.color} ${label.bg}`}>
+                <span
+                  className={`text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded ${label.color} ${label.bg}`}
+                >
                   {label.label}
                 </span>
               </div>
               <div className="flex gap-3 mt-2 text-xs text-gray-500">
                 <span>
-                  <span className="text-red-400 font-medium">{tc.conflicts}</span> conflict{tc.conflicts !== 1 ? 's' : ''}
+                  <span className="text-red-400 font-medium">{tc.inconsistent}</span>{' '}
+                  unenforceable
                 </span>
                 <span>
                   <span className="text-amber-400 font-medium">{tc.review}</span> review
@@ -243,7 +251,7 @@ export default function ComplianceTracker() {
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
           <div>
             <h2 className="text-xl sm:text-2xl font-bold text-white">
-              {town.name} Bylaw Compliance
+              {town.name} Bylaw Consistency
             </h2>
             <p className="text-sm text-gray-400 mt-1">
               {town.bylawSource} · Last updated {town.bylawLastUpdated}
@@ -263,7 +271,8 @@ export default function ComplianceTracker() {
               Permit Activity
             </p>
             <p className="text-xs text-gray-400">
-              {town.permits.approved} of {town.permits.submitted} approved ({town.permits.approvalRate}%)
+              {town.permits.approved} of {town.permits.submitted} approved (
+              {town.permits.approvalRate}%)
             </p>
           </div>
           <div className="h-2.5 bg-gray-700 rounded-full overflow-hidden flex">
@@ -292,16 +301,16 @@ export default function ComplianceTracker() {
           </div>
           <div className="flex gap-4 mt-1.5 text-[11px] text-gray-500">
             <span className="flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              Approved ({town.permits.approved})
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> Approved (
+              {town.permits.approved})
             </span>
             <span className="flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-red-400" />
-              Denied ({town.permits.denied})
+              <span className="w-1.5 h-1.5 rounded-full bg-red-400" /> Denied (
+              {town.permits.denied})
             </span>
             <span className="flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-              Pending ({town.permits.pending})
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" /> Pending (
+              {town.permits.pending})
             </span>
           </div>
         </div>
@@ -311,17 +320,23 @@ export default function ComplianceTracker() {
           {(
             [
               { key: 'all' as const, label: 'All Provisions', count: town.provisions.length },
-              { key: 'conflict' as const, label: 'Conflicts', count: counts.conflicts },
+              { key: 'inconsistent' as const, label: 'Inconsistent', count: counts.inconsistent },
               { key: 'review' as const, label: 'Needs Review', count: counts.review },
-              { key: 'compliant' as const, label: 'Compliant', count: counts.compliant },
+              { key: 'compliant' as const, label: 'Consistent', count: counts.compliant },
             ] as const
           ).map(({ key, label, count }) => {
             const isActive = statusFilter === key;
             const colorMap: Record<string, string> = {
               all: isActive ? 'bg-blue-500/20 text-blue-400 border-blue-500/30' : '',
-              conflict: isActive ? 'bg-red-400/20 text-red-400 border-red-400/30' : '',
-              review: isActive ? 'bg-amber-400/20 text-amber-400 border-amber-400/30' : '',
-              compliant: isActive ? 'bg-emerald-400/20 text-emerald-400 border-emerald-400/30' : '',
+              inconsistent: isActive
+                ? 'bg-red-400/20 text-red-400 border-red-400/30'
+                : '',
+              review: isActive
+                ? 'bg-amber-400/20 text-amber-400 border-amber-400/30'
+                : '',
+              compliant: isActive
+                ? 'bg-emerald-400/20 text-emerald-400 border-emerald-400/30'
+                : '',
             };
 
             return (
@@ -384,11 +399,14 @@ export default function ComplianceTracker() {
       <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 text-xs text-gray-500 leading-relaxed">
         <p className="font-semibold text-gray-400 mb-1">Methodology</p>
         <p>
-          Compliance analysis is based on ADU Pulse&apos;s reading of each town&apos;s published
-          zoning bylaw or ordinance compared against Massachusetts Chapter 150 (2024), MGL
-          c.40A §3, and 760 CMR 71.00. Attorney General disapproval data sourced from published
-          AG Municipal Law Unit decisions. This is not legal advice — consult a zoning attorney
-          for project-specific guidance.
+          This analysis compares each town&apos;s published ADU zoning bylaw or ordinance against
+          Massachusetts Chapter 150 (2024), MGL c.40A §3, and 760 CMR 71.00. Per EOHLC guidance,
+          towns are not &ldquo;out of compliance&rdquo; if their local zoning has not been updated —
+          however, any local provisions inconsistent with the ADU statute are unenforceable as of
+          February 2, 2025. Local permitting decisions should not take into account zoning rules that
+          conflict with state law. Attorney General disapproval data sourced from published AG
+          Municipal Law Unit decisions. This is not legal advice — consult a zoning attorney for
+          project-specific guidance.
         </p>
       </div>
     </div>

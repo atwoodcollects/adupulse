@@ -1,5 +1,5 @@
 // compliance-data.ts
-// ADU Bylaw Compliance Data — 6 towns profiled against 760 CMR 71.00 and Chapter 150
+// ADU Bylaw Compliance Data — 7 towns profiled against 760 CMR 71.00 and Chapter 150
 
 export type ComplianceStatus = 'conflict' | 'review' | 'compliant';
 
@@ -275,7 +275,8 @@ export const towns: TownComplianceProfile[] = [
         status: 'compliant',
         stateLaw:
           '760 CMR 71.05(2) — parking may not exceed 1 space per ADU.',
-        localBylaw: 'Nantucket requires 1 additional parking space per ADU.',
+        localBylaw:
+          'Nantucket requires 1 additional parking space per ADU.',
         impact: 'No conflict — meets state cap.',
       },
     ],
@@ -378,7 +379,8 @@ export const towns: TownComplianceProfile[] = [
         status: 'compliant',
         stateLaw:
           '760 CMR 71.05(2) — parking may not exceed 1 space.',
-        localBylaw: 'Leicester requires no more than 1 parking space.',
+        localBylaw:
+          'Leicester requires no more than 1 parking space.',
         impact: 'No conflict.',
       },
     ],
@@ -650,7 +652,8 @@ export const towns: TownComplianceProfile[] = [
         provision: 'Parking',
         category: 'Dimensional & Parking',
         status: 'compliant',
-        stateLaw: '760 CMR 71.05(2) — max 1 space.',
+        stateLaw:
+          '760 CMR 71.05(2) — max 1 space.',
         localBylaw: 'Hanson requires 1 space max.',
         impact: 'No conflict.',
       },
@@ -663,6 +666,139 @@ export const towns: TownComplianceProfile[] = [
           'MGL c.40A §3 — no owner-occupancy requirement allowed.',
         localBylaw: 'Hanson does not require owner-occupancy.',
         impact: 'No conflict.',
+      },
+    ],
+  },
+
+  // ── NEW BEDFORD ──────────────────────────────────────────────────────
+  {
+    slug: 'new-bedford',
+    name: 'New Bedford',
+    county: 'Bristol',
+    population: 101_000,
+    bylawLastUpdated: 'September 2024',
+    bylawSource: 'New Bedford Zoning Ordinance Ch. 9, §§2340 & 1200',
+    agDisapprovals: 0,
+    permits: {
+      submitted: 0,
+      approved: 0,
+      denied: 0,
+      pending: 0,
+      approvalRate: 0,
+    },
+    provisions: [
+      {
+        id: 'nb-01',
+        provision: 'Short-Term Rental Restriction',
+        category: 'Use & Occupancy',
+        status: 'review',
+        stateLaw:
+          '760 CMR 71.00 is silent on short-term rental of ADUs. Towns may regulate STR separately but may not use STR restrictions to effectively ban or discourage ADU construction.',
+        localBylaw:
+          'New Bedford §2340 requires ADU lease terms of at least 31 days, effectively banning short-term rental use of ADUs.',
+        impact:
+          'Removes a key revenue model for homeowners considering ADU construction. While towns can regulate STRs generally, an ADU-specific STR ban may face challenge if shown to discourage ADU development.',
+      },
+      {
+        id: 'nb-02',
+        provision: 'Design Guidelines for Detached ADUs',
+        category: 'Building & Safety',
+        status: 'review',
+        stateLaw:
+          '760 CMR 71.05(5) — towns may impose "reasonable" design standards for detached ADUs but may not use them to effectively prohibit construction.',
+        localBylaw:
+          'New Bedford imposes optional design guidelines for by-right ADUs (≤900 sq ft) but makes them mandatory for special permit ADUs (900–1,200 sq ft), including architectural compatibility requirements.',
+        impact:
+          'By-right tier design guidelines are advisory and likely compliant. Mandatory guidelines for the special permit tier are permissible since that tier is beyond the state-guaranteed minimum. Grey area if advisory guidelines are applied as de facto requirements.',
+      },
+      {
+        id: 'nb-03',
+        provision: 'Special Permit for Larger ADUs',
+        category: 'Process & Administration',
+        status: 'review',
+        stateLaw:
+          'MGL c.40A §3 — ADUs meeting state requirements (up to 900 sq ft) must be allowed by right. Towns may create additional permitting tiers for ADUs exceeding the state minimum.',
+        localBylaw:
+          'New Bedford allows ADUs up to 900 sq ft by right but requires a special permit for ADUs between 900 and 1,200 sq ft.',
+        impact:
+          'The special permit tier for 900–1,200 sq ft is likely permissible since it exceeds the state-guaranteed by-right minimum. However, the discretionary approval process for the larger tier could be challenged if applied to restrict overall ADU development.',
+      },
+      {
+        id: 'nb-04',
+        provision: 'By-Right Permitting',
+        category: 'Process & Administration',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §3 — conforming ADUs must be allowed by right with no special permit or variance.',
+        localBylaw:
+          'New Bedford allows ADUs up to 900 sq ft by right through the building permit process. No special permit, variance, or discretionary review required for conforming units.',
+        impact: 'No conflict — by-right pathway exists for state-minimum ADUs.',
+      },
+      {
+        id: 'nb-05',
+        provision: 'ADU Size Limits',
+        category: 'Dimensional & Parking',
+        status: 'compliant',
+        stateLaw:
+          '760 CMR 71.05(3) — ADUs must be allowed up to 900 sq ft or 50% of principal dwelling living area, whichever is less.',
+        localBylaw:
+          'New Bedford allows ADUs up to 900 sq ft by right, with an additional special permit tier allowing up to 1,200 sq ft.',
+        impact: 'No conflict — meets and exceeds state minimum. The 1,200 sq ft special permit tier provides additional flexibility beyond state requirements.',
+      },
+      {
+        id: 'nb-06',
+        provision: 'Detached ADU Allowance',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §3 — ADUs may be within, attached to, or detached from the principal dwelling.',
+        localBylaw:
+          'New Bedford allows internal, attached, and detached ADUs.',
+        impact: 'No conflict — all ADU types permitted.',
+      },
+      {
+        id: 'nb-07',
+        provision: 'Owner-Occupancy',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §3 — towns may not require owner-occupancy for ADUs as a protected use.',
+        localBylaw:
+          'New Bedford does not require owner-occupancy for ADU properties.',
+        impact: 'No conflict — no owner-occupancy mandate.',
+      },
+      {
+        id: 'nb-08',
+        provision: 'Parking',
+        category: 'Dimensional & Parking',
+        status: 'compliant',
+        stateLaw:
+          '760 CMR 71.05(2) — parking for an ADU shall not exceed 1 space. Must be waived within 0.5 miles of public transit.',
+        localBylaw:
+          'New Bedford requires a maximum of 1 parking space per ADU and waives the requirement for properties within 0.5 miles of SRTA transit stops.',
+        impact: 'No conflict — meets state parking cap and properly applies the transit proximity waiver.',
+      },
+      {
+        id: 'nb-09',
+        provision: 'District Scope',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §3 — ADUs are a protected use allowed by right on any lot with a single-family dwelling, in any zoning district.',
+        localBylaw:
+          'New Bedford allows ADUs in all zoning districts where single-family dwellings are permitted.',
+        impact: 'No conflict — no district-based restrictions on ADU eligibility.',
+      },
+      {
+        id: 'nb-10',
+        provision: 'Number of ADUs Allowed',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §3 — at least one ADU must be allowed per single-family lot.',
+        localBylaw:
+          'New Bedford allows one ADU per single-family lot.',
+        impact: 'No conflict — meets state minimum.',
       },
     ],
   },
@@ -692,7 +828,6 @@ export function getStatewideStats(allTowns: TownComplianceProfile[]) {
   const townsNotUpdated = allTowns.filter((t) =>
     t.provisions.some((p) => p.status === 'conflict'),
   ).length;
-
   return { totalConflicts, totalAgDisapprovals, townsNotUpdated, townsTracked: allTowns.length };
 }
 
@@ -705,19 +840,16 @@ export function generateBottomLine(town: TownComplianceProfile): string {
   }
 
   const parts: string[] = [];
-
   if (counts.conflicts > 0) {
     parts.push(
       `${town.name} has ${counts.conflicts} provision${counts.conflicts > 1 ? 's' : ''} that conflict with state ADU law`,
     );
   }
-
   if (hasAg) {
     parts.push(
       `${town.agDisapprovals} ha${town.agDisapprovals > 1 ? 've' : 's'} been formally disapproved by the Attorney General`,
     );
   }
-
   if (counts.review > 0) {
     parts.push(
       `${counts.review} additional provision${counts.review > 1 ? 's' : ''} ${counts.review > 1 ? 'are' : 'is'} in a legal grey area that may face future challenges`,

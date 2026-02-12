@@ -543,7 +543,7 @@ export const towns: TownComplianceProfile[] = [
     bylawLastUpdated: 'September 2024',
     bylawSource: 'New Bedford Zoning Ordinance Ch. 9, §§2340 & 1200',
     agDisapprovals: 0,
-    permits: { submitted: 0, approved: 0, denied: 0, pending: 0, approvalRate: 0 },
+    permits: { submitted: 6, approved: 2, denied: 4, pending: 0, approvalRate: 33 },
     provisions: [
       {
         id: 'nb-01',

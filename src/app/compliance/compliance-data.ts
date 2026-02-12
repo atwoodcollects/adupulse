@@ -57,8 +57,8 @@ export const towns: TownComplianceProfile[] = [
     permits: {
       submitted: 42,
       approved: 34,
-      denied: 5,
-      pending: 3,
+      denied: 8,
+      pending: 0,
       approvalRate: 81,
     },
     provisions: [
@@ -189,11 +189,11 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Nantucket Zoning Bylaw §139-16A',
     agDisapprovals: 0,
     permits: {
-      submitted: 20,
-      approved: 18,
-      denied: 1,
-      pending: 1,
-      approvalRate: 90,
+      submitted: 27,
+      approved: 27,
+      denied: 0,
+      pending: 0,
+      approvalRate: 100,
     },
     provisions: [
       {
@@ -291,11 +291,11 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Leicester Zoning Bylaw — Town Meeting Article 9',
     agDisapprovals: 3,
     permits: {
-      submitted: 4,
-      approved: 3,
+      submitted: 2,
+      approved: 2,
       denied: 0,
-      pending: 1,
-      approvalRate: 75,
+      pending: 0,
+      approvalRate: 100,
     },
     provisions: [
       {
@@ -394,11 +394,11 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Brookline Zoning Bylaw — Town Meeting Article',
     agDisapprovals: 2,
     permits: {
-      submitted: 12,
-      approved: 8,
-      denied: 2,
-      pending: 2,
-      approvalRate: 67,
+      submitted: 5,
+      approved: 2,
+      denied: 3,
+      pending: 0,
+      approvalRate: 40,
     },
     provisions: [
       {
@@ -496,11 +496,11 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Canton Zoning Bylaw — Town Meeting Article',
     agDisapprovals: 1,
     permits: {
-      submitted: 6,
-      approved: 5,
-      denied: 0,
-      pending: 1,
-      approvalRate: 83,
+      submitted: 2,
+      approved: 1,
+      denied: 1,
+      pending: 0,
+      approvalRate: 50,
     },
     provisions: [
       {
@@ -594,8 +594,8 @@ export const towns: TownComplianceProfile[] = [
     permits: {
       submitted: 3,
       approved: 2,
-      denied: 0,
-      pending: 1,
+      denied: 1,
+      pending: 0,
       approvalRate: 67,
     },
     provisions: [

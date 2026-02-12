@@ -46,7 +46,11 @@ const permitDataMap: Record<string, PermitRecord[]> = {
 function ShareButtons({ town, variant = 'default' }: { town: TownSEOData; variant?: 'default' | 'insight' }) {
   const [copied, setCopied] = useState(false)
   const [canNativeShare, setCanNativeShare] = useState(false)
-  useEffect(() => { setCanNativeShare(!!navigator?.share) }, [])
+
+  useEffect(() => {
+    setCanNativeShare(!!navigator?.share)
+  }, [])
+
   const url = `https://www.adupulse.com/towns/${town.slug}`
   const shareTexts = {
     default: `${town.name} has ${town.approved} approved ADU permits with a ${town.approvalRate}% approval rate.`,
@@ -57,8 +61,10 @@ function ShareButtons({ town, variant = 'default' }: { town: TownSEOData; varian
       : `${town.name} is approving just ${town.approvalRate}% of ADU applications. Here's the data.`,
   }
   const text = shareTexts[variant]
+
   const handleCopy = () => { navigator.clipboard.writeText(url); setCopied(true); setTimeout(() => setCopied(false), 2000) }
   const handleNativeShare = () => { if (navigator.share) navigator.share({ title: `${town.name} ADU Data`, text, url }) }
+
   return (
     <div className="flex flex-wrap items-center gap-2">
       {canNativeShare && (
@@ -79,7 +85,8 @@ function InsightCard({ title, value, color, children, defaultOpen = false, badge
   const [expanded, setExpanded] = useState(defaultOpen)
   return (
     <div className="bg-gray-800/50 border border-border rounded-xl overflow-hidden">
-      <button onClick={() => setExpanded(!expanded)} className="w-full flex items-center justify-between p-4 text-left min-h-[64px] hover:bg-gray-700/30 active:bg-gray-700/50 transition-colors">
+      <button onClick={() => setExpanded(!expanded)}
+        className="w-full flex items-center justify-between p-4 text-left min-h-[64px] hover:bg-gray-700/30 active:bg-gray-700/50 transition-colors">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
             <div className="text-text-muted text-xs mb-0.5">{title}</div>
@@ -229,6 +236,7 @@ function PermitTable({ permits, town }: { permits: PermitRecord[]; town: TownSEO
           </div>
         ))}
       </div>
+
       {/* Desktop table view */}
       <div className="hidden sm:block overflow-x-auto">
         <table className="w-full text-sm">
@@ -263,6 +271,7 @@ function PermitTable({ permits, town }: { permits: PermitRecord[]; town: TownSEO
           </tbody>
         </table>
       </div>
+
       {permits.length > 5 && !showAll && (
         <button onClick={() => setShowAll(true)} className="text-blue-400 text-sm hover:underline mt-3 min-h-[44px]">
           Show all {permits.length} permits →
@@ -288,6 +297,7 @@ export default function TownSEOPageClient({ town, nearbyTowns, otherTowns }: {
   const timelineStats = useMemo(() => permits ? computeTimelines(permits) : null, [permits])
   const costStats = useMemo(() => permits ? computeCostStats(permits) : null, [permits])
   const scorecard = useMemo(() => computeScorecard(town, timelineStats), [town, timelineStats])
+
   const perKApprovals = approvalsPerThousandParcels(town)
   const perKSubmitted = submittedPerThousandParcels(town)
 
@@ -301,7 +311,6 @@ export default function TownSEOPageClient({ town, nearbyTowns, otherTowns }: {
     const csv = generateCSV([town])
     downloadCSV(`${town.slug}-adu-data.csv`, csv)
   }
-
   const handleExportPermits = () => {
     if (!permits) return
     const csv = generatePermitCSV(permits, town.name)
@@ -311,7 +320,6 @@ export default function TownSEOPageClient({ town, nearbyTowns, otherTowns }: {
   return (
     <div className="min-h-screen bg-gray-900">
       <NavBar current="Home" />
-
       <main className="max-w-4xl mx-auto px-4 py-6 md:py-10">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm mb-4">
@@ -338,23 +346,23 @@ export default function TownSEOPageClient({ town, nearbyTowns, otherTowns }: {
           </p>
         </div>
 
-        {/* Key insight — approval likelihood */}
+        {/* Key insight — same-year approval rate */}
         <div className={`rounded-xl p-5 sm:p-6 mb-4 border ${
           town.approvalRate >= 80 ? 'bg-emerald-900/20 border-emerald-500/30' :
           town.approvalRate >= 50 ? 'bg-amber-900/20 border-amber-500/30' :
           'bg-red-900/20 border-red-500/30'
         }`}>
-          <div className="text-xs uppercase tracking-widest text-gray-400 mb-2">Approval Likelihood</div>
+          <div className="text-xs uppercase tracking-widest text-gray-400 mb-2">Same-Year Approval Rate</div>
           <div className="flex items-end gap-3 mb-2">
             <span className={`text-4xl sm:text-5xl font-bold ${
-              town.approvalRate >= 80 ? 'text-emerald-400' : town.approvalRate >= 50 ? 'text-amber-400' : 'text-red-400'
+              town.approvalRate >= 80 ? 'text-emerald-400' :
+              town.approvalRate >= 50 ? 'text-amber-400' : 'text-red-400'
             }`}>
-              {town.approvalRate >= 80 ? 'High' : town.approvalRate >= 50 ? 'Medium' : 'Low'}
+              {town.approvalRate}%
             </span>
-            <span className="text-gray-400 text-lg mb-1">({town.approvalRate}%)</span>
           </div>
           <p className="text-gray-400 text-sm">
-            {vsLabel} · {town.approved} of {town.submitted} applications approved
+            Share of 2025 applications approved in 2025 · {vsLabel} · {town.approved} of {town.submitted} approved
             {perKApprovals !== null && ` · ${perKApprovals} approvals per 1,000 SF parcels`}
           </p>
         </div>
@@ -544,8 +552,7 @@ export default function TownSEOPageClient({ town, nearbyTowns, otherTowns }: {
           <h2 className="text-white font-bold mb-3">ADUs in {town.name}</h2>
           <div className="text-gray-400 text-sm leading-relaxed space-y-3">
             <p>
-              {town.name} has received {town.submitted} ADU applications since Massachusetts&apos; by-right ADU law took effect.
-              Of those, {town.approved} have been approved ({town.approvalRate}% approval rate){town.denied > 0 ? `, ${town.denied} denied,` : ''}
+              {town.name} has received {town.submitted} ADU applications since Massachusetts&apos; by-right ADU law took effect. Of those, {town.approved} have been approved ({town.approvalRate}% approval rate){town.denied > 0 ? `, ${town.denied} denied,` : ''}
               {' '}and {town.pending} are still pending review.
               {perKApprovals !== null && ` Normalized for housing stock, that's ${perKApprovals} approvals per 1,000 single-family parcels.`}
             </p>
@@ -574,7 +581,8 @@ export default function TownSEOPageClient({ town, nearbyTowns, otherTowns }: {
               {nearbyTowns.map(t => {
                 const perK = approvalsPerThousandParcels(t)
                 return (
-                  <Link key={t.slug} href={`/towns/${t.slug}`} className="bg-gray-800/50 border border-border rounded-xl p-4 hover:bg-gray-700/50 active:bg-gray-700 transition-colors min-h-[56px] flex items-center">
+                  <Link key={t.slug} href={`/towns/${t.slug}`}
+                    className="bg-gray-800/50 border border-border rounded-xl p-4 hover:bg-gray-700/50 active:bg-gray-700 transition-colors min-h-[56px] flex items-center">
                     <div className="flex justify-between items-center w-full">
                       <div>
                         <div className="text-white font-medium">{t.name}</div>
@@ -629,8 +637,7 @@ export default function TownSEOPageClient({ town, nearbyTowns, otherTowns }: {
           <div className="flex items-start gap-2">
             <span className="text-gray-600 shrink-0">⚖️</span>
             <div>
-              Per-capita normalization uses estimated single-family parcels. Actual parcel counts may vary.
-              See <Link href="/methodology" className="text-blue-400 hover:underline">methodology</Link> for details.
+              Per-capita normalization uses estimated single-family parcels. Actual parcel counts may vary. See <Link href="/methodology" className="text-blue-400 hover:underline">methodology</Link> for details.
             </div>
           </div>
         </div>

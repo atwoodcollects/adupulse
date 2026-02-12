@@ -36,9 +36,9 @@ export default function Home() {
     return townSEOData.filter(t => t.name.toLowerCase().includes(q)).slice(0, 6)
   }, [search])
 
-  // Statewide stats from EOHLC survey (includes all 221 towns with applications, not just the 54 with SEO data)
+  // Statewide stats from EOHLC survey (includes all 293 towns with applications, not just the 54 with SEO data)
   const totalApproved = 1224
-  const totalTowns = 221
+  const totalTowns = 293
   const overallRate = 68
 
   const myTownData = selectedTown
@@ -53,7 +53,8 @@ export default function Home() {
         {/* ─── HERO ─── */}
         <section className="text-center py-10 md:py-16">
           <h1 className="text-3xl md:text-5xl font-bold text-white mb-3 leading-tight">
-            Real ADU Permit Data<br className="hidden sm:block" /> for Massachusetts
+            Real ADU Permit Data<br className="hidden sm:block" />
+            for Massachusetts
           </h1>
           <p className="text-gray-400 text-base md:text-lg max-w-2xl mx-auto mb-8">
             ADU Pulse tracks real permit data from {totalTowns} Massachusetts towns so homeowners, builders, and lenders can make smarter ADU decisions.
@@ -87,7 +88,9 @@ export default function Home() {
             {search && searchResults.length > 0 && (
               <div className="absolute left-0 right-0 top-full mt-1 bg-gray-800 border border-gray-700 rounded-xl overflow-hidden shadow-xl z-20">
                 {searchResults.map(t => (
-                  <Link key={t.slug} href={`/towns/${t.slug}`}
+                  <Link
+                    key={t.slug}
+                    href={`/towns/${t.slug}`}
                     className="flex items-center justify-between px-4 py-3 hover:bg-gray-700/50 transition-colors min-h-[48px]"
                     onClick={() => { setSearch(''); setSelectedTown(t.name) }}>
                     <div>
@@ -115,25 +118,22 @@ export default function Home() {
         <section className="mb-12">
           <h2 className="text-center text-gray-500 text-sm uppercase tracking-wider mb-4">I&apos;m looking for...</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <Link href="/club"
-              className="bg-gray-800/50 border border-emerald-500/20 rounded-xl p-5 hover:bg-emerald-900/20 transition-colors group min-h-[120px]">
+            <Link href="/club" className="bg-gray-800/50 border border-emerald-500/20 rounded-xl p-5 hover:bg-emerald-900/20 transition-colors group min-h-[120px]">
               <div className="text-2xl mb-2">🏠</div>
               <h3 className="text-white font-bold mb-1">I&apos;m a Homeowner</h3>
-              <p className="text-gray-400 text-sm mb-2">Check if an ADU makes sense, estimate costs, and see if your town&apos;s bylaws comply with state law.</p>
+              <p className="text-gray-400 text-sm mb-2">Check if an ADU makes sense, estimate costs, and see if your town&apos;s bylaws are consistent with state law.</p>
               <span className="text-emerald-400 text-sm group-hover:underline">Explore ADU options →</span>
             </Link>
-            <Link href="/builders"
-              className="bg-gray-800/50 border border-blue-500/20 rounded-xl p-5 hover:bg-blue-900/20 transition-colors group min-h-[120px]">
+            <Link href="/builders" className="bg-gray-800/50 border border-blue-500/20 rounded-xl p-5 hover:bg-blue-900/20 transition-colors group min-h-[120px]">
               <div className="text-2xl mb-2">🔨</div>
               <h3 className="text-white font-bold mb-1">I&apos;m a Builder</h3>
               <p className="text-gray-400 text-sm mb-2">See where ADU demand is highest, get clustered leads, and close more projects per town.</p>
               <span className="text-blue-400 text-sm group-hover:underline">See builder opportunities →</span>
             </Link>
-            <Link href="/compliance"
-              className="bg-gray-800/50 border border-purple-500/20 rounded-xl p-5 hover:bg-purple-900/20 transition-colors group min-h-[120px]">
+            <Link href="/compliance" className="bg-gray-800/50 border border-purple-500/20 rounded-xl p-5 hover:bg-purple-900/20 transition-colors group min-h-[120px]">
               <div className="text-2xl mb-2">🏦</div>
               <h3 className="text-white font-bold mb-1">Lender or Municipality</h3>
-              <p className="text-gray-400 text-sm mb-2">Access permit analytics, bylaw compliance audits, and market intelligence across MA towns.</p>
+              <p className="text-gray-400 text-sm mb-2">Access permit analytics, bylaw consistency analysis, and market intelligence across MA towns.</p>
               <span className="text-purple-400 text-sm group-hover:underline">Explore compliance data →</span>
             </Link>
           </div>
@@ -164,8 +164,7 @@ export default function Home() {
                   <div className="text-gray-500 text-[10px]">Rate</div>
                 </div>
               </div>
-              <Link href={`/towns/${myTownData.slug}`}
-                className="block text-center text-blue-400 text-sm font-medium py-2.5 bg-blue-600/10 rounded-lg hover:bg-blue-600/20 min-h-[44px] flex items-center justify-center">
+              <Link href={`/towns/${myTownData.slug}`} className="block text-center text-blue-400 text-sm font-medium py-2.5 bg-blue-600/10 rounded-lg hover:bg-blue-600/20 min-h-[44px] flex items-center justify-center">
                 View full {myTownData.name} data →
               </Link>
             </div>
@@ -200,25 +199,25 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ─── BYLAW COMPLIANCE TRACKER ─── */}
+        {/* ─── BYLAW CONSISTENCY TRACKER ─── */}
         <section className="mb-12">
           <div className="bg-gradient-to-r from-red-900/20 to-amber-900/20 border border-red-500/20 rounded-xl p-5 md:p-6">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <h2 className="text-lg font-bold text-white">Bylaw Compliance Tracker</h2>
+                <h2 className="text-lg font-bold text-white">Bylaw Consistency Tracker</h2>
                 <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">NEW</span>
               </div>
               <Link href="/compliance" className="text-red-400 text-sm hover:underline">View all towns →</Link>
             </div>
             <p className="text-gray-400 text-sm mb-4">
-              We read local ADU bylaws and flag conflicts with Massachusetts Chapter 150 and 760 CMR 71.00 — so you don&apos;t have to.
+              We read local ADU bylaws and flag inconsistencies with Massachusetts Chapter 150 and 760 CMR 71.00 — so you don&apos;t have to.
             </p>
 
             {/* Compliance stats */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
               <div className="bg-gray-900/50 rounded-lg p-3 text-center">
                 <div className="text-xl font-bold text-red-400">{complianceData.totalConflicts}</div>
-                <div className="text-gray-500 text-xs">Conflicts Found</div>
+                <div className="text-gray-500 text-xs">Inconsistent Provisions</div>
               </div>
               <div className="bg-gray-900/50 rounded-lg p-3 text-center">
                 <div className="text-xl font-bold text-amber-400">{complianceData.agDisapprovals}</div>
@@ -226,19 +225,18 @@ export default function Home() {
               </div>
               <div className="bg-gray-900/50 rounded-lg p-3 text-center">
                 <div className="text-xl font-bold text-white">{complianceData.townsWithConflicts}</div>
-                <div className="text-gray-500 text-xs">Towns w/ Conflicts</div>
+                <div className="text-gray-500 text-xs">Towns w/ Inconsistencies</div>
               </div>
               <div className="bg-gray-900/50 rounded-lg p-3 text-center">
                 <div className="text-xl font-bold text-white">{complianceData.townsTracked}</div>
-                <div className="text-gray-500 text-xs">Towns Audited</div>
+                <div className="text-gray-500 text-xs">Towns Tracked</div>
               </div>
             </div>
 
             {/* Top conflict towns preview */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {complianceData.towns.map(town => (
-                <Link key={town.name} href="/compliance"
-                  className="bg-gray-900/40 border border-gray-700/50 rounded-lg p-3 hover:bg-gray-800/50 transition-colors">
+                <Link key={town.name} href="/compliance" className="bg-gray-900/40 border border-gray-700/50 rounded-lg p-3 hover:bg-gray-800/50 transition-colors">
                   <div className="flex items-center justify-between mb-1.5">
                     <div>
                       <div className="text-white font-medium text-sm">{town.name}</div>
@@ -249,7 +247,7 @@ export default function Home() {
                     {town.status}
                   </span>
                   <div className="flex gap-2 mt-2 text-[10px]">
-                    <span className="text-red-400">{town.conflicts} conflicts</span>
+                    <span className="text-red-400">{town.conflicts} inconsistent</span>
                     <span className="text-amber-400">{town.reviews} review</span>
                     <span className="text-emerald-400">{town.ok} ok</span>
                   </div>
@@ -282,8 +280,7 @@ export default function Home() {
 
         {/* ─── CLUB + BUILDERS ─── */}
         <section className="grid sm:grid-cols-2 gap-4 mb-12">
-          <Link href="/club"
-            className="bg-gradient-to-r from-emerald-900/30 to-blue-900/30 border border-emerald-500/20 rounded-xl p-5 hover:from-emerald-900/50 hover:to-blue-900/50 transition-colors group">
+          <Link href="/club" className="bg-gradient-to-r from-emerald-900/30 to-blue-900/30 border border-emerald-500/20 rounded-xl p-5 hover:from-emerald-900/50 hover:to-blue-900/50 transition-colors group">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-lg">🏘️</span>
               <h3 className="text-lg font-bold text-white">ADU Buyers Club</h3>
@@ -292,8 +289,7 @@ export default function Home() {
             <p className="text-gray-400 text-sm mb-2">Join homeowners in your town to unlock 15-20% group rates from vetted builders. Free to join, no commitment.</p>
             <span className="text-emerald-400 text-sm group-hover:underline">Join your town&apos;s group →</span>
           </Link>
-          <Link href="/builders"
-            className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-500/20 rounded-xl p-5 hover:from-blue-900/50 hover:to-purple-900/50 transition-colors group">
+          <Link href="/builders" className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-500/20 rounded-xl p-5 hover:from-blue-900/50 hover:to-purple-900/50 transition-colors group">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-lg">🔨</span>
               <h3 className="text-lg font-bold text-white">For Builders</h3>
@@ -321,15 +317,13 @@ export default function Home() {
                 <h3 className="text-lg font-bold text-white">💰 Planning an ADU?</h3>
                 <p className="text-gray-400 text-sm">Get a rough cost estimate based on real MA permit data.</p>
               </div>
-              <Link href="/estimate"
-                className="px-5 py-3 sm:py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-medium text-center min-h-[48px] flex items-center justify-center shrink-0">
+              <Link href="/estimate" className="px-5 py-3 sm:py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-medium text-center min-h-[48px] flex items-center justify-center shrink-0">
                 Cost Estimator →
               </Link>
             </div>
           </div>
         </section>
       </main>
-
       <Footer />
     </div>
   )

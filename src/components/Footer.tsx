@@ -11,10 +11,10 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-medium text-sm mb-3">ADU Pulse</h4>
             <p className="text-gray-500 text-xs leading-relaxed mb-3">
-              Real permit data from 221 Massachusetts towns. Helping homeowners, builders, and lenders make smarter ADU decisions.
+              Real permit data from 293 Massachusetts towns. Helping homeowners, builders, and lenders make smarter ADU decisions.
             </p>
-            
           </div>
+
           {/* Tools & Data */}
           <div>
             <h4 className="text-white font-medium text-sm mb-3">Tools &amp; Data</h4>
@@ -31,6 +31,7 @@ export default function Footer() {
               ))}
             </div>
           </div>
+
           {/* For Homeowners */}
           <div>
             <h4 className="text-white font-medium text-sm mb-3">For Homeowners</h4>
@@ -45,6 +46,7 @@ export default function Footer() {
               ))}
             </div>
           </div>
+
           {/* For Builders */}
           <div>
             <h4 className="text-white font-medium text-sm mb-3">For Builders</h4>

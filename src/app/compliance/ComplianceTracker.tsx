@@ -271,8 +271,8 @@ export default function ComplianceTracker() {
               Permit Activity (EOHLC Survey 2025)
             </p>
             <p className="text-xs text-gray-400">
-              {town.permits.approved} of {town.permits.submitted} approved (
-              {town.permits.approvalRate}%)
+              {town.permits.approved} of {town.permits.submitted} approved
+              {town.permits.submitted >= 10 && ` (${town.permits.approvalRate}%)`}
             </p>
           </div>
           <div className="h-2.5 bg-gray-700 rounded-full overflow-hidden flex">

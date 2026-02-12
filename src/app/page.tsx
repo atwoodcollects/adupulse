@@ -134,7 +134,7 @@ export default function Home() {
               <div className="text-2xl mb-2">🏦</div>
               <h3 className="text-white font-bold mb-1">Lender or Municipality</h3>
               <p className="text-gray-400 text-sm mb-2">Access permit analytics, bylaw consistency analysis, and market intelligence across MA towns.</p>
-              <span className="text-purple-400 text-sm group-hover:underline">Explore compliance data →</span>
+              <span className="text-purple-400 text-sm group-hover:underline">Bylaw Consistency Tracker →</span>
             </Link>
           </div>
         </section>

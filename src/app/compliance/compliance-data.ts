@@ -1,5 +1,5 @@
 // compliance-data.ts
-// ADU Bylaw Consistency Data — 7 towns profiled against 760 CMR 71.00 and Chapter 150
+// ADU Bylaw Consistency Data — 12 towns profiled against 760 CMR 71.00 and Chapter 150
 // Per EOHLC guidance: local zoning that conflicts with the ADU statute is unenforceable,
 // but towns are not "out of compliance" — state law simply overrides inconsistent provisions.
 
@@ -76,6 +76,26 @@ const SOURCES = {
   ag_hanson: 'https://www.hanson-ma.gov/planning-boarddepartment/files/adu-bylaw-approved-attorney-general-2025',
   /** Canton AG Decision — 6/4/2025 (referenced in EOHLC FAQ) */
   ag_canton: 'https://www.mass.gov/info-details/accessory-dwelling-unit-adu-faqs',
+  /** Newton ADU zoning page */
+  newton_adu: 'https://www.newtonma.gov/government/planning/zoning-and-development/zoning-updates/accessory-dwelling-units-adu',
+  /** Newton ADU ordinance update (Fig City News) */
+  newton_news: 'https://figcitynews.com/2025/04/city-council-revises-rules-for-accessory-dwelling-units/',
+  /** Andover ADU page */
+  andover_adu: 'https://andoverma.gov/1507/Accessory-Dwelling-Units',
+  /** Andover 2025 Town Meeting recap */
+  andover_tm: 'https://andoverma.gov/1532/2025-Annual-Town-Meeting-Recap',
+  /** Milton ADU bylaw article */
+  milton_article: 'https://www.miltonma.gov/DocumentCenter/View/7946/Article-11-Green-Sheetpdf',
+  /** Milton ADU info */
+  milton_adu: 'https://www.miltonma.gov/DocumentCenter/View/2560/Accessory-Dwelling-Units-PDF',
+  /** Duxbury ADU news */
+  duxbury_news: 'https://www.duxburyclipper.com/articles/new-accesory-dwelling-unit-law-considered/',
+  /** Duxbury STM zoning article */
+  duxbury_stm: 'https://www.town.duxbury.ma.us/sites/g/files/vyhlif10506/f/uploads/article_1_-_mbta_zoning_06.16.2025.pdf',
+  /** Barnstable ADU meeting page */
+  barnstable_adu: 'https://barnstable.gov/departments/planninganddevelopment/projects/ADU-Meeting.asp',
+  /** Barnstable ADU ordinance update */
+  barnstable_update: 'https://tobweb.town.barnstable.ma.us/TownCouncilCommunications/2025-05-15%20AGENDA%20ITEM%202025-060%20Accessory%20Dwelling%20Unit%20Update%20overview.pdf',
 } as const;
 
 // ---------------------------------------------------------------------------
@@ -974,6 +994,752 @@ export const towns: TownComplianceProfile[] = [
       },
     ],
   },
+
+  // ── NEWTON ──────────────────────────────────────────────────────────
+  {
+    slug: 'newton',
+    name: 'Newton',
+    county: 'Norfolk',
+    population: 88_900,
+    bylawLastUpdated: 'April 2025',
+    bylawSource: 'Newton Zoning Ordinance §30-22 (April 2025 amendments)',
+    agDisapprovals: 0,
+    permits: { submitted: 40, approved: 18, denied: 0, pending: 22, approvalRate: 45 },
+    provisions: [
+      {
+        id: 'new-01',
+        provision: 'Owner-Occupancy Requirement',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §3 (as amended by Ch. 150) — towns may not require owner-occupancy for ADUs as a protected use.',
+        localBylaw:
+          'Newton removed owner-occupancy requirement in April 2025 per state law.',
+        impact: 'Consistent with state law.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: 'Newton ADU Zoning', url: SOURCES.newton_adu },
+          { label: 'Fig City News', url: SOURCES.newton_news },
+        ],
+      },
+      {
+        id: 'new-02',
+        provision: 'By-Right Permitting (under 900 sqft)',
+        category: 'Process & Administration',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §3 — ADUs that meet state requirements must be allowed by right with no special permit or variance.',
+        localBylaw:
+          'Internal ADUs and detached ADUs up to 900 sqft are by-right, only building permit required.',
+        impact: 'Consistent with state law.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: 'Newton ADU Zoning', url: SOURCES.newton_adu },
+        ],
+      },
+      {
+        id: 'new-03',
+        provision: 'Special Permit for Larger ADUs',
+        category: 'Process & Administration',
+        status: 'review',
+        stateLaw:
+          'MGL c.40A §3 — ADUs meeting state requirements (up to 900 sq ft) must be allowed by right. Towns may create additional permitting tiers for ADUs exceeding the state minimum.',
+        localBylaw:
+          'ADUs between 900-1500 sqft still require special permit from City Council.',
+        impact:
+          'State law only guarantees by-right up to 900 sqft, so this may be permissible but creates a two-tier system that could discourage larger builds.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: '760 CMR 71.03(7)', url: SOURCES.cmr71 },
+          { label: 'Newton ADU Zoning', url: SOURCES.newton_adu },
+        ],
+      },
+      {
+        id: 'new-04',
+        provision: 'Design Compatibility Standards',
+        category: 'Building & Safety',
+        status: 'review',
+        stateLaw:
+          '760 CMR 71.05(5) — towns may impose "reasonable" design standards for detached ADUs but may not use them to effectively prohibit construction.',
+        localBylaw:
+          'ADU must match "character and architecture" of primary dwelling.',
+        impact:
+          'State allows "reasonable" design standards but subjective compatibility review could function as gatekeeping.',
+        citations: [
+          { label: '760 CMR 71.05(5)', url: SOURCES.cmr71 },
+          { label: 'Newton ADU Zoning', url: SOURCES.newton_adu },
+        ],
+      },
+      {
+        id: 'new-05',
+        provision: 'Historic District Carriage House Exemption',
+        category: 'Use & Occupancy',
+        status: 'review',
+        stateLaw:
+          'MGL c.40A §3 — ADUs are a protected use; regulations should apply uniformly across property types.',
+        localBylaw:
+          'Historic carriage houses get different rules — bypass size/setback requirements — creating an unequal system.',
+        impact:
+          'Benefits wealthier historic properties over standard lots. May face equal protection challenge if shown to create a two-tier system.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: 'Newton ADU Zoning', url: SOURCES.newton_adu },
+          { label: 'Fig City News', url: SOURCES.newton_news },
+        ],
+      },
+      {
+        id: 'new-06',
+        provision: 'ADU Size Limits',
+        category: 'Dimensional & Parking',
+        status: 'compliant',
+        stateLaw:
+          '760 CMR 71.05(3) — ADUs must be allowed up to 900 sq ft or 50% of principal dwelling living area, whichever is less.',
+        localBylaw:
+          'By-right up to 900 sqft or 50% of principal dwelling, consistent with state law.',
+        impact: 'Consistent with state law.',
+        citations: [
+          { label: '760 CMR 71.05(3)', url: SOURCES.cmr71 },
+          { label: 'Newton ADU Zoning', url: SOURCES.newton_adu },
+        ],
+      },
+      {
+        id: 'new-07',
+        provision: 'Parking Requirements',
+        category: 'Dimensional & Parking',
+        status: 'compliant',
+        stateLaw:
+          '760 CMR 71.05(2) — parking for an ADU shall not exceed 1 space.',
+        localBylaw: 'No additional parking required for ADUs.',
+        impact: 'Consistent with state law.',
+        citations: [
+          { label: '760 CMR 71.05(2)', url: SOURCES.cmr71 },
+        ],
+      },
+      {
+        id: 'new-08',
+        provision: 'STR Prohibition',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw:
+          '760 CMR 71.00 is silent on short-term rental of ADUs. Towns may regulate STR separately.',
+        localBylaw:
+          'ADUs prohibited from short-term rental use (under 30 days).',
+        impact: 'Towns can regulate STRs per state law. Consistent.',
+        citations: [
+          { label: 'Ch. 150 §8 (STR clause)', url: SOURCES.ch150_s78 },
+          { label: 'Newton ADU Zoning', url: SOURCES.newton_adu },
+        ],
+      },
+      {
+        id: 'new-09',
+        provision: 'Number of ADUs',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw: 'MGL c.40A §3 — at least one ADU must be allowed per single-family lot.',
+        localBylaw: 'One ADU per lot.',
+        impact: 'Consistent with state law.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+      {
+        id: 'new-10',
+        provision: 'Detached ADU Allowance',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §3 — ADUs may be within, attached to, or detached from the principal dwelling.',
+        localBylaw: 'Both internal and detached ADUs permitted.',
+        impact: 'Consistent with state law.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+    ],
+  },
+
+  // ── ANDOVER ─────────────────────────────────────────────────────────
+  {
+    slug: 'andover',
+    name: 'Andover',
+    county: 'Essex',
+    population: 36_500,
+    bylawLastUpdated: 'April 2025 (AG review pending)',
+    bylawSource: 'Andover Zoning Bylaw Article VIII, Art. 22 (April 2025 Town Meeting)',
+    agDisapprovals: 0,
+    permits: { submitted: 10, approved: 9, denied: 0, pending: 1, approvalRate: 90 },
+    provisions: [
+      {
+        id: 'and-01',
+        provision: 'Site Plan Review by ZBA',
+        category: 'Process & Administration',
+        status: 'review',
+        stateLaw:
+          'MGL c.40A §3 — ADUs must be allowed by right. No special permit, site plan review with denial authority, or discretionary approval may be required.',
+        localBylaw:
+          'ADU applications subject to site plan review by Zoning Board of Appeals.',
+        impact:
+          'While not technically a special permit, site plan review with ZBA discretion could function as de facto special permit — same pattern AG disapproved in Hanson.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: '760 CMR 71.03(3)(5)', url: SOURCES.cmr71 },
+          { label: 'Andover ADU Page', url: SOURCES.andover_adu },
+        ],
+      },
+      {
+        id: 'and-02',
+        provision: 'Parking Requirement (>0.5mi from transit)',
+        category: 'Dimensional & Parking',
+        status: 'review',
+        stateLaw:
+          '760 CMR 71.05(2) — parking for an ADU shall not exceed 1 space. Must be waived within 0.5 miles of public transit.',
+        localBylaw:
+          'One off-street parking space required if property is more than half mile from public transit.',
+        impact:
+          'State law caps parking at 1 space, and Andover has limited transit — this effectively requires parking for most properties. May be reasonable but burdens suburban lots.',
+        citations: [
+          { label: '760 CMR 71.05(2)', url: SOURCES.cmr71 },
+          { label: 'Andover ADU Page', url: SOURCES.andover_adu },
+        ],
+      },
+      {
+        id: 'and-03',
+        provision: 'STR Prohibition',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw:
+          '760 CMR 71.00 is silent on short-term rental of ADUs. Towns may regulate STR separately.',
+        localBylaw: 'ADUs may not be used as short-term rentals.',
+        impact: 'Permitted under state law. Consistent.',
+        citations: [
+          { label: 'Ch. 150 §8 (STR clause)', url: SOURCES.ch150_s78 },
+          { label: 'Andover ADU Page', url: SOURCES.andover_adu },
+        ],
+      },
+      {
+        id: 'and-04',
+        provision: 'No Condo Conversion',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §3 — ADUs are a protected use. State law does not require towns to allow condo conversion of ADUs.',
+        localBylaw: 'ADUs cannot be converted to condominiums.',
+        impact: 'Consistent with state law.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: 'Andover Town Meeting Recap', url: SOURCES.andover_tm },
+        ],
+      },
+      {
+        id: 'and-05',
+        provision: 'Principal Structure Must Be Complete',
+        category: 'Process & Administration',
+        status: 'review',
+        stateLaw:
+          'MGL c.40A §3 — ADUs are a protected use on any lot with a single-family dwelling.',
+        localBylaw:
+          'Principal structures must be completed before ADU may be built.',
+        impact:
+          'Could delay legitimate projects where ADU is planned simultaneously with new construction.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: 'Andover ADU Page', url: SOURCES.andover_adu },
+        ],
+      },
+      {
+        id: 'and-06',
+        provision: 'By-Right Permitting',
+        category: 'Process & Administration',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §3 — ADUs that meet state requirements must be allowed by right.',
+        localBylaw: 'ADUs up to 900 sqft allowed by right (subject to site plan review).',
+        impact: 'Consistent with state law (process concern addressed in and-01).',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+      {
+        id: 'and-07',
+        provision: 'ADU Size Limits',
+        category: 'Dimensional & Parking',
+        status: 'compliant',
+        stateLaw:
+          '760 CMR 71.05(3) — ADUs must be allowed up to 900 sq ft or 50% of principal dwelling living area, whichever is less.',
+        localBylaw: '900 sqft or 50% of principal dwelling.',
+        impact: 'Consistent with state law.',
+        citations: [
+          { label: '760 CMR 71.05(3)', url: SOURCES.cmr71 },
+        ],
+      },
+      {
+        id: 'and-08',
+        provision: 'Number of ADUs',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw: 'MGL c.40A §3 — at least one ADU must be allowed per single-family lot.',
+        localBylaw: 'One ADU per lot.',
+        impact: 'Consistent with state law.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+    ],
+  },
+
+  // ── MILTON ──────────────────────────────────────────────────────────
+  {
+    slug: 'milton',
+    name: 'Milton',
+    county: 'Norfolk',
+    population: 28_000,
+    bylawLastUpdated: 'Pre-2025 (Town Meeting referred back to Planning Board)',
+    bylawSource: 'Milton Zoning Bylaw §275-10.13',
+    agDisapprovals: 0,
+    permits: { submitted: 25, approved: 24, denied: 0, pending: 1, approvalRate: 96 },
+    provisions: [
+      {
+        id: 'mil-01',
+        provision: 'Owner-Occupancy Requirement',
+        category: 'Use & Occupancy',
+        status: 'inconsistent',
+        stateLaw:
+          'MGL c.40A §3 (as amended by Ch. 150) — towns may not require owner-occupancy for ADUs as a protected use.',
+        localBylaw:
+          'Requires notarized affidavit that owner occupies either principal dwelling or ADU.',
+        impact:
+          'State law prohibits owner-occupancy requirements. Unenforceable.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: 'Ch. 150 §§7–8', url: SOURCES.ch150_s78 },
+          { label: 'Milton ADU Bylaw', url: SOURCES.milton_article },
+        ],
+      },
+      {
+        id: 'mil-02',
+        provision: 'Family-Only Occupancy Restriction',
+        category: 'Use & Occupancy',
+        status: 'inconsistent',
+        stateLaw:
+          'MGL c.40A §3 — ADUs are a protected use. Towns may not restrict who can occupy an ADU.',
+        localBylaw:
+          'Current bylaw restricts ADU occupants to family members or domestic employees.',
+        impact:
+          'State law prohibits restricting who can occupy an ADU. Unenforceable.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: '760 CMR 71.03(2)', url: SOURCES.cmr71 },
+          { label: 'Milton ADU Info', url: SOURCES.milton_adu },
+        ],
+      },
+      {
+        id: 'mil-03',
+        provision: 'Special Permit for Detached/Addition ADUs',
+        category: 'Process & Administration',
+        status: 'inconsistent',
+        stateLaw:
+          'MGL c.40A §3 — ADUs that meet state requirements must be allowed by right with no special permit or variance.',
+        localBylaw:
+          'Detached ADUs and additions require special permit from Board of Appeals.',
+        impact:
+          'State law requires by-right permitting for first ADU. Unenforceable.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: 'Ch. 150 §8', url: SOURCES.ch150_s78 },
+          { label: 'Milton ADU Bylaw', url: SOURCES.milton_article },
+        ],
+      },
+      {
+        id: 'mil-04',
+        provision: 'Site Plan Review by Planning Board',
+        category: 'Process & Administration',
+        status: 'review',
+        stateLaw:
+          'MGL c.40A §3 — ADUs must be allowed by right. No discretionary approval may be required.',
+        localBylaw:
+          'Proposed updated bylaw requires site plan approval by Planning Board for expansions and detached structures.',
+        impact:
+          'Could function as de facto special permit depending on implementation.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: 'Milton ADU Bylaw', url: SOURCES.milton_article },
+        ],
+      },
+      {
+        id: 'mil-05',
+        provision: 'Design Compatibility Standards',
+        category: 'Building & Safety',
+        status: 'review',
+        stateLaw:
+          '760 CMR 71.05(5) — towns may impose "reasonable" design standards for detached ADUs but may not use them to effectively prohibit construction.',
+        localBylaw:
+          'Exterior changes must be "compatible with architectural style" with "careful attention to detailing."',
+        impact:
+          'Subjective standard that could delay or deny projects.',
+        citations: [
+          { label: '760 CMR 71.05(5)', url: SOURCES.cmr71 },
+          { label: 'Milton ADU Bylaw', url: SOURCES.milton_article },
+        ],
+      },
+      {
+        id: 'mil-06',
+        provision: '12-Month Minimum Lease',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw:
+          '760 CMR 71.00 is silent on short-term rental of ADUs. Towns may regulate STR separately.',
+        localBylaw: 'Minimum lease of 12 months, no short-term rentals.',
+        impact: 'Permitted under state law. Consistent.',
+        citations: [
+          { label: 'Ch. 150 §8 (STR clause)', url: SOURCES.ch150_s78 },
+        ],
+      },
+      {
+        id: 'mil-07',
+        provision: 'ADU Size Limits',
+        category: 'Dimensional & Parking',
+        status: 'compliant',
+        stateLaw:
+          '760 CMR 71.05(3) — ADUs must be allowed up to 900 sq ft or 50% of principal dwelling living area, whichever is less.',
+        localBylaw: '900 sqft or 50% of principal dwelling.',
+        impact: 'Consistent with state law.',
+        citations: [
+          { label: '760 CMR 71.05(3)', url: SOURCES.cmr71 },
+        ],
+      },
+      {
+        id: 'mil-08',
+        provision: 'Parking (>0.5mi from transit)',
+        category: 'Dimensional & Parking',
+        status: 'compliant',
+        stateLaw:
+          '760 CMR 71.05(2) — parking may not exceed 1 space. Must be waived within 0.5 miles of public transit.',
+        localBylaw:
+          'One space required if more than 0.5 miles from transit station.',
+        impact: 'Consistent with state allowance.',
+        citations: [
+          { label: '760 CMR 71.05(2)', url: SOURCES.cmr71 },
+        ],
+      },
+      {
+        id: 'mil-09',
+        provision: 'Number of ADUs',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw: 'MGL c.40A §3 — at least one ADU must be allowed per single-family lot.',
+        localBylaw: 'One ADU per lot.',
+        impact: 'Consistent with state law.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+      {
+        id: 'mil-10',
+        provision: 'Landscaping Buffer',
+        category: 'Building & Safety',
+        status: 'compliant',
+        stateLaw:
+          '760 CMR 71.05(5) — towns may impose reasonable design and site standards.',
+        localBylaw: '3-foot buffer along driveways/parking.',
+        impact: 'Minor requirement unlikely to be challenged.',
+        citations: [
+          { label: '760 CMR 71.05(5)', url: SOURCES.cmr71 },
+        ],
+      },
+    ],
+  },
+
+  // ── DUXBURY ─────────────────────────────────────────────────────────
+  {
+    slug: 'duxbury',
+    name: 'Duxbury',
+    county: 'Plymouth',
+    population: 16_000,
+    bylawLastUpdated: 'June 2025 (STM amendments pending AG approval)',
+    bylawSource: 'Duxbury Zoning Bylaw',
+    agDisapprovals: 0,
+    permits: { submitted: 3, approved: 2, denied: 0, pending: 1, approvalRate: 67 },
+    provisions: [
+      {
+        id: 'dux-01',
+        provision: 'Owner-Occupancy Requirement',
+        category: 'Use & Occupancy',
+        status: 'inconsistent',
+        stateLaw:
+          'MGL c.40A §3 (as amended by Ch. 150) — towns may not require owner-occupancy for ADUs as a protected use.',
+        localBylaw:
+          'Old bylaw requires owner to reside in either ADU or primary dwelling.',
+        impact:
+          'State law prohibits owner-occupancy requirements. Unenforceable.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: 'Ch. 150 §§7–8', url: SOURCES.ch150_s78 },
+          { label: 'Duxbury Clipper', url: SOURCES.duxbury_news },
+        ],
+      },
+      {
+        id: 'dux-02',
+        provision: 'Special Permit Requirement',
+        category: 'Process & Administration',
+        status: 'inconsistent',
+        stateLaw:
+          'MGL c.40A §3 — ADUs that meet state requirements must be allowed by right with no special permit or variance.',
+        localBylaw:
+          'Old bylaw requires special permit from Board of Appeals for ADUs.',
+        impact:
+          'State law requires by-right permitting. Unenforceable.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: 'Ch. 150 §8', url: SOURCES.ch150_s78 },
+          { label: 'Duxbury Clipper', url: SOURCES.duxbury_news },
+        ],
+      },
+      {
+        id: 'dux-03',
+        provision: '10-Year Home Age Requirement',
+        category: 'Process & Administration',
+        status: 'inconsistent',
+        stateLaw:
+          'MGL c.40A §3 — ADUs are a protected use on any lot with a single-family dwelling. No age-of-structure requirement is authorized.',
+        localBylaw:
+          'Primary home must be at least 10 years old to apply for ADU.',
+        impact:
+          'No basis in state law — restricts ADU creation on newer homes. Unenforceable.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: 'EOHLC FAQ', url: SOURCES.eohlc_faq },
+          { label: 'Duxbury Clipper', url: SOURCES.duxbury_news },
+        ],
+      },
+      {
+        id: 'dux-04',
+        provision: 'Site Plan Review as Quasi-Special-Permit',
+        category: 'Process & Administration',
+        status: 'review',
+        stateLaw:
+          'MGL c.40A §3 — ADUs must be allowed by right. No discretionary approval may be required.',
+        localBylaw:
+          'Planning Board intends to use site plan review process for ADUs. Board member stated it could be used "almost like a special permit."',
+        impact:
+          'Gray area — depends on whether review is ministerial or discretionary.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: 'Duxbury STM Article', url: SOURCES.duxbury_stm },
+          { label: 'Duxbury Clipper', url: SOURCES.duxbury_news },
+        ],
+      },
+      {
+        id: 'dux-05',
+        provision: 'STR Regulation Pending',
+        category: 'Use & Occupancy',
+        status: 'review',
+        stateLaw:
+          '760 CMR 71.00 is silent on short-term rental of ADUs. Towns may regulate STR separately but may not use restrictions to effectively ban ADUs.',
+        localBylaw:
+          'Town is developing short-term rental bylaw specifically targeting ADUs.',
+        impact:
+          'Outcome depends on whether restrictions are reasonable per state law.',
+        citations: [
+          { label: 'Ch. 150 §8 (STR clause)', url: SOURCES.ch150_s78 },
+          { label: 'Duxbury Clipper', url: SOURCES.duxbury_news },
+        ],
+      },
+      {
+        id: 'dux-06',
+        provision: 'ADU Size Limits',
+        category: 'Dimensional & Parking',
+        status: 'compliant',
+        stateLaw:
+          '760 CMR 71.05(3) — ADUs must be allowed up to 900 sq ft or 50% of principal dwelling living area, whichever is less.',
+        localBylaw: 'Consistent with state limits.',
+        impact: 'Consistent with state law.',
+        citations: [
+          { label: '760 CMR 71.05(3)', url: SOURCES.cmr71 },
+        ],
+      },
+      {
+        id: 'dux-07',
+        provision: 'Detached ADU Allowance',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §3 — ADUs may be within, attached to, or detached from the principal dwelling.',
+        localBylaw: 'Both internal and detached ADUs permitted.',
+        impact: 'Consistent with state law.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+      {
+        id: 'dux-08',
+        provision: 'Number of ADUs',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw: 'MGL c.40A §3 — at least one ADU must be allowed per single-family lot.',
+        localBylaw: 'One ADU per lot.',
+        impact: 'Consistent with state law.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+    ],
+  },
+
+  // ── BARNSTABLE ──────────────────────────────────────────────────────
+  {
+    slug: 'barnstable',
+    name: 'Barnstable',
+    county: 'Barnstable',
+    population: 48_000,
+    bylawLastUpdated: 'May 2025',
+    bylawSource: 'Barnstable Zoning Ordinance §240-47.2 (May 2025 amendments)',
+    agDisapprovals: 0,
+    permits: { submitted: 31, approved: 6, denied: 0, pending: 25, approvalRate: 19 },
+    provisions: [
+      {
+        id: 'bar-01',
+        provision: 'Entrance Visibility Requirement',
+        category: 'Building & Safety',
+        status: 'review',
+        stateLaw:
+          '760 CMR 71.05(5) — towns may impose "reasonable" design standards for detached ADUs but may not use them to effectively prohibit construction.',
+        localBylaw:
+          'ADU entrance must be "less visible from the street view" than the main entrance.',
+        impact:
+          'This is a design restriction that could be used to deny otherwise compliant ADUs on corner lots or properties with limited frontage. Gray area — could be "reasonable" or could function as gatekeeping.',
+        citations: [
+          { label: '760 CMR 71.05(5)', url: SOURCES.cmr71 },
+          { label: 'Barnstable ADU Meeting', url: SOURCES.barnstable_adu },
+        ],
+      },
+      {
+        id: 'bar-02',
+        provision: 'Site Plan/Floor Plan/Elevation Submission',
+        category: 'Process & Administration',
+        status: 'review',
+        stateLaw:
+          'MGL c.40A §3 — ADUs must be allowed by right. Documentation requirements should not function as a barrier to construction.',
+        localBylaw:
+          'Requires submission of site plans, floor plans, and elevations before building permit issuance.',
+        impact:
+          'While not a formal special permit, the level of documentation could function as a barrier and introduces subjective review of exterior changes.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: 'Barnstable ADU Update', url: SOURCES.barnstable_update },
+        ],
+      },
+      {
+        id: 'bar-03',
+        provision: 'Design Compatibility Standards',
+        category: 'Building & Safety',
+        status: 'review',
+        stateLaw:
+          '760 CMR 71.05(5) — towns may impose "reasonable" design standards but may not use them to effectively prohibit construction.',
+        localBylaw:
+          'ADU must maintain appearance of single-family property, with "consistent design" including architectural details, roof design, building spacing, materials.',
+        impact:
+          'Subjective standards that could delay projects.',
+        citations: [
+          { label: '760 CMR 71.05(5)', url: SOURCES.cmr71 },
+          { label: 'Barnstable ADU Meeting', url: SOURCES.barnstable_adu },
+        ],
+      },
+      {
+        id: 'bar-04',
+        provision: 'Owner-Occupancy Requirement',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §3 — towns may not require owner-occupancy for ADUs as a protected use.',
+        localBylaw:
+          'Removed in May 2025 update — no longer requires owner-occupancy.',
+        impact: 'Consistent with state law.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: 'Barnstable ADU Update', url: SOURCES.barnstable_update },
+        ],
+      },
+      {
+        id: 'bar-05',
+        provision: 'By-Right Permitting',
+        category: 'Process & Administration',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §3 — ADUs that meet state requirements must be allowed by right.',
+        localBylaw: 'First ADU allowed by right, only building permit required.',
+        impact: 'Consistent with state law.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+      {
+        id: 'bar-06',
+        provision: 'ADU Size Limits',
+        category: 'Dimensional & Parking',
+        status: 'compliant',
+        stateLaw:
+          '760 CMR 71.05(3) — ADUs must be allowed up to 900 sq ft or 50% of principal dwelling living area, whichever is less.',
+        localBylaw:
+          'Not larger than 1/2 gross floor area or 900 sqft, consistent with state law. Special permit available for larger.',
+        impact: 'Consistent with state law.',
+        citations: [
+          { label: '760 CMR 71.05(3)', url: SOURCES.cmr71 },
+        ],
+      },
+      {
+        id: 'bar-07',
+        provision: 'STR Regulation',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw:
+          '760 CMR 71.00 is silent on short-term rental of ADUs. Towns may regulate STR separately.',
+        localBylaw:
+          'ADUs subject to standard rental requirements. 12-month lease minimum.',
+        impact: 'Consistent with state law.',
+        citations: [
+          { label: 'Ch. 150 §8 (STR clause)', url: SOURCES.ch150_s78 },
+        ],
+      },
+      {
+        id: 'bar-08',
+        provision: 'Number of ADUs',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw: 'MGL c.40A §3 — at least one ADU must be allowed per single-family lot.',
+        localBylaw: 'One by right, special permit for additional.',
+        impact: 'Consistent with state law.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+      {
+        id: 'bar-09',
+        provision: 'Parking Requirements',
+        category: 'Dimensional & Parking',
+        status: 'compliant',
+        stateLaw:
+          '760 CMR 71.05(2) — parking for an ADU shall not exceed 1 space.',
+        localBylaw: 'Parking restrictions clarified per state law.',
+        impact: 'Consistent with state law.',
+        citations: [
+          { label: '760 CMR 71.05(2)', url: SOURCES.cmr71 },
+        ],
+      },
+      {
+        id: 'bar-10',
+        provision: 'Detached ADU Allowance',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §3 — ADUs may be within, attached to, or detached from the principal dwelling.',
+        localBylaw: 'Both internal and detached ADUs permitted.',
+        impact: 'Consistent with state law.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+    ],
+  },
 ];
 
 // ---------------------------------------------------------------------------
@@ -1031,6 +1797,25 @@ export function generateBottomLine(town: TownComplianceProfile): string {
   }
 
   return parts.join('. ') + '.';
+}
+
+export function getTownStatusLabel(town: TownComplianceProfile): {
+  label: string;
+  color: string;
+  bg: string;
+} {
+  if (town.agDisapprovals > 0) {
+    return {
+      label: `${town.agDisapprovals} AG DISAPPROVAL${town.agDisapprovals > 1 ? 'S' : ''}`,
+      color: 'text-red-400',
+      bg: 'bg-red-400/10',
+    };
+  }
+  const counts = getStatusCounts(town.provisions);
+  if (counts.inconsistent > 0) {
+    return { label: 'NOT UPDATED', color: 'text-amber-400', bg: 'bg-amber-400/10' };
+  }
+  return { label: 'UPDATED', color: 'text-emerald-400', bg: 'bg-emerald-400/10' };
 }
 
 export const categories: ProvisionCategory[] = [

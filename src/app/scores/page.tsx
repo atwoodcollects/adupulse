@@ -254,9 +254,13 @@ export default function ScoresPage() {
                       {town.quadrant}
                     </span>
                     {town.hasCompliance && (
-                      <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-purple-400/10 text-purple-400 font-medium">
+                      <Link
+                        href={`/compliance/${town.slug}`}
+                        className="text-[10px] px-1.5 py-0.5 rounded-full bg-purple-400/10 text-purple-400 font-medium hover:bg-purple-400/20 transition-colors"
+                        onClick={(e) => e.stopPropagation()}
+                      >
                         Bylaw Analyzed
-                      </span>
+                      </Link>
                     )}
                   </div>
                   <div className="text-gray-500 text-xs mt-0.5">{town.county} County</div>

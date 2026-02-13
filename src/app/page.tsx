@@ -15,14 +15,14 @@ const featuredTowns = townSEOData
 
 // Compliance data (hardcoded to match /compliance page — can be moved to shared data file later)
 const complianceData = {
-  totalConflicts: 14,
+  totalConflicts: 20,
   agDisapprovals: 7,
-  townsWithConflicts: 6,
-  townsTracked: 6,
+  townsWithConflicts: 8,
+  townsTracked: 12,
   towns: [
-    { name: 'Plymouth', county: 'Plymouth', conflicts: 3, reviews: 2, ok: 5, status: 'NOT UPDATED', statusColor: 'text-yellow-400 bg-yellow-400/10' },
-    { name: 'Nantucket', county: 'Nantucket', conflicts: 4, reviews: 1, ok: 2, status: 'NOT UPDATED', statusColor: 'text-yellow-400 bg-yellow-400/10' },
-    { name: 'Leicester', county: 'Worcester', conflicts: 3, reviews: 0, ok: 4, status: '3 AG DISAPPROVALS', statusColor: 'text-red-400 bg-red-400/10' },
+    { name: 'Plymouth', slug: 'plymouth', county: 'Plymouth', conflicts: 3, reviews: 2, ok: 5, status: 'NOT UPDATED', statusColor: 'text-yellow-400 bg-yellow-400/10' },
+    { name: 'Nantucket', slug: 'nantucket', county: 'Nantucket', conflicts: 4, reviews: 1, ok: 2, status: 'NOT UPDATED', statusColor: 'text-yellow-400 bg-yellow-400/10' },
+    { name: 'Leicester', slug: 'leicester', county: 'Worcester', conflicts: 3, reviews: 0, ok: 4, status: '3 AG DISAPPROVALS', statusColor: 'text-red-400 bg-red-400/10' },
   ]
 }
 
@@ -236,7 +236,7 @@ export default function Home() {
             {/* Top conflict towns preview */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {complianceData.towns.map(town => (
-                <Link key={town.name} href="/compliance" className="bg-gray-900/40 border border-gray-700/50 rounded-lg p-3 hover:bg-gray-800/50 transition-colors">
+                <Link key={town.name} href={`/compliance/${town.slug}`} className="bg-gray-900/40 border border-gray-700/50 rounded-lg p-3 hover:bg-gray-800/50 transition-colors">
                   <div className="flex items-center justify-between mb-1.5">
                     <div>
                       <div className="text-white font-medium text-sm">{town.name}</div>
@@ -255,6 +255,26 @@ export default function Home() {
               ))}
             </div>
           </div>
+        </section>
+
+        {/* ─── ADU SCORES ─── */}
+        <section className="mb-12">
+          <Link href="/scores" className="block bg-gradient-to-r from-emerald-900/20 to-purple-900/20 border border-emerald-500/20 rounded-xl p-5 md:p-6 hover:from-emerald-900/30 hover:to-purple-900/30 transition-colors group">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <h3 className="text-lg font-bold text-white">ADU-Friendliness Scores</h3>
+                  <span className="bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">NEW</span>
+                </div>
+                <p className="text-gray-400 text-sm">
+                  See which towns are truly ADU-friendly — we score every town on permits <span className="text-white font-medium">AND</span> bylaws, then assign a letter grade from A to F.
+                </p>
+              </div>
+              <span className="px-5 py-2.5 bg-emerald-600/20 border border-emerald-500/30 text-emerald-400 rounded-lg font-medium text-sm text-center shrink-0 group-hover:bg-emerald-600/30">
+                View Scores →
+              </span>
+            </div>
+          </Link>
         </section>
 
         {/* ─── TOOLS ROW ─── */}

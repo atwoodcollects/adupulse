@@ -5,14 +5,13 @@ import { useSubscription } from '@/lib/subscription';
 import {
   towns,
   getStatusCounts,
-  getStatewideStats,
   generateBottomLine,
   categories,
   type TownComplianceProfile,
   type ComplianceStatus,
   type ComplianceProvision,
   type Citation,
-} from './compliance-data';
+} from '../compliance-data';
 
 // ── STATUS CONFIG ───────────────────────────────────────────────────────
 const statusConfig: Record<
@@ -41,26 +40,6 @@ const statusConfig: Record<
     dot: 'bg-emerald-400',
   },
 };
-
-// ── TOWN STATUS LABEL ───────────────────────────────────────────────────
-function getTownStatusLabel(town: TownComplianceProfile): {
-  label: string;
-  color: string;
-  bg: string;
-} {
-  if (town.agDisapprovals > 0) {
-    return {
-      label: `${town.agDisapprovals} AG DISAPPROVAL${town.agDisapprovals > 1 ? 'S' : ''}`,
-      color: 'text-red-400',
-      bg: 'bg-red-400/10',
-    };
-  }
-  const counts = getStatusCounts(town.provisions);
-  if (counts.inconsistent > 0) {
-    return { label: 'NOT UPDATED', color: 'text-amber-400', bg: 'bg-amber-400/10' };
-  }
-  return { label: 'UPDATED', color: 'text-emerald-400', bg: 'bg-emerald-400/10' };
-}
 
 // ── CITATION LINKS ──────────────────────────────────────────────────────
 function CitationLinks({ citations }: { citations: Citation[] }) {
@@ -148,7 +127,7 @@ function ProvisionRow({ provision, isPro }: { provision: ComplianceProvision; is
       {expanded && (!isPro ? (
         <div className="px-4 pb-4 border-t border-gray-700/50">
           <a href="/pricing" className="block mt-3 p-3 rounded-lg border border-amber-500/30 bg-amber-500/5 text-center">
-            <span className="text-amber-500 text-sm font-medium">🔒 Unlock detailed compliance analysis with Pro</span>
+            <span className="text-amber-500 text-sm font-medium">Unlock detailed compliance analysis with Pro</span>
             <span className="block text-gray-500 text-xs mt-0.5">See state law vs. local bylaw comparisons, AG decisions, and impact analysis</span>
           </a>
         </div>
@@ -201,19 +180,15 @@ function ProvisionRow({ provision, isPro }: { provision: ComplianceProvision; is
 }
 
 // ── MAIN COMPONENT ──────────────────────────────────────────────────────
-export default function ComplianceTracker() {
+export default function TownDetail({ slug }: { slug: string }) {
   const { isPro } = useSubscription();
-  const [selectedTown, setSelectedTown] = useState<string>(towns[0].slug);
-  const [statusFilter, setStatusFilter] = useState<ComplianceStatus | 'all'>(
-    'all',
-  );
+  const [statusFilter, setStatusFilter] = useState<ComplianceStatus | 'all'>('all');
 
   const town = useMemo(
-    () => towns.find((t) => t.slug === selectedTown) ?? towns[0],
-    [selectedTown],
+    () => towns.find((t) => t.slug === slug) ?? towns[0],
+    [slug],
   );
   const counts = useMemo(() => getStatusCounts(town.provisions), [town]);
-  const statewide = useMemo(() => getStatewideStats(towns), []);
   const bottomLine = useMemo(() => generateBottomLine(town), [town]);
 
   const filteredProvisions = useMemo(() => {
@@ -222,7 +197,6 @@ export default function ComplianceTracker() {
         ? town.provisions
         : town.provisions.filter((p) => p.status === statusFilter);
 
-    // Group by category
     const grouped: Record<string, ComplianceProvision[]> = {};
     for (const cat of categories) {
       const items = filtered.filter((p) => p.category === cat);
@@ -233,74 +207,8 @@ export default function ComplianceTracker() {
 
   return (
     <div className="max-w-4xl mx-auto">
-      {/* ── STATEWIDE SNAPSHOT ── */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
-        {[
-          { value: statewide.totalInconsistent, label: 'Unenforceable Provisions', color: 'text-red-400' },
-          { value: statewide.totalAgDisapprovals, label: 'AG Disapprovals', color: 'text-red-400' },
-          { value: statewide.townsWithInconsistencies, label: 'Towns w/ Inconsistencies', color: 'text-amber-400' },
-          { value: statewide.townsTracked, label: 'Towns Tracked', color: 'text-emerald-400' },
-        ].map((stat) => (
-          <div
-            key={stat.label}
-            className="bg-gray-800 border border-gray-700 rounded-xl p-3 sm:p-4 text-center"
-          >
-            <p className={`text-2xl sm:text-3xl font-bold ${stat.color}`}>
-              {stat.value}
-            </p>
-            <p className="text-xs text-gray-400 mt-1">{stat.label}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* ── TOWN SELECTOR ── */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
-        {towns.map((t) => {
-          const label = getTownStatusLabel(t);
-          const tc = getStatusCounts(t.provisions);
-          const isSelected = t.slug === selectedTown;
-          return (
-            <button
-              key={t.slug}
-              onClick={() => {
-                setSelectedTown(t.slug);
-                setStatusFilter('all');
-              }}
-              className={`text-left p-3 sm:p-4 rounded-xl border transition-all ${
-                isSelected
-                  ? 'bg-gray-800 border-blue-500 ring-1 ring-blue-500/30'
-                  : 'bg-gray-800/50 border-gray-700 hover:border-gray-600'
-              }`}
-            >
-              <p className="text-white font-semibold text-sm">{t.name}</p>
-              <p className="text-gray-500 text-xs mt-0.5">{t.county} County</p>
-              <div className="flex items-center gap-2 mt-2">
-                <span
-                  className={`text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded ${label.color} ${label.bg}`}
-                >
-                  {label.label}
-                </span>
-              </div>
-              <div className="flex gap-3 mt-2 text-xs text-gray-500">
-                <span>
-                  <span className="text-red-400 font-medium">{tc.inconsistent}</span>{' '}
-                  unenforceable
-                </span>
-                <span>
-                  <span className="text-amber-400 font-medium">{tc.review}</span> review
-                </span>
-                <span>
-                  <span className="text-emerald-400 font-medium">{tc.compliant}</span> ok
-                </span>
-              </div>
-            </button>
-          );
-        })}
-      </div>
-
-      {/* ── TOWN DETAIL ── */}
+      {/* ── TOWN HEADER ── */}
       <div className="bg-gray-800 border border-gray-700 rounded-xl p-4 sm:p-6 mb-6">
-        {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
           <div>
             <h2 className="text-xl sm:text-2xl font-bold text-white">

@@ -16,6 +16,7 @@ const toolsNav = [
   { name: 'ADU Quiz', href: '/quiz', icon: '📝' },
   { name: 'Compare Towns', href: '/compare', icon: '⚖️' },
   { name: 'Town Scorecards', href: '/scorecards', icon: '📊' },
+  { name: 'ADU Scores', href: '/scores', icon: '🎯' },
   { name: 'Leaderboard', href: '/leaderboard', icon: '🏆' },
   { name: 'Pricing', href: '/pricing', icon: '💎' },
 ]
@@ -28,6 +29,7 @@ const mobileNav = [
   { name: 'For Builders', href: '/builders', icon: '🔨' },
   { name: 'Compare Towns', href: '/compare', icon: '⚖️' },
   { name: 'Scorecards', href: '/scorecards', icon: '📊' },
+  { name: 'ADU Scores', href: '/scores', icon: '🎯' },
   { name: 'Leaderboard', href: '/leaderboard', icon: '🏆' },
   { name: 'Pricing', href: '/pricing', icon: '💎' },
   { name: 'Blog', href: '/blog', icon: '📰' },

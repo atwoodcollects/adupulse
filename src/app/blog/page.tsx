@@ -6,18 +6,34 @@ import Footer from '@/components/Footer'
 
 const posts = [
   {
-    slug: 'grandparent-adu-massachusetts',
-    title: 'The Grandparent ADU: Why Massachusetts Boomers Are Building to Be Closer to Family',
-    description: 'Baby boomers control $19 trillion in housing wealth. A growing number are using it to build ADUs — and it\'s changing the housing conversation in Massachusetts.',
-    date: '2026-02-07',
-    readTime: '7 min read',
+    slug: 'boston-adu-exemption',
+    title: 'Boston Is the Only MA Town Exempt from the State ADU Law. Here\'s What That Means.',
+    description: 'Boston doesn\'t operate under G.L. c. 40A, making it the only municipality where the statewide ADU by-right law doesn\'t apply. Here\'s what that means for homeowners and builders.',
+    date: '2026-02-13',
+    readTime: '8 min read',
     featured: true,
   },
-      {
+  {
+    slug: 'ag-disapprovals-sudbury-leicester-canton',
+    title: '3 Towns the AG Struck Down — What Sudbury, Leicester, and Canton Got Wrong',
+    description: 'Sudbury, Leicester, and Canton had 7 ADU bylaw provisions disapproved by the Massachusetts Attorney General. Here\'s what they tried, why it failed, and what every town should learn.',
+    date: '2026-02-13',
+    readTime: '9 min read',
+    featured: false,
+  },
+  {
     slug: 'massachusetts-adu-national-comparison',
     title: 'How Massachusetts Stacks Up in America\'s ADU Boom',
     description: 'Massachusetts ranks 11th nationally with ADUs making up 27% of new residential construction. How the state\'s first-year numbers compare to 2.8 million permits nationwide.',
     date: '2026-02-11',
+    readTime: '7 min read',
+    featured: false,
+  },
+  {
+    slug: 'grandparent-adu-massachusetts',
+    title: 'The Grandparent ADU: Why Massachusetts Boomers Are Building to Be Closer to Family',
+    description: 'Baby boomers control $19 trillion in housing wealth. A growing number are using it to build ADUs — and it\'s changing the housing conversation in Massachusetts.',
+    date: '2026-02-07',
     readTime: '7 min read',
     featured: false,
   },

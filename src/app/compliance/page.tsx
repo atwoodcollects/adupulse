@@ -18,6 +18,7 @@ type StatusFilter = 'all' | 'ag' | 'not-updated' | 'updated'
 export default function CompliancePage() {
   const [sortBy, setSortBy] = useState<SortKey>('issues')
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('all')
+  const [auditOpen, setAuditOpen] = useState(false)
 
   const statewide = useMemo(() => getStatewideStats(towns), [])
 
@@ -82,6 +83,9 @@ export default function CompliancePage() {
             and 760 CMR 71.00? Inconsistent provisions are unenforceable — we
             read the bylaws so you don&apos;t have to.
           </p>
+          <p className="text-gray-500 text-sm leading-relaxed max-w-2xl mt-2">
+            If a town&apos;s bylaw conflicts with state law, those provisions cannot legally be enforced — yet they still delay projects, confuse homeowners, and expose towns to legal risk.
+          </p>
         </div>
 
         <div className="max-w-4xl mx-auto">
@@ -103,6 +107,34 @@ export default function CompliancePage() {
                 <p className="text-xs text-gray-400 mt-1">{stat.label}</p>
               </div>
             ))}
+          </div>
+
+          {/* ── HOW WE AUDIT ── */}
+          <div className="mb-6">
+            <button
+              onClick={() => setAuditOpen(!auditOpen)}
+              className="text-sm text-blue-400 hover:text-blue-300 transition-colors"
+            >
+              How We Determine Inconsistencies {auditOpen ? '▾' : '▸'}
+            </button>
+            {auditOpen && (
+              <div className="mt-3 bg-gray-800/30 border border-gray-700/50 rounded-lg p-4 text-sm text-gray-400 leading-relaxed">
+                <p className="mb-3">Every bylaw analysis in this tracker follows the same process:</p>
+                <ol className="list-decimal list-inside space-y-2 mb-3">
+                  <li>We read the full local ADU bylaw or ordinance as adopted by the municipality.</li>
+                  <li>We compare each provision against Massachusetts Chapter 150 (the Affordable Homes Act) and the implementing regulations at 760 CMR 71.00.</li>
+                  <li>We review all published Attorney General decisions on that town&apos;s bylaw, including partial disapprovals.</li>
+                  <li>We flag provisions as <span className="text-red-400">Inconsistent</span> (conflicts with state law), <span className="text-amber-400">Needs Review</span> (gray area or discretionary), or <span className="text-emerald-400">Consistent</span> (clearly within state authority).</li>
+                </ol>
+                <p className="mb-3">
+                  This is legal research, not legal advice. We cite specific statutes and AG decisions for every finding. Town bylaws can change — we track the latest version available and note the last update date for each municipality.
+                </p>
+                <p className="text-gray-500">
+                  Questions about our methodology? Contact{' '}
+                  <a href="mailto:nick@adupulse.com" className="text-blue-400 hover:underline">nick@adupulse.com</a>
+                </p>
+              </div>
+            )}
           </div>
 
           {/* ── SORT & FILTER ── */}

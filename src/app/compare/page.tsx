@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 
 const towns = [
@@ -134,7 +134,7 @@ function StatCompare({
   )
 }
 
-export default function ComparePage() {
+function ComparePage() {
   const searchParams = useSearchParams()
   const router = useRouter()
   
@@ -339,5 +339,13 @@ export default function ComparePage() {
       </main>
       <Footer />
     </div>
+  )
+}
+
+export default function ComparePageWrapper() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-900" />}>
+      <ComparePage />
+    </Suspense>
   )
 }

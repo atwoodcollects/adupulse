@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import Link from 'next/link';
 import { useSubscription } from '@/lib/subscription';
 import {
   towns,
@@ -81,7 +82,7 @@ function CitationLinks({ citations }: { citations: Citation[] }) {
 }
 
 // ── PROVISION ROW ───────────────────────────────────────────────────────
-function ProvisionRow({ provision, isPro }: { provision: ComplianceProvision; isPro: boolean }) {
+function ProvisionRow({ provision, isPro, slug }: { provision: ComplianceProvision; isPro: boolean; slug: string }) {
   const [expanded, setExpanded] = useState(false);
   const cfg = statusConfig[provision.status];
 
@@ -95,9 +96,13 @@ function ProvisionRow({ provision, isPro }: { provision: ComplianceProvision; is
       >
         <div className="flex items-center gap-3 min-w-0">
           <span className={`w-2 h-2 rounded-full flex-shrink-0 ${cfg.dot}`} />
-          <span className="text-sm text-white font-medium truncate">
+          <Link
+            href={`/compliance/${slug}/${provision.id}`}
+            onClick={(e) => e.stopPropagation()}
+            className="text-sm text-white font-medium truncate hover:text-blue-400 transition-colors"
+          >
             {provision.provision}
-          </span>
+          </Link>
         </div>
         <div className="flex items-center gap-2 flex-shrink-0 ml-3">
           {provision.agDecision && (
@@ -346,7 +351,7 @@ export default function TownDetail({ slug }: { slug: string }) {
               </p>
               <div className="space-y-2">
                 {provisions.map((p) => (
-                  <ProvisionRow key={p.id} provision={p} isPro={isPro} />
+                  <ProvisionRow key={p.id} provision={p} isPro={isPro} slug={slug} />
                 ))}
               </div>
             </div>

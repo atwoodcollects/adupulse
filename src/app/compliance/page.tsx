@@ -84,7 +84,7 @@ export default function CompliancePage() {
             read the bylaws so you don&apos;t have to.
           </p>
           <p className="text-gray-500 text-sm leading-relaxed max-w-2xl mt-2">
-            If a town&apos;s bylaw conflicts with state law, those provisions cannot legally be enforced — yet they still delay projects, confuse homeowners, and expose towns to legal risk.
+            If a town&apos;s bylaw conflicts with state law, those provisions cannot legally be enforced — yet they still create confusion for homeowners and uncertainty for builders.
           </p>
         </div>
 

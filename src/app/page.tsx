@@ -276,31 +276,6 @@ export default function Home() {
             </div>
           </Link>
         </section>
-
-        {/* ─── BYLAW TRACKER ─── */}
-        <section className="mb-12">
-          <Link href="/compliance" className="block bg-gradient-to-r from-red-900/20 to-amber-900/20 border border-red-500/20 rounded-xl p-5 md:p-6 hover:from-red-900/30 hover:to-amber-900/30 transition-colors group">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <h3 className="text-lg font-bold text-white">Bylaw Consistency Tracker</h3>
-                  <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">NEW</span>
-                </div>
-                <p className="text-gray-400 text-sm">
-                  We read every local ADU bylaw so you don&apos;t have to. See which provisions are inconsistent with state law, track AG disapprovals, and know exactly where your town stands.
-                </p>
-                <div className="flex gap-4 mt-2 text-xs">
-                  <span className="text-white font-medium">{complianceData.townsTracked} towns analyzed</span>
-                  <span className="text-red-400 font-medium">{complianceData.totalConflicts} unenforceable provisions found</span>
-                </div>
-              </div>
-              <span className="px-5 py-2.5 bg-red-600/20 border border-red-500/30 text-red-400 rounded-lg font-medium text-sm text-center shrink-0 group-hover:bg-red-600/30">
-                View Analysis →
-              </span>
-            </div>
-          </Link>
-        </section>
-
         {/* ─── TOOLS ROW ─── */}
         <section className="mb-12">
           <h2 className="text-lg font-bold text-white mb-4">ADU Tools</h2>

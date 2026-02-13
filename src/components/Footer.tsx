@@ -66,7 +66,7 @@ export default function Footer() {
         <div className="border-t border-gray-800 pt-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-3 text-xs text-gray-500">
           <div>
             <p>Data: <a href="https://www.mass.gov/orgs/executive-office-of-housing-and-livable-communities" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">EOHLC</a> Survey Feb 2026 · Population: Census ACS 2024</p>
-            <p className="mt-0.5">&copy; 2026 ADU Pulse · ADU Pulse</p>
+            <p className="mt-0.5">&copy; 2026 ADU Pulse · Contact: <a href="mailto:nick@adupulse.com" className="text-blue-400 hover:underline">nick@adupulse.com</a></p>
           </div>
           <div className="flex gap-3">
             <span className="text-gray-600">📊 Real data. No guesswork.</span>

@@ -8,6 +8,7 @@ const mainNav = [
   { name: 'Club', href: '/club' },
   { name: 'For Builders', href: '/builders' },
   { name: 'Blog', href: '/blog' },
+  { name: 'Pricing', href: '/pricing' },
 ]
 
 const toolsNav = [
@@ -16,6 +17,7 @@ const toolsNav = [
   { name: 'Compare Towns', href: '/compare', icon: '⚖️' },
   { name: 'Town Scorecards', href: '/scorecards', icon: '📊' },
   { name: 'Leaderboard', href: '/leaderboard', icon: '🏆' },
+  { name: 'Pricing', href: '/pricing', icon: '💎' },
 ]
 
 const mobileNav = [
@@ -27,6 +29,7 @@ const mobileNav = [
   { name: 'Compare Towns', href: '/compare', icon: '⚖️' },
   { name: 'Scorecards', href: '/scorecards', icon: '📊' },
   { name: 'Leaderboard', href: '/leaderboard', icon: '🏆' },
+  { name: 'Pricing', href: '/pricing', icon: '💎' },
   { name: 'Blog', href: '/blog', icon: '📰' },
   { name: 'Methodology', href: '/methodology', icon: '📐' },
 ]

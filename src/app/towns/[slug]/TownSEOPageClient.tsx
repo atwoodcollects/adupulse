@@ -30,6 +30,7 @@ import falmouthPermits from '@/data/falmouth_permits.json'
 import sudburyPermits from '@/data/sudbury_permits.json'
 import newtonPermits from '@/data/newton_permits.json'
 import needhamPermits from '@/data/needham_permits.json'
+import { useSubscription } from "@/lib/subscription"
 
 const permitDataMap: Record<string, PermitRecord[]> = {
   andover: andoverPermits as unknown as PermitRecord[],
@@ -206,6 +207,7 @@ function TimelineDisplay({ stats }: { stats: TimelineStats }) {
 
 // --- Permit Table ---
 function PermitTable({ permits, town }: { permits: PermitRecord[]; town: TownSEOData }) {
+  const { isPro } = useSubscription()
   const [showAll, setShowAll] = useState(false)
   const displayed = showAll ? permits : permits.slice(0, 5)
   const fmt = (n: number) => n > 0 ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n) : '—'
@@ -273,9 +275,16 @@ function PermitTable({ permits, town }: { permits: PermitRecord[]; town: TownSEO
       </div>
 
       {permits.length > 5 && !showAll && (
-        <button onClick={() => setShowAll(true)} className="text-blue-400 text-sm hover:underline mt-3 min-h-[44px]">
-          Show all {permits.length} permits →
-        </button>
+        isPro ? (
+          <button onClick={() => setShowAll(true)} className="text-blue-400 text-sm hover:underline mt-3 min-h-[44px]">
+            Show all {permits.length} permits →
+          </button>
+        ) : (
+          <a href="/pricing" className="block mt-3 p-3 rounded-lg border border-amber-500/30 bg-amber-500/5 text-center">
+            <span className="text-amber-500 text-sm font-medium">🔒 Unlock all {permits.length} permits with Pro</span>
+            <span className="block text-gray-500 text-xs mt-0.5">See every address, cost, sqft, and contractor</span>
+          </a>
+        )
       )}
     </div>
   )

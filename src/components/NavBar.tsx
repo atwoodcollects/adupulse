@@ -132,9 +132,9 @@ export default function NavBar({ current }: { current?: string }) {
             </nav>
             {/* Mobile CTA */}
             <div className="p-4 border-t border-gray-800">
-              <Link href="/club" onClick={() => setMobileOpen(false)}
+              <Link href="/pricing" onClick={() => setMobileOpen(false)}
                 className="block w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white text-center rounded-lg font-medium text-sm min-h-[48px] flex items-center justify-center">
-                Join Your Town&apos;s ADU Group
+                Go Pro — $49/mo
               </Link>
             </div>
           </div>

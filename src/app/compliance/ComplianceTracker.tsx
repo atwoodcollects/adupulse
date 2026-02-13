@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import { useSubscription } from '@/lib/subscription';
 import {
   towns,
   getStatusCounts,
@@ -101,7 +102,7 @@ function CitationLinks({ citations }: { citations: Citation[] }) {
 }
 
 // ── PROVISION ROW ───────────────────────────────────────────────────────
-function ProvisionRow({ provision }: { provision: ComplianceProvision }) {
+function ProvisionRow({ provision, isPro }: { provision: ComplianceProvision; isPro: boolean }) {
   const [expanded, setExpanded] = useState(false);
   const cfg = statusConfig[provision.status];
 
@@ -144,7 +145,14 @@ function ProvisionRow({ provision }: { provision: ComplianceProvision }) {
         </div>
       </button>
 
-      {expanded && (
+      {expanded && (!isPro ? (
+        <div className="px-4 pb-4 border-t border-gray-700/50">
+          <a href="/pricing" className="block mt-3 p-3 rounded-lg border border-amber-500/30 bg-amber-500/5 text-center">
+            <span className="text-amber-500 text-sm font-medium">🔒 Unlock detailed compliance analysis with Pro</span>
+            <span className="block text-gray-500 text-xs mt-0.5">See state law vs. local bylaw comparisons, AG decisions, and impact analysis</span>
+          </a>
+        </div>
+      ) : (
         <div className="px-4 pb-4 border-t border-gray-700/50">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
             <div>
@@ -187,13 +195,14 @@ function ProvisionRow({ provision }: { provision: ComplianceProvision }) {
 
           <CitationLinks citations={provision.citations} />
         </div>
-      )}
+      ))}
     </div>
   );
 }
 
 // ── MAIN COMPONENT ──────────────────────────────────────────────────────
 export default function ComplianceTracker() {
+  const { isPro } = useSubscription();
   const [selectedTown, setSelectedTown] = useState<string>(towns[0].slug);
   const [statusFilter, setStatusFilter] = useState<ComplianceStatus | 'all'>(
     'all',
@@ -414,7 +423,7 @@ export default function ComplianceTracker() {
               </p>
               <div className="space-y-2">
                 {provisions.map((p) => (
-                  <ProvisionRow key={p.id} provision={p} />
+                  <ProvisionRow key={p.id} provision={p} isPro={isPro} />
                 ))}
               </div>
             </div>

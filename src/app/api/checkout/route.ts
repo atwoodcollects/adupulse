@@ -17,7 +17,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Invalid plan" }, { status: 400 });
     }
 
-    const priceId = PLANS[plan].priceId;
+    const priceId = PLANS[plan as keyof typeof PLANS].priceId;
 
     // Check if user already has a Stripe customer ID stored in metadata
     let customerId = user?.publicMetadata?.stripeCustomerId as

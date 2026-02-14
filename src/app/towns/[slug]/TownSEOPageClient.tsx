@@ -250,6 +250,33 @@ export default function TownSEOPageClient({
     : ''
   const summaryLine = `${town.name} has approved ${town.approved} of ${town.submitted} ADU applications (${town.approvalRate}% approval rate)${complianceSummary}.`
 
+  // Quadrant insight (only for towns with compliance data)
+  const quadrantInsight = useMemo(() => {
+    if (!compliance || !complianceCounts) return null
+    const hasInconsistent = complianceCounts.inconsistent > 0
+    const highApproval = town.approvalRate >= 60
+    if (!hasInconsistent && highApproval) return {
+      dot: 'bg-emerald-400',
+      bg: 'bg-emerald-400/5 border-emerald-400/20',
+      text: 'Bylaws align with state law and permits are moving. Good conditions for an ADU project.',
+    }
+    if (hasInconsistent && highApproval) return {
+      dot: 'bg-yellow-400',
+      bg: 'bg-yellow-400/5 border-yellow-400/20',
+      text: "Some bylaw provisions aren\u2019t yet consistent with state law, but permits are still being approved. State law overrides inconsistent local rules.",
+    }
+    if (!hasInconsistent && !highApproval) return {
+      dot: 'bg-orange-400',
+      bg: 'bg-orange-400/5 border-orange-400/20',
+      text: 'Bylaws align with state law, but the approval rate is below average. Expect a longer permitting timeline.',
+    }
+    return {
+      dot: 'bg-red-400',
+      bg: 'bg-red-400/5 border-red-400/20',
+      text: "Some bylaw provisions aren\u2019t yet consistent with state law, and the approval rate is below average. Check specific provisions before applying.",
+    }
+  }, [compliance, complianceCounts, town.approvalRate])
+
   return (
     <div className="min-h-screen bg-gray-900">
       <NavBar />
@@ -275,6 +302,12 @@ export default function TownSEOPageClient({
             </div>
           </div>
           <p className="text-gray-400 text-sm sm:text-base leading-relaxed">{summaryLine}</p>
+          {quadrantInsight && (
+            <div className={`mt-3 flex items-start gap-2.5 rounded-lg border px-3 py-2.5 ${quadrantInsight.bg}`}>
+              <span className={`w-2 h-2 rounded-full ${quadrantInsight.dot} mt-1 shrink-0`} />
+              <span className="text-gray-400 text-xs leading-relaxed">{quadrantInsight.text}</span>
+            </div>
+          )}
         </div>
 
         {/* ── SECTION 1: PERMITS ── */}

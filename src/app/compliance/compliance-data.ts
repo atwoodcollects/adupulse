@@ -1492,7 +1492,7 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Duxbury Zoning Bylaw',
     agDisapprovals: 0,
     permits: { submitted: 3, approved: 2, denied: 0, pending: 1, approvalRate: 67 },
-    bottomLine: 'Duxbury's bylaw is technically consistent but designed to feel like a special permit process. The planning board review, design standards, and documentation requirements create soft barriers. Experienced builders will navigate it fine; first-time ADU owners may find it intimidating.',
+    bottomLine: "Duxbury's bylaw is technically consistent but designed to feel like a special permit process. The planning board review, design standards, and documentation requirements create soft barriers. Experienced builders will navigate it fine; first-time ADU owners may find it intimidating.",
     provisions: [
       {
         id: 'dux-01',

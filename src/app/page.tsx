@@ -6,6 +6,7 @@ import { useTown } from '@/contexts/TownContext'
 import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
 import townSEOData from '@/data/town_seo_data'
+import { towns as complianceData, getStatewideStats, getStatusCounts, getTownStatusLabel } from '@/app/compliance/compliance-data'
 import { Search, FileWarning, AlertTriangle, Gavel, ClipboardCheck, Home as HomeIcon, Hammer, Landmark, ArrowRight, BookOpen } from 'lucide-react'
 
 const featuredTowns = townSEOData
@@ -15,12 +16,28 @@ const featuredTowns = townSEOData
 // Mobile shows 3, desktop shows 5
 const MOBILE_TOWN_COUNT = 3
 
-// Towns with the most compliance issues — previewed in Section 3
-const complianceTowns = [
-  { name: 'Plymouth', slug: 'plymouth', county: 'Plymouth', conflicts: 3, reviews: 2, ok: 5, status: 'NOT UPDATED', statusColor: 'text-yellow-400 bg-yellow-400/10' },
-  { name: 'Nantucket', slug: 'nantucket', county: 'Nantucket', conflicts: 4, reviews: 1, ok: 2, status: 'NOT UPDATED', statusColor: 'text-yellow-400 bg-yellow-400/10' },
-  { name: 'Leicester', slug: 'leicester', county: 'Worcester', conflicts: 3, reviews: 0, ok: 4, status: '3 AG DISAPPROVALS', statusColor: 'text-red-400 bg-red-400/10' },
-]
+// Dynamic stats from compliance data
+const statewide = getStatewideStats(complianceData)
+const townsWithReview = complianceData.filter(t => t.provisions.some(p => p.status === 'review')).length
+
+// Top 3 towns by most issues — previewed in Section 3
+const complianceTowns = complianceData
+  .map(t => {
+    const counts = getStatusCounts(t.provisions)
+    const statusLabel = getTownStatusLabel(t)
+    return {
+      name: t.name,
+      slug: t.slug,
+      county: t.county,
+      conflicts: counts.inconsistent,
+      reviews: counts.review,
+      ok: counts.compliant,
+      status: statusLabel.label,
+      statusColor: `${statusLabel.color} ${statusLabel.bg}`,
+    }
+  })
+  .sort((a, b) => (b.conflicts + b.reviews) - (a.conflicts + a.reviews))
+  .slice(0, 3)
 
 export default function Home() {
   const { setSelectedTown } = useTown()
@@ -47,7 +64,7 @@ export default function Home() {
           <div className="max-w-3xl mx-auto text-center mb-8 sm:mb-10">
             <div className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-red-400 bg-red-400/10 border border-red-400/20 px-2.5 sm:px-3 py-1.5 rounded-full mb-4 sm:mb-6">
               <FileWarning className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
-              <span>33 inconsistent. 10 AG disapprovals. 293 towns.</span>
+              <span>{statewide.totalInconsistent} inconsistent. {statewide.totalAgDisapprovals} AG disapprovals. {statewide.townsTracked} towns.</span>
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 leading-[1.15] tracking-tight">
               Massachusetts legalized ADUs.<br className="hidden sm:block" />
@@ -127,7 +144,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <Link href="/compliance" className="bg-gray-800/60 border border-gray-700 rounded-xl p-5 hover:border-red-500/30 transition-colors group">
               <AlertTriangle className="w-5 h-5 text-red-400 mb-3" />
-              <div className="text-3xl sm:text-4xl font-bold text-white mb-1">33</div>
+              <div className="text-3xl sm:text-4xl font-bold text-white mb-1">{statewide.totalInconsistent}</div>
               <p className="text-gray-400 text-sm leading-relaxed mb-3">bylaw provisions not yet consistent with state law</p>
               <span className="inline-flex items-center gap-1 text-xs text-red-400 group-hover:text-red-300 transition-colors">
                 View inconsistencies <ArrowRight className="w-3 h-3" />
@@ -135,7 +152,7 @@ export default function Home() {
             </Link>
             <Link href="/compliance" className="bg-gray-800/60 border border-gray-700 rounded-xl p-5 hover:border-amber-500/30 transition-colors group">
               <Gavel className="w-5 h-5 text-amber-400 mb-3" />
-              <div className="text-3xl sm:text-4xl font-bold text-white mb-1">10</div>
+              <div className="text-3xl sm:text-4xl font-bold text-white mb-1">{statewide.totalAgDisapprovals}</div>
               <p className="text-gray-400 text-sm leading-relaxed mb-3">Attorney General disapprovals issued</p>
               <span className="inline-flex items-center gap-1 text-xs text-amber-400 group-hover:text-amber-300 transition-colors">
                 See AG decisions <ArrowRight className="w-3 h-3" />
@@ -143,7 +160,7 @@ export default function Home() {
             </Link>
             <Link href="/compliance" className="bg-gray-800/60 border border-gray-700 rounded-xl p-5 hover:border-blue-500/30 transition-colors group">
               <ClipboardCheck className="w-5 h-5 text-blue-400 mb-3" />
-              <div className="text-3xl sm:text-4xl font-bold text-white mb-1">12</div>
+              <div className="text-3xl sm:text-4xl font-bold text-white mb-1">{townsWithReview}</div>
               <p className="text-gray-400 text-sm leading-relaxed mb-3">towns with provisions under review</p>
               <span className="inline-flex items-center gap-1 text-xs text-blue-400 group-hover:text-blue-300 transition-colors">
                 Check your town <ArrowRight className="w-3 h-3" />

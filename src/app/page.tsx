@@ -6,11 +6,14 @@ import { useTown } from '@/contexts/TownContext'
 import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
 import townSEOData from '@/data/town_seo_data'
-import { Search, FileWarning, Scale, BarChart3, AlertTriangle, Gavel, ClipboardCheck, Home as HomeIcon, Hammer, Landmark, ArrowRight, BookOpen } from 'lucide-react'
+import { Search, FileWarning, AlertTriangle, Gavel, ClipboardCheck, Home as HomeIcon, Hammer, Landmark, ArrowRight, BookOpen } from 'lucide-react'
 
 const featuredTowns = townSEOData
   .sort((a, b) => b.approved - a.approved)
   .slice(0, 5)
+
+// Mobile shows 3, desktop shows 5
+const MOBILE_TOWN_COUNT = 3
 
 // Towns with the most compliance issues — previewed in Section 3
 const complianceTowns = [
@@ -40,11 +43,11 @@ export default function Home() {
 
       <main className="max-w-5xl mx-auto px-4">
         {/* ─── HERO ─── */}
-        <section className="py-12 md:py-20">
-          <div className="max-w-3xl mx-auto text-center mb-10">
-            <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-red-400 bg-red-400/10 border border-red-400/20 px-3 py-1.5 rounded-full mb-6">
-              <FileWarning className="w-3.5 h-3.5" />
-              33 inconsistent provisions. 10 AG disapprovals. 293 towns tracked.
+        <section className="py-8 sm:py-12 md:py-20">
+          <div className="max-w-3xl mx-auto text-center mb-8 sm:mb-10">
+            <div className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-red-400 bg-red-400/10 border border-red-400/20 px-2.5 sm:px-3 py-1.5 rounded-full mb-4 sm:mb-6">
+              <FileWarning className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
+              <span>33 inconsistent. 10 AG disapprovals. 293 towns.</span>
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 leading-[1.15] tracking-tight">
               Massachusetts legalized ADUs.<br className="hidden sm:block" />
@@ -56,7 +59,7 @@ export default function Home() {
           </div>
 
           {/* Town search — primary CTA */}
-          <div className="max-w-2xl mx-auto mb-10 relative">
+          <div className="max-w-2xl mx-auto mb-8 sm:mb-10 relative">
             <div className="relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none" />
               <input
@@ -99,30 +102,21 @@ export default function Home() {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-3 sm:gap-4 max-w-2xl mx-auto">
-            <div className="bg-gray-800/60 border border-gray-700 rounded-xl p-4 sm:p-5 text-center">
-              <div className="flex items-center justify-center gap-2 mb-1">
-                <BarChart3 className="w-4 h-4 text-emerald-400 hidden sm:block" />
-                <div className="text-2xl sm:text-3xl font-bold text-emerald-400">{totalApproved.toLocaleString()}</div>
-              </div>
-              <div className="text-gray-300 text-xs sm:text-sm font-medium">Approved</div>
-              <div className="text-gray-500 text-[10px] sm:text-xs mt-1">from the Feb 2026 EOHLC survey</div>
+          <div className="grid grid-cols-3 gap-2 sm:gap-4 max-w-2xl mx-auto">
+            <div className="bg-gray-800/60 border border-gray-700 rounded-xl p-3 sm:p-5 text-center">
+              <div className="text-xl sm:text-3xl font-bold text-emerald-400 mb-0.5">{totalApproved.toLocaleString()}</div>
+              <div className="text-gray-300 text-[10px] sm:text-sm font-medium">Approved</div>
+              <div className="text-gray-500 text-[9px] sm:text-xs mt-0.5 hidden sm:block">from the Feb 2026 EOHLC survey</div>
             </div>
-            <div className="bg-gray-800/60 border border-gray-700 rounded-xl p-4 sm:p-5 text-center">
-              <div className="flex items-center justify-center gap-2 mb-1">
-                <Scale className="w-4 h-4 text-white hidden sm:block" />
-                <div className="text-2xl sm:text-3xl font-bold text-white">{totalTowns}</div>
-              </div>
-              <div className="text-gray-300 text-xs sm:text-sm font-medium">Towns Tracked</div>
-              <div className="text-gray-500 text-[10px] sm:text-xs mt-1">every municipality except Boston</div>
+            <div className="bg-gray-800/60 border border-gray-700 rounded-xl p-3 sm:p-5 text-center">
+              <div className="text-xl sm:text-3xl font-bold text-white mb-0.5">{totalTowns}</div>
+              <div className="text-gray-300 text-[10px] sm:text-sm font-medium">Towns</div>
+              <div className="text-gray-500 text-[9px] sm:text-xs mt-0.5 hidden sm:block">every municipality except Boston</div>
             </div>
-            <div className="bg-gray-800/60 border border-gray-700 rounded-xl p-4 sm:p-5 text-center">
-              <div className="flex items-center justify-center gap-2 mb-1">
-                <FileWarning className="w-4 h-4 text-amber-400 hidden sm:block" />
-                <div className="text-2xl sm:text-3xl font-bold text-white">{overallRate}%</div>
-              </div>
-              <div className="text-gray-300 text-xs sm:text-sm font-medium">Approval Rate</div>
-              <div className="text-gray-500 text-[10px] sm:text-xs mt-1">32% of applications denied statewide</div>
+            <div className="bg-gray-800/60 border border-gray-700 rounded-xl p-3 sm:p-5 text-center">
+              <div className="text-xl sm:text-3xl font-bold text-white mb-0.5">{overallRate}%</div>
+              <div className="text-gray-300 text-[10px] sm:text-sm font-medium">Approval Rate</div>
+              <div className="text-gray-500 text-[9px] sm:text-xs mt-0.5 hidden sm:block">32% denied statewide</div>
             </div>
           </div>
         </section>
@@ -164,11 +158,13 @@ export default function Home() {
           <div className="bg-gray-800/40 border border-gray-700 rounded-xl overflow-hidden">
             {featuredTowns.map((t, i) => {
               const rateColor = t.approvalRate >= 80 ? 'text-emerald-400' : t.approvalRate >= 50 ? 'text-amber-400' : 'text-red-400'
+              // Hide 4th and 5th on mobile
+              const mobileHidden = i >= MOBILE_TOWN_COUNT ? 'hidden sm:flex' : 'flex'
               return (
                 <Link
                   key={t.slug}
                   href={`/towns/${t.slug}`}
-                  className={`flex items-center px-4 py-3 hover:bg-gray-700/40 transition-colors ${i < featuredTowns.length - 1 ? 'border-b border-gray-700/50' : ''}`}
+                  className={`${mobileHidden} items-center px-4 py-3 hover:bg-gray-700/40 transition-colors ${i < featuredTowns.length - 1 ? 'border-b border-gray-700/50' : ''}`}
                   onClick={() => setSelectedTown(t.name)}
                 >
                   <span className="text-gray-600 text-sm w-7 shrink-0 font-medium">#{i + 1}</span>
@@ -198,19 +194,19 @@ export default function Home() {
               <Link
                 key={town.slug}
                 href={`/compliance/${town.slug}`}
-                className="flex items-center gap-3 bg-gray-800/60 border border-gray-700 rounded-lg px-4 py-3 hover:border-gray-600 transition-colors group"
+                className="flex items-center gap-2 sm:gap-3 bg-gray-800/60 border border-gray-700 rounded-lg px-3 sm:px-4 py-3 hover:border-gray-600 transition-colors group"
               >
                 <span className={`w-2 h-2 rounded-full shrink-0 ${town.conflicts > 2 ? 'bg-red-400' : 'bg-amber-400'}`} />
                 <div className="flex-1 min-w-0">
-                  <span className="text-white font-medium text-sm group-hover:text-blue-400 transition-colors">{town.name}</span>
-                  <span className="text-gray-500 text-xs ml-2">{town.county}</span>
+                  <span className="text-white font-medium text-sm group-hover:text-blue-400 transition-colors truncate block">{town.name}</span>
+                  <span className="text-gray-500 text-xs">{town.county}</span>
                 </div>
-                <div className="flex items-center gap-3 text-xs shrink-0">
+                <div className="flex items-center gap-2 text-xs shrink-0">
                   <span className="text-red-400 font-medium">{town.conflicts}</span>
                   <span className="text-amber-400 font-medium">{town.reviews}</span>
                   <span className="text-emerald-400 font-medium">{town.ok}</span>
                 </div>
-                <span className={`text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded shrink-0 ${town.statusColor}`}>
+                <span className={`text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider px-1 sm:px-1.5 py-0.5 rounded shrink-0 hidden sm:inline ${town.statusColor}`}>
                   {town.status}
                 </span>
               </Link>

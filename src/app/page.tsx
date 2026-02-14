@@ -44,7 +44,7 @@ export default function Home() {
           <div className="max-w-3xl mx-auto text-center mb-10">
             <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-red-400 bg-red-400/10 border border-red-400/20 px-3 py-1.5 rounded-full mb-6">
               <FileWarning className="w-3.5 h-3.5" />
-              33 illegal provisions. 10 AG disapprovals. 293 towns tracked.
+              33 inconsistent provisions. 10 AG disapprovals. 293 towns tracked.
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 leading-[1.15] tracking-tight">
               Massachusetts legalized ADUs.<br className="hidden sm:block" />

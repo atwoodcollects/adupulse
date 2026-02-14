@@ -1,54 +1,26 @@
 'use client'
 
 import Link from 'next/link'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 const mainNav = [
   { name: 'Towns', href: '/map' },
-  { name: 'Club', href: '/club' },
+  { name: 'Compliance', href: '/compliance' },
   { name: 'For Builders', href: '/builders' },
   { name: 'Blog', href: '/blog' },
   { name: 'Pricing', href: '/pricing' },
 ]
 
-const toolsNav = [
-  { name: 'Cost Estimator', href: '/estimate', icon: '💰' },
-  { name: 'ADU Quiz', href: '/quiz', icon: '📝' },
-  { name: 'Compare Towns', href: '/compare', icon: '⚖️' },
-  { name: 'Town Scorecards', href: '/scorecards', icon: '📊' },
-  { name: 'ADU Scores', href: '/scores', icon: '🎯' },
-  { name: 'Leaderboard', href: '/leaderboard', icon: '🏆' },
-  { name: 'Pricing', href: '/pricing', icon: '💎' },
-]
-
 const mobileNav = [
-  { name: 'Towns', href: '/map', icon: '🗺️' },
-  { name: 'Cost Estimator', href: '/estimate', icon: '💰' },
-  { name: 'ADU Quiz', href: '/quiz', icon: '📝' },
-  { name: 'ADU Club', href: '/club', icon: '🏘️' },
-  { name: 'For Builders', href: '/builders', icon: '🔨' },
-  { name: 'Compare Towns', href: '/compare', icon: '⚖️' },
-  { name: 'Scorecards', href: '/scorecards', icon: '📊' },
-  { name: 'ADU Scores', href: '/scores', icon: '🎯' },
-  { name: 'Leaderboard', href: '/leaderboard', icon: '🏆' },
-  { name: 'Pricing', href: '/pricing', icon: '💎' },
-  { name: 'Blog', href: '/blog', icon: '📰' },
-  { name: 'Methodology', href: '/methodology', icon: '📐' },
+  { name: 'Towns', href: '/map' },
+  { name: 'Compliance', href: '/compliance' },
+  { name: 'For Builders', href: '/builders' },
+  { name: 'Blog', href: '/blog' },
+  { name: 'Pricing', href: '/pricing' },
 ]
 
 export default function NavBar({ current }: { current?: string }) {
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [toolsOpen, setToolsOpen] = useState(false)
-  const toolsRef = useRef<HTMLDivElement>(null)
-
-  // Close tools dropdown on outside click
-  useEffect(() => {
-    function handleClick(e: MouseEvent) {
-      if (toolsRef.current && !toolsRef.current.contains(e.target as Node)) setToolsOpen(false)
-    }
-    if (toolsOpen) document.addEventListener('mousedown', handleClick)
-    return () => document.removeEventListener('mousedown', handleClick)
-  }, [toolsOpen])
 
   // Lock body scroll when mobile menu open
   useEffect(() => {
@@ -77,26 +49,6 @@ export default function NavBar({ current }: { current?: string }) {
                   {item.name}
                 </Link>
               ))}
-              {/* Tools dropdown */}
-              <div className="relative" ref={toolsRef}>
-                <button onClick={() => setToolsOpen(!toolsOpen)}
-                  className={`px-3 py-2 text-sm rounded-lg transition-colors flex items-center gap-1 ${
-                    toolsOpen ? 'text-white bg-gray-800' : 'text-gray-400 hover:text-white hover:bg-gray-800/50'
-                  }`}>
-                  Tools <span className="text-[10px]">▼</span>
-                </button>
-                {toolsOpen && (
-                  <div className="absolute right-0 top-full mt-1 bg-gray-800 border border-gray-700 rounded-lg overflow-hidden min-w-[200px] shadow-xl">
-                    {toolsNav.map(item => (
-                      <Link key={item.href} href={item.href}
-                        className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
-                        onClick={() => setToolsOpen(false)}>
-                        <span>{item.icon}</span> {item.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
             </nav>
 
             {/* Mobile hamburger */}
@@ -123,11 +75,10 @@ export default function NavBar({ current }: { current?: string }) {
             <nav className="p-2">
               {mobileNav.map(item => (
                 <Link key={item.href} href={item.href}
-                  className={`flex items-center gap-3 px-4 py-3.5 text-sm rounded-lg min-h-[48px] transition-colors ${
+                  className={`flex items-center px-4 py-3.5 text-sm rounded-lg min-h-[48px] transition-colors ${
                     current === item.name ? 'text-white bg-gray-800' : 'text-gray-300 hover:bg-gray-800 hover:text-white'
                   }`}
                   onClick={() => setMobileOpen(false)}>
-                  <span className="text-base">{item.icon}</span>
                   {item.name}
                 </Link>
               ))}

@@ -8,7 +8,7 @@ import { useTown } from '@/contexts/TownContext'
 
 const mainNav = [
   { name: 'Towns', href: '/map' },
-  { name: 'Compliance', href: '/compliance' },
+  { name: 'Bylaw Tracker', href: '/compliance' },
   { name: 'For Builders', href: '/builders' },
   { name: 'Blog', href: '/blog' },
   { name: 'Pricing', href: '/pricing' },
@@ -19,7 +19,7 @@ const mobileGroups = [
     label: 'Explore',
     links: [
       { name: 'All Towns', href: '/map' },
-      { name: 'Compliance Tracker', href: '/compliance' },
+      { name: 'Bylaw Tracker', href: '/compliance' },
       { name: 'Town Rankings', href: '/scores' },
     ],
   },

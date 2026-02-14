@@ -68,7 +68,7 @@ export default function Home() {
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 leading-[1.15] tracking-tight">
               Massachusetts legalized ADUs.<br className="hidden sm:block" />
-              We&apos;re tracking which towns got the memo.
+              We&apos;re tracking how it&apos;s actually going.
             </h1>
             <p className="text-gray-400 text-base md:text-lg">
               ADU Pulse tracks every permit and reads every bylaw so you don&apos;t have to.

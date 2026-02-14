@@ -9,7 +9,11 @@
       "Bash(npm run build:*)",
       "Bash(npx tsc:*)",
       "Bash(git checkout:*)",
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "Bash(node -e \"\nconst { towns, getStatusCounts } = require\\(''''./src/app/compliance/compliance-data.ts''''\\) || {};\n// Since this is TS, let''''s use ts-node or just parse manually\n\")",
+      "Bash(npx tsx:*)",
+      "WebFetch(domain:api.census.gov)",
+      "Bash(node /tmp/update_pop.mjs:*)"
     ]
   }
 }

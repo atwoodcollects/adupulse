@@ -76,6 +76,7 @@ export default function MethodologyPage() {
               { term: 'Approved / Issued', def: 'The municipality has granted a building permit for the ADU. Construction may or may not have started.' },
               { term: 'Pending', def: 'Application is under review. May be awaiting zoning board, building inspector, or additional documentation.' },
               { term: 'Denied', def: 'Application was rejected. Common reasons include setback violations, lot coverage limits, or incomplete submissions.' },
+              { term: 'Approval Rate', def: 'The share of applications submitted in 2025 that received approval in 2025. Pending applications are not counted as denials. This is sometimes called the same-year approval rate.' },
               { term: 'Detached', def: 'A standalone structure separate from the primary dwelling (backyard cottage, carriage house, etc.).' },
               { term: 'Attached', def: 'An addition connected to the existing home (bump-out, second story, wing addition).' },
               { term: 'Conversion', def: 'Repurposing existing space within or attached to the home (basement, garage, attic).' },

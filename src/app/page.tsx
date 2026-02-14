@@ -12,18 +12,12 @@ const featuredTowns = townSEOData
   .sort((a, b) => b.approved - a.approved)
   .slice(0, 5)
 
-// Compliance data (hardcoded to match /compliance page — can be moved to shared data file later)
-const complianceData = {
-  totalConflicts: 33,
-  agDisapprovals: 10,
-  townsWithConflicts: 12,
-  townsTracked: 18,
-  towns: [
-    { name: 'Plymouth', slug: 'plymouth', county: 'Plymouth', conflicts: 3, reviews: 2, ok: 5, status: 'NOT UPDATED', statusColor: 'text-yellow-400 bg-yellow-400/10' },
-    { name: 'Nantucket', slug: 'nantucket', county: 'Nantucket', conflicts: 4, reviews: 1, ok: 2, status: 'NOT UPDATED', statusColor: 'text-yellow-400 bg-yellow-400/10' },
-    { name: 'Leicester', slug: 'leicester', county: 'Worcester', conflicts: 3, reviews: 0, ok: 4, status: '3 AG DISAPPROVALS', statusColor: 'text-red-400 bg-red-400/10' },
-  ]
-}
+// Towns with the most compliance issues — previewed in Section 3
+const complianceTowns = [
+  { name: 'Plymouth', slug: 'plymouth', county: 'Plymouth', conflicts: 3, reviews: 2, ok: 5, status: 'NOT UPDATED', statusColor: 'text-yellow-400 bg-yellow-400/10' },
+  { name: 'Nantucket', slug: 'nantucket', county: 'Nantucket', conflicts: 4, reviews: 1, ok: 2, status: 'NOT UPDATED', statusColor: 'text-yellow-400 bg-yellow-400/10' },
+  { name: 'Leicester', slug: 'leicester', county: 'Worcester', conflicts: 3, reviews: 0, ok: 4, status: '3 AG DISAPPROVALS', statusColor: 'text-red-400 bg-red-400/10' },
+]
 
 export default function Home() {
   const { setSelectedTown } = useTown()
@@ -200,7 +194,7 @@ export default function Home() {
             We read local ADU bylaws and check them against Chapter 150 and 760 CMR 71.00.
           </p>
           <div className="space-y-2 mb-4">
-            {complianceData.towns.map(town => (
+            {complianceTowns.map(town => (
               <Link
                 key={town.slug}
                 href={`/compliance/${town.slug}`}

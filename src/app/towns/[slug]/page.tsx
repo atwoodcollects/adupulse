@@ -62,15 +62,10 @@ export default function TownSEOPage({ params }: { params: { slug: string } }) {
     .filter(t => t.slug !== town.slug && t.county === town.county)
     .slice(0, 4)
 
-  const otherTowns = townSEOData
-    .filter(t => t.slug !== town.slug && t.county !== town.county)
-    .sort((a, b) => b.approved - a.approved)
-    .slice(0, 6)
-
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <TownSEOPageClient town={town} nearbyTowns={nearbyTowns} otherTowns={otherTowns} />
+      <TownSEOPageClient town={town} nearbyTowns={nearbyTowns} />
     </>
   )
 }

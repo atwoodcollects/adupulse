@@ -21,7 +21,8 @@ export function useSubscription(): SubscriptionInfo {
   const { user, isLoaded } = useUser();
   const tier =
     (user?.publicMetadata?.subscriptionTier as SubscriptionTier) || "free";
-  const isPro = tier === "pro";
+  // TEMP: bypass paywall — revert this line to re-enable
+  const isPro = true; // tier === "pro";
   const plan = isPro ? PLANS.pro_monthly : PLANS.free;
 
   return {

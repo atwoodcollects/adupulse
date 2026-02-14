@@ -664,7 +664,7 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Canton Zoning Bylaw — Town Meeting Article',
     agDisapprovals: 1,
     permits: { submitted: 2, approved: 1, denied: 1, pending: 0, approvalRate: 50 },
-    bottomLine: 'Canton lost its minimum lot size requirement to the AG in June 2025. The remaining bylaw is mostly compliant but the special permit requirement is a significant barrier — it adds months and creates discretionary denial risk.',
+    bottomLine: 'Canton lost its minimum lot size requirement to the AG in June 2025. The remaining bylaw is mostly consistent but the special permit requirement is a significant barrier — it adds months and creates discretionary denial risk.',
     provisions: [
       {
         id: 'can-01',
@@ -1492,7 +1492,7 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Duxbury Zoning Bylaw',
     agDisapprovals: 0,
     permits: { submitted: 3, approved: 2, denied: 0, pending: 1, approvalRate: 67 },
-    bottomLine: 'Duxbury’s bylaw is technically compliant but designed to feel like a special permit process. The planning board review, design standards, and documentation requirements create soft barriers. Experienced builders will navigate it fine; first-time ADU owners may find it intimidating.',
+    bottomLine: 'Duxbury's bylaw is technically consistent but designed to feel like a special permit process. The planning board review, design standards, and documentation requirements create soft barriers. Experienced builders will navigate it fine; first-time ADU owners may find it intimidating.',
     provisions: [
       {
         id: 'dux-01',

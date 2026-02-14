@@ -372,7 +372,7 @@ export default function TownSEOPageClient({
 
               <div className="mt-4 pt-3 border-t border-gray-700/50">
                 <Link href={`/compliance/${town.slug}`} className="inline-flex items-center gap-1.5 text-sm text-blue-400 hover:text-blue-300 transition-colors">
-                  Full {town.name} compliance analysis <ArrowRight className="w-3.5 h-3.5" />
+                  Full {town.name} consistency analysis <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
             </div>

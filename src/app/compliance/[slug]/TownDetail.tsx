@@ -132,7 +132,7 @@ function ProvisionRow({ provision, isPro, slug }: { provision: ComplianceProvisi
       {expanded && (!isPro ? (
         <div className="px-4 pb-4 border-t border-gray-700/50">
           <a href="/pricing" className="block mt-3 p-3 rounded-lg border border-amber-500/30 bg-amber-500/5 text-center">
-            <span className="text-amber-500 text-sm font-medium">Unlock detailed compliance analysis with Pro</span>
+            <span className="text-amber-500 text-sm font-medium">Unlock detailed consistency analysis with Pro</span>
             <span className="block text-gray-500 text-xs mt-0.5">See state law vs. local bylaw comparisons, AG decisions, and impact analysis</span>
           </a>
         </div>
@@ -415,7 +415,7 @@ export default function TownDetail({ slug }: { slug: string }) {
           >
             EOHLC guidance
           </a>
-          , towns are not &ldquo;out of compliance&rdquo; if their local zoning has not
+          , towns are not &ldquo;inconsistent&rdquo; simply because their local zoning has not
           been updated — however, any local provisions inconsistent with the ADU statute
           are unenforceable as of February 2, 2025. Local permitting decisions should not
           take into account zoning rules that conflict with state law. Attorney General
@@ -446,7 +446,7 @@ export default function TownDetail({ slug }: { slug: string }) {
             e.preventDefault();
             const form = e.target as HTMLFormElement;
             const email = (form.elements.namedItem('email') as HTMLInputElement).value;
-            window.location.href = `mailto:nick@adupulse.com?subject=${encodeURIComponent(`Compliance alert signup: ${town.name}`)}&body=${encodeURIComponent(`Please add me to ${town.name} bylaw update alerts.\n\nEmail: ${email}`)}`;
+            window.location.href = `mailto:nick@adupulse.com?subject=${encodeURIComponent(`Bylaw alert signup: ${town.name}`)}&body=${encodeURIComponent(`Please add me to ${town.name} bylaw update alerts.\n\nEmail: ${email}`)}`;
           }}
           className="flex gap-2 flex-col sm:flex-row"
         >

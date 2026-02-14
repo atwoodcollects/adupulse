@@ -71,7 +71,7 @@ export default function Home() {
               />
             </div>
             <p className="text-center text-gray-500 text-xs sm:text-sm mt-2.5">
-              See permits, bylaws, costs, and compliance for any MA town
+              See permits, bylaws, costs, and consistency for any MA town
             </p>
             {search && searchResults.length > 0 && (
               <div className="absolute left-0 right-0 top-[56px] sm:top-[64px] mt-1 bg-gray-800 border border-gray-700 rounded-xl overflow-hidden shadow-2xl z-20">

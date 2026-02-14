@@ -27,7 +27,7 @@ export function UpgradeBanner({
             </h3>
             <p className="text-gray-600 mt-1 text-sm leading-relaxed">
               ADU Pulse Pro gives you full permit tables, unlimited town
-              comparisons, exportable reports, and detailed compliance
+              comparisons, exportable reports, and detailed consistency
               breakdowns — everything you need to make data-driven ADU
               decisions.
             </p>

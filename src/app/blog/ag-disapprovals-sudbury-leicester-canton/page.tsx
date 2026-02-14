@@ -259,7 +259,7 @@ export default function AGDisapprovals() {
           Explore the AG disapprovals
         </h3>
         <p className="text-gray-400 mb-4">
-          ADU Pulse tracks permit data, bylaw compliance, and AG disapprovals
+          ADU Pulse tracks permit data, bylaw consistency, and AG disapprovals
           across Massachusetts.
         </p>
         <div className="flex flex-wrap gap-3">
@@ -285,7 +285,7 @@ export default function AGDisapprovals() {
       </div>
 
       <p className="text-gray-600 text-sm mt-8 italic">
-        ADU Pulse tracks permit data, bylaw compliance, and AG disapprovals
+        ADU Pulse tracks permit data, bylaw consistency, and AG disapprovals
         across Massachusetts. Explore the full{" "}
         <a className="text-blue-400 hover:underline" href="/compliance">
           Bylaw Consistency Tracker

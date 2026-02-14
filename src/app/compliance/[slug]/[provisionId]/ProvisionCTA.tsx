@@ -14,7 +14,7 @@ export default function ProvisionCTA({ townName }: { townName: string }) {
           e.preventDefault();
           const form = e.target as HTMLFormElement;
           const email = (form.elements.namedItem('email') as HTMLInputElement).value;
-          window.location.href = `mailto:nick@adupulse.com?subject=${encodeURIComponent(`Compliance alert signup: ${townName}`)}&body=${encodeURIComponent(`Please add me to ${townName} bylaw update alerts.\n\nEmail: ${email}`)}`;
+          window.location.href = `mailto:nick@adupulse.com?subject=${encodeURIComponent(`Bylaw alert signup: ${townName}`)}&body=${encodeURIComponent(`Please add me to ${townName} bylaw update alerts.\n\nEmail: ${email}`)}`;
         }}
         className="flex gap-2 flex-col sm:flex-row"
       >

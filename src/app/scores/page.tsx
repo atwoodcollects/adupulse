@@ -161,7 +161,7 @@ export default function ScoresPage() {
           </h1>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
             How ADU-friendly is each town in practice? We combine permit data
-            with bylaw compliance into a single grade.
+            with bylaw consistency into a single grade.
           </p>
         </div>
 
@@ -323,7 +323,7 @@ export default function ScoresPage() {
               with state law.
             </p>
             <span className="text-purple-400 text-sm mt-2 inline-block">
-              Compliance Tracker &rarr;
+              Bylaw Tracker &rarr;
             </span>
           </Link>
         </div>

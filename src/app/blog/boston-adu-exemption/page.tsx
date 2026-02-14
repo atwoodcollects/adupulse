@@ -171,7 +171,7 @@ export default function BostonADUExemption() {
           See Boston&apos;s full bylaw analysis
         </h3>
         <p className="text-gray-400 mb-4">
-          ADU Pulse tracks permit data, bylaw compliance, and AG disapprovals
+          ADU Pulse tracks permit data, bylaw consistency, and AG disapprovals
           across Massachusetts.
         </p>
         <div className="flex flex-wrap gap-3">
@@ -185,13 +185,13 @@ export default function BostonADUExemption() {
             className="inline-flex items-center px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg text-sm font-medium"
             href="/compliance"
           >
-            Full Compliance Tracker
+            Full Bylaw Tracker
           </a>
         </div>
       </div>
 
       <p className="text-gray-600 text-sm mt-8 italic">
-        ADU Pulse tracks permit data, bylaw compliance, and AG disapprovals
+        ADU Pulse tracks permit data, bylaw consistency, and AG disapprovals
         across Massachusetts. Explore the full{" "}
         <a className="text-blue-400 hover:underline" href="/compliance">
           Bylaw Consistency Tracker

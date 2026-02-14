@@ -15,7 +15,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   if (!town) return { title: 'Town Not Found | ADU Pulse' }
 
   const counts = getStatusCounts(town.provisions)
-  const title = `${town.name} ADU Bylaw Compliance | ADU Pulse`
+  const title = `${town.name} ADU Bylaw Consistency | ADU Pulse`
   const description = `${town.name} has ${counts.inconsistent} provisions inconsistent with MA ADU law and ${counts.compliant} consistent. See the full bylaw analysis.`
 
   return {
@@ -58,7 +58,7 @@ export default function ComplianceTownPage({ params }: { params: { slug: string 
             href="/compliance"
             className="text-blue-400 hover:text-blue-300 transition-colors"
           >
-            Compliance
+            Bylaw Tracker
           </Link>
           <span className="mx-2 text-gray-600">/</span>
           <span className="text-gray-400">{town.name}</span>

@@ -65,7 +65,7 @@ export default function CompliancePage() {
             Dashboard
           </Link>
           <span className="mx-2 text-gray-600">/</span>
-          <span className="text-gray-400">Compliance</span>
+          <span className="text-gray-400">Bylaw Tracker</span>
         </nav>
 
         {/* Page header */}
@@ -233,7 +233,7 @@ export default function CompliancePage() {
               >
                 EOHLC guidance
               </a>
-              , towns are not &ldquo;out of compliance&rdquo; if their local zoning has not
+              , towns are not &ldquo;inconsistent&rdquo; simply because their local zoning has not
               been updated — however, any local provisions inconsistent with the ADU statute
               are unenforceable as of February 2, 2025. Local permitting decisions should not
               take into account zoning rules that conflict with state law. Attorney General

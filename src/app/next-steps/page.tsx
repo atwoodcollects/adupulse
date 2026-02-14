@@ -39,7 +39,7 @@ const steps = [
     icon: '📊',
     title: 'Compare my town',
     desc: 'How does my town stack up?',
-    action: '/leaderboard',
+    action: '/rankings',
     actionLabel: 'View Leaderboard',
     time: '1 min',
     details: [

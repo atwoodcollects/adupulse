@@ -20,7 +20,7 @@ const mobileGroups = [
     links: [
       { name: 'All Towns', href: '/map' },
       { name: 'Bylaw Tracker', href: '/compliance' },
-      { name: 'Town Rankings', href: '/scores' },
+      { name: 'Town Rankings', href: '/rankings' },
     ],
   },
   {

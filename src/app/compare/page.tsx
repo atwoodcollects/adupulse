@@ -332,8 +332,8 @@ function ComparePage() {
         </div>
 
         <div className="mt-8 text-center">
-          <Link href="/leaderboard" className="text-blue-400 hover:underline text-sm">
-            View full leaderboard →
+          <Link href="/rankings" className="text-blue-400 hover:underline text-sm">
+            View full rankings →
           </Link>
         </div>
       </main>

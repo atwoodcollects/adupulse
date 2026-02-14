@@ -24,9 +24,7 @@ export default function Footer() {
                 { name: 'Cost Estimator', href: '/estimate' },
                 { name: 'ADU Quiz', href: '/quiz' },
                 { name: 'Compare Towns', href: '/compare' },
-                { name: 'Scorecards', href: '/scorecards' },
-                { name: 'ADU Scores', href: '/scores' },
-                { name: 'Leaderboard', href: '/leaderboard' },
+                { name: 'Town Rankings', href: '/rankings' },
               ].map(l => (
                 <Link key={l.href} href={l.href} className="block text-gray-400 text-xs hover:text-white transition-colors py-1">{l.name}</Link>
               ))}
@@ -55,7 +53,7 @@ export default function Footer() {
               {[
                 { name: 'Builder Network', href: '/builders' },
                 { name: 'Demand Data', href: '/map' },
-                { name: 'Town Scorecards', href: '/scorecards' },
+                { name: 'Town Rankings', href: '/rankings' },
               ].map(l => (
                 <Link key={l.href} href={l.href} className="block text-gray-400 text-xs hover:text-white transition-colors py-1">{l.name}</Link>
               ))}

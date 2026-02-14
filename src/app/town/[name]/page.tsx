@@ -171,8 +171,8 @@ export default async function TownPage({ params }: { params: Promise<{ name: str
             </div>
           </div>
           <div className="text-center mt-4 pt-4 border-t border-gray-700">
-            <Link href="/leaderboard" className="text-blue-400 text-sm hover:underline">
-              View full leaderboard →
+            <Link href="/rankings" className="text-blue-400 text-sm hover:underline">
+              View full rankings →
             </Link>
           </div>
         </div>

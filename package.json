@@ -14,6 +14,7 @@
     "@vercel/analytics": "^1.6.1",
     "date-fns": "^3.0.6",
     "leaflet": "^1.9.4",
+    "lucide-react": "^0.564.0",
     "mapbox-gl": "^3.0.1",
     "next": "^14.2.35",
     "react": "^18",

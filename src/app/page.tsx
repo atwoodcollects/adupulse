@@ -1,17 +1,16 @@
 'use client'
 
 import Link from 'next/link'
-import { useState, useMemo, Suspense, lazy } from 'react'
+import { useState, useMemo } from 'react'
 import { useTown } from '@/contexts/TownContext'
 import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
 import townSEOData from '@/data/town_seo_data'
-
-const TownMap = lazy(() => import('@/components/TownMap'))
+import { Search, FileWarning, Scale, BarChart3, AlertTriangle, Gavel, ClipboardCheck, Home as HomeIcon, Hammer, Landmark, ArrowRight, BookOpen } from 'lucide-react'
 
 const featuredTowns = townSEOData
   .sort((a, b) => b.approved - a.approved)
-  .slice(0, 8)
+  .slice(0, 5)
 
 // Compliance data (hardcoded to match /compliance page — can be moved to shared data file later)
 const complianceData = {
@@ -27,7 +26,7 @@ const complianceData = {
 }
 
 export default function Home() {
-  const { selectedTown, setSelectedTown } = useTown()
+  const { setSelectedTown } = useTown()
   const [search, setSearch] = useState('')
 
   const searchResults = useMemo(() => {
@@ -41,52 +40,44 @@ export default function Home() {
   const totalTowns = 293
   const overallRate = 68
 
-  const myTownData = selectedTown
-    ? townSEOData.find(t => t.name === selectedTown)
-    : null
-
   return (
     <div className="min-h-screen bg-gray-900">
       <NavBar current="Home" />
 
       <main className="max-w-5xl mx-auto px-4">
         {/* ─── HERO ─── */}
-        <section className="text-center py-10 md:py-16">
-          <h1 className="text-3xl md:text-5xl font-bold text-white mb-3 leading-tight">
-            Real ADU Permit Data<br className="hidden sm:block" />
-            for Massachusetts
-          </h1>
-          <p className="text-gray-400 text-base md:text-lg max-w-2xl mx-auto mb-8">
-            ADU Pulse tracks real permit data from {totalTowns} Massachusetts towns so homeowners, builders, and lenders can make smarter ADU decisions.
-          </p>
-
-          {/* Stats */}
-          <div className="grid grid-cols-3 gap-3 sm:gap-4 max-w-md mx-auto mb-8">
-            <div className="bg-gray-800 border border-gray-700 rounded-xl p-3 sm:p-4">
-              <div className="text-2xl md:text-3xl font-bold text-emerald-400">{totalApproved.toLocaleString()}</div>
-              <div className="text-gray-400 text-xs">Approved</div>
+        <section className="py-12 md:py-20">
+          <div className="max-w-3xl mx-auto text-center mb-10">
+            <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-red-400 bg-red-400/10 border border-red-400/20 px-3 py-1.5 rounded-full mb-6">
+              <FileWarning className="w-3.5 h-3.5" />
+              33 illegal provisions. 10 AG disapprovals. 293 towns tracked.
             </div>
-            <div className="bg-gray-800 border border-gray-700 rounded-xl p-3 sm:p-4">
-              <div className="text-2xl md:text-3xl font-bold text-white">{totalTowns}</div>
-              <div className="text-gray-400 text-xs">Towns Tracked</div>
-            </div>
-            <div className="bg-gray-800 border border-gray-700 rounded-xl p-3 sm:p-4">
-              <div className="text-2xl md:text-3xl font-bold text-white">{overallRate}%</div>
-              <div className="text-gray-400 text-xs">Approval Rate</div>
-            </div>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 leading-[1.15] tracking-tight">
+              Massachusetts legalized ADUs.<br className="hidden sm:block" />
+              We&apos;re tracking which towns got the memo.
+            </h1>
+            <p className="text-gray-400 text-base md:text-lg">
+              ADU Pulse tracks every permit and reads every bylaw so you don&apos;t have to.
+            </p>
           </div>
 
-          {/* Town search */}
-          <div className="max-w-md mx-auto relative">
-            <input
-              type="text"
-              placeholder="Search your town..."
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3.5 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 text-base min-h-[48px]"
-            />
+          {/* Town search — primary CTA */}
+          <div className="max-w-2xl mx-auto mb-10 relative">
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none" />
+              <input
+                type="text"
+                placeholder="Search your town..."
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+                className="w-full bg-gray-800 border-2 border-gray-600 hover:border-gray-500 rounded-xl pl-12 pr-4 py-4 sm:py-5 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 text-base sm:text-lg min-h-[56px] transition-colors"
+              />
+            </div>
+            <p className="text-center text-gray-500 text-xs sm:text-sm mt-2.5">
+              See permits, bylaws, costs, and compliance for any MA town
+            </p>
             {search && searchResults.length > 0 && (
-              <div className="absolute left-0 right-0 top-full mt-1 bg-gray-800 border border-gray-700 rounded-xl overflow-hidden shadow-xl z-20">
+              <div className="absolute left-0 right-0 top-[56px] sm:top-[64px] mt-1 bg-gray-800 border border-gray-700 rounded-xl overflow-hidden shadow-2xl z-20">
                 {searchResults.map(t => (
                   <Link
                     key={t.slug}
@@ -106,241 +97,181 @@ export default function Home() {
               </div>
             )}
             {search && searchResults.length === 0 && (
-              <div className="absolute left-0 right-0 top-full mt-1 bg-gray-800 border border-gray-700 rounded-xl p-4 shadow-xl z-20">
+              <div className="absolute left-0 right-0 top-[56px] sm:top-[64px] mt-1 bg-gray-800 border border-gray-700 rounded-xl p-4 shadow-2xl z-20">
                 <p className="text-gray-400 text-sm">No towns found for &ldquo;{search}&rdquo;</p>
                 <p className="text-gray-500 text-xs mt-1">We track {totalTowns} towns with EOHLC survey data.</p>
               </div>
             )}
           </div>
-        </section>
 
-        {/* ─── PERSONA ROUTING ─── */}
-        <section className="mb-12">
-          <h2 className="text-center text-gray-500 text-sm uppercase tracking-wider mb-4">I&apos;m looking for...</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <Link href="/club" className="bg-gray-800/50 border border-emerald-500/20 rounded-xl p-5 hover:bg-emerald-900/20 transition-colors group min-h-[120px]">
-              <div className="text-2xl mb-2">🏠</div>
-              <h3 className="text-white font-bold mb-1">I&apos;m a Homeowner</h3>
-              <p className="text-gray-400 text-sm mb-2">Check if an ADU makes sense, estimate costs, and see if your town&apos;s bylaws are consistent with state law.</p>
-              <span className="text-emerald-400 text-sm group-hover:underline">Explore ADU options →</span>
-            </Link>
-            <Link href="/builders" className="bg-gray-800/50 border border-blue-500/20 rounded-xl p-5 hover:bg-blue-900/20 transition-colors group min-h-[120px]">
-              <div className="text-2xl mb-2">🔨</div>
-              <h3 className="text-white font-bold mb-1">I&apos;m a Builder</h3>
-              <p className="text-gray-400 text-sm mb-2">See where ADU demand is highest, get clustered leads, and close more projects per town.</p>
-              <span className="text-blue-400 text-sm group-hover:underline">See builder opportunities →</span>
-            </Link>
-            <Link href="/compliance" className="bg-gray-800/50 border border-purple-500/20 rounded-xl p-5 hover:bg-purple-900/20 transition-colors group min-h-[120px]">
-              <div className="text-2xl mb-2">🏦</div>
-              <h3 className="text-white font-bold mb-1">Lender or Municipality</h3>
-              <p className="text-gray-400 text-sm mb-2">Access permit analytics, bylaw consistency analysis, and market intelligence across MA towns.</p>
-              <span className="text-purple-400 text-sm group-hover:underline">Bylaw Consistency Tracker →</span>
-            </Link>
-          </div>
-        </section>
-
-        {/* ─── PERSONALIZED TOWN (if selected) ─── */}
-        {myTownData && (
-          <section className="mb-10">
-            <div className="bg-gray-800 border border-blue-500/20 rounded-xl p-5">
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2">
-                  <span className="text-lg">📍</span>
-                  <h3 className="text-white font-bold">Your Town: {myTownData.name}</h3>
-                </div>
-                <button onClick={() => setSelectedTown('')} className="text-gray-500 text-xs hover:text-gray-300">Change</button>
+          {/* Stats */}
+          <div className="grid grid-cols-3 gap-3 sm:gap-4 max-w-2xl mx-auto">
+            <div className="bg-gray-800/60 border border-gray-700 rounded-xl p-4 sm:p-5 text-center">
+              <div className="flex items-center justify-center gap-2 mb-1">
+                <BarChart3 className="w-4 h-4 text-emerald-400 hidden sm:block" />
+                <div className="text-2xl sm:text-3xl font-bold text-emerald-400">{totalApproved.toLocaleString()}</div>
               </div>
-              <div className="grid grid-cols-3 gap-3 text-center mb-3">
-                <div className="bg-gray-900/50 rounded-lg p-2.5">
-                  <div className="text-emerald-400 font-bold text-lg">{myTownData.approved}</div>
-                  <div className="text-gray-500 text-[10px]">Approved</div>
-                </div>
-                <div className="bg-gray-900/50 rounded-lg p-2.5">
-                  <div className="text-white font-bold text-lg">{myTownData.submitted}</div>
-                  <div className="text-gray-500 text-[10px]">Submitted</div>
-                </div>
-                <div className="bg-gray-900/50 rounded-lg p-2.5">
-                  <div className="text-white font-bold text-lg">{myTownData.approvalRate}%</div>
-                  <div className="text-gray-500 text-[10px]">Rate</div>
-                </div>
-              </div>
-              <Link href={`/towns/${myTownData.slug}`} className="block text-center text-blue-400 text-sm font-medium py-2.5 bg-blue-600/10 rounded-lg hover:bg-blue-600/20 min-h-[44px] flex items-center justify-center">
-                View full {myTownData.name} data →
-              </Link>
+              <div className="text-gray-300 text-xs sm:text-sm font-medium">Approved</div>
+              <div className="text-gray-500 text-[10px] sm:text-xs mt-1">from the Feb 2026 EOHLC survey</div>
             </div>
-          </section>
-        )}
-
-        {/* ─── FEATURED TOWNS ─── */}
-        <section className="mb-12">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-bold text-white">Top Towns by Permits</h2>
-            <Link href="/map" className="text-blue-400 text-sm hover:underline">View all {totalTowns} towns →</Link>
+            <div className="bg-gray-800/60 border border-gray-700 rounded-xl p-4 sm:p-5 text-center">
+              <div className="flex items-center justify-center gap-2 mb-1">
+                <Scale className="w-4 h-4 text-white hidden sm:block" />
+                <div className="text-2xl sm:text-3xl font-bold text-white">{totalTowns}</div>
+              </div>
+              <div className="text-gray-300 text-xs sm:text-sm font-medium">Towns Tracked</div>
+              <div className="text-gray-500 text-[10px] sm:text-xs mt-1">every municipality except Boston</div>
+            </div>
+            <div className="bg-gray-800/60 border border-gray-700 rounded-xl p-4 sm:p-5 text-center">
+              <div className="flex items-center justify-center gap-2 mb-1">
+                <FileWarning className="w-4 h-4 text-amber-400 hidden sm:block" />
+                <div className="text-2xl sm:text-3xl font-bold text-white">{overallRate}%</div>
+              </div>
+              <div className="text-gray-300 text-xs sm:text-sm font-medium">Approval Rate</div>
+              <div className="text-gray-500 text-[10px] sm:text-xs mt-1">32% of applications denied statewide</div>
+            </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        </section>
+
+        {/* ─── SECTION 1: WHAT THE DATA SHOWS ─── */}
+        <section className="mb-14">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-5">What the Data Shows</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <Link href="/compliance" className="bg-gray-800/60 border border-gray-700 rounded-xl p-5 hover:border-red-500/30 transition-colors group">
+              <AlertTriangle className="w-5 h-5 text-red-400 mb-3" />
+              <div className="text-3xl sm:text-4xl font-bold text-white mb-1">33</div>
+              <p className="text-gray-400 text-sm leading-relaxed mb-3">bylaw provisions not yet consistent with state law</p>
+              <span className="inline-flex items-center gap-1 text-xs text-red-400 group-hover:text-red-300 transition-colors">
+                View inconsistencies <ArrowRight className="w-3 h-3" />
+              </span>
+            </Link>
+            <Link href="/compliance" className="bg-gray-800/60 border border-gray-700 rounded-xl p-5 hover:border-amber-500/30 transition-colors group">
+              <Gavel className="w-5 h-5 text-amber-400 mb-3" />
+              <div className="text-3xl sm:text-4xl font-bold text-white mb-1">10</div>
+              <p className="text-gray-400 text-sm leading-relaxed mb-3">Attorney General disapprovals issued</p>
+              <span className="inline-flex items-center gap-1 text-xs text-amber-400 group-hover:text-amber-300 transition-colors">
+                See AG decisions <ArrowRight className="w-3 h-3" />
+              </span>
+            </Link>
+            <Link href="/compliance" className="bg-gray-800/60 border border-gray-700 rounded-xl p-5 hover:border-blue-500/30 transition-colors group">
+              <ClipboardCheck className="w-5 h-5 text-blue-400 mb-3" />
+              <div className="text-3xl sm:text-4xl font-bold text-white mb-1">12</div>
+              <p className="text-gray-400 text-sm leading-relaxed mb-3">towns with provisions under review</p>
+              <span className="inline-flex items-center gap-1 text-xs text-blue-400 group-hover:text-blue-300 transition-colors">
+                Check your town <ArrowRight className="w-3 h-3" />
+              </span>
+            </Link>
+          </div>
+        </section>
+
+        {/* ─── SECTION 2: TOP TOWNS BY PERMITS ─── */}
+        <section className="mb-14">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-5">Top Towns by Permits</h2>
+          <div className="bg-gray-800/40 border border-gray-700 rounded-xl overflow-hidden">
             {featuredTowns.map((t, i) => {
               const rateColor = t.approvalRate >= 80 ? 'text-emerald-400' : t.approvalRate >= 50 ? 'text-amber-400' : 'text-red-400'
               return (
-                <Link key={t.slug} href={`/towns/${t.slug}`}
-                  className="bg-gray-800/50 border border-gray-700 rounded-xl p-4 hover:bg-gray-700/50 transition-colors min-h-[60px] flex items-center"
-                  onClick={() => setSelectedTown(t.name)}>
-                  <span className="text-gray-600 w-6 text-sm shrink-0">#{i + 1}</span>
-                  <div className="flex-1 min-w-0">
-                    <div className="text-white font-medium">{t.name}</div>
-                    <div className="text-gray-500 text-xs">{t.county} County</div>
-                  </div>
-                  <div className="text-right shrink-0 ml-3">
-                    <div className="text-emerald-400 font-bold">{t.approved}</div>
-                    <div className={`text-xs ${rateColor}`}>{t.approvalRate}%</div>
-                  </div>
+                <Link
+                  key={t.slug}
+                  href={`/towns/${t.slug}`}
+                  className={`flex items-center px-4 py-3 hover:bg-gray-700/40 transition-colors ${i < featuredTowns.length - 1 ? 'border-b border-gray-700/50' : ''}`}
+                  onClick={() => setSelectedTown(t.name)}
+                >
+                  <span className="text-gray-600 text-sm w-7 shrink-0 font-medium">#{i + 1}</span>
+                  <span className="text-white font-medium flex-1 min-w-0 truncate">{t.name}</span>
+                  <span className="text-gray-500 text-xs mr-4 hidden sm:inline">{t.county}</span>
+                  <span className="text-emerald-400 font-bold text-sm w-12 text-right">{t.approved}</span>
+                  <span className={`text-xs w-12 text-right ${rateColor}`}>{t.approvalRate}%</span>
                 </Link>
               )
             })}
           </div>
-        </section>
-
-        {/* ─── BYLAW CONSISTENCY TRACKER ─── */}
-        <section className="mb-12">
-          <div className="bg-gradient-to-r from-red-900/20 to-amber-900/20 border border-red-500/20 rounded-xl p-5 md:p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
-                <h2 className="text-lg font-bold text-white">Bylaw Consistency Tracker</h2>
-                <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">NEW</span>
-              </div>
-              <Link href="/compliance" className="text-red-400 text-sm hover:underline">View all towns →</Link>
-            </div>
-            <p className="text-gray-400 text-sm mb-4">
-              We read local ADU bylaws and flag inconsistencies with Massachusetts Chapter 150 and 760 CMR 71.00 — so you don&apos;t have to.
-            </p>
-
-            {/* Compliance stats */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
-              <div className="bg-gray-900/50 rounded-lg p-3 text-center">
-                <div className="text-xl font-bold text-red-400">{complianceData.totalConflicts}</div>
-                <div className="text-gray-500 text-xs">Inconsistent Provisions</div>
-              </div>
-              <div className="bg-gray-900/50 rounded-lg p-3 text-center">
-                <div className="text-xl font-bold text-amber-400">{complianceData.agDisapprovals}</div>
-                <div className="text-gray-500 text-xs">AG Disapprovals</div>
-              </div>
-              <div className="bg-gray-900/50 rounded-lg p-3 text-center">
-                <div className="text-xl font-bold text-white">{complianceData.townsWithConflicts}</div>
-                <div className="text-gray-500 text-xs">Towns w/ Inconsistencies</div>
-              </div>
-              <div className="bg-gray-900/50 rounded-lg p-3 text-center">
-                <div className="text-xl font-bold text-white">{complianceData.townsTracked}</div>
-                <div className="text-gray-500 text-xs">Towns Tracked</div>
-              </div>
-            </div>
-
-            {/* Top conflict towns preview */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {complianceData.towns.map(town => (
-                <Link key={town.name} href={`/compliance/${town.slug}`} className="bg-gray-900/40 border border-gray-700/50 rounded-lg p-3 hover:bg-gray-800/50 transition-colors">
-                  <div className="flex items-center justify-between mb-1.5">
-                    <div>
-                      <div className="text-white font-medium text-sm">{town.name}</div>
-                      <div className="text-gray-500 text-[10px]">{town.county} County</div>
-                    </div>
-                  </div>
-                  <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${town.statusColor}`}>
-                    {town.status}
-                  </span>
-                  <div className="flex gap-2 mt-2 text-[10px]">
-                    <span className="text-red-400">{town.conflicts} inconsistent</span>
-                    <span className="text-amber-400">{town.reviews} review</span>
-                    <span className="text-emerald-400">{town.ok} ok</span>
-                  </div>
-                </Link>
-              ))}
-            </div>
+          <div className="mt-3 text-center">
+            <Link href="/map" className="inline-flex items-center gap-1 text-sm text-gray-400 hover:text-white transition-colors">
+              View all {totalTowns} towns <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
         </section>
 
-        {/* ─── ADU SCORES ─── */}
-        <section className="mb-12">
-          <Link href="/scores" className="block bg-gradient-to-r from-emerald-900/20 to-purple-900/20 border border-emerald-500/20 rounded-xl p-5 md:p-6 hover:from-emerald-900/30 hover:to-purple-900/30 transition-colors group">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <h3 className="text-lg font-bold text-white">ADU-Friendliness Scores</h3>
-                  <span className="bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">NEW</span>
+        {/* ─── SECTION 3: BYLAW CONSISTENCY TRACKER ─── */}
+        <section className="mb-14">
+          <h2 className="text-lg font-bold text-white mb-1">How Consistent Is Your Town?</h2>
+          <p className="text-gray-400 text-sm mb-5">
+            We read local ADU bylaws and check them against Chapter 150 and 760 CMR 71.00.
+          </p>
+          <div className="space-y-2 mb-4">
+            {complianceData.towns.map(town => (
+              <Link
+                key={town.slug}
+                href={`/compliance/${town.slug}`}
+                className="flex items-center gap-3 bg-gray-800/60 border border-gray-700 rounded-lg px-4 py-3 hover:border-gray-600 transition-colors group"
+              >
+                <span className={`w-2 h-2 rounded-full shrink-0 ${town.conflicts > 2 ? 'bg-red-400' : 'bg-amber-400'}`} />
+                <div className="flex-1 min-w-0">
+                  <span className="text-white font-medium text-sm group-hover:text-blue-400 transition-colors">{town.name}</span>
+                  <span className="text-gray-500 text-xs ml-2">{town.county}</span>
                 </div>
-                <p className="text-gray-400 text-sm">
-                  See which towns are truly ADU-friendly — we score every town on permits <span className="text-white font-medium">AND</span> bylaws, then assign a letter grade from A to F.
-                </p>
-              </div>
-              <span className="px-5 py-2.5 bg-emerald-600/20 border border-emerald-500/30 text-emerald-400 rounded-lg font-medium text-sm text-center shrink-0 group-hover:bg-emerald-600/30">
-                View Scores →
-              </span>
-            </div>
-          </Link>
-        </section>
-        {/* ─── TOOLS ROW ─── */}
-        <section className="mb-12">
-          <h2 className="text-lg font-bold text-white mb-4">ADU Tools</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
-            {[
-              { icon: '💰', label: 'Cost Estimator', desc: 'Based on real permit data', href: '/estimate', color: 'border-emerald-500/20' },
-              { icon: '📝', label: 'ADU Quiz', desc: 'Check if an ADU fits', href: '/quiz', color: 'border-blue-500/20' },
-              { icon: '⚖️', label: 'Compare Towns', desc: 'Side-by-side data', href: '/compare', color: 'border-purple-500/20' },
-              { icon: '📊', label: 'Scorecards', desc: 'Town-by-town grades', href: '/scorecards', color: 'border-amber-500/20' },
-              { icon: '🔍', label: 'Compliance', desc: 'Bylaw vs. state law', href: '/compliance', color: 'border-red-500/20' },
-            ].map(tool => (
-              <Link key={tool.href} href={tool.href}
-                className={`bg-gray-800/50 border ${tool.color} rounded-xl p-4 hover:bg-gray-700/30 transition-colors min-h-[90px]`}>
-                <div className="text-2xl mb-2">{tool.icon}</div>
-                <div className="text-white font-medium text-sm">{tool.label}</div>
-                <div className="text-gray-500 text-xs">{tool.desc}</div>
+                <div className="flex items-center gap-3 text-xs shrink-0">
+                  <span className="text-red-400 font-medium">{town.conflicts}</span>
+                  <span className="text-amber-400 font-medium">{town.reviews}</span>
+                  <span className="text-emerald-400 font-medium">{town.ok}</span>
+                </div>
+                <span className={`text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded shrink-0 ${town.statusColor}`}>
+                  {town.status}
+                </span>
               </Link>
             ))}
           </div>
-        </section>
-
-        {/* ─── CLUB + BUILDERS ─── */}
-        <section className="grid sm:grid-cols-2 gap-4 mb-12">
-          <Link href="/club" className="bg-gradient-to-r from-emerald-900/30 to-blue-900/30 border border-emerald-500/20 rounded-xl p-5 hover:from-emerald-900/50 hover:to-blue-900/50 transition-colors group">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-lg">🏘️</span>
-              <h3 className="text-lg font-bold text-white">ADU Buyers Club</h3>
-              <span className="bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">NEW</span>
-            </div>
-            <p className="text-gray-400 text-sm mb-2">Join homeowners in your town to unlock 15-20% group rates from vetted builders. Free to join, no commitment.</p>
-            <span className="text-emerald-400 text-sm group-hover:underline">Join your town&apos;s group →</span>
-          </Link>
-          <Link href="/builders" className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-500/20 rounded-xl p-5 hover:from-blue-900/50 hover:to-purple-900/50 transition-colors group">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-lg">🔨</span>
-              <h3 className="text-lg font-bold text-white">For Builders</h3>
-            </div>
-            <p className="text-gray-400 text-sm mb-2">Stop marketing blind. See where ADU demand is highest, get clustered pre-qualified leads, and close more projects.</p>
-            <span className="text-blue-400 text-sm group-hover:underline">See builder dashboard →</span>
+          <Link href="/compliance" className="inline-flex items-center gap-1.5 text-sm text-blue-400 hover:text-blue-300 transition-colors">
+            Check your town&apos;s consistency <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </section>
 
-        {/* ─── BLOG / SOCIAL PROOF ─── */}
-        <section className="mb-12">
-          <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-500/20 rounded-xl p-5 md:p-6">
-            <div className="text-blue-400 text-sm font-medium mb-1">Latest Analysis</div>
-            <h3 className="text-lg md:text-xl font-bold text-white mb-2">What 1,224 ADU Permits Taught Me About Massachusetts Housing</h3>
-            <p className="text-gray-400 text-sm mb-3 hidden sm:block">One year in: which towns are succeeding, which are stalling, and why the numbers tell a more complicated story.</p>
-            <Link href="/blog/massachusetts-adu-year-one" className="text-blue-400 text-sm hover:underline">Read the full analysis →</Link>
+        {/* ─── SECTION 4: WHO THIS IS FOR ─── */}
+        <section className="mb-14">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-5">Who This Is For</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <Link href="/club" className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-emerald-500/30 transition-colors group">
+              <HomeIcon className="w-5 h-5 text-emerald-400 mb-3" />
+              <h3 className="text-white font-bold mb-1">Homeowners</h3>
+              <p className="text-gray-400 text-sm mb-3">Check if an ADU makes sense, estimate costs, and see if your town&apos;s bylaws are consistent with state law.</p>
+              <span className="inline-flex items-center gap-1 text-xs text-emerald-400 group-hover:text-emerald-300 transition-colors">
+                Explore ADU options <ArrowRight className="w-3 h-3" />
+              </span>
+            </Link>
+            <Link href="/builders" className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-blue-500/30 transition-colors group">
+              <Hammer className="w-5 h-5 text-blue-400 mb-3" />
+              <h3 className="text-white font-bold mb-1">Builders</h3>
+              <p className="text-gray-400 text-sm mb-3">See where ADU demand is highest, get clustered leads, and close more projects per town.</p>
+              <span className="inline-flex items-center gap-1 text-xs text-blue-400 group-hover:text-blue-300 transition-colors">
+                See builder opportunities <ArrowRight className="w-3 h-3" />
+              </span>
+            </Link>
+            <Link href="/compliance" className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-purple-500/30 transition-colors group">
+              <Landmark className="w-5 h-5 text-purple-400 mb-3" />
+              <h3 className="text-white font-bold mb-1">Lenders &amp; Municipalities</h3>
+              <p className="text-gray-400 text-sm mb-3">Access permit analytics, bylaw consistency analysis, and market intelligence across MA towns.</p>
+              <span className="inline-flex items-center gap-1 text-xs text-purple-400 group-hover:text-purple-300 transition-colors">
+                Bylaw Consistency Tracker <ArrowRight className="w-3 h-3" />
+              </span>
+            </Link>
           </div>
         </section>
 
-        {/* ─── COST ESTIMATOR CTA ─── */}
-        <section className="mb-12">
-          <div className="bg-gray-800 border border-gray-700 rounded-xl p-5 md:p-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div>
-                <h3 className="text-lg font-bold text-white">💰 Planning an ADU?</h3>
-                <p className="text-gray-400 text-sm">Get a rough cost estimate based on real MA permit data.</p>
-              </div>
-              <Link href="/estimate" className="px-5 py-3 sm:py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-medium text-center min-h-[48px] flex items-center justify-center shrink-0">
-                Cost Estimator →
-              </Link>
+        {/* ─── SECTION 5: LATEST ANALYSIS ─── */}
+        <section className="mb-14">
+          <Link href="/blog/boston-adu-exemption" className="block bg-gray-800/40 border border-gray-700 rounded-xl p-5 md:p-6 hover:border-gray-600 transition-colors group">
+            <div className="flex items-center gap-2 mb-2">
+              <BookOpen className="w-4 h-4 text-blue-400" />
+              <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">Latest Analysis</span>
             </div>
-          </div>
+            <h3 className="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">
+              Boston Is Exempt from the ADU Law. Here&apos;s What That Means.
+            </h3>
+            <p className="text-gray-400 text-sm">
+              Why Chapter 40A doesn&apos;t apply to Boston, what the city is doing instead, and how it affects the statewide numbers.
+            </p>
+          </Link>
         </section>
       </main>
       <Footer />

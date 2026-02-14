@@ -291,6 +291,7 @@ export default function TownSEOPageClient({
                 {town.approvalRate}%
               </span>
               <span className="text-gray-500 text-sm mb-1.5">approval rate</span>
+              <span className="text-gray-600 text-[10px] block">Share of 2025 applications approved in 2025</span>
             </div>
 
             {/* Stacked bar */}

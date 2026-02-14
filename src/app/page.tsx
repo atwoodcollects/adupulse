@@ -116,7 +116,7 @@ export default function Home() {
             <div className="bg-gray-800/60 border border-gray-700 rounded-xl p-3 sm:p-5 text-center">
               <div className="text-xl sm:text-3xl font-bold text-white mb-0.5">{overallRate}%</div>
               <div className="text-gray-300 text-[10px] sm:text-sm font-medium">Approval Rate</div>
-              <div className="text-gray-500 text-[9px] sm:text-xs mt-0.5 hidden sm:block">32% denied statewide</div>
+              <div className="text-gray-500 text-[9px] sm:text-xs mt-0.5 hidden sm:block">Share of 2025 applications approved in 2025</div>
             </div>
           </div>
         </section>

@@ -254,6 +254,7 @@ export default function TownDetail({ slug }: { slug: string }) {
             <p className="text-xs text-gray-400">
               {town.permits.approved} of {town.permits.submitted} approved (
               {town.permits.approvalRate}%)
+              <span className="text-gray-600 block text-[10px] mt-0.5">Share of 2025 applications approved in 2025</span>
             </p>
           </div>
           <div className="h-2.5 bg-gray-700 rounded-full overflow-hidden flex">

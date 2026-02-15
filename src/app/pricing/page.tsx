@@ -1,211 +1,277 @@
 "use client";
 
 import { useState } from "react";
-import { useUser, SignInButton } from "@clerk/nextjs";
-import { useSubscription } from "@/lib/subscription";
+import NavBar from "@/components/NavBar";
+import Footer from "@/components/Footer";
 
-const FEATURES_FREE = [
-  "Town pages with summary stats across Massachusetts",
-  "5 sample permit rows per town",
-  "Compare up to 2 towns",
-  "Consistency status badges",
-  "Top 5 market opportunity scores",
-  "Cost estimator & ADU quiz",
-  "Buyers Club signup",
-  "Blog & educational content",
+const PUBLIC_FEATURES = [
+  "Consistency tracker across 25+ communities",
+  "Provision-by-provision ordinance analysis",
+  "AG disapproval decision summaries",
+  "State law references & citations",
+  "Permit data for tracked towns",
+  "Quadrant rankings & town grades",
 ];
 
-const FEATURES_PRO = [
-  "Everything in Explorer, plus:",
-  "Full permit tables — every address, cost, sqft, contractor, type",
-  "Unlimited town comparisons",
-  "Detailed consistency breakdowns (bylaw vs. state law conflicts)",
-  "Export town data as CSV or PDF",
-  "All towns ranked by market opportunity score",
-  "Email alerts for permit activity & bylaw changes",
-  "Builder demand signals by town",
+const PRO_FEATURES = [
+  "Everything in Public, plus:",
+  "Email alerts for bylaw changes & AG decisions",
+  "Quarterly consistency re-reviews",
+  "Downloadable PDF reports per community",
+  "Custom audit requests",
+];
+
+const MUNICIPAL_FEATURES = [
+  "Everything in Pro, plus:",
+  "API access to consistency data",
+  "Bulk CSV/JSON exports",
+  "Embeddable widgets for your site",
+  "White-label reports",
+  "Multi-seat team access",
 ];
 
 export default function PricingPage() {
-  const [annual, setAnnual] = useState(false);
-  const { isSignedIn } = useUser();
-  const { isPro, isLoaded } = useSubscription();
-  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [interest, setInterest] = useState<Set<string>>(new Set());
+  const [submitted, setSubmitted] = useState(false);
 
-  const monthlyPrice = 49;
-  const annualMonthlyPrice = 39;
-  const annualTotal = annualMonthlyPrice * 12;
-  const savings = (monthlyPrice - annualMonthlyPrice) * 12;
-
-  async function handleCheckout() {
-    setLoading(true);
-    try {
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ plan: annual ? "pro_annual" : "pro_monthly" }),
-      });
-      const { url } = await res.json();
-      if (url) window.location.href = url;
-    } catch (err) {
-      console.error("Checkout error:", err);
-    } finally {
-      setLoading(false);
-    }
+  function toggleInterest(value: string) {
+    setInterest((prev) => {
+      const next = new Set(prev);
+      if (next.has(value)) next.delete(value);
+      else next.add(value);
+      return next;
+    });
   }
 
-  async function handlePortal() {
-    setLoading(true);
-    try {
-      const res = await fetch("/api/portal", { method: "POST" });
-      const { url } = await res.json();
-      if (url) window.location.href = url;
-    } catch {
-      console.error("Portal error");
-    } finally {
-      setLoading(false);
-    }
+  function handleNotify(e: React.FormEvent) {
+    e.preventDefault();
+    // TODO: Wire to backend (e.g. POST /api/notify or Supabase insert)
+    console.log("Notify signup:", { email, interest: Array.from(interest) });
+    setSubmitted(true);
   }
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "#111827" }}>
-      <div className="max-w-5xl mx-auto px-4 py-16 sm:py-24">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-white tracking-tight">
-            The ADU data everyone can see.
-            <br />
-            <span className="text-amber-500">
-              The intelligence only Pro unlocks.
-            </span>
+    <div className="min-h-screen bg-gray-900">
+      <NavBar />
+      <main className="max-w-5xl mx-auto px-4 py-12 sm:py-20">
+        {/* Hero */}
+        <div className="text-center mb-10">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
+            Free While We Build
           </h1>
           <p className="mt-4 text-lg text-gray-400 max-w-2xl mx-auto">
-            ADU Pulse tracks permit data across Massachusetts towns.
-            Explorer gets you started. Pro gives you the depth to make decisions.
+            ADU Pulse is the only platform tracking whether local ADU rules are
+            consistent with Massachusetts state law. Full access is free during
+            early access.
           </p>
         </div>
 
-        <div className="flex items-center justify-center gap-3 mb-10">
-          <span className={`text-sm font-medium ${!annual ? "text-white" : "text-gray-500"}`}>Monthly</span>
-          <button
-            onClick={() => setAnnual(!annual)}
-            className={`relative w-12 h-6 rounded-full transition-colors ${annual ? "bg-amber-600" : "bg-gray-600"}`}
-            aria-label="Toggle annual billing"
-          >
-            <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform ${annual ? "translate-x-6" : ""}`} />
-          </button>
-          <span className={`text-sm font-medium ${annual ? "text-white" : "text-gray-500"}`}>Annual</span>
-          {annual && (
-            <span className="ml-2 text-xs font-semibold bg-green-900/50 text-green-400 px-2 py-0.5 rounded-full">
-              Save ${savings}/yr
-            </span>
-          )}
+        {/* Early access banner */}
+        <div className="flex justify-center mb-12">
+          <span className="inline-flex items-center gap-2 bg-emerald-400/10 border border-emerald-400/30 text-emerald-400 text-sm font-semibold uppercase tracking-wider px-4 py-2 rounded-full">
+            <span className="w-2 h-2 rounded-full bg-emerald-400" />
+            Early Access — Free for Everyone
+          </span>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {/* Free Card */}
-          <div className="rounded-2xl border border-gray-700 p-8 flex flex-col" style={{ backgroundColor: "#1f2937" }}>
+        {/* Tier cards */}
+        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-20">
+          {/* Public */}
+          <div className="rounded-2xl border-2 border-emerald-500 bg-gray-800 p-6 sm:p-8 flex flex-col relative">
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+              <span className="bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                Available Now
+              </span>
+            </div>
             <div className="mb-6">
-              <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Explorer</h2>
+              <h2 className="text-sm font-semibold text-emerald-400 uppercase tracking-wider">
+                Public
+              </h2>
               <div className="mt-2 flex items-baseline gap-1">
-                <span className="text-4xl font-bold text-white">$0</span>
-                <span className="text-gray-500">/forever</span>
+                <span className="text-4xl font-bold text-white">Free</span>
+                <span className="text-gray-500">— always</span>
               </div>
               <p className="mt-2 text-sm text-gray-400">
-                Browse ADU permit data across Massachusetts. No credit card required.
+                Full consistency analysis for every tracked community.
               </p>
             </div>
             <ul className="space-y-3 flex-1 mb-8">
-              {FEATURES_FREE.map((f) => (
-                <li key={f} className="flex items-start gap-2.5 text-sm text-gray-300">
-                  <svg className="w-4 h-4 text-gray-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              {PUBLIC_FEATURES.map((f) => (
+                <li
+                  key={f}
+                  className="flex items-start gap-2.5 text-sm text-gray-300"
+                >
+                  <svg
+                    className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5 13l4 4L19 7"
+                    />
                   </svg>
                   {f}
                 </li>
               ))}
             </ul>
-            {!isSignedIn ? (
-              <SignInButton mode="modal">
-                <button className="w-full py-3 px-4 rounded-lg border border-gray-600 text-gray-300 font-medium hover:bg-gray-700 transition-colors">
-                  Create free account
-                </button>
-              </SignInButton>
-            ) : (
-              <div className="w-full py-3 px-4 rounded-lg bg-gray-700 text-gray-400 font-medium text-center">
-                Current plan
-              </div>
-            )}
+            <a
+              href="/compliance"
+              className="w-full py-3 px-4 rounded-lg bg-emerald-600 text-white font-medium text-center hover:bg-emerald-500 transition-colors block"
+            >
+              Explore the Tracker
+            </a>
           </div>
 
-          {/* Pro Card */}
-          <div className="rounded-2xl border-2 border-amber-500 p-8 flex flex-col relative" style={{ backgroundColor: "#1f2937" }}>
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-              <span className="bg-amber-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                Most Popular
-              </span>
-            </div>
+          {/* Pro */}
+          <div className="rounded-2xl border border-gray-700 bg-gray-800/50 p-6 sm:p-8 flex flex-col opacity-75">
             <div className="mb-6">
-              <h2 className="text-sm font-semibold text-amber-500 uppercase tracking-wider">Pro</h2>
+              <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider">
+                Pro
+              </h2>
               <div className="mt-2 flex items-baseline gap-1">
-                <span className="text-4xl font-bold text-white">
-                  ${annual ? annualMonthlyPrice : monthlyPrice}
-                </span>
-                <span className="text-gray-500">/month</span>
+                <span className="text-4xl font-bold text-gray-400">TBD</span>
               </div>
-              {annual && (
-                <p className="mt-1 text-sm text-gray-400">${annualTotal} billed annually</p>
-              )}
-              <p className="mt-2 text-sm text-gray-400">
-                Full permit intelligence for builders, developers, and housing professionals.
-              </p>
+              <p className="mt-2 text-sm text-gray-500">Coming 2026</p>
             </div>
             <ul className="space-y-3 flex-1 mb-8">
-              {FEATURES_PRO.map((f, i) => (
-                <li key={f} className={`flex items-start gap-2.5 text-sm ${i === 0 ? "text-gray-400 font-medium" : "text-gray-300"}`}>
+              {PRO_FEATURES.map((f, i) => (
+                <li
+                  key={f}
+                  className={`flex items-start gap-2.5 text-sm ${
+                    i === 0 ? "text-gray-500 font-medium" : "text-gray-500"
+                  }`}
+                >
                   {i > 0 && (
-                    <svg className="w-4 h-4 text-amber-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    <svg
+                      className="w-4 h-4 text-gray-600 mt-0.5 shrink-0"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M5 13l4 4L19 7"
+                      />
                     </svg>
                   )}
                   {f}
                 </li>
               ))}
             </ul>
-            {!isLoaded ? (
-              <div className="w-full py-3 px-4 rounded-lg bg-gray-700 animate-pulse h-12" />
-            ) : isPro ? (
-              <button onClick={handlePortal} disabled={loading} className="w-full py-3 px-4 rounded-lg bg-gray-200 text-gray-900 font-medium hover:bg-white transition-colors disabled:opacity-50">
-                Manage subscription
-              </button>
-            ) : isSignedIn ? (
-              <button onClick={handleCheckout} disabled={loading} className="w-full py-3 px-4 rounded-lg bg-amber-600 text-white font-medium hover:bg-amber-500 transition-colors disabled:opacity-50">
-                {loading ? "Redirecting..." : "Get Pro"}
-              </button>
-            ) : (
-              <SignInButton mode="modal">
-                <button className="w-full py-3 px-4 rounded-lg bg-amber-600 text-white font-medium hover:bg-amber-500 transition-colors">
-                  Sign up & get Pro
-                </button>
-              </SignInButton>
-            )}
+            <div className="w-full py-3 px-4 rounded-lg border border-gray-700 text-gray-500 font-medium text-center">
+              Coming Soon
+            </div>
+          </div>
+
+          {/* Municipal / API */}
+          <div className="rounded-2xl border border-gray-700 bg-gray-800/50 p-6 sm:p-8 flex flex-col opacity-75">
+            <div className="mb-6">
+              <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider">
+                Municipal / API
+              </h2>
+              <div className="mt-2 flex items-baseline gap-1">
+                <span className="text-4xl font-bold text-gray-400">Custom</span>
+              </div>
+              <p className="mt-2 text-sm text-gray-500">Coming 2026</p>
+            </div>
+            <ul className="space-y-3 flex-1 mb-8">
+              {MUNICIPAL_FEATURES.map((f, i) => (
+                <li
+                  key={f}
+                  className={`flex items-start gap-2.5 text-sm ${
+                    i === 0 ? "text-gray-500 font-medium" : "text-gray-500"
+                  }`}
+                >
+                  {i > 0 && (
+                    <svg
+                      className="w-4 h-4 text-gray-600 mt-0.5 shrink-0"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  )}
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <div className="w-full py-3 px-4 rounded-lg border border-gray-700 text-gray-500 font-medium text-center">
+              Coming Soon
+            </div>
           </div>
         </div>
 
-        <div className="mt-16 text-center">
-          <div className="inline-flex items-center gap-3 border border-gray-700 rounded-xl px-6 py-4" style={{ backgroundColor: "#1f2937" }}>
-            <span className="text-2xl">🏛️</span>
-            <div className="text-left">
-              <p className="text-sm font-semibold text-white">Need institutional access?</p>
-              <p className="text-xs text-gray-400">
-                API access, custom dashboards, and data licensing for municipalities, lenders, and agencies.
-              </p>
-            </div>
-            <a href="mailto:nick@adupulse.com?subject=Enterprise%20Access" className="ml-4 text-sm font-medium text-amber-500 hover:text-amber-400 whitespace-nowrap">
-              Contact us →
-            </a>
+        {/* Email capture */}
+        <div className="max-w-xl mx-auto">
+          <div className="bg-gray-800 border border-gray-700 rounded-2xl p-6 sm:p-8">
+            <h2 className="text-xl font-bold text-white mb-2 text-center">
+              Get Notified When Pro Launches
+            </h2>
+            <p className="text-gray-400 text-sm text-center mb-6">
+              We&apos;ll email you once — no spam.
+            </p>
+
+            {submitted ? (
+              <div className="text-center py-4">
+                <p className="text-emerald-400 font-medium">
+                  You&apos;re on the list. We&apos;ll be in touch.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleNotify} className="space-y-4">
+                <input
+                  type="email"
+                  required
+                  placeholder="you@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 text-sm"
+                />
+                <div className="flex flex-wrap gap-3">
+                  {[
+                    { value: "pro", label: "Pro" },
+                    { value: "municipal", label: "Municipal / API" },
+                    { value: "both", label: "Both" },
+                  ].map((opt) => (
+                    <label
+                      key={opt.value}
+                      className="flex items-center gap-2 text-sm text-gray-400 cursor-pointer"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={interest.has(opt.value)}
+                        onChange={() => toggleInterest(opt.value)}
+                        className="rounded border-gray-600 bg-gray-900 text-blue-500 focus:ring-blue-500 focus:ring-offset-0"
+                      />
+                      {opt.label}
+                    </label>
+                  ))}
+                </div>
+                <button
+                  type="submit"
+                  className="w-full py-3 px-4 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-500 transition-colors"
+                >
+                  Notify Me
+                </button>
+              </form>
+            )}
           </div>
         </div>
-      </div>
+      </main>
+      <Footer />
     </div>
   );
 }

@@ -94,15 +94,8 @@ export default function NavBar({ current }: { current?: string }) {
               ))}
             </nav>
 
-            {/* Mobile: Find Your Town + Hamburger */}
-            <div className="flex items-center gap-2 md:hidden">
-              <button
-                onClick={() => { setSearchOpen(true); setMenuOpen(false) }}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium rounded-lg transition-colors"
-              >
-                <Search className="w-3.5 h-3.5" />
-                Find Your Town
-              </button>
+            {/* Mobile: Hamburger */}
+            <div className="flex items-center md:hidden">
               <button
                 onClick={() => { setMenuOpen(!menuOpen); setSearchOpen(false) }}
                 className="flex flex-col justify-center gap-1.5 w-10 h-10 items-center"

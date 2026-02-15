@@ -1,5 +1,5 @@
 // compliance-data.ts
-// ADU Bylaw Consistency Data — 18 towns profiled against 760 CMR 71.00 and Chapter 150
+// ADU Bylaw Consistency Data — 22 towns profiled against 760 CMR 71.00 and Chapter 150
 // Per EOHLC guidance: local zoning that conflicts with the ADU statute is unenforceable,
 // but towns are not "out of compliance" — state law simply overrides inconsistent provisions.
 
@@ -121,6 +121,14 @@ const SOURCES = {
   worcester_adu: 'https://www.worcesterma.gov/planning-regulatory/planning-initiatives/accessory-dwelling-units',
   /** Worcester Landlord Summit 2025 — ADU updates */
   worcester_summit: 'https://masslandlords.net/worcester-landlord-summit-2025-gives-updates-on-adus-rental-registry/',
+  /** East Bridgewater AG Decision — Case #11579, April 14, 2025 */
+  ag_east_bridgewater: 'https://massago.onbaseonline.com/Massago/1700PublicAccess/MLU.htm',
+  /** Weston AG Decision — Case #11649, June 9, 2025 */
+  ag_weston: 'https://massago.onbaseonline.com/Massago/1700PublicAccess/MLU.htm',
+  /** Upton AG Decision — Case #11658, June 9, 2025 */
+  ag_upton: 'https://massago.onbaseonline.com/Massago/1700PublicAccess/MLU.htm',
+  /** Wilbraham AG Decision — Case #11778, December 19, 2025 */
+  ag_wilbraham: 'https://massago.onbaseonline.com/Massago/1700PublicAccess/MLU.htm',
 } as const;
 
 // ---------------------------------------------------------------------------
@@ -2707,6 +2715,598 @@ export const towns: TownComplianceProfile[] = [
           'Consistent with state law.',
         citations: [
           { label: 'Worcester ADU Info', url: SOURCES.worcester_adu },
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+    ],
+  },
+
+  // ── EAST BRIDGEWATER ────────────────────────────────────────────────────
+  {
+    slug: 'east-bridgewater',
+    name: 'East Bridgewater',
+    county: 'Plymouth',
+    population: 14440,
+    bylawLastUpdated: '2025 (AG partially disapproved April 2025)',
+    bylawSource: 'East Bridgewater Zoning Bylaw (AG Decision Case #11579, April 14, 2025)',
+    agDisapprovals: 2,
+    permits: { submitted: 8, approved: 8, denied: 0, pending: 0, approvalRate: 100 },
+    bottomLine: 'East Bridgewater had 2 provisions disapproved by the AG in April 2025. The single-family-lot restriction and a 4-year waiting period were both struck down. Site plan review scope and design standards remain under review.',
+    provisions: [
+      {
+        id: 'ebr-01',
+        provision: 'ADUs Limited to Single-Family Lots',
+        category: 'Use & Occupancy',
+        status: 'inconsistent',
+        stateLaw:
+          'MGL c.40A §3 — ADUs must be allowed on any lot in a single-family residential zoning district, not just lots with single-family homes.',
+        localBylaw:
+          'Bylaw limited ADUs to single-family lots only.',
+        impact:
+          'AG DISAPPROVED — restricting ADUs to lots with single-family homes conflicts with G.L. c. 40A §3.',
+        agDecision:
+          'AG Decision April 14, 2025 (Case #11579): Disapproved. ADUs must be allowed on any lot in a single-family zoning district.',
+        citations: [
+          { label: 'AG MLU Decision', url: SOURCES.ag_east_bridgewater },
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: '760 CMR 71.00', url: SOURCES.cmr71 },
+        ],
+      },
+      {
+        id: 'ebr-02',
+        provision: '4-Year Waiting Period',
+        category: 'Use & Occupancy',
+        status: 'inconsistent',
+        stateLaw:
+          'MGL c.40A §3 — No waiting period may be imposed as a condition of ADU construction for protected-use ADUs.',
+        localBylaw:
+          'Bylaw required a 4-year waiting period before an ADU could be constructed.',
+        impact:
+          'AG DISAPPROVED — waiting period conflicts with G.L. c. 40A §3. ADUs are permitted by right without temporal restrictions.',
+        agDecision:
+          'AG Decision April 14, 2025 (Case #11579): Disapproved. Waiting periods conflict with by-right protections under G.L. c. 40A §3.',
+        citations: [
+          { label: 'AG MLU Decision', url: SOURCES.ag_east_bridgewater },
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+      {
+        id: 'ebr-03',
+        provision: 'Site Plan Review Scope',
+        category: 'Process & Administration',
+        status: 'review',
+        stateLaw:
+          '760 CMR 71.04(1) — Site plan review must not function as a barrier to ADU construction.',
+        localBylaw:
+          'Site plan review scope may exceed what is reasonable for by-right ADUs.',
+        impact:
+          'May function as gatekeeping depending on implementation. Warrants monitoring.',
+        citations: [
+          { label: '760 CMR 71.00', url: SOURCES.cmr71 },
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+      {
+        id: 'ebr-04',
+        provision: 'Design Standards',
+        category: 'Building & Safety',
+        status: 'review',
+        stateLaw:
+          '760 CMR 71.05(5) — Towns may impose "reasonable" design standards but may not use them to effectively prohibit construction.',
+        localBylaw:
+          'Design standards may exceed what is reasonable under state guidelines.',
+        impact:
+          'Subjective standards could function as barriers depending on interpretation.',
+        citations: [
+          { label: '760 CMR 71.00', url: SOURCES.cmr71 },
+        ],
+      },
+      {
+        id: 'ebr-05',
+        provision: 'ADU Definition',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §1A — ADU definition per state law.',
+        localBylaw:
+          'ADU definition consistent with state law.',
+        impact:
+          'Consistent with state law.',
+        citations: [
+          { label: 'MGL c.40A §1A', url: SOURCES.mgl40a_s1a },
+        ],
+      },
+      {
+        id: 'ebr-06',
+        provision: 'By-Right in Residential Districts',
+        category: 'Process & Administration',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §3 — First ADU on a lot is permitted by right.',
+        localBylaw:
+          'ADUs permitted by right in residential districts.',
+        impact:
+          'Consistent with state law.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+      {
+        id: 'ebr-07',
+        provision: 'Short-Term Rental Restrictions',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §3 — Towns may regulate short-term rentals of ADUs.',
+        localBylaw:
+          'Short-term rental restrictions on ADUs.',
+        impact:
+          'Consistent with state law.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+    ],
+  },
+
+  // ── WESTON ──────────────────────────────────────────────────────────────
+  {
+    slug: 'weston',
+    name: 'Weston',
+    county: 'Middlesex',
+    population: 11851,
+    bylawLastUpdated: '2025 (AG partially disapproved June 2025)',
+    bylawSource: 'Weston Zoning Bylaw (AG Decision Case #11649, June 9, 2025)',
+    agDisapprovals: 3,
+    permits: { submitted: 0, approved: 0, denied: 0, pending: 0, approvalRate: 0 },
+    bottomLine: 'Weston had 3 provisions disapproved by the AG in June 2025 — a 12-month minimum lease, a 4-year dwelling existence requirement, and a special permit for newer dwellings. Zero permits submitted suggests the restrictions may be deterring applicants.',
+    provisions: [
+      {
+        id: 'wes-01',
+        provision: '12-Month Minimum Lease',
+        category: 'Use & Occupancy',
+        status: 'inconsistent',
+        stateLaw:
+          'MGL c.40A §§1A, 3 — Towns may not impose lease duration minimums beyond what state law allows for protected-use ADUs.',
+        localBylaw:
+          'Bylaw required a 12-month minimum lease for ADU tenants.',
+        impact:
+          'AG DISAPPROVED — minimum lease duration conflicts with G.L. c. 40A §§1A, 3.',
+        agDecision:
+          'AG Decision June 9, 2025 (Case #11649): Disapproved. 12-month minimum lease conflicts with G.L. c. 40A §§1A, 3.',
+        citations: [
+          { label: 'AG MLU Decision', url: SOURCES.ag_weston },
+          { label: 'MGL c.40A §1A', url: SOURCES.mgl40a_s1a },
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+      {
+        id: 'wes-02',
+        provision: '4-Year Dwelling Existence Requirement',
+        category: 'Use & Occupancy',
+        status: 'inconsistent',
+        stateLaw:
+          'MGL c.40A §3 — No temporal conditions may be imposed on ADU construction for protected-use ADUs.',
+        localBylaw:
+          'Bylaw required the principal dwelling to have existed for at least 4 years before an ADU could be built.',
+        impact:
+          'AG DISAPPROVED — dwelling age requirement conflicts with G.L. c. 40A §3. ADUs are permitted by right regardless of dwelling age.',
+        agDecision:
+          'AG Decision June 9, 2025 (Case #11649): Disapproved. 4-year dwelling existence requirement conflicts with G.L. c. 40A §3.',
+        citations: [
+          { label: 'AG MLU Decision', url: SOURCES.ag_weston },
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+      {
+        id: 'wes-03',
+        provision: 'Special Permit for Newer Dwellings',
+        category: 'Process & Administration',
+        status: 'inconsistent',
+        stateLaw:
+          'MGL c.40A §3 — First ADU on a lot is permitted by right. No special permit may be required.',
+        localBylaw:
+          'Bylaw required a special permit for ADU construction on dwellings that did not meet the 4-year existence threshold.',
+        impact:
+          'AG DISAPPROVED — special permit requirement for by-right ADUs conflicts with G.L. c. 40A §3.',
+        agDecision:
+          'AG Decision June 9, 2025 (Case #11649): Disapproved. Special permit requirement conflicts with by-right protections under G.L. c. 40A §3.',
+        citations: [
+          { label: 'AG MLU Decision', url: SOURCES.ag_weston },
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+      {
+        id: 'wes-04',
+        provision: 'Site Plan Review Standards',
+        category: 'Process & Administration',
+        status: 'review',
+        stateLaw:
+          '760 CMR 71.04(1) — Site plan review must not function as a barrier to ADU construction.',
+        localBylaw:
+          'Site plan review standards may exceed what is reasonable for by-right ADUs.',
+        impact:
+          'May function as gatekeeping depending on implementation.',
+        citations: [
+          { label: '760 CMR 71.00', url: SOURCES.cmr71 },
+        ],
+      },
+      {
+        id: 'wes-05',
+        provision: 'Dimensional Requirements',
+        category: 'Dimensional & Parking',
+        status: 'review',
+        stateLaw:
+          '760 CMR 71.05 — Dimensional standards must not be more restrictive than those for the principal dwelling.',
+        localBylaw:
+          'Dimensional requirements may exceed state limits in some configurations.',
+        impact:
+          'Warrants monitoring to ensure ADU setbacks and lot coverage don\'t exceed single-family standards.',
+        citations: [
+          { label: '760 CMR 71.00', url: SOURCES.cmr71 },
+        ],
+      },
+      {
+        id: 'wes-06',
+        provision: 'ADUs in All Residential Districts',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §3 — ADUs must be allowed in all single-family residential zoning districts.',
+        localBylaw:
+          'ADUs allowed in all residential districts.',
+        impact:
+          'Consistent with state law.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+      {
+        id: 'wes-07',
+        provision: 'Multiple ADUs by Special Permit',
+        category: 'Process & Administration',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §3 — Towns may require special permit for second or subsequent ADUs.',
+        localBylaw:
+          'Additional ADUs beyond the first require special permit.',
+        impact:
+          'Consistent with state law.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+      {
+        id: 'wes-08',
+        provision: 'ADU Definition',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §1A — ADU definition per state law.',
+        localBylaw:
+          'ADU definition consistent with state law.',
+        impact:
+          'Consistent with state law.',
+        citations: [
+          { label: 'MGL c.40A §1A', url: SOURCES.mgl40a_s1a },
+        ],
+      },
+      {
+        id: 'wes-09',
+        provision: 'Short-Term Rental Restrictions',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §3 — Towns may regulate short-term rentals of ADUs.',
+        localBylaw:
+          'Short-term rental restrictions on ADUs.',
+        impact:
+          'Consistent with state law.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+    ],
+  },
+
+  // ── UPTON ───────────────────────────────────────────────────────────────
+  {
+    slug: 'upton',
+    name: 'Upton',
+    county: 'Worcester',
+    population: 8000,
+    bylawLastUpdated: '2025 (AG partially disapproved June 2025)',
+    bylawSource: 'Upton Zoning Bylaw (AG Decision Case #11658, June 9, 2025)',
+    agDisapprovals: 2,
+    permits: { submitted: 5, approved: 4, denied: 0, pending: 0, approvalRate: 80 },
+    bottomLine: 'Upton had 2 provisions disapproved by the AG in June 2025. The AG struck the limitation of by-right ADUs to residential districts only and the special permit requirement in non-residential districts. The incomplete ADU definition and special permit criteria bleed-through remain under review.',
+    provisions: [
+      {
+        id: 'upt-01',
+        provision: 'ADUs By-Right Limited to Residential Districts Only',
+        category: 'Use & Occupancy',
+        status: 'inconsistent',
+        stateLaw:
+          'MGL c.40A §3 — ADUs must be allowed on any lot in a single-family residential zoning district, including non-residential districts where single-family homes exist.',
+        localBylaw:
+          'Bylaw limited by-right ADUs to residential districts only, excluding non-residential districts where single-family homes are present.',
+        impact:
+          'AG DISAPPROVED — ADUs must be permitted wherever single-family homes are allowed, including non-residential districts.',
+        agDecision:
+          'AG Decision June 9, 2025 (Case #11658): Disapproved. By-right ADU limitation to residential districts conflicts with G.L. c. 40A §3.',
+        citations: [
+          { label: 'AG MLU Decision', url: SOURCES.ag_upton },
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+      {
+        id: 'upt-02',
+        provision: 'Special Permit in Non-Residential Districts',
+        category: 'Process & Administration',
+        status: 'inconsistent',
+        stateLaw:
+          'MGL c.40A §3 — First ADU on a lot is permitted by right. No special permit may be required.',
+        localBylaw:
+          'Bylaw required a special permit for ADUs in non-residential districts where single-family homes exist.',
+        impact:
+          'AG DISAPPROVED — special permit requirement for first ADU conflicts with by-right protections under G.L. c. 40A §3.',
+        agDecision:
+          'AG Decision June 9, 2025 (Case #11658): Disapproved. Special permit for ADUs in non-residential districts conflicts with G.L. c. 40A §3.',
+        citations: [
+          { label: 'AG MLU Decision', url: SOURCES.ag_upton },
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+      {
+        id: 'upt-03',
+        provision: 'Incomplete ADU Definition',
+        category: 'Use & Occupancy',
+        status: 'review',
+        stateLaw:
+          'MGL c.40A §1A — ADU definition must align with state law definition.',
+        localBylaw:
+          'ADU definition may be incomplete or inconsistent with the state law definition.',
+        impact:
+          'An incomplete definition could create ambiguity about what qualifies as an ADU under local rules.',
+        citations: [
+          { label: 'MGL c.40A §1A', url: SOURCES.mgl40a_s1a },
+        ],
+      },
+      {
+        id: 'upt-04',
+        provision: 'Special Permit Criteria Bleed-Through',
+        category: 'Process & Administration',
+        status: 'review',
+        stateLaw:
+          'MGL c.40A §3 — By-right ADUs may not be subject to special permit criteria.',
+        localBylaw:
+          'Special permit criteria from other sections may bleed through to by-right ADU applications.',
+        impact:
+          'Could effectively subject by-right ADUs to special permit-level scrutiny.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+      {
+        id: 'upt-05',
+        provision: 'By-Right in Named Residential Districts',
+        category: 'Process & Administration',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §3 — First ADU on a lot is permitted by right.',
+        localBylaw:
+          'ADUs permitted by right in named residential districts.',
+        impact:
+          'Consistent with state law for the districts covered.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+      {
+        id: 'upt-06',
+        provision: 'Special Permit for Additional ADUs',
+        category: 'Process & Administration',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §3 — Towns may require special permit for second or subsequent ADUs.',
+        localBylaw:
+          'Additional ADUs beyond the first require special permit.',
+        impact:
+          'Consistent with state law.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+      {
+        id: 'upt-07',
+        provision: 'Grandfathering Provision',
+        category: 'Process & Administration',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §3 — Existing ADUs may be grandfathered under local rules.',
+        localBylaw:
+          'Pre-existing ADUs grandfathered under the new bylaw.',
+        impact:
+          'Consistent with state law.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+    ],
+  },
+
+  // ── WILBRAHAM ───────────────────────────────────────────────────────────
+  {
+    slug: 'wilbraham',
+    name: 'Wilbraham',
+    county: 'Hampden',
+    population: 14613,
+    bylawLastUpdated: '2025 (AG partially disapproved December 2025)',
+    bylawSource: 'Wilbraham Zoning Bylaw (AG Decision Case #11778, December 19, 2025)',
+    agDisapprovals: 4,
+    permits: { submitted: 4, approved: 4, denied: 0, pending: 0, approvalRate: 100 },
+    bottomLine: 'Wilbraham had 4 provisions disapproved by the AG in December 2025 — single-family-only references, minimum lot area, blanket parking requirement, and special permit for nonconforming dwellings. The most disapprovals of any town reviewed so far.',
+    provisions: [
+      {
+        id: 'wil-01',
+        provision: 'Single-Family-Only References',
+        category: 'Use & Occupancy',
+        status: 'inconsistent',
+        stateLaw:
+          'MGL c.40A §3 — ADUs must be allowed on any lot in a single-family residential zoning district, not just lots with single-family homes.',
+        localBylaw:
+          'Bylaw contained references limiting ADUs to single-family dwellings only.',
+        impact:
+          'AG DISAPPROVED — single-family-only language conflicts with G.L. c. 40A §3.',
+        agDecision:
+          'AG Decision December 19, 2025 (Case #11778): Disapproved. Single-family-only references conflict with G.L. c. 40A §3.',
+        citations: [
+          { label: 'AG MLU Decision', url: SOURCES.ag_wilbraham },
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+      {
+        id: 'wil-02',
+        provision: 'Minimum Lot Area 15k-60k sqft',
+        category: 'Dimensional & Parking',
+        status: 'inconsistent',
+        stateLaw:
+          '760 CMR 71.03(3)(b)(2) — No minimum lot size requirements may be imposed for protected-use ADUs.',
+        localBylaw:
+          'Bylaw imposed minimum lot area requirements ranging from 15,000 to 60,000 sqft depending on district.',
+        impact:
+          'AG DISAPPROVED — minimum lot area conflicts with 760 CMR 71.03(3)(b)(2). State law does not allow lot size requirements for protected use ADUs.',
+        agDecision:
+          'AG Decision December 19, 2025 (Case #11778): Disapproved. Minimum lot area conflicts with 760 CMR 71.03(3)(b)(2).',
+        citations: [
+          { label: 'AG MLU Decision', url: SOURCES.ag_wilbraham },
+          { label: '760 CMR 71.00', url: SOURCES.cmr71 },
+        ],
+      },
+      {
+        id: 'wil-03',
+        provision: 'Blanket Parking Requirement',
+        category: 'Dimensional & Parking',
+        status: 'inconsistent',
+        stateLaw:
+          'MGL c.40A §3 — Parking for an ADU shall not exceed 1 space. No blanket or additional parking requirements may be imposed.',
+        localBylaw:
+          'Bylaw imposed a blanket parking requirement that exceeded the state cap of 1 space per ADU.',
+        impact:
+          'AG DISAPPROVED — blanket parking requirement conflicts with G.L. c. 40A §3 and 760 CMR 71.05(2).',
+        agDecision:
+          'AG Decision December 19, 2025 (Case #11778): Disapproved. Parking requirement exceeds state cap.',
+        citations: [
+          { label: 'AG MLU Decision', url: SOURCES.ag_wilbraham },
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: '760 CMR 71.00', url: SOURCES.cmr71 },
+        ],
+      },
+      {
+        id: 'wil-04',
+        provision: 'Special Permit for Nonconforming Dwellings',
+        category: 'Process & Administration',
+        status: 'inconsistent',
+        stateLaw:
+          'MGL c.40A §3 — First ADU on a lot is permitted by right. No special permit may be required.',
+        localBylaw:
+          'Bylaw required a special permit for ADUs on lots with nonconforming dwellings.',
+        impact:
+          'AG DISAPPROVED — special permit requirement for first ADU conflicts with by-right protections under G.L. c. 40A §3.',
+        agDecision:
+          'AG Decision December 19, 2025 (Case #11778): Disapproved. Special permit for nonconforming dwellings conflicts with G.L. c. 40A §3.',
+        citations: [
+          { label: 'AG MLU Decision', url: SOURCES.ag_wilbraham },
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+      {
+        id: 'wil-05',
+        provision: 'Site Plan Denial Authority',
+        category: 'Process & Administration',
+        status: 'review',
+        stateLaw:
+          '760 CMR 71.04(1) — Site plan review must not function as a barrier to ADU construction.',
+        localBylaw:
+          'Site plan review includes authority to deny ADU applications.',
+        impact:
+          'Denial authority for by-right ADUs could function as a de facto special permit requirement.',
+        citations: [
+          { label: '760 CMR 71.00', url: SOURCES.cmr71 },
+        ],
+      },
+      {
+        id: 'wil-06',
+        provision: 'ADU Prohibited in Some Non-Residential Districts',
+        category: 'Use & Occupancy',
+        status: 'review',
+        stateLaw:
+          'MGL c.40A §3 — ADUs must be allowed wherever single-family homes are permitted.',
+        localBylaw:
+          'ADUs may be prohibited in non-residential districts where single-family homes exist.',
+        impact:
+          'If single-family homes are allowed in these districts, ADUs must also be allowed.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+      {
+        id: 'wil-07',
+        provision: 'By-Right in Residential Districts',
+        category: 'Process & Administration',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §3 — First ADU on a lot is permitted by right.',
+        localBylaw:
+          'ADUs permitted by right in residential districts.',
+        impact:
+          'Consistent with state law.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+      {
+        id: 'wil-08',
+        provision: 'Updated ADU Definition',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §1A — ADU definition per state law.',
+        localBylaw:
+          'ADU definition updated to align with state law.',
+        impact:
+          'Consistent with state law.',
+        citations: [
+          { label: 'MGL c.40A §1A', url: SOURCES.mgl40a_s1a },
+        ],
+      },
+      {
+        id: 'wil-09',
+        provision: 'Removed Prior Special Permit',
+        category: 'Process & Administration',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §3 — First ADU on a lot is permitted by right.',
+        localBylaw:
+          'Prior special permit requirement for ADUs was removed.',
+        impact:
+          'Consistent with state law.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+      {
+        id: 'wil-10',
+        provision: 'New ADU Regulations Section',
+        category: 'Process & Administration',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §3 — Towns may adopt local ADU regulations consistent with state law.',
+        localBylaw:
+          'New dedicated ADU regulations section adopted.',
+        impact:
+          'Consistent with state law.',
+        citations: [
           { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
         ],
       },

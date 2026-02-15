@@ -8,6 +8,13 @@ import ClientProviders from '@/components/ClientProviders'
 export const metadata: Metadata = {
   title: 'ADU Pulse | Real-Time Permit Data for Massachusetts',
   description: 'Track permits across Massachusetts, compare local bylaws to state law, and see which provisions are consistent. Real data, no guesswork.',
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: '32x32' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    apple: '/icon-192.png',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -178,16 +178,9 @@ export default function NavBar({ current }: { current?: string }) {
       )}
 
       {/* ── FULL-SCREEN MENU (mobile) ── */}
-      <div className={`fixed inset-0 z-[998] md:hidden transition-opacity duration-200 ${menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-        <div className="absolute inset-0 bg-gray-900/98" onClick={closeAll} />
-        <div className={`relative flex flex-col h-full transition-transform duration-200 ${menuOpen ? 'translate-y-0' : '-translate-y-4'}`}>
-          {/* Header */}
-          <div className="flex items-center justify-between px-4 py-3 border-b border-gray-800">
-            <span className="text-white font-bold">Menu</span>
-            <button onClick={closeAll} className="text-gray-400 hover:text-white p-1">
-              <X className="w-5 h-5" />
-            </button>
-          </div>
+      <div className={`fixed inset-0 top-14 z-[998] md:hidden transition-opacity duration-200 ${menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+        <div className="absolute inset-0 bg-gray-900" onClick={closeAll} />
+        <div className={`relative flex flex-col h-full bg-gray-900 transition-transform duration-200 ${menuOpen ? 'translate-y-0' : '-translate-y-4'}`}>
 
           {/* Grouped links */}
           <nav className="flex-1 overflow-y-auto px-4 py-4 space-y-6">
@@ -228,7 +221,7 @@ export default function NavBar({ current }: { current?: string }) {
               onClick={closeAll}
               className="block w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white text-center rounded-lg font-medium text-sm"
             >
-              Go Pro — $49/mo
+              Explore Pricing
             </Link>
           </div>
         </div>

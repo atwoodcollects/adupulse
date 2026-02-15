@@ -139,6 +139,9 @@ export default function CompliancePage() {
                   <li>We flag provisions as <span className="text-red-400">Inconsistent</span> (conflicts with state law), <span className="text-amber-400">Needs Review</span> (gray area or discretionary), or <span className="text-emerald-400">Consistent</span> (clearly within state authority).</li>
                 </ol>
                 <p className="mb-3">
+                  Bylaw analysis is powered by AI to identify local provisions that may conflict with state law. AG disapprovals are independently sourced and serve as additional validation. AI analysis may not capture every nuance of local zoning interpretation — towns marked needs review reflect provisions where further legal evaluation is recommended.
+                </p>
+                <p className="mb-3">
                   This is legal research, not legal advice. We cite specific statutes and AG decisions for every finding. Local rules can change — we track the latest version available and note the last review date for each community.
                 </p>
                 <p className="text-gray-500">

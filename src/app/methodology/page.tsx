@@ -114,33 +114,6 @@ export default function MethodologyPage() {
           </div>
         </section>
 
-        {/* Update Frequency */}
-        <section className="mb-10">
-          <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-            <span className="text-blue-400">🔄</span> Update Frequency
-          </h2>
-          <div className="bg-gray-800/50 border border-border rounded-lg p-5">
-            <div className="space-y-3 text-sm">
-              <div className="flex justify-between items-center">
-                <span className="text-gray-400">Portal-scraped towns</span>
-                <span className="text-white font-medium">Weekly</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-gray-400">Statewide survey data</span>
-                <span className="text-white font-medium">As released by EOHLC (latest: Feb 2026)</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-gray-400">Cost estimator ranges</span>
-                <span className="text-white font-medium">Monthly review based on new permits</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-gray-400">Rent / market data</span>
-                <span className="text-white font-medium">Quarterly</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Cost Estimator Methodology */}
         <section className="mb-10">
           <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">

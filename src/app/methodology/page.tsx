@@ -92,6 +92,28 @@ export default function MethodologyPage() {
           </div>
         </section>
 
+        {/* Bylaw & Ordinance Analysis */}
+        <section className="mb-10">
+          <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+            <span className="text-blue-400">⚖️</span> Bylaw &amp; Ordinance Consistency Analysis
+          </h2>
+          <div className="bg-gray-800/50 border border-border rounded-lg p-5 space-y-4">
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="bg-red-900/10 border border-red-500/20 rounded-lg p-4">
+                <div className="text-red-400 font-medium text-sm mb-1">Town Analysis (AG Reviewed)</div>
+                <p className="text-gray-400 text-sm">Town bylaws are subject to review by the Massachusetts Attorney General. Our analysis incorporates published AG disapproval decisions alongside our own provision-by-provision review against Chapter 150 and 760 CMR 71.00.</p>
+              </div>
+              <div className="bg-amber-900/10 border border-amber-500/20 rounded-lg p-4">
+                <div className="text-amber-400 font-medium text-sm mb-1">City Analysis (Independent)</div>
+                <p className="text-gray-400 text-sm">City ordinances are not subject to AG review. Inconsistencies identified on city pages are based entirely on ADU Pulse&apos;s independent analysis of the ordinance text against the same state law standards. These findings are informational, not legally authoritative.</p>
+              </div>
+            </div>
+            <p className="text-gray-500 text-sm">
+              Both town and city analyses use the same methodology: we read the full local ADU bylaw or ordinance, compare each provision against state law, and classify it as Inconsistent, Needs Review, or Consistent. The key difference is the source of authority — AG decisions for towns, our independent analysis for cities.
+            </p>
+          </div>
+        </section>
+
         {/* Update Frequency */}
         <section className="mb-10">
           <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">

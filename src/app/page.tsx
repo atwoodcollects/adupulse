@@ -6,7 +6,7 @@ import { useTown } from '@/contexts/TownContext'
 import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
 import townSEOData from '@/data/town_seo_data'
-import { towns as complianceData, getStatewideStats, getStatusCounts, getTownStatusLabel } from '@/app/compliance/compliance-data'
+import { allEntries as complianceData, getStatewideStats, getStatusCounts, getTownStatusLabel } from '@/app/compliance/compliance-data'
 import { Search, FileWarning, AlertTriangle, Gavel, ClipboardCheck, Home as HomeIcon, Hammer, Landmark, ArrowRight, BookOpen } from 'lucide-react'
 
 const featuredTowns = townSEOData
@@ -64,7 +64,7 @@ export default function Home() {
           <div className="max-w-3xl mx-auto text-center mb-8 sm:mb-10">
             <div className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-red-400 bg-red-400/10 border border-red-400/20 px-2.5 sm:px-3 py-1.5 rounded-full mb-4 sm:mb-6">
               <FileWarning className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
-              <span>{statewide.totalInconsistent} inconsistent. {statewide.totalAgDisapprovals} AG disapprovals. {statewide.townsTracked} towns.</span>
+              <span>{statewide.totalInconsistent} inconsistent. {statewide.totalAgDisapprovals} AG disapprovals. {statewide.communitiesTracked} communities.</span>
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 leading-[1.15] tracking-tight">
               Massachusetts legalized ADUs.<br className="hidden sm:block" />

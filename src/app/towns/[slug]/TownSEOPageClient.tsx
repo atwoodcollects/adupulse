@@ -14,7 +14,7 @@ import {
 } from '@/lib/townAnalytics'
 import { useSubscription } from '@/lib/subscription'
 import {
-  towns as complianceTowns,
+  allEntries as complianceTowns,
   getStatusCounts,
   type TownComplianceProfile,
   type ComplianceProvision,

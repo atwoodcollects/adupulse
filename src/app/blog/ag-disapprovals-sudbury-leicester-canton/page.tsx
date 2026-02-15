@@ -241,7 +241,7 @@ export default function AGDisapprovals() {
 
         <p className="text-gray-300 leading-relaxed mb-8">
           We track every AG disapproval and every inconsistent provision across
-          22 towns in our{" "}
+          25 communities in our{" "}
           <a
             className="text-blue-400 hover:underline"
             href="/compliance"

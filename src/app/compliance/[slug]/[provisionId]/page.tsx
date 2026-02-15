@@ -4,7 +4,7 @@ import Link from 'next/link'
 import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
 import {
-  towns,
+  allEntries,
   type ComplianceStatus,
   type ComplianceProvision,
   type Citation,
@@ -14,7 +14,7 @@ import ProvisionCTA from './ProvisionCTA'
 // ── STATIC PARAMS ───────────────────────────────────────────────────────
 export function generateStaticParams() {
   const params: { slug: string; provisionId: string }[] = []
-  for (const town of towns) {
+  for (const town of allEntries) {
     for (const p of town.provisions) {
       params.push({ slug: town.slug, provisionId: p.id })
     }
@@ -28,7 +28,7 @@ export function generateMetadata({
 }: {
   params: { slug: string; provisionId: string }
 }): Metadata {
-  const town = towns.find((t) => t.slug === params.slug)
+  const town = allEntries.find((t) => t.slug === params.slug)
   if (!town) return { title: 'Not Found | ADU Pulse' }
   const provision = town.provisions.find((p) => p.id === params.provisionId)
   if (!provision) return { title: 'Not Found | ADU Pulse' }
@@ -133,7 +133,7 @@ export default function ProvisionPage({
 }: {
   params: { slug: string; provisionId: string }
 }) {
-  const town = towns.find((t) => t.slug === params.slug)
+  const town = allEntries.find((t) => t.slug === params.slug)
   if (!town) notFound()
   const provisionIndex = town.provisions.findIndex(
     (p) => p.id === params.provisionId,
@@ -141,6 +141,8 @@ export default function ProvisionPage({
   if (provisionIndex === -1) notFound()
   const provision = town.provisions[provisionIndex]
   const cfg = statusConfig[provision.status]
+  const isCity = town.municipalityType === 'city'
+  const ruleWord = isCity ? 'Ordinance' : 'Bylaw'
 
   // Prev/next within same town
   const prev =
@@ -152,7 +154,7 @@ export default function ProvisionPage({
 
   // Related provisions from other towns in the same category (up to 5)
   const related: { town: string; slug: string; provision: ComplianceProvision }[] = []
-  for (const t of towns) {
+  for (const t of allEntries) {
     if (t.slug === town.slug) continue
     for (const p of t.provisions) {
       if (p.category === provision.category && related.length < 5) {
@@ -244,7 +246,7 @@ export default function ProvisionPage({
               </div>
               <div>
                 <p className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 mb-1">
-                  Local Bylaw
+                  Local {ruleWord}
                 </p>
                 <p className="text-sm text-gray-300 leading-relaxed">
                   {provision.localBylaw}

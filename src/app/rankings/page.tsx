@@ -16,7 +16,7 @@ import Footer from '@/components/Footer'
 import townSEOData from '@/data/town_seo_data'
 import { computeScorecard } from '@/lib/townAnalytics'
 import {
-  towns as complianceTowns,
+  allEntries as complianceTowns,
   getStatusCounts,
 } from '@/app/compliance/compliance-data'
 

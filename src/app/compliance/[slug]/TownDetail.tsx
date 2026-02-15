@@ -4,7 +4,7 @@ import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { useSubscription } from '@/lib/subscription';
 import {
-  towns,
+  allEntries,
   getStatusCounts,
   generateBottomLine,
   categories,
@@ -13,6 +13,7 @@ import {
   type ComplianceProvision,
   type Citation,
 } from '../compliance-data';
+import { formatReviewDate } from '@/lib/dates';
 
 // ── STATUS CONFIG ───────────────────────────────────────────────────────
 const statusConfig: Record<
@@ -82,7 +83,7 @@ function CitationLinks({ citations }: { citations: Citation[] }) {
 }
 
 // ── PROVISION ROW ───────────────────────────────────────────────────────
-function ProvisionRow({ provision, isPro, slug }: { provision: ComplianceProvision; isPro: boolean; slug: string }) {
+function ProvisionRow({ provision, isPro, slug, isCity }: { provision: ComplianceProvision; isPro: boolean; slug: string; isCity?: boolean }) {
   const [expanded, setExpanded] = useState(false);
   const cfg = statusConfig[provision.status];
 
@@ -149,7 +150,7 @@ function ProvisionRow({ provision, isPro, slug }: { provision: ComplianceProvisi
             </div>
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 mb-1">
-                Local Bylaw
+                {isCity ? 'Local Ordinance' : 'Local Bylaw'}
               </p>
               <p className="text-sm text-gray-300 leading-relaxed">
                 {provision.localBylaw}
@@ -190,9 +191,11 @@ export default function TownDetail({ slug }: { slug: string }) {
   const [statusFilter, setStatusFilter] = useState<ComplianceStatus | 'all'>('all');
 
   const town = useMemo(
-    () => towns.find((t) => t.slug === slug) ?? towns[0],
+    () => allEntries.find((t) => t.slug === slug) ?? allEntries[0],
     [slug],
   );
+  const isCity = town.municipalityType === 'city';
+  const ruleWord = isCity ? 'Ordinance' : 'Bylaw';
   const counts = useMemo(() => getStatusCounts(town.provisions), [town]);
   const bottomLine = useMemo(() => generateBottomLine(town), [town]);
 
@@ -217,10 +220,13 @@ export default function TownDetail({ slug }: { slug: string }) {
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
           <div>
             <h2 className="text-xl sm:text-2xl font-bold text-white">
-              {town.name} Bylaw Consistency
+              {town.name} {ruleWord} Consistency
             </h2>
             <p className="text-sm text-gray-400 mt-1">
               {town.bylawSource} · Last updated {town.bylawLastUpdated}
+            </p>
+            <p className="text-sm text-gray-500 mt-0.5">
+              Last reviewed: {formatReviewDate(town.lastReviewed)}
             </p>
           </div>
           {town.agDisapprovals > 0 && (
@@ -229,6 +235,24 @@ export default function TownDetail({ slug }: { slug: string }) {
             </span>
           )}
         </div>
+
+        {/* City disclaimer */}
+        {isCity && !town.isExempt && (
+          <div className="mb-5 border-l-4 border-amber-500/50 bg-amber-900/10 rounded-r-lg p-4">
+            <p className="text-sm text-amber-200/90 leading-relaxed">
+              <strong>Important:</strong> Unlike town bylaws, city ordinances are not reviewed by the Massachusetts Attorney General. These potential inconsistencies were identified through ADU Pulse&apos;s independent analysis of {town.name}&apos;s ADU ordinance against G.L. c. 40A &sect;3 and 760 CMR 71.00.
+            </p>
+          </div>
+        )}
+
+        {/* Boston exempt note */}
+        {town.isExempt && (
+          <div className="mb-5 border-l-4 border-blue-500/50 bg-blue-900/10 rounded-r-lg p-4">
+            <p className="text-sm text-blue-200/90 leading-relaxed">
+              <strong>Note:</strong> Boston is the only municipality in Massachusetts exempt from G.L. c. 40A. The statewide ADU by-right law does not apply here. Boston has its own ADU programs including a $7,500 design grant and 0% loans up to $50K.
+            </p>
+          </div>
+        )}
 
         {/* What This Means */}
         {town.bottomLine && (
@@ -352,7 +376,7 @@ export default function TownDetail({ slug }: { slug: string }) {
               </p>
               <div className="space-y-2">
                 {provisions.map((p) => (
-                  <ProvisionRow key={p.id} provision={p} isPro={isPro} slug={slug} />
+                  <ProvisionRow key={p.id} provision={p} isPro={isPro} slug={slug} isCity={isCity} />
                 ))}
               </div>
             </div>

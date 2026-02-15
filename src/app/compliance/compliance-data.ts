@@ -1,5 +1,5 @@
 // compliance-data.ts
-// ADU Bylaw Consistency Data — 22 towns profiled against 760 CMR 71.00 and Chapter 150
+// ADU Bylaw & Ordinance Consistency Data — 25 communities (21 towns + 4 cities) profiled against 760 CMR 71.00 and Chapter 150
 // Per EOHLC guidance: local zoning that conflicts with the ADU statute is unenforceable,
 // but towns are not "out of compliance" — state law simply overrides inconsistent provisions.
 
@@ -41,12 +41,30 @@ export interface TownComplianceProfile {
   name: string;
   county: string;
   population: number;
+  municipalityType?: 'town' | 'city';
+  lastReviewed: string;
   bylawLastUpdated: string;
   bylawSource: string;
   agDisapprovals: number;
   permits: TownPermitData;
   bottomLine?: string;
   provisions: ComplianceProvision[];
+  resistanceTag?: 'active-resistance';
+  isExempt?: boolean;
+}
+
+export interface NarrativeCityProfile {
+  slug: string;
+  name: string;
+  county: string;
+  population: number;
+  municipalityType: 'city';
+  lastReviewed: string;
+  permits: TownPermitData;
+  tag: 'passive-resistance' | 'no-ordinance' | 'stalled';
+  title: string;
+  summary: string;
+  body: string;
 }
 
 // ---------------------------------------------------------------------------
@@ -129,6 +147,14 @@ const SOURCES = {
   ag_upton: 'https://massago.onbaseonline.com/Massago/1700PublicAccess/MLU.htm',
   /** Wilbraham AG Decision — Case #11778, December 19, 2025 */
   ag_wilbraham: 'https://massago.onbaseonline.com/Massago/1700PublicAccess/MLU.htm',
+  /** Quincy ADU Guidelines (Feb 28, 2025) */
+  quincy_adu: 'https://www.quincyma.gov/government/planning___community_development/accessory_dwelling_units.php',
+  /** Salem ADU Ordinance */
+  salem_adu: 'https://www.salem.com/planning-and-community-development/pages/accessory-dwelling-units',
+  /** Revere ADU Ordinance — Title 17, Chapter 17.25 */
+  revere_adu: 'https://www.revere.org/departments/planning-development/accessory-dwelling-units',
+  /** Revere Home Rule Petition — March 2025 */
+  revere_home_rule: 'https://www.revere.org/departments/city-council',
 } as const;
 
 // ---------------------------------------------------------------------------
@@ -142,6 +168,7 @@ export const towns: TownComplianceProfile[] = [
     name: 'Plymouth',
     county: 'Plymouth',
     population: 61217,
+    lastReviewed: '2026-02-15',
     bylawLastUpdated: 'October 2024',
     bylawSource: 'Plymouth Zoning Bylaw §205-51',
     agDisapprovals: 0,
@@ -306,6 +333,7 @@ export const towns: TownComplianceProfile[] = [
     name: 'Nantucket',
     county: 'Nantucket',
     population: 14255,
+    lastReviewed: '2026-02-15',
     bylawLastUpdated: 'Pre-2024 (not updated post-Chapter 150)',
     bylawSource: 'Nantucket Zoning Bylaw §139-16A',
     agDisapprovals: 0,
@@ -425,6 +453,7 @@ export const towns: TownComplianceProfile[] = [
     name: 'Leicester',
     county: 'Worcester',
     population: 11087,
+    lastReviewed: '2025-05-27',
     bylawLastUpdated: 'May 2025 (AG partial disapproval)',
     bylawSource: 'Leicester Zoning Bylaw — Town Meeting Article 9',
     agDisapprovals: 3,
@@ -545,6 +574,7 @@ export const towns: TownComplianceProfile[] = [
     name: 'Brookline',
     county: 'Norfolk',
     population: 63191,
+    lastReviewed: '2025-06-01',
     bylawLastUpdated: 'June 2025 (AG partial disapproval)',
     bylawSource: 'Brookline Zoning Bylaw — Town Meeting Article',
     agDisapprovals: 2,
@@ -668,6 +698,7 @@ export const towns: TownComplianceProfile[] = [
     name: 'Canton',
     county: 'Norfolk',
     population: 24370,
+    lastReviewed: '2025-06-04',
     bylawLastUpdated: 'June 2025 (AG partial disapproval)',
     bylawSource: 'Canton Zoning Bylaw — Town Meeting Article',
     agDisapprovals: 1,
@@ -779,6 +810,7 @@ export const towns: TownComplianceProfile[] = [
     name: 'Hanson',
     county: 'Plymouth',
     population: 10639,
+    lastReviewed: '2025-06-01',
     bylawLastUpdated: '2025 (AG partial disapproval)',
     bylawSource: 'Hanson Zoning Bylaw — Town Meeting Article',
     agDisapprovals: 1,
@@ -877,6 +909,7 @@ export const towns: TownComplianceProfile[] = [
     name: 'New Bedford',
     county: 'Bristol',
     population: 101079,
+    lastReviewed: '2026-02-15',
     bylawLastUpdated: 'September 2024',
     bylawSource: 'New Bedford Zoning Ordinance Ch. 9, §§2340 & 1200',
     agDisapprovals: 0,
@@ -1039,6 +1072,7 @@ export const towns: TownComplianceProfile[] = [
     name: 'Newton',
     county: 'Norfolk',
     population: 88923,
+    lastReviewed: '2026-02-15',
     bylawLastUpdated: 'April 2025',
     bylawSource: 'Newton Zoning Ordinance §30-22 (April 2025 amendments)',
     agDisapprovals: 0,
@@ -1203,6 +1237,7 @@ export const towns: TownComplianceProfile[] = [
     name: 'Andover',
     county: 'Essex',
     population: 36569,
+    lastReviewed: '2026-02-15',
     bylawLastUpdated: 'April 2025 (AG review pending)',
     bylawSource: 'Andover Zoning Bylaw Article VIII, Art. 22 (April 2025 Town Meeting)',
     agDisapprovals: 0,
@@ -1333,6 +1368,7 @@ export const towns: TownComplianceProfile[] = [
     name: 'Milton',
     county: 'Norfolk',
     population: 28630,
+    lastReviewed: '2026-02-15',
     bylawLastUpdated: 'Pre-2025 (Town Meeting referred back to Planning Board)',
     bylawSource: 'Milton Zoning Bylaw §275-10.13',
     agDisapprovals: 0,
@@ -1496,6 +1532,7 @@ export const towns: TownComplianceProfile[] = [
     name: 'Duxbury',
     county: 'Plymouth',
     population: 16090,
+    lastReviewed: '2026-02-15',
     bylawLastUpdated: 'June 2025 (STM amendments pending AG approval)',
     bylawSource: 'Duxbury Zoning Bylaw',
     agDisapprovals: 0,
@@ -1633,6 +1670,7 @@ export const towns: TownComplianceProfile[] = [
     name: 'Barnstable',
     county: 'Barnstable',
     population: 48916,
+    lastReviewed: '2026-02-15',
     bylawLastUpdated: 'May 2025',
     bylawSource: 'Barnstable Zoning Ordinance §240-47.2 (May 2025 amendments)',
     agDisapprovals: 0,
@@ -1790,6 +1828,7 @@ export const towns: TownComplianceProfile[] = [
     name: 'Falmouth',
     county: 'Barnstable',
     population: 32517,
+    lastReviewed: '2026-02-15',
     bylawLastUpdated: 'Pre-Chapter 150',
     bylawSource: 'Falmouth Zoning Bylaw Chapter 240, ADU provisions (amendments under Planning Board review)',
     agDisapprovals: 0,
@@ -1929,6 +1968,7 @@ export const towns: TownComplianceProfile[] = [
     name: 'Sudbury',
     county: 'Middlesex',
     population: 18934,
+    lastReviewed: '2025-10-01',
     bylawLastUpdated: 'May 2025 (AG partially disapproved Oct 2025)',
     bylawSource: 'Sudbury Zoning Bylaw, Art. 28 (May 2025 STM — AG partially disapproved October 2025)',
     agDisapprovals: 3,
@@ -2109,6 +2149,7 @@ export const towns: TownComplianceProfile[] = [
     name: 'Needham',
     county: 'Norfolk',
     population: 32091,
+    lastReviewed: '2026-02-15',
     bylawLastUpdated: '2023 (Planning Board planning fall 2025 update)',
     bylawSource: 'Needham Zoning Bylaw (2023, Planning Board planning fall 2025 update)',
     agDisapprovals: 0,
@@ -2250,6 +2291,8 @@ export const towns: TownComplianceProfile[] = [
     name: 'Boston',
     county: 'Suffolk',
     population: 675647,
+    lastReviewed: '2026-02-15',
+    isExempt: true,
     bylawLastUpdated: 'Ongoing (BPDA zoning updates)',
     bylawSource: 'Boston Zoning Code (BPDA Citywide ADU Program, ongoing zoning updates)',
     agDisapprovals: 0,
@@ -2419,6 +2462,7 @@ export const towns: TownComplianceProfile[] = [
     name: 'Somerville',
     county: 'Middlesex',
     population: 81045,
+    lastReviewed: '2026-02-15',
     bylawLastUpdated: 'June 2025',
     bylawSource: 'Somerville Zoning Ordinance (Ord. 2025-16, adopted 06/26/2025)',
     agDisapprovals: 0,
@@ -2556,6 +2600,8 @@ export const towns: TownComplianceProfile[] = [
     name: 'Worcester',
     county: 'Worcester',
     population: 206518,
+    municipalityType: 'city',
+    lastReviewed: '2026-02-15',
     bylawLastUpdated: 'December 2023 (amendments proposed May 2025)',
     bylawSource: 'Worcester Zoning Ordinance, ADU provisions (December 2023, amendments proposed May 2025)',
     agDisapprovals: 0,
@@ -2727,6 +2773,7 @@ export const towns: TownComplianceProfile[] = [
     name: 'East Bridgewater',
     county: 'Plymouth',
     population: 14440,
+    lastReviewed: '2025-04-14',
     bylawLastUpdated: '2025 (AG partially disapproved April 2025)',
     bylawSource: 'East Bridgewater Zoning Bylaw (AG Decision Case #11579, April 14, 2025)',
     agDisapprovals: 2,
@@ -2855,6 +2902,7 @@ export const towns: TownComplianceProfile[] = [
     name: 'Weston',
     county: 'Middlesex',
     population: 11851,
+    lastReviewed: '2025-06-09',
     bylawLastUpdated: '2025 (AG partially disapproved June 2025)',
     bylawSource: 'Weston Zoning Bylaw (AG Decision Case #11649, June 9, 2025)',
     agDisapprovals: 3,
@@ -3015,6 +3063,7 @@ export const towns: TownComplianceProfile[] = [
     name: 'Upton',
     county: 'Worcester',
     population: 8000,
+    lastReviewed: '2025-06-09',
     bylawLastUpdated: '2025 (AG partially disapproved June 2025)',
     bylawSource: 'Upton Zoning Bylaw (AG Decision Case #11658, June 9, 2025)',
     agDisapprovals: 2,
@@ -3141,6 +3190,7 @@ export const towns: TownComplianceProfile[] = [
     name: 'Wilbraham',
     county: 'Hampden',
     population: 14613,
+    lastReviewed: '2025-12-19',
     bylawLastUpdated: '2025 (AG partially disapproved December 2025)',
     bylawSource: 'Wilbraham Zoning Bylaw (AG Decision Case #11778, December 19, 2025)',
     agDisapprovals: 4,
@@ -3312,6 +3362,344 @@ export const towns: TownComplianceProfile[] = [
       },
     ],
   },
+
+  // ── QUINCY ──────────────────────────────────────────────────────────────
+  {
+    slug: 'quincy',
+    name: 'Quincy',
+    county: 'Norfolk',
+    population: 101636,
+    municipalityType: 'city',
+    lastReviewed: '2026-02-15',
+    bylawLastUpdated: 'February 2025',
+    bylawSource: 'Quincy ADU Guidelines (February 28, 2025)',
+    agDisapprovals: 0,
+    permits: { submitted: 17, approved: 6, denied: 0, pending: 0, approvalRate: 35 },
+    bottomLine: 'Quincy has 3 provisions identified as inconsistent through ADU Pulse\u2019s independent analysis. District exclusions, a variance lot exclusion, and a detached ADU one-story limit all conflict with state law. The 35% approval rate \u2014 among the lowest for cities \u2014 may reflect these barriers.',
+    provisions: [
+      {
+        id: 'qcy-01',
+        provision: 'District Exclusions (Bus C, Ind A, Ind B)',
+        category: 'Use & Occupancy',
+        status: 'inconsistent',
+        stateLaw:
+          '760 CMR 71.02 \u2014 ADUs must be allowed on any lot with a single-family dwelling, in any zoning district where single-family homes are permitted.',
+        localBylaw:
+          'Quincy excludes ADUs from Business C, Industrial A, and Industrial B districts, even where single-family homes exist.',
+        impact:
+          'These exclusions are unenforceable. If single-family homes are permitted in a district, ADUs must also be allowed by right.',
+        citations: [
+          { label: '760 CMR 71.02', url: SOURCES.cmr71 },
+          { label: 'MGL c.40A \u00a73', url: SOURCES.mgl40a_s3 },
+          { label: 'Quincy ADU Info', url: SOURCES.quincy_adu },
+        ],
+      },
+      {
+        id: 'qcy-02',
+        provision: 'Variance Lot Exclusion',
+        category: 'Use & Occupancy',
+        status: 'inconsistent',
+        stateLaw:
+          '760 CMR 71.03(5) \u2014 ADUs are allowed on any lot with a single-family dwelling regardless of how the lot or dwelling was permitted.',
+        localBylaw:
+          'Quincy excludes lots that received a variance from ADU eligibility.',
+        impact:
+          'This exclusion conflicts with state law. Variance lots with single-family homes are eligible for ADUs.',
+        citations: [
+          { label: '760 CMR 71.03(5)', url: SOURCES.cmr71 },
+          { label: 'Quincy ADU Info', url: SOURCES.quincy_adu },
+        ],
+      },
+      {
+        id: 'qcy-03',
+        provision: 'Detached ADU One-Story Limit',
+        category: 'Dimensional & Parking',
+        status: 'inconsistent',
+        stateLaw:
+          '760 CMR 71.03(3)(b)(2) \u2014 Towns may not impose height or story limits on detached ADUs beyond what applies to the principal dwelling.',
+        localBylaw:
+          'Detached ADUs limited to one story regardless of what the principal dwelling allows.',
+        impact:
+          'This restriction is more restrictive than what state law allows for the principal dwelling and is unenforceable.',
+        citations: [
+          { label: '760 CMR 71.03(3)(b)(2)', url: SOURCES.cmr71 },
+          { label: 'Quincy ADU Info', url: SOURCES.quincy_adu },
+        ],
+      },
+      {
+        id: 'qcy-04',
+        provision: '320 SF Minimum Size',
+        category: 'Dimensional & Parking',
+        status: 'review',
+        stateLaw:
+          '760 CMR 71.05(1) \u2014 State law sets a maximum (900 sqft) but does not address minimum size. A high minimum could function as a barrier.',
+        localBylaw:
+          'ADUs must be at least 320 square feet.',
+        impact:
+          '320 SF is reasonable but higher than some jurisdictions. Worth monitoring whether it prevents smaller, lower-cost ADUs.',
+        citations: [
+          { label: '760 CMR 71.00', url: SOURCES.cmr71 },
+        ],
+      },
+      {
+        id: 'qcy-05',
+        provision: 'Transit Parking Exemption',
+        category: 'Dimensional & Parking',
+        status: 'compliant',
+        stateLaw:
+          '760 CMR 71.05(2) \u2014 No more than 1 parking space may be required per ADU.',
+        localBylaw:
+          'Properties within 0.5 miles of transit are exempt from ADU parking requirements.',
+        impact:
+          'More permissive than state law. Consistent.',
+        citations: [
+          { label: 'Quincy ADU Info', url: SOURCES.quincy_adu },
+        ],
+      },
+      {
+        id: 'qcy-06',
+        provision: 'STR Prohibition',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A \u00a73 \u2014 Towns may regulate short-term rentals of ADUs.',
+        localBylaw:
+          'Short-term rentals of ADUs prohibited.',
+        impact:
+          'Consistent with state law.',
+        citations: [
+          { label: 'MGL c.40A \u00a73', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+    ],
+  },
+
+  // ── SALEM ───────────────────────────────────────────────────────────────
+  {
+    slug: 'salem',
+    name: 'Salem',
+    county: 'Essex',
+    population: 44480,
+    municipalityType: 'city',
+    lastReviewed: '2026-02-15',
+    bylawLastUpdated: '2022 (amendment pending May 2025)',
+    bylawSource: 'Salem Zoning Ordinance, ADU provisions (2022, amendment pending May 2025)',
+    agDisapprovals: 0,
+    permits: { submitted: 9, approved: 9, denied: 0, pending: 0, approvalRate: 100 },
+    bottomLine: 'Salem has 1 provision identified as inconsistent: a mandatory 70% Fair Market Rent cap that conflicts with state regulations. Two additional provisions are under review. Despite this, Salem has a 100% approval rate on the 9 permits submitted.',
+    provisions: [
+      {
+        id: 'slm-01',
+        provision: '70% Fair Market Rent Cap',
+        category: 'Use & Occupancy',
+        status: 'inconsistent',
+        stateLaw:
+          '760 CMR 71.03(3)(b)(4) \u2014 If imposed as a mandatory condition of ADU approval, rent caps conflict with state regulations governing protected-use ADUs.',
+        localBylaw:
+          'ADU rent capped at 70% of HUD Fair Market Rent for the area.',
+        impact:
+          'A mandatory rent cap on protected-use ADUs is unenforceable. Voluntary affordability incentives are permissible, but requiring below-market rent as a condition of approval conflicts with state law.',
+        citations: [
+          { label: '760 CMR 71.03(3)(b)(4)', url: SOURCES.cmr71 },
+          { label: 'Salem ADU Info', url: SOURCES.salem_adu },
+        ],
+      },
+      {
+        id: 'slm-02',
+        provision: '350 SF Minimum Size',
+        category: 'Dimensional & Parking',
+        status: 'review',
+        stateLaw:
+          '760 CMR 71.05(1) \u2014 State law sets a maximum (900 sqft) but does not address minimum size.',
+        localBylaw:
+          'ADUs must be at least 350 square feet.',
+        impact:
+          '350 SF is on the higher end for minimums. Could prevent studio-style ADUs.',
+        citations: [
+          { label: '760 CMR 71.00', url: SOURCES.cmr71 },
+        ],
+      },
+      {
+        id: 'slm-03',
+        provision: 'District Limitations',
+        category: 'Use & Occupancy',
+        status: 'review',
+        stateLaw:
+          'MGL c.40A \u00a73 \u2014 ADUs must be allowed in all districts where single-family homes are permitted.',
+        localBylaw:
+          'ADU eligibility may be limited to certain districts. Amendment pending to correct this.',
+        impact:
+          'Being corrected via pending amendment. Currently a gray area.',
+        citations: [
+          { label: 'Salem ADU Info', url: SOURCES.salem_adu },
+          { label: 'MGL c.40A \u00a73', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+      {
+        id: 'slm-04',
+        provision: 'STR Restrictions',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A \u00a73 \u2014 Towns may regulate short-term rentals of ADUs.',
+        localBylaw:
+          'Short-term rental restrictions on ADUs.',
+        impact:
+          'Consistent with state law.',
+        citations: [
+          { label: 'MGL c.40A \u00a73', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+    ],
+  },
+
+  // ── REVERE ──────────────────────────────────────────────────────────────
+  {
+    slug: 'revere',
+    name: 'Revere',
+    county: 'Suffolk',
+    population: 62186,
+    municipalityType: 'city',
+    resistanceTag: 'active-resistance',
+    lastReviewed: '2026-02-15',
+    bylawLastUpdated: 'October 2022',
+    bylawSource: 'Revere Zoning Ordinance, Title 17, Chapter 17.25 (October 2022)',
+    agDisapprovals: 0,
+    permits: { submitted: 17, approved: 9, denied: 0, pending: 0, approvalRate: 53 },
+    bottomLine: 'Revere is actively resisting the state ADU law. Councillor Michelle Kelley filed a Home Rule Petition in March 2025 seeking exemption. The Planning Director expressed skepticism about its viability. Meanwhile, all 4 conflicting provisions have been unenforceable since February 2, 2025.',
+    provisions: [
+      {
+        id: 'rev-01',
+        provision: 'Owner-Occupancy (2-Year Minimum)',
+        category: 'Use & Occupancy',
+        status: 'inconsistent',
+        stateLaw:
+          '760 CMR 71.03(3)(b)(3) \u2014 No owner-occupancy requirement may be imposed for protected-use ADUs.',
+        localBylaw:
+          'Property owner must have occupied the dwelling for at least 2 years before building an ADU.',
+        impact:
+          'This provision is unenforceable. State law prohibits owner-occupancy requirements for protected-use ADUs.',
+        citations: [
+          { label: '760 CMR 71.03(3)(b)(3)', url: SOURCES.cmr71 },
+          { label: 'MGL c.40A \u00a73', url: SOURCES.mgl40a_s3 },
+          { label: 'Revere ADU Info', url: SOURCES.revere_adu },
+        ],
+      },
+      {
+        id: 'rev-02',
+        provision: 'Single-Family Homes Only',
+        category: 'Use & Occupancy',
+        status: 'inconsistent',
+        stateLaw:
+          '760 CMR 71.02 \u2014 ADUs must be allowed on any lot in a single-family residential zoning district, regardless of existing use. EOHLC FAQ confirms this interpretation.',
+        localBylaw:
+          'ADUs limited to lots with single-family homes only.',
+        impact:
+          'This restriction is unenforceable. ADUs are allowed on any lot in a district where single-family homes are permitted.',
+        citations: [
+          { label: '760 CMR 71.02', url: SOURCES.cmr71 },
+          { label: 'EOHLC FAQ', url: SOURCES.eohlc_faq },
+          { label: 'Revere ADU Info', url: SOURCES.revere_adu },
+        ],
+      },
+      {
+        id: 'rev-03',
+        provision: 'No Enlarging Principal Dwelling',
+        category: 'Use & Occupancy',
+        status: 'inconsistent',
+        stateLaw:
+          'MGL c.40A \u00a73 \u2014 ADUs may be within, attached to, or detached from the principal dwelling. Attached ADUs necessarily involve enlarging the structure.',
+        localBylaw:
+          'ADU construction cannot enlarge the principal dwelling.',
+        impact:
+          'This effectively prohibits attached ADUs, which state law explicitly allows. Unenforceable.',
+        citations: [
+          { label: 'MGL c.40A \u00a73', url: SOURCES.mgl40a_s3 },
+          { label: 'Revere ADU Info', url: SOURCES.revere_adu },
+        ],
+      },
+      {
+        id: 'rev-04',
+        provision: '600 SF Max / 1-Bedroom Limit',
+        category: 'Dimensional & Parking',
+        status: 'inconsistent',
+        stateLaw:
+          'MGL c.40A \u00a77 \u2014 State law sets the maximum at 900 sqft. G.L. c. 40A \u00a73 prohibits regulating interior area of single-family residential buildings (Leicester AG Decision, 5/27/2025).',
+        localBylaw:
+          'ADUs capped at 600 sqft and limited to 1 bedroom.',
+        impact:
+          'Both the 600 SF cap and the 1-bedroom limit are more restrictive than state law allows and are unenforceable. The AG struck down similar bedroom caps in Leicester.',
+        citations: [
+          { label: 'MGL c.40A \u00a77', url: SOURCES.mgl40a_s3 },
+          { label: 'AG Leicester Decision', url: SOURCES.ag_leicester },
+          { label: 'Revere ADU Info', url: SOURCES.revere_adu },
+        ],
+      },
+    ],
+  },
+];
+
+// ---------------------------------------------------------------------------
+// DERIVED EXPORTS
+// ---------------------------------------------------------------------------
+
+/** Towns only (AG-reviewed bylaws) */
+export const townEntries: TownComplianceProfile[] = towns.filter(
+  (t) => (t.municipalityType ?? 'town') === 'town',
+);
+
+/** Cities only (independently analyzed ordinances) */
+export const cities: TownComplianceProfile[] = towns.filter(
+  (t) => t.municipalityType === 'city',
+);
+
+/** All communities with provision data (towns + cities) */
+export const allEntries: TownComplianceProfile[] = towns;
+
+// ---------------------------------------------------------------------------
+// NARRATIVE SPECIAL CASES (no provision data)
+// ---------------------------------------------------------------------------
+
+export const narrativeCities: NarrativeCityProfile[] = [
+  {
+    slug: 'fall-river',
+    name: 'Fall River',
+    county: 'Bristol',
+    population: 94000,
+    municipalityType: 'city',
+    lastReviewed: '2026-02-15',
+    permits: { submitted: 25, approved: 13, denied: 0, pending: 0, approvalRate: 52 },
+    tag: 'passive-resistance',
+    title: 'Fall River: Passive Resistance',
+    summary: 'Mayor publicly opposed ADU law. ZBA attaching \u201cno ADU\u201d conditions to permits.',
+    body: 'Fall River represents a case of passive resistance to the state ADU law. Mayor Paul Coogan has publicly opposed the legislation, and the city\u2019s Zoning Board of Appeals has been attaching \u201cno ADU\u201d conditions to variance and special permit approvals \u2014 an unusual tactic that attempts to preemptively block homeowners from exercising their state-law right to build an ADU.\n\nThis approach is legally questionable. Since February 2, 2025, the right to build a first ADU is protected by state law and cannot be conditioned away by local boards. A \u201cno ADU\u201d condition attached to an unrelated permit likely has no legal force.\n\nDespite the resistance, Fall River has processed 25 ADU applications with 13 approved (52% rate). The below-average approval rate may reflect the adversarial administrative environment rather than legitimate permitting concerns.\n\nADU Pulse is monitoring Fall River for further developments. Homeowners who have been denied or discouraged from building an ADU may have legal recourse under G.L. c. 40A \u00a73.',
+  },
+  {
+    slug: 'lowell',
+    name: 'Lowell',
+    county: 'Middlesex',
+    population: 115554,
+    municipalityType: 'city',
+    lastReviewed: '2026-02-15',
+    permits: { submitted: 26, approved: 26, denied: 0, pending: 0, approvalRate: 100 },
+    tag: 'no-ordinance',
+    title: 'Lowell: No Local Ordinance',
+    summary: 'Council defeated ADU ordinance 7-4, but city is 4th in state for ADU permits (26).',
+    body: 'Lowell\u2019s City Council defeated a proposed ADU ordinance by a 7-4 vote in October 2023 \u2014 before the state ADU law took effect. The council chose not to create local ADU regulations, leaving state law as the sole framework governing ADU construction in the city.\n\nThe result is striking: Lowell is the 4th highest municipality in Massachusetts for ADU permits, with 26 submitted and all 26 approved (100% rate). This makes Lowell a powerful case study demonstrating that state law alone is sufficient to enable ADU construction \u2014 local ordinances are not required.\n\nBy not passing a local ordinance, Lowell inadvertently created one of the most permissive ADU environments in the state. There are no local restrictions layered on top of state law, no additional review hurdles, and no provisions that might conflict with G.L. c. 40A \u00a73.\n\nLowell\u2019s experience suggests that the simplest path to ADU-friendly policy may be no local policy at all.',
+  },
+  {
+    slug: 'medford',
+    name: 'Medford',
+    county: 'Middlesex',
+    population: 59659,
+    municipalityType: 'city',
+    lastReviewed: '2026-02-15',
+    permits: { submitted: 22, approved: 19, denied: 0, pending: 0, approvalRate: 86 },
+    tag: 'stalled',
+    title: 'Medford: Stalled',
+    summary: 'Council withdrew ADU proposal Dec 16, 2025. Old ordinance predates state law.',
+    body: 'Medford\u2019s City Council withdrew its ADU ordinance proposal on December 16, 2025, leaving the city without updated ADU regulations. The existing ordinance (Section 94-8.2) predates the state ADU law and has not been reconciled with G.L. c. 40A \u00a73 or 760 CMR 71.00.\n\nThe risk: local permitting staff may still be applying outdated rules from the old ordinance in practice, even though any provisions inconsistent with state law are technically unenforceable. Without an updated ordinance, there\u2019s no clear local framework that reflects the current legal landscape.\n\nDespite the regulatory uncertainty, Medford has processed 22 ADU applications with 19 approved (86% rate), suggesting that the building department is largely processing applications under state law regardless of the stalled local ordinance.\n\nADU Pulse is monitoring Medford for any renewed effort to update the ordinance. Homeowners should be aware that state law governs their ADU rights regardless of local ordinance status.',
+  },
 ];
 
 // ---------------------------------------------------------------------------
@@ -3326,28 +3714,38 @@ export function getStatusCounts(provisions: ComplianceProvision[]) {
   };
 }
 
-export function getStatewideStats(allTowns: TownComplianceProfile[]) {
-  const totalInconsistent = allTowns.reduce(
+export function getStatewideStats(all: TownComplianceProfile[]) {
+  const totalInconsistent = all.reduce(
     (sum, t) => sum + t.provisions.filter((p) => p.status === 'inconsistent').length,
     0,
   );
-  const totalAgDisapprovals = allTowns.reduce(
+  const totalAgDisapprovals = all.reduce(
     (sum, t) => sum + t.agDisapprovals,
     0,
   );
-  const townsWithInconsistencies = allTowns.filter((t) =>
+  const communitiesWithInconsistencies = all.filter((t) =>
     t.provisions.some((p) => p.status === 'inconsistent'),
   ).length;
+  const tEntries = all.filter((t) => (t.municipalityType ?? 'town') === 'town');
+  const cEntries = all.filter((t) => t.municipalityType === 'city');
 
-  return { totalInconsistent, totalAgDisapprovals, townsWithInconsistencies, townsTracked: allTowns.length };
+  return {
+    totalInconsistent,
+    totalAgDisapprovals,
+    townsWithInconsistencies: communitiesWithInconsistencies,
+    townsTracked: tEntries.length,
+    citiesTracked: cEntries.length,
+    communitiesTracked: all.length,
+  };
 }
 
 export function generateBottomLine(town: TownComplianceProfile): string {
   const counts = getStatusCounts(town.provisions);
   const hasAg = town.agDisapprovals > 0;
+  const ruleWord = town.municipalityType === 'city' ? 'ordinance' : 'bylaw';
 
   if (counts.inconsistent === 0 && counts.review === 0) {
-    return `${town.name}'s ADU bylaw appears fully consistent with Chapter 150 and 760 CMR 71.00. No inconsistencies identified.`;
+    return `${town.name}'s ADU ${ruleWord} appears fully consistent with Chapter 150 and 760 CMR 71.00. No inconsistencies identified.`;
   }
 
   const parts: string[] = [];
@@ -3376,6 +3774,11 @@ export function getTownStatusLabel(town: TownComplianceProfile): {
   color: string;
   bg: string;
 } {
+  // Active resistance badge (gray)
+  if (town.resistanceTag === 'active-resistance') {
+    return { label: 'ACTIVE RESISTANCE', color: 'text-gray-300', bg: 'bg-gray-600/30' };
+  }
+  // AG disapproval badge (red) — only towns get AG review
   if (town.agDisapprovals > 0) {
     return {
       label: `${town.agDisapprovals} AG DISAPPROVAL${town.agDisapprovals > 1 ? 'S' : ''}`,
@@ -3383,6 +3786,15 @@ export function getTownStatusLabel(town: TownComplianceProfile): {
       bg: 'bg-red-400/10',
     };
   }
+  // City with independent analysis (amber)
+  if (town.municipalityType === 'city') {
+    const counts = getStatusCounts(town.provisions);
+    if (counts.inconsistent > 0) {
+      return { label: 'ADU PULSE IDENTIFIED', color: 'text-amber-400', bg: 'bg-amber-400/10' };
+    }
+    return { label: 'CONSISTENT', color: 'text-emerald-400', bg: 'bg-emerald-400/10' };
+  }
+  // Standard town logic
   const counts = getStatusCounts(town.provisions);
   if (counts.inconsistent > 0) {
     return { label: 'NOT UPDATED', color: 'text-amber-400', bg: 'bg-amber-400/10' };

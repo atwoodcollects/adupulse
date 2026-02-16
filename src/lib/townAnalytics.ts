@@ -11,6 +11,19 @@ export function submittedPerThousandParcels(town: TownSEOData): number | null {
   return Math.round((town.submitted / town.singleFamilyParcels) * 1000 * 100) / 100
 }
 
+export function approvalsPerTenThousandResidents(town: TownSEOData): number {
+  if (town.population === 0) return 0
+  return Math.round(((town.approved / town.population) * 10000) * 10) / 10
+}
+
+export function computeStatewidePerCapitaAverage(allTowns: TownSEOData[]): number {
+  const withApprovals = allTowns.filter(t => t.approved > 0 && t.population > 0)
+  if (withApprovals.length === 0) return 0
+  const totalApproved = withApprovals.reduce((sum, t) => sum + t.approved, 0)
+  const totalPopulation = withApprovals.reduce((sum, t) => sum + t.population, 0)
+  return Math.round(((totalApproved / totalPopulation) * 10000) * 10) / 10
+}
+
 // --- Timeline Computation ---
 export interface PermitRecord {
   permit: string

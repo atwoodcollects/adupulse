@@ -9,8 +9,8 @@ import type { TownSEOData } from '@/data/town_seo_data'
 import {
   computeCostStats,
   computeScorecard,
+  approvalsPerTenThousandResidents,
   type PermitRecord,
-  type CostStats,
 } from '@/lib/townAnalytics'
 import { useSubscription } from '@/lib/subscription'
 import {
@@ -20,6 +20,11 @@ import {
   type ComplianceProvision,
 } from '@/app/compliance/compliance-data'
 import {
+  type Audience,
+  AUDIENCE_STORAGE_KEY,
+  AUDIENCE_CONTENT,
+} from '@/lib/audience'
+import {
   CheckCircle,
   AlertTriangle,
   XCircle,
@@ -28,6 +33,11 @@ import {
   Users,
   Hammer,
   BookOpen,
+  BarChart3,
+  Scale,
+  Home,
+  Landmark,
+  Info,
   ChevronDown,
 } from 'lucide-react'
 
@@ -73,6 +83,124 @@ const fmt = (n: number) =>
   n > 0
     ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
     : '—'
+
+// ── Provision sort order ─────────────────────────────────────────────
+const statusOrder: Record<string, number> = { inconsistent: 0, review: 1, compliant: 2 }
+
+// ── Icon lookup for audience next steps ──────────────────────────────
+const iconMap: Record<string, typeof Users> = {
+  Users, Hammer, BookOpen, BarChart3, Scale,
+}
+
+// ── Audience Toggle ──────────────────────────────────────────────────
+function AudienceToggle({ value, onChange }: { value: Audience; onChange: (a: Audience) => void }) {
+  const options: { key: Audience; label: string; icon: typeof Home }[] = [
+    { key: 'homeowner', label: 'Homeowner', icon: Home },
+    { key: 'builder', label: 'Builder', icon: Hammer },
+    { key: 'lender', label: 'Lender', icon: Landmark },
+  ]
+  return (
+    <div className="flex bg-gray-800/50 border border-gray-700 rounded-lg p-1 mb-8">
+      {options.map(opt => (
+        <button
+          key={opt.key}
+          onClick={() => onChange(opt.key)}
+          className={`flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-md text-sm font-medium transition-colors ${
+            value === opt.key
+              ? 'bg-gray-700 text-white'
+              : 'text-gray-400 hover:text-gray-200'
+          }`}
+        >
+          <opt.icon className="w-4 h-4" />
+          <span className="hidden sm:inline">{opt.label}</span>
+        </button>
+      ))}
+    </div>
+  )
+}
+
+// ── Per-Capita Card ──────────────────────────────────────────────────
+function PerCapitaCard({
+  townPerCapita,
+  statewidePerCapita,
+  town,
+  label,
+}: {
+  townPerCapita: number
+  statewidePerCapita: number
+  town: TownSEOData
+  label: string
+}) {
+  const multiplier = statewidePerCapita > 0 ? townPerCapita / statewidePerCapita : 0
+  const maxBar = Math.max(townPerCapita, statewidePerCapita) * 1.2 || 1
+  const aboveAvg = multiplier >= 1
+
+  return (
+    <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 mb-8">
+      <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-3">
+        {label}
+      </div>
+      <div className="flex items-end gap-3 mb-4">
+        <span className={`text-4xl sm:text-5xl font-bold ${aboveAvg ? 'text-emerald-400' : 'text-amber-400'}`}>
+          {townPerCapita.toFixed(1)}
+        </span>
+        <div className="mb-1.5">
+          <span className="text-gray-500 text-sm">per 10K residents</span>
+          <span className={`block text-xs ${aboveAvg ? 'text-emerald-400/70' : 'text-amber-400/70'}`}>
+            {multiplier.toFixed(1)}x state average
+          </span>
+        </div>
+      </div>
+
+      <div className="space-y-2 mb-3">
+        <div className="flex items-center gap-3">
+          <span className="text-xs text-gray-400 w-20 shrink-0 truncate">{town.name}</span>
+          <div className="flex-1 h-3 bg-gray-700 rounded-full overflow-hidden">
+            <div
+              className={`h-full rounded-full ${aboveAvg ? 'bg-emerald-400' : 'bg-amber-400'}`}
+              style={{ width: `${(townPerCapita / maxBar) * 100}%` }}
+            />
+          </div>
+          <span className="text-xs text-gray-400 w-8 text-right">{townPerCapita.toFixed(1)}</span>
+        </div>
+        <div className="flex items-center gap-3">
+          <span className="text-xs text-gray-500 w-20 shrink-0">State avg</span>
+          <div className="flex-1 h-3 bg-gray-700 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-gray-500 rounded-full"
+              style={{ width: `${(statewidePerCapita / maxBar) * 100}%` }}
+            />
+          </div>
+          <span className="text-xs text-gray-500 w-8 text-right">{statewidePerCapita.toFixed(1)}</span>
+        </div>
+      </div>
+
+      <p className="text-gray-500 text-xs">
+        Based on {town.approved} approved ADU applications and {town.population.toLocaleString()} residents
+      </p>
+    </div>
+  )
+}
+
+// ── Info Callout ─────────────────────────────────────────────────────
+function InfoCallout({ text }: { text: string }) {
+  const [open, setOpen] = useState(false)
+  return (
+    <span className="relative inline-flex">
+      <button onClick={() => setOpen(!open)} className="text-gray-500 hover:text-gray-300 ml-1">
+        <Info className="w-3.5 h-3.5" />
+      </button>
+      {open && (
+        <span className="absolute left-0 top-full mt-1 z-10 w-56 p-2.5 text-xs text-gray-300 bg-gray-800 border border-gray-700 rounded-lg shadow-xl">
+          {text}
+          <button onClick={() => setOpen(false)} className="block text-blue-400 text-[10px] mt-1.5 hover:underline">
+            Close
+          </button>
+        </span>
+      )}
+    </span>
+  )
+}
 
 // ── Permit Table ──────────────────────────────────────────────────────
 function PermitTable({ permits, isPro }: { permits: PermitRecord[]; isPro: boolean }) {
@@ -159,12 +287,17 @@ function ProvisionRow({
   provision,
   isPro,
   townSlug,
+  audience,
+  ruleWord,
 }: {
   provision: ComplianceProvision
   isPro: boolean
   townSlug: string
+  audience: Audience
+  ruleWord: string
 }) {
   const [expanded, setExpanded] = useState(false)
+  const content = AUDIENCE_CONTENT[audience]
 
   return (
     <div className="flex flex-col">
@@ -189,7 +322,7 @@ function ProvisionRow({
                 <p className="text-gray-400 leading-relaxed mt-0.5">{provision.stateLaw}</p>
               </div>
               <div>
-                <span className="text-gray-500 uppercase tracking-wider text-[10px]">Local Bylaw</span>
+                <span className="text-gray-500 uppercase tracking-wider text-[10px]">Local {ruleWord}</span>
                 <p className="text-gray-400 leading-relaxed mt-0.5">{provision.localBylaw}</p>
               </div>
             </div>
@@ -197,6 +330,12 @@ function ProvisionRow({
             {provision.agDecision && (
               <p className="text-xs text-red-300 bg-red-400/5 border border-red-400/20 rounded p-2">{provision.agDecision}</p>
             )}
+            <div className="flex items-start gap-2 mt-2 p-2 rounded bg-gray-900/50 border border-gray-700/30">
+              <span className="text-[10px] uppercase tracking-wider text-gray-500 shrink-0 mt-0.5 leading-tight w-24">
+                {content.provisionBottomLineLabel}
+              </span>
+              <p className="text-xs text-gray-300">{content.provisionBottomLine(provision)}</p>
+            </div>
             <Link href={`/compliance/${townSlug}/${provision.id}`} className="inline-flex items-center gap-1 text-xs text-blue-400 hover:text-blue-300">
               Full analysis <ArrowRight className="w-3 h-3" />
             </Link>
@@ -219,14 +358,31 @@ function ProvisionRow({
 export default function TownSEOPageClient({
   town,
   nearbyTowns,
+  statewidePerCapita,
+  townPerCapita,
 }: {
   town: TownSEOData
   nearbyTowns: TownSEOData[]
+  statewidePerCapita: number
+  townPerCapita: number
 }) {
   const { setSelectedTown } = useTown()
   const { isPro } = useSubscription()
 
   useEffect(() => { setSelectedTown(town.name) }, [town.name, setSelectedTown])
+
+  // Audience toggle with localStorage persistence
+  const [audience, setAudience] = useState<Audience>('homeowner')
+  useEffect(() => {
+    const saved = localStorage.getItem(AUDIENCE_STORAGE_KEY) as Audience | null
+    if (saved && ['homeowner', 'builder', 'lender'].includes(saved)) {
+      setAudience(saved)
+    }
+  }, [])
+  const handleAudienceChange = (a: Audience) => {
+    setAudience(a)
+    localStorage.setItem(AUDIENCE_STORAGE_KEY, a)
+  }
 
   // Analytics
   const permits = permitDataMap[town.slug] || null
@@ -244,9 +400,19 @@ export default function TownSEOPageClient({
     [compliance],
   )
 
+  // Sorted provisions: inconsistent first, then review, then compliant
+  const sortedProvisions = useMemo(() => {
+    if (!compliance) return []
+    return [...compliance.provisions].sort((a, b) => statusOrder[a.status] - statusOrder[b.status])
+  }, [compliance])
+
+  // Terminology: "Bylaw" for towns, "Ordinance" for cities
+  const isCity = compliance?.municipalityType === 'city'
+  const ruleWord = isCity ? 'Ordinance' : 'Bylaw'
+
   // Summary sentence
   const complianceSummary = compliance
-    ? ` and has ${complianceCounts!.compliant} of ${compliance.provisions.length} bylaw provisions consistent with state law`
+    ? ` and has ${complianceCounts!.compliant} of ${compliance.provisions.length} ${ruleWord.toLowerCase()} provisions consistent with state law`
     : ''
   const summaryLine = `${town.name} has approved ${town.approved} of ${town.submitted} ADU applications (${town.approvalRate}% approval rate)${complianceSummary}.`
 
@@ -258,24 +424,27 @@ export default function TownSEOPageClient({
     if (!hasInconsistent && highApproval) return {
       dot: 'bg-emerald-400',
       bg: 'bg-emerald-400/5 border-emerald-400/20',
-      text: 'Bylaws align with state law and permits are moving. Good conditions for an ADU project.',
+      text: `${ruleWord}s align with state law and permits are moving. Good conditions for an ADU project.`,
     }
     if (hasInconsistent && highApproval) return {
       dot: 'bg-yellow-400',
       bg: 'bg-yellow-400/5 border-yellow-400/20',
-      text: "Some bylaw provisions aren\u2019t yet consistent with state law, but permits are still being approved. State law overrides inconsistent local rules.",
+      text: `Some ${ruleWord.toLowerCase()} provisions aren\u2019t yet consistent with state law, but permits are still being approved. State law overrides inconsistent local rules.`,
     }
     if (!hasInconsistent && !highApproval) return {
       dot: 'bg-orange-400',
       bg: 'bg-orange-400/5 border-orange-400/20',
-      text: 'Bylaws align with state law, but the approval rate is below average. Expect a longer permitting timeline.',
+      text: `${ruleWord}s align with state law, but the approval rate is below average. Expect a longer permitting timeline.`,
     }
     return {
       dot: 'bg-red-400',
       bg: 'bg-red-400/5 border-red-400/20',
-      text: "Some bylaw provisions aren\u2019t yet consistent with state law, and the approval rate is below average. Check specific provisions before applying.",
+      text: `Some ${ruleWord.toLowerCase()} provisions aren\u2019t yet consistent with state law, and the approval rate is below average. Check specific provisions before applying.`,
     }
-  }, [compliance, complianceCounts, town.approvalRate])
+  }, [compliance, complianceCounts, town.approvalRate, ruleWord])
+
+  // Audience content
+  const audienceContent = AUDIENCE_CONTENT[audience]
 
   return (
     <div className="min-h-screen bg-gray-900">
@@ -291,7 +460,7 @@ export default function TownSEOPageClient({
         </nav>
 
         {/* ── HERO BLOCK ── */}
-        <div className="mb-10">
+        <div className="mb-6">
           <div className="flex items-center gap-4 mb-3">
             <div className="flex-1 min-w-0">
               <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">{town.name}</h1>
@@ -310,6 +479,17 @@ export default function TownSEOPageClient({
           )}
         </div>
 
+        {/* ── AUDIENCE TOGGLE ── */}
+        <AudienceToggle value={audience} onChange={handleAudienceChange} />
+
+        {/* ── PER-CAPITA CARD ── */}
+        <PerCapitaCard
+          townPerCapita={townPerCapita}
+          statewidePerCapita={statewidePerCapita}
+          town={town}
+          label={audienceContent.perCapitaLabel}
+        />
+
         {/* ── SECTION 1: PERMITS ── */}
         <section className="mb-10">
           <h2 className="text-lg font-bold text-white mb-4">Permits</h2>
@@ -323,8 +503,10 @@ export default function TownSEOPageClient({
               }`}>
                 {town.approvalRate}%
               </span>
-              <span className="text-gray-500 text-sm mb-1.5">approval rate</span>
-              <span className="text-gray-600 text-[10px] block">Share of 2025 applications approved in 2025</span>
+              <span className="text-gray-500 text-sm mb-1.5">
+                approval rate
+                <InfoCallout text="Share of 2025 ADU applications that were approved in calendar year 2025. Excludes applications still pending." />
+              </span>
             </div>
 
             {/* Stacked bar */}
@@ -369,9 +551,9 @@ export default function TownSEOPageClient({
           )}
         </section>
 
-        {/* ── SECTION 2: BYLAW CONSISTENCY ── */}
+        {/* ── SECTION 2: BYLAW/ORDINANCE CONSISTENCY ── */}
         <section className="mb-10">
-          <h2 className="text-lg font-bold text-white mb-4">Bylaw Consistency</h2>
+          <h2 className="text-lg font-bold text-white mb-4">{ruleWord} Consistency</h2>
 
           {compliance && complianceCounts ? (
             <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5">
@@ -397,10 +579,10 @@ export default function TownSEOPageClient({
                 </div>
               </div>
 
-              {/* Provision list */}
+              {/* Provision list — sorted by status */}
               <div className="divide-y divide-gray-700/30">
-                {compliance.provisions.map(p => (
-                  <ProvisionRow key={p.id} provision={p} isPro={isPro} townSlug={town.slug} />
+                {sortedProvisions.map(p => (
+                  <ProvisionRow key={p.id} provision={p} isPro={isPro} townSlug={town.slug} audience={audience} ruleWord={ruleWord} />
                 ))}
               </div>
 
@@ -412,8 +594,8 @@ export default function TownSEOPageClient({
             </div>
           ) : (
             <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 text-center">
-              <p className="text-gray-400 text-sm">We haven&apos;t reviewed {town.name}&apos;s bylaws yet.</p>
-              <p className="text-gray-500 text-xs mt-1">Check back soon — we&apos;re adding new towns regularly.</p>
+              <p className="text-gray-400 text-sm">We haven&apos;t reviewed {town.name}&apos;s {ruleWord.toLowerCase()}s yet.</p>
+              <p className="text-gray-500 text-xs mt-1">Check back soon — we&apos;re adding new communities regularly.</p>
             </div>
           )}
         </section>
@@ -460,41 +642,72 @@ export default function TownSEOPageClient({
           <section className="mb-10">
             <h2 className="text-lg font-bold text-white mb-4">How {town.name} Compares</h2>
             <div className="bg-gray-800/50 border border-gray-700 rounded-xl overflow-hidden">
-              {/* Header row */}
-              <div className="hidden sm:grid grid-cols-4 gap-2 px-4 py-2 text-[10px] uppercase tracking-wider text-gray-500 border-b border-gray-700/50">
+              {/* Desktop header row */}
+              <div className="hidden sm:grid grid-cols-5 gap-2 px-4 py-2 text-[10px] uppercase tracking-wider text-gray-500 border-b border-gray-700/50">
                 <span>Town</span>
                 <span className="text-center">Grade</span>
                 <span className="text-center">Approval Rate</span>
+                <span className="text-center">Per 10K</span>
                 <span className="text-right">Permits</span>
               </div>
-              {nearbyTowns.slice(0, 4).map((t, i) => {
-                const sc = computeScorecard(t)
-                const tgc = gradeColors[sc.overall] || gradeColors.C
-                return (
-                  <Link
-                    key={t.slug}
-                    href={`/towns/${t.slug}`}
-                    className={`grid grid-cols-4 gap-2 items-center px-4 py-3 hover:bg-gray-700/30 transition-colors ${
-                      i < Math.min(nearbyTowns.length, 4) - 1 ? 'border-b border-gray-700/30' : ''
-                    }`}
-                  >
-                    <div className="min-w-0">
-                      <span className="text-white text-sm font-medium truncate block">{t.name}</span>
-                      <span className="text-gray-500 text-xs sm:hidden">{t.county}</span>
-                    </div>
-                    <div className="text-center">
-                      <span className={`text-sm font-bold ${tgc.text}`}>{sc.overall}</span>
-                    </div>
-                    <div className="text-center">
-                      <span className={`text-sm font-medium ${
-                        t.approvalRate >= 80 ? 'text-emerald-400' :
-                        t.approvalRate >= 50 ? 'text-amber-400' : 'text-red-400'
-                      }`}>{t.approvalRate}%</span>
-                    </div>
-                    <div className="text-right text-sm text-gray-400">{t.approved}</div>
-                  </Link>
-                )
-              })}
+
+              {/* Desktop rows */}
+              <div className="hidden sm:block">
+                {nearbyTowns.slice(0, 4).map((t, i) => {
+                  const sc = computeScorecard(t)
+                  const tgc = gradeColors[sc.overall] || gradeColors.C
+                  const tpc = approvalsPerTenThousandResidents(t)
+                  return (
+                    <Link
+                      key={t.slug}
+                      href={`/towns/${t.slug}`}
+                      className={`grid grid-cols-5 gap-2 items-center px-4 py-3 hover:bg-gray-700/30 transition-colors ${
+                        i < Math.min(nearbyTowns.length, 4) - 1 ? 'border-b border-gray-700/30' : ''
+                      }`}
+                    >
+                      <div className="min-w-0">
+                        <span className="text-white text-sm font-medium truncate block">{t.name}</span>
+                      </div>
+                      <div className="text-center">
+                        <span className={`text-sm font-bold ${tgc.text}`}>{sc.overall}</span>
+                      </div>
+                      <div className="text-center">
+                        <span className={`text-sm font-medium ${
+                          t.approvalRate >= 80 ? 'text-emerald-400' :
+                          t.approvalRate >= 50 ? 'text-amber-400' : 'text-red-400'
+                        }`}>{t.approvalRate}%</span>
+                      </div>
+                      <div className="text-center">
+                        <span className="text-sm text-gray-400">{tpc.toFixed(1)}</span>
+                      </div>
+                      <div className="text-right text-sm text-gray-400">{t.approved}</div>
+                    </Link>
+                  )
+                })}
+              </div>
+
+              {/* Mobile card view */}
+              <div className="sm:hidden divide-y divide-gray-700/30">
+                {nearbyTowns.slice(0, 4).map(t => {
+                  const sc = computeScorecard(t)
+                  const tgc = gradeColors[sc.overall] || gradeColors.C
+                  const tpc = approvalsPerTenThousandResidents(t)
+                  return (
+                    <Link
+                      key={t.slug}
+                      href={`/towns/${t.slug}`}
+                      className="flex items-center gap-3 px-4 py-3 hover:bg-gray-700/30 transition-colors"
+                    >
+                      <span className={`text-lg font-bold ${tgc.text} w-8 shrink-0`}>{sc.overall}</span>
+                      <div className="flex-1 min-w-0">
+                        <span className="text-white text-sm font-medium block truncate">{t.name}</span>
+                        <span className="text-gray-500 text-xs">{t.approvalRate}% rate · {tpc.toFixed(1)} per 10K</span>
+                      </div>
+                      <span className="text-gray-400 text-sm shrink-0">{t.approved}</span>
+                    </Link>
+                  )
+                })}
+              </div>
             </div>
             <div className="mt-3">
               <Link href={`/compare?a=${town.slug}`} className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors">
@@ -504,35 +717,42 @@ export default function TownSEOPageClient({
           </section>
         )}
 
-        {/* ── SECTION 5: NEXT STEPS ── */}
+        {/* ── SECTION 5: NEXT STEPS (audience-aware) ── */}
         <section className="mb-10">
           <h2 className="text-lg font-bold text-white mb-4">Next Steps</h2>
           <div className="space-y-2">
-            <Link href="/club" className="flex items-center gap-3 bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-3.5 hover:border-gray-600 transition-colors group">
-              <Users className="w-5 h-5 text-emerald-400 shrink-0" />
-              <span className="text-sm text-gray-300 flex-1">Join {town.name}&apos;s ADU Club for group builder rates</span>
-              <ArrowRight className="w-4 h-4 text-gray-500 group-hover:text-white transition-colors shrink-0" />
-            </Link>
-            <Link href="/builders" className="flex items-center gap-3 bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-3.5 hover:border-gray-600 transition-colors group">
-              <Hammer className="w-5 h-5 text-blue-400 shrink-0" />
-              <span className="text-sm text-gray-300 flex-1">Find builders working in {town.county} County</span>
-              <ArrowRight className="w-4 h-4 text-gray-500 group-hover:text-white transition-colors shrink-0" />
-            </Link>
-            <Link href="/blog" className="flex items-center gap-3 bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-3.5 hover:border-gray-600 transition-colors group">
-              <BookOpen className="w-5 h-5 text-purple-400 shrink-0" />
-              <span className="text-sm text-gray-300 flex-1">Read our analysis of Year One ADU data</span>
-              <ArrowRight className="w-4 h-4 text-gray-500 group-hover:text-white transition-colors shrink-0" />
-            </Link>
+            {audienceContent.nextSteps.map((step, i) => {
+              const Icon = iconMap[step.icon] || BookOpen
+              const colors = ['text-emerald-400', 'text-blue-400', 'text-purple-400']
+              return (
+                <Link
+                  key={i}
+                  href={step.href}
+                  className="flex items-center gap-3 bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-3.5 hover:border-gray-600 transition-colors group"
+                >
+                  <Icon className={`w-5 h-5 ${colors[i % colors.length]} shrink-0`} />
+                  <span className="text-sm text-gray-300 flex-1">{step.label.replace("your town's", `${town.name}'s`).replace('your county', `${town.county} County`)}</span>
+                  <ArrowRight className="w-4 h-4 text-gray-500 group-hover:text-white transition-colors shrink-0" />
+                </Link>
+              )
+            })}
           </div>
         </section>
 
-        {/* Data source */}
-        <div className="text-gray-500 text-xs leading-relaxed p-4 bg-gray-800/30 rounded-lg border border-gray-700/50">
+        {/* ── SOURCE FOOTER ── */}
+        <div className="text-gray-500 text-xs leading-relaxed p-4 bg-gray-800/30 rounded-lg border border-gray-700/50 space-y-2">
           <p>
-            <span className="text-gray-400 font-medium">Source:</span> {town.source}{town.sourceDate ? ` (${town.sourceDate})` : ''}.
+            <span className="text-gray-400 font-medium">Sources:</span> {town.source}{town.sourceDate ? ` (${town.sourceDate})` : ''}.
             {town.hasPermitData && ' Individual permit records from municipal building department.'}
-            {' '}Population and parcel estimates from 2024 Census ACS.
-            {' '}See <Link href="/methodology" className="text-blue-400 hover:underline">methodology</Link> for details.
+            {' '}Population estimates from 2024 Census ACS.
+          </p>
+          <p>
+            <span className="text-gray-400 font-medium">Disclaimer:</span>{' '}
+            ADU Pulse provides data for informational purposes only. It does not constitute legal, financial, or construction advice.
+            {ruleWord} consistency analysis reflects our interpretation of public records and may not reflect the most current local amendments.
+          </p>
+          <p>
+            See <Link href="/methodology" className="text-blue-400 hover:underline">methodology</Link> for details on data collection, scoring, and consistency analysis.
           </p>
         </div>
       </main>

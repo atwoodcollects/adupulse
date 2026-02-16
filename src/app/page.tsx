@@ -1,286 +1,306 @@
 'use client'
 
 import Link from 'next/link'
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useRef } from 'react'
 import { useTown } from '@/contexts/TownContext'
 import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
 import townSEOData from '@/data/town_seo_data'
-import { allEntries as complianceData, getStatewideStats, getStatusCounts, getTownStatusLabel } from '@/app/compliance/compliance-data'
-import { Search, FileWarning, AlertTriangle, Gavel, ClipboardCheck, Home as HomeIcon, Hammer, Landmark, ArrowRight, BookOpen } from 'lucide-react'
+import { approvalsPerTenThousandResidents } from '@/lib/townAnalytics'
 
-const featuredTowns = townSEOData
-  .sort((a, b) => b.approved - a.approved)
-  .slice(0, 5)
+// Build towns array with per-capita from real data
+const allTowns = townSEOData
+  .filter(t => t.approved > 0)
+  .map(t => ({
+    slug: t.slug,
+    name: t.name,
+    county: t.county,
+    permits: t.approved,
+    approvalRate: t.approvalRate,
+    pop: t.population,
+    per10k: approvalsPerTenThousandResidents(t),
+  }))
 
-// Mobile shows 3, desktop shows 5
-const MOBILE_TOWN_COUNT = 3
+// Statewide stats from EOHLC survey
+const totalApproved = 1224
+const totalTowns = 293
+const overallRate = 68
 
-// Dynamic stats from compliance data
-const statewide = getStatewideStats(complianceData)
-const townsWithReview = complianceData.filter(t => t.provisions.some(p => p.status === 'review')).length
-
-// Top 3 towns by most issues — previewed in Section 3
-const complianceTowns = complianceData
-  .map(t => {
-    const counts = getStatusCounts(t.provisions)
-    const statusLabel = getTownStatusLabel(t)
-    return {
-      name: t.name,
-      slug: t.slug,
-      county: t.county,
-      conflicts: counts.inconsistent,
-      reviews: counts.review,
-      ok: counts.compliant,
-      status: statusLabel.label,
-      statusColor: `${statusLabel.color} ${statusLabel.bg}`,
-    }
-  })
-  .sort((a, b) => (b.conflicts + b.reviews) - (a.conflicts + a.reviews))
-  .slice(0, 3)
+type SortKey = 'permits' | 'percapita' | 'approval'
 
 export default function Home() {
   const { setSelectedTown } = useTown()
-  const [search, setSearch] = useState('')
+  const [query, setQuery] = useState('')
+  const [focused, setFocused] = useState(false)
+  const [sortBy, setSortBy] = useState<SortKey>('permits')
+  const inputRef = useRef<HTMLInputElement>(null)
 
-  const searchResults = useMemo(() => {
-    if (!search.trim()) return []
-    const q = search.toLowerCase()
-    return townSEOData.filter(t => t.name.toLowerCase().includes(q)).slice(0, 6)
-  }, [search])
+  const filtered = useMemo(() => {
+    if (!query.trim()) return []
+    const q = query.toLowerCase()
+    return allTowns
+      .filter(t => t.name.toLowerCase().includes(q) || t.county.toLowerCase().includes(q))
+      .slice(0, 6)
+  }, [query])
 
-  // Statewide stats from EOHLC survey (includes all 293 towns with applications, not just the 54 with SEO data)
-  const totalApproved = 1224
-  const totalTowns = 293
-  const overallRate = 68
+  const topTowns = useMemo(() => {
+    const sorted = [...allTowns]
+    if (sortBy === 'permits') sorted.sort((a, b) => b.permits - a.permits)
+    else if (sortBy === 'percapita') sorted.sort((a, b) => b.per10k - a.per10k)
+    else sorted.sort((a, b) => b.approvalRate - a.approvalRate)
+    return sorted.slice(0, 8)
+  }, [sortBy])
+
+  const showResults = focused && query.trim().length > 0
 
   return (
     <div className="min-h-screen bg-gray-900">
       <NavBar current="Home" />
 
-      <main className="max-w-5xl mx-auto px-4">
-        {/* ─── HERO ─── */}
-        <section className="py-8 sm:py-12 md:py-20">
-          <div className="max-w-3xl mx-auto text-center mb-8 sm:mb-10">
-            <div className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-red-400 bg-red-400/10 border border-red-400/20 px-2.5 sm:px-3 py-1.5 rounded-full mb-4 sm:mb-6">
-              <FileWarning className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
-              <span>{statewide.totalInconsistent} inconsistent. {statewide.totalAgDisapprovals} AG disapprovals. {statewide.communitiesTracked} communities.</span>
-            </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 leading-[1.15] tracking-tight">
-              Massachusetts legalized ADUs.<br className="hidden sm:block" />
-              We&apos;re tracking how it&apos;s actually going.
+      <main>
+        {/* ===== HERO + SEARCH ===== */}
+        <div className="px-5 pt-10 pb-9">
+          <div className="max-w-[560px] mx-auto text-center">
+            <h1 className="font-bold text-white tracking-tight leading-[1.15] mb-6" style={{ fontSize: 'clamp(26px, 5.5vw, 36px)', letterSpacing: -0.8 }}>
+              Massachusetts legalized ADUs.
+              <br />
+              <span className="text-emerald-400">We&apos;re tracking how it&apos;s actually going.</span>
             </h1>
-            <p className="text-gray-400 text-base md:text-lg">
-              ADU Pulse tracks every permit and reads every bylaw so you don&apos;t have to.
-            </p>
-          </div>
 
-          {/* Town search — primary CTA */}
-          <div className="max-w-2xl mx-auto mb-8 sm:mb-10 relative">
-            <div className="relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none" />
-              <input
-                type="text"
-                placeholder="Search your town..."
-                value={search}
-                onChange={e => setSearch(e.target.value)}
-                className="w-full bg-gray-800 border-2 border-gray-600 hover:border-gray-500 rounded-xl pl-12 pr-4 py-4 sm:py-5 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 text-base sm:text-lg min-h-[56px] transition-colors"
-              />
-            </div>
-            <p className="text-center text-gray-500 text-xs sm:text-sm mt-2.5">
-              See permits, bylaws, costs, and consistency for any MA town
-            </p>
-            {search && searchResults.length > 0 && (
-              <div className="absolute left-0 right-0 top-[56px] sm:top-[64px] mt-1 bg-gray-800 border border-gray-700 rounded-xl overflow-hidden shadow-2xl z-20">
-                {searchResults.map(t => (
-                  <Link
-                    key={t.slug}
-                    href={`/towns/${t.slug}`}
-                    className="flex items-center justify-between px-4 py-3 hover:bg-gray-700/50 transition-colors min-h-[48px]"
-                    onClick={() => { setSearch(''); setSelectedTown(t.name) }}>
-                    <div>
-                      <span className="text-white font-medium">{t.name}</span>
-                      <span className="text-gray-500 text-xs ml-2">{t.county} County</span>
-                    </div>
-                    <div className="text-right">
-                      <span className="text-emerald-400 font-bold text-sm">{t.approved}</span>
-                      <span className="text-gray-500 text-xs ml-1.5">{t.approvalRate}%</span>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            )}
-            {search && searchResults.length === 0 && (
-              <div className="absolute left-0 right-0 top-[56px] sm:top-[64px] mt-1 bg-gray-800 border border-gray-700 rounded-xl p-4 shadow-2xl z-20">
-                <p className="text-gray-400 text-sm">No towns found for &ldquo;{search}&rdquo;</p>
-                <p className="text-gray-500 text-xs mt-1">We track {totalTowns} towns with EOHLC survey data.</p>
-              </div>
-            )}
-          </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-3 gap-2 sm:gap-4 max-w-2xl mx-auto">
-            <div className="bg-gray-800/60 border border-gray-700 rounded-xl p-3 sm:p-5 text-center">
-              <div className="text-xl sm:text-3xl font-bold text-emerald-400 mb-0.5">{totalApproved.toLocaleString()}</div>
-              <div className="text-gray-300 text-[10px] sm:text-sm font-medium">Approved</div>
-              <div className="text-gray-500 text-[9px] sm:text-xs mt-0.5 hidden sm:block">from the Feb 2026 EOHLC survey</div>
-            </div>
-            <div className="bg-gray-800/60 border border-gray-700 rounded-xl p-3 sm:p-5 text-center">
-              <div className="text-xl sm:text-3xl font-bold text-white mb-0.5">{totalTowns}</div>
-              <div className="text-gray-300 text-[10px] sm:text-sm font-medium">Towns</div>
-              <div className="text-gray-500 text-[9px] sm:text-xs mt-0.5 hidden sm:block">of 350 municipalities statewide</div>
-            </div>
-            <div className="bg-gray-800/60 border border-gray-700 rounded-xl p-3 sm:p-5 text-center">
-              <div className="text-xl sm:text-3xl font-bold text-white mb-0.5">{overallRate}%</div>
-              <div className="text-gray-300 text-[10px] sm:text-sm font-medium">Approval Rate</div>
-              <div className="text-gray-500 text-[9px] sm:text-xs mt-0.5 hidden sm:block">Share of 2025 applications approved in 2025</div>
-            </div>
-          </div>
-        </section>
-
-        {/* ─── SECTION 1: WHAT THE DATA SHOWS ─── */}
-        <section className="mb-14">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-5">What the Data Shows</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <Link href="/compliance" className="bg-gray-800/60 border border-gray-700 rounded-xl p-5 hover:border-red-500/30 transition-colors group">
-              <AlertTriangle className="w-5 h-5 text-red-400 mb-3" />
-              <div className="text-3xl sm:text-4xl font-bold text-white mb-1">{statewide.totalInconsistent}</div>
-              <p className="text-gray-400 text-sm leading-relaxed mb-3">bylaw provisions not yet consistent with state law</p>
-              <span className="inline-flex items-center gap-1 text-xs text-red-400 group-hover:text-red-300 transition-colors">
-                View inconsistencies <ArrowRight className="w-3 h-3" />
-              </span>
-            </Link>
-            <Link href="/compliance" className="bg-gray-800/60 border border-gray-700 rounded-xl p-5 hover:border-amber-500/30 transition-colors group">
-              <Gavel className="w-5 h-5 text-amber-400 mb-3" />
-              <div className="text-3xl sm:text-4xl font-bold text-white mb-1">{statewide.totalAgDisapprovals}</div>
-              <p className="text-gray-400 text-sm leading-relaxed mb-3">Attorney General disapprovals issued</p>
-              <span className="inline-flex items-center gap-1 text-xs text-amber-400 group-hover:text-amber-300 transition-colors">
-                See AG decisions <ArrowRight className="w-3 h-3" />
-              </span>
-            </Link>
-            <Link href="/compliance" className="bg-gray-800/60 border border-gray-700 rounded-xl p-5 hover:border-blue-500/30 transition-colors group">
-              <ClipboardCheck className="w-5 h-5 text-blue-400 mb-3" />
-              <div className="text-3xl sm:text-4xl font-bold text-white mb-1">{townsWithReview}</div>
-              <p className="text-gray-400 text-sm leading-relaxed mb-3">towns with provisions under review</p>
-              <span className="inline-flex items-center gap-1 text-xs text-blue-400 group-hover:text-blue-300 transition-colors">
-                Check your town <ArrowRight className="w-3 h-3" />
-              </span>
-            </Link>
-          </div>
-        </section>
-
-        {/* ─── SECTION 2: TOP TOWNS BY PERMITS ─── */}
-        <section className="mb-14">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-5">Top Towns by Permits</h2>
-          <div className="bg-gray-800/40 border border-gray-700 rounded-xl overflow-hidden">
-            {featuredTowns.map((t, i) => {
-              const rateColor = t.approvalRate >= 80 ? 'text-emerald-400' : t.approvalRate >= 50 ? 'text-amber-400' : 'text-red-400'
-              // Hide 4th and 5th on mobile
-              const mobileHidden = i >= MOBILE_TOWN_COUNT ? 'hidden sm:flex' : 'flex'
-              return (
-                <Link
-                  key={t.slug}
-                  href={`/towns/${t.slug}`}
-                  className={`${mobileHidden} items-center px-4 py-3 hover:bg-gray-700/40 transition-colors ${i < featuredTowns.length - 1 ? 'border-b border-gray-700/50' : ''}`}
-                  onClick={() => setSelectedTown(t.name)}
-                >
-                  <span className="text-gray-600 text-sm w-7 shrink-0 font-medium">#{i + 1}</span>
-                  <span className="text-white font-medium flex-1 min-w-0 truncate">{t.name}</span>
-                  <span className="text-gray-500 text-xs mr-4 hidden sm:inline">{t.county}</span>
-                  <span className="text-emerald-400 font-bold text-sm w-12 text-right">{t.approved}</span>
-                  <span className={`text-xs w-12 text-right ${rateColor}`}>{t.approvalRate}%</span>
-                </Link>
-              )
-            })}
-          </div>
-          <div className="mt-3 text-center">
-            <Link href="/map" className="inline-flex items-center gap-1 text-sm text-gray-400 hover:text-white transition-colors">
-              View all {totalTowns} towns <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-        </section>
-
-        {/* ─── SECTION 3: BYLAW CONSISTENCY TRACKER ─── */}
-        <section className="mb-14">
-          <h2 className="text-lg font-bold text-white mb-1">How Consistent Is Your Town?</h2>
-          <p className="text-gray-400 text-sm mb-5">
-            We read local ADU bylaws and check them against Chapter 150 and 760 CMR 71.00.
-          </p>
-          <div className="space-y-2 mb-4">
-            {complianceTowns.map(town => (
-              <Link
-                key={town.slug}
-                href={`/compliance/${town.slug}`}
-                className="flex items-center gap-2 sm:gap-3 bg-gray-800/60 border border-gray-700 rounded-lg px-3 sm:px-4 py-3 hover:border-gray-600 transition-colors group"
+            {/* Search */}
+            <div className="relative max-w-[440px] mx-auto">
+              <div
+                className={`flex items-center rounded-xl px-4 transition-all duration-200 bg-gray-800 border-2 ${
+                  focused ? 'border-emerald-500 shadow-[0_0_0_4px_rgba(16,185,129,0.1)]' : 'border-gray-600 shadow-none'
+                }`}
               >
-                <span className={`w-2 h-2 rounded-full shrink-0 ${town.conflicts > 2 ? 'bg-red-400' : 'bg-amber-400'}`} />
+                <span className="text-lg mr-2.5 text-gray-500 select-none">&#x2315;</span>
+                <input
+                  ref={inputRef}
+                  type="text"
+                  placeholder="Enter your town name..."
+                  value={query}
+                  onChange={e => setQuery(e.target.value)}
+                  onFocus={() => setFocused(true)}
+                  onBlur={() => setTimeout(() => setFocused(false), 200)}
+                  className="flex-1 py-3.5 border-none outline-none text-base bg-transparent text-white placeholder-gray-500"
+                />
+                {query && (
+                  <button
+                    onClick={() => { setQuery(''); inputRef.current?.focus() }}
+                    className="text-base text-gray-500 hover:text-gray-300 cursor-pointer p-1 bg-transparent border-none"
+                  >
+                    &#x2715;
+                  </button>
+                )}
+              </div>
+
+              {/* Search results dropdown */}
+              {showResults && (
+                <div className="absolute top-full left-0 right-0 mt-1.5 bg-gray-800 border border-gray-700 rounded-xl shadow-2xl overflow-hidden z-50">
+                  {filtered.length === 0 ? (
+                    <div className="px-5 py-4 text-[13px] text-gray-400 text-center">
+                      No towns found matching &ldquo;{query}&rdquo;
+                    </div>
+                  ) : (
+                    filtered.map((t, i) => (
+                      <Link
+                        key={t.slug}
+                        href={`/towns/${t.slug}`}
+                        className={`flex items-center py-3 px-4 gap-3 no-underline hover:bg-gray-700/50 transition-colors ${
+                          i < filtered.length - 1 ? 'border-b border-gray-700/50' : ''
+                        }`}
+                        onMouseDown={e => e.preventDefault()}
+                        onClick={() => { setQuery(''); setSelectedTown(t.name) }}
+                      >
+                        <div className="flex-1 min-w-0">
+                          <div className="text-sm font-semibold text-white">{t.name}</div>
+                          <div className="text-[11px] text-gray-500">{t.county} County · Pop. {t.pop.toLocaleString()}</div>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-sm font-bold text-emerald-400">{t.permits}</div>
+                          <div className="font-mono text-[9px] text-gray-500 uppercase">permits</div>
+                        </div>
+                        <div className="text-right min-w-[42px]">
+                          <div className={`text-sm font-bold ${
+                            t.approvalRate >= 70 ? 'text-emerald-400' :
+                            t.approvalRate >= 50 ? 'text-amber-400' : 'text-red-400'
+                          }`}>{t.approvalRate}%</div>
+                          <div className="font-mono text-[9px] text-gray-500 uppercase">approval</div>
+                        </div>
+                      </Link>
+                    ))
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Stats row */}
+          <div className="flex justify-center mt-7" style={{ gap: 'clamp(20px, 6vw, 48px)' }}>
+            {[
+              { val: totalApproved.toLocaleString(), label: 'ADUs Approved' },
+              { val: String(totalTowns), label: 'Towns Tracked' },
+              { val: `${overallRate}%`, label: 'Approval Rate' },
+            ].map((s, i) => (
+              <div key={i} className="text-center">
+                <div className="font-bold text-emerald-400 tracking-tight" style={{ fontSize: 'clamp(20px, 5vw, 28px)', letterSpacing: -0.5 }}>{s.val}</div>
+                <div className="font-mono text-[10px] text-gray-500 uppercase tracking-wider mt-0.5">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ===== TOP TOWNS ===== */}
+        <div className="px-5 pb-8 max-w-[600px] mx-auto">
+          <div className="flex items-baseline justify-between mb-3.5 flex-wrap gap-2">
+            <h2 className="text-xl font-bold text-white m-0">Top Towns</h2>
+            <div className="flex gap-1 bg-gray-800 rounded-lg p-0.5">
+              {([
+                { id: 'permits' as SortKey, label: 'Total Permits' },
+                { id: 'percapita' as SortKey, label: 'Per Capita' },
+                { id: 'approval' as SortKey, label: 'Approval %' },
+              ]).map(s => (
+                <button
+                  key={s.id}
+                  onClick={() => setSortBy(s.id)}
+                  className={`px-2.5 py-[5px] border-none rounded-md cursor-pointer font-mono text-[10px] transition-all duration-150 ${
+                    sortBy === s.id
+                      ? 'bg-gray-700 shadow-sm font-semibold text-white'
+                      : 'bg-transparent font-normal text-gray-500'
+                  }`}
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-1">
+            {topTowns.map((t, i) => (
+              <Link
+                key={t.slug}
+                href={`/towns/${t.slug}`}
+                className="flex items-center py-3 px-3.5 gap-2.5 bg-gray-800/60 border border-gray-700 rounded-lg no-underline hover:border-gray-600 transition-colors min-h-[48px]"
+                onClick={() => setSelectedTown(t.name)}
+              >
+                {/* Rank */}
+                <div className={`font-mono text-xs font-semibold w-5 text-center shrink-0 ${i < 3 ? 'text-emerald-400' : 'text-gray-600'}`}>
+                  {i + 1}
+                </div>
+
+                {/* Town info */}
                 <div className="flex-1 min-w-0">
-                  <span className="text-white font-medium text-sm group-hover:text-blue-400 transition-colors truncate block">{town.name}</span>
-                  <span className="text-gray-500 text-xs">{town.county}</span>
+                  <div className="text-sm font-semibold text-white truncate">{t.name}</div>
+                  <div className="text-[11px] text-gray-500">{t.county} · {t.pop.toLocaleString()}</div>
                 </div>
-                <div className="flex items-center gap-2 text-xs shrink-0">
-                  <span className="text-red-400 font-medium">{town.conflicts}</span>
-                  <span className="text-amber-400 font-medium">{town.reviews}</span>
-                  <span className="text-emerald-400 font-medium">{town.ok}</span>
+
+                {/* Stats — all three always visible */}
+                <div className="flex gap-3 items-center shrink-0">
+                  <div className="text-center min-w-[36px]">
+                    <div className={`text-sm font-bold ${sortBy === 'permits' ? 'text-emerald-400' : 'text-gray-400'}`}>{t.permits}</div>
+                    <div className="font-mono text-[8px] text-gray-600 uppercase">permits</div>
+                  </div>
+                  <div className="text-center min-w-[36px]">
+                    <div className={`text-sm font-bold ${sortBy === 'percapita' ? 'text-blue-400' : 'text-gray-400'}`}>{t.per10k}</div>
+                    <div className="font-mono text-[8px] text-gray-600 uppercase">per 10k</div>
+                  </div>
+                  <div className="text-center min-w-[36px]">
+                    <div className={`text-sm font-bold ${
+                      sortBy === 'approval'
+                        ? (t.approvalRate >= 70 ? 'text-emerald-400' : t.approvalRate >= 50 ? 'text-amber-400' : 'text-red-400')
+                        : 'text-gray-400'
+                    }`}>{t.approvalRate}%</div>
+                    <div className="font-mono text-[8px] text-gray-600 uppercase">approval</div>
+                  </div>
                 </div>
-                <span className={`text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider px-1 sm:px-1.5 py-0.5 rounded shrink-0 hidden sm:inline ${town.statusColor}`}>
-                  {town.status}
-                </span>
               </Link>
             ))}
           </div>
-          <Link href="/compliance" className="inline-flex items-center gap-1.5 text-sm text-blue-400 hover:text-blue-300 transition-colors">
-            Check your town&apos;s consistency <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </section>
 
-        {/* ─── SECTION 4: WHO THIS IS FOR ─── */}
-        <section className="mb-14">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-5">Who This Is For</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <Link href="/club" className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-emerald-500/30 transition-colors group">
-              <HomeIcon className="w-5 h-5 text-emerald-400 mb-3" />
-              <h3 className="text-white font-bold mb-1">Homeowners</h3>
-              <p className="text-gray-400 text-sm mb-3">Check if an ADU makes sense, estimate costs, and see if your town&apos;s bylaws are consistent with state law.</p>
-              <span className="inline-flex items-center gap-1 text-xs text-emerald-400 group-hover:text-emerald-300 transition-colors">
-                Explore ADU options <ArrowRight className="w-3 h-3" />
-              </span>
-            </Link>
-            <Link href="/builders" className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-blue-500/30 transition-colors group">
-              <Hammer className="w-5 h-5 text-blue-400 mb-3" />
-              <h3 className="text-white font-bold mb-1">Builders</h3>
-              <p className="text-gray-400 text-sm mb-3">See where ADU demand is highest, get clustered leads, and close more projects per town.</p>
-              <span className="inline-flex items-center gap-1 text-xs text-blue-400 group-hover:text-blue-300 transition-colors">
-                See builder opportunities <ArrowRight className="w-3 h-3" />
-              </span>
-            </Link>
-            <Link href="/compliance" className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-purple-500/30 transition-colors group">
-              <Landmark className="w-5 h-5 text-purple-400 mb-3" />
-              <h3 className="text-white font-bold mb-1">Lenders &amp; Municipalities</h3>
-              <p className="text-gray-400 text-sm mb-3">Access permit analytics, bylaw consistency analysis, and market intelligence across MA towns.</p>
-              <span className="inline-flex items-center gap-1 text-xs text-purple-400 group-hover:text-purple-300 transition-colors">
-                Bylaw Consistency Tracker <ArrowRight className="w-3 h-3" />
-              </span>
+          <div className="mt-3 text-center">
+            <Link href="/map" className="font-mono text-xs text-blue-400 no-underline font-medium hover:text-blue-300 transition-colors">
+              View all {totalTowns} towns →
             </Link>
           </div>
-        </section>
+        </div>
 
-        {/* ─── SECTION 5: LATEST ANALYSIS ─── */}
-        <section className="mb-14">
-          <Link href="/blog/boston-adu-exemption" className="block bg-gray-800/40 border border-gray-700 rounded-xl p-5 md:p-6 hover:border-gray-600 transition-colors group">
-            <div className="flex items-center gap-2 mb-2">
-              <BookOpen className="w-4 h-4 text-blue-400" />
-              <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">Latest Analysis</span>
+        {/* ===== WHAT'S ON EVERY TOWN PAGE ===== */}
+        <div className="px-5 py-7 max-w-[600px] mx-auto border-t border-gray-800">
+          <h2 className="text-xl font-bold text-white mb-3.5">What&apos;s on every town page</h2>
+          <div className="grid grid-cols-2 gap-2">
+            {[
+              { icon: '📊', title: 'Permit Data', desc: 'Applications, approvals, and per-capita rates from EOHLC' },
+              { icon: '📋', title: 'Bylaw Analysis', desc: "Which local rules conflict with state law — and what's unenforceable" },
+              { icon: '💰', title: 'Cost Estimates', desc: 'Real project costs from permitted ADUs in your area' },
+              { icon: '🔄', title: 'Town Comparison', desc: 'How your town stacks up against nearby communities' },
+            ].map((f, i) => (
+              <div key={i} className="p-3.5 bg-gray-800/60 border border-gray-700 rounded-lg">
+                <div className="text-xl mb-1.5">{f.icon}</div>
+                <div className="text-[13px] font-semibold text-white mb-0.5">{f.title}</div>
+                <div className="text-xs text-gray-400 leading-[1.45]">{f.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ===== AUDIENCE CTAs ===== */}
+        <div className="px-5 py-7 max-w-[600px] mx-auto">
+          <div className="flex flex-col gap-2">
+            <Link
+              href="/club"
+              className="flex items-center gap-3.5 py-4 px-[18px] rounded-lg no-underline text-white bg-emerald-700 hover:bg-emerald-600 transition-colors"
+            >
+              <div className="text-2xl">🏠</div>
+              <div className="flex-1 min-w-0">
+                <div className="text-sm font-bold">ADU Club for Homeowners</div>
+                <div className="text-xs text-emerald-200/70 mt-0.5">Group builder rates in your town. Free to join.</div>
+              </div>
+              <div className="text-base text-emerald-200/50">→</div>
+            </Link>
+
+            <Link
+              href="/builders"
+              className="flex items-center gap-3.5 py-4 px-[18px] rounded-lg no-underline text-white bg-gray-800/60 border border-gray-700 hover:border-gray-600 transition-colors"
+            >
+              <div className="text-2xl">🔨</div>
+              <div className="flex-1 min-w-0">
+                <div className="text-sm font-bold">For Builders</div>
+                <div className="text-xs text-gray-400 mt-0.5">Demand data, clustered leads, and market intelligence.</div>
+              </div>
+              <div className="text-base text-gray-600">→</div>
+            </Link>
+          </div>
+        </div>
+
+        {/* ===== BLOG PREVIEW ===== */}
+        <div className="px-5 pt-5 pb-8 max-w-[600px] mx-auto border-t border-gray-800">
+          <Link
+            href="/blog/massachusetts-adu-year-one"
+            className="block py-[18px] px-5 bg-gray-800/60 border border-gray-700 rounded-lg no-underline hover:border-gray-600 transition-colors"
+          >
+            <div className="font-mono text-[10px] text-gray-500 uppercase tracking-wider mb-1.5">
+              Latest Analysis
             </div>
-            <h3 className="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">
-              Boston Is Exempt from the ADU Law. Here&apos;s What That Means.
-            </h3>
-            <p className="text-gray-400 text-sm">
-              Why Chapter 40A doesn&apos;t apply to Boston, what the city is doing instead, and how it affects the statewide numbers.
-            </p>
+            <div className="text-base font-bold text-white leading-[1.3] mb-1.5">
+              What 1,224 ADU Permits Taught Me About Massachusetts Housing
+            </div>
+            <div className="text-xs text-gray-400 leading-[1.5]">
+              One year in: which towns are succeeding, which are stalling, and why the numbers tell a more complicated story.
+            </div>
           </Link>
-        </section>
+        </div>
+
+        {/* Data attribution */}
+        <div className="px-5 pb-6 max-w-[600px] mx-auto border-t border-gray-800 pt-5">
+          <div className="text-[11px] text-gray-500 leading-relaxed">
+            Data: EOHLC ADU Survey Feb 2026 (293 of 351 MA municipalities).
+            Population: Census ACS 2024.
+            Approval rate = share of 2025 applications approved in 2025.
+          </div>
+        </div>
       </main>
+
       <Footer />
     </div>
   )

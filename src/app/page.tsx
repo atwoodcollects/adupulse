@@ -150,7 +150,7 @@ export default function Home() {
                   {s.tip && (
                     <span className="relative group cursor-help">
                       <span className="text-gray-600 hover:text-gray-400 transition-colors">&#9432;</span>
-                      <span className="absolute top-full sm:bottom-full sm:top-auto left-1/2 -translate-x-1/2 mt-1.5 sm:mt-0 sm:mb-1.5 px-2.5 py-1.5 text-[10px] normal-case tracking-normal text-gray-300 bg-gray-800 border border-gray-700 rounded-lg shadow-xl w-48 text-center opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-10">
+                      <span className="absolute top-full sm:bottom-full sm:top-auto right-0 mt-1.5 sm:mt-0 sm:mb-1.5 px-2.5 py-1.5 text-[10px] normal-case tracking-normal text-gray-300 bg-gray-800 border border-gray-700 rounded-lg shadow-xl max-w-[min(12rem,calc(100vw-2rem))] w-max text-left opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-10">
                         {s.tip}
                       </span>
                     </span>

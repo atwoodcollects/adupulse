@@ -511,6 +511,7 @@ export default function TownSEOPageClient({
                 <InfoCallout text="Share of 2025 ADU applications that were approved in calendar year 2025. Excludes applications still pending." />
               </span>
             </div>
+            <div className="text-[11px] text-gray-500 mb-3">Share of 2025 applications approved in 2025</div>
 
             {/* Stacked bar */}
             <div className="h-3 bg-gray-700 rounded-full overflow-hidden flex mb-3">

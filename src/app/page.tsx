@@ -141,11 +141,12 @@ export default function Home() {
             {[
               { val: totalApproved.toLocaleString(), label: 'ADUs Approved' },
               { val: String(totalTowns), label: 'Towns Tracked' },
-              { val: `${overallRate}%`, label: 'Approval Rate' },
+              { val: `${overallRate}%`, label: 'Approval Rate', sub: 'Share of 2025 applications approved in 2025' },
             ].map((s, i) => (
               <div key={i} className="text-center">
                 <div className="font-bold text-emerald-400 tracking-tight" style={{ fontSize: 'clamp(20px, 5vw, 28px)', letterSpacing: -0.5 }}>{s.val}</div>
                 <div className="font-mono text-[10px] text-gray-500 uppercase tracking-wider mt-0.5">{s.label}</div>
+                {s.sub && <div className="text-[10px] text-gray-600 mt-0.5">{s.sub}</div>}
               </div>
             ))}
           </div>

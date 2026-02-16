@@ -37,7 +37,6 @@ import {
   Scale,
   Home,
   Landmark,
-  Info,
   ChevronDown,
 } from 'lucide-react'
 
@@ -182,26 +181,6 @@ function PerCapitaCard({
         Based on {town.approved} approved ADU applications and {town.population.toLocaleString()} residents
       </p>
     </div>
-  )
-}
-
-// ── Info Callout ─────────────────────────────────────────────────────
-function InfoCallout({ text }: { text: string }) {
-  const [open, setOpen] = useState(false)
-  return (
-    <span className="relative inline-flex">
-      <button onClick={() => setOpen(!open)} className="text-gray-500 hover:text-gray-300 ml-1">
-        <Info className="w-3.5 h-3.5" />
-      </button>
-      {open && (
-        <span className="absolute left-0 top-full mt-1 z-10 w-56 p-2.5 text-xs text-gray-300 bg-gray-800 border border-gray-700 rounded-lg shadow-xl">
-          {text}
-          <button onClick={() => setOpen(false)} className="block text-blue-400 text-[10px] mt-1.5 hover:underline">
-            Close
-          </button>
-        </span>
-      )}
-    </span>
   )
 }
 
@@ -506,12 +485,16 @@ export default function TownSEOPageClient({
               }`}>
                 {town.approvalRate}%
               </span>
-              <span className="text-gray-500 text-sm mb-1.5">
+              <span className="text-gray-500 text-sm mb-1.5 inline-flex items-center gap-1">
                 approval rate
-                <InfoCallout text="Share of 2025 ADU applications that were approved in calendar year 2025. Excludes applications still pending." />
+                <span className="relative group cursor-help">
+                  <span className="text-gray-600 hover:text-gray-400 transition-colors">&#9432;</span>
+                  <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2.5 py-1.5 text-[10px] text-gray-300 bg-gray-800 border border-gray-700 rounded-lg shadow-xl whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">
+                    Share of 2025 applications approved in 2025
+                  </span>
+                </span>
               </span>
             </div>
-            <div className="text-[11px] text-gray-500 mb-3">Share of 2025 applications approved in 2025</div>
 
             {/* Stacked bar */}
             <div className="h-3 bg-gray-700 rounded-full overflow-hidden flex mb-3">

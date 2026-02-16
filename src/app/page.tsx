@@ -141,12 +141,21 @@ export default function Home() {
             {[
               { val: totalApproved.toLocaleString(), label: 'ADUs Approved' },
               { val: String(totalTowns), label: 'Towns Tracked' },
-              { val: `${overallRate}%`, label: 'Approval Rate', sub: 'Share of 2025 applications approved in 2025' },
+              { val: `${overallRate}%`, label: 'Approval Rate', tip: 'Share of 2025 applications approved in 2025' },
             ].map((s, i) => (
               <div key={i} className="text-center">
                 <div className="font-bold text-emerald-400 tracking-tight" style={{ fontSize: 'clamp(20px, 5vw, 28px)', letterSpacing: -0.5 }}>{s.val}</div>
-                <div className="font-mono text-[10px] text-gray-500 uppercase tracking-wider mt-0.5">{s.label}</div>
-                {s.sub && <div className="text-[10px] text-gray-600 mt-0.5">{s.sub}</div>}
+                <div className="font-mono text-[10px] text-gray-500 uppercase tracking-wider mt-0.5 inline-flex items-center gap-1">
+                  {s.label}
+                  {s.tip && (
+                    <span className="relative group cursor-help">
+                      <span className="text-gray-600 hover:text-gray-400 transition-colors">&#9432;</span>
+                      <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2.5 py-1.5 text-[10px] normal-case tracking-normal text-gray-300 bg-gray-800 border border-gray-700 rounded-lg shadow-xl whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">
+                        {s.tip}
+                      </span>
+                    </span>
+                  )}
+                </div>
               </div>
             ))}
           </div>

@@ -84,6 +84,9 @@ const fmt = (n: number) =>
     ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
     : '—'
 
+// ── Strip house number from address for display ─────────────────────
+const streetName = (addr: string) => addr.replace(/^\d+\s+/, '')
+
 // ── Provision sort order ─────────────────────────────────────────────
 const statusOrder: Record<string, number> = { inconsistent: 0, review: 1, compliant: 2 }
 
@@ -223,7 +226,7 @@ function PermitTable({ permits, isPro }: { permits: PermitRecord[]; isPro: boole
           <tbody>
             {displayed.map((p, i) => (
               <tr key={i} className="border-b border-gray-800/50 text-gray-300">
-                <td className="py-2.5 pr-3 text-white text-xs">{p.address}</td>
+                <td className="py-2.5 pr-3 text-white text-xs">{streetName(p.address)}</td>
                 <td className="py-2.5 pr-3 text-xs">{p.type}</td>
                 <td className="py-2.5 pr-3">
                   <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${
@@ -245,7 +248,7 @@ function PermitTable({ permits, isPro }: { permits: PermitRecord[]; isPro: boole
         {displayed.map((p, i) => (
           <div key={i} className="bg-gray-900/50 rounded-lg p-3 text-sm">
             <div className="flex justify-between items-start mb-1.5">
-              <div className="text-white font-medium text-xs">{p.address}</div>
+              <div className="text-white font-medium text-xs">{streetName(p.address)}</div>
               <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${
                 p.status === 'Issued' ? 'bg-emerald-500/20 text-emerald-400' :
                 p.status === 'Pending' ? 'bg-amber-500/20 text-amber-400' :

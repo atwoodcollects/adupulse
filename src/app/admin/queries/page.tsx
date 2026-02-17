@@ -14,19 +14,34 @@ export default function AdminQueriesPage() {
   const [loaded, setLoaded] = useState(false)
   const [error, setError] = useState('')
 
-  async function fetchLog() {
+  async function authenticate() {
     setError('')
     try {
-      const res = await fetch(`/api/queries?password=${encodeURIComponent(password)}`)
-      if (!res.ok) {
+      // Get token from server-side auth
+      const authRes = await fetch('/api/admin/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      })
+      if (!authRes.ok) {
         setError('Invalid password')
         return
       }
-      const data = await res.json()
+      const { token } = await authRes.json()
+
+      // Fetch log with token
+      const logRes = await fetch('/api/queries', {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      if (!logRes.ok) {
+        setError('Failed to load log')
+        return
+      }
+      const data = await logRes.json()
       setEntries(data)
       setLoaded(true)
     } catch {
-      setError('Failed to load')
+      setError('Failed to connect')
     }
   }
 
@@ -48,7 +63,7 @@ export default function AdminQueriesPage() {
       <h1 className="text-2xl font-bold mb-6">Query Log</h1>
 
       {!loaded ? (
-        <form onSubmit={e => { e.preventDefault(); fetchLog() }} className="flex gap-3">
+        <form onSubmit={e => { e.preventDefault(); authenticate() }} className="flex gap-3">
           <input
             type="password"
             placeholder="Admin password"

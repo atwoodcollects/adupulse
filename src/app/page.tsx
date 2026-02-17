@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState, useMemo, useRef } from 'react'
+import { useState, useMemo, useRef, useEffect, useCallback } from 'react'
 import { useTown } from '@/contexts/TownContext'
 import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
@@ -28,20 +28,214 @@ const overallRate = 68
 
 type SortKey = 'permits' | 'percapita' | 'approval'
 
+const SUGGESTED_QUERIES = [
+  'Can I build an ADU in Duxbury?',
+  'What did the AG strike down in Canton?',
+  'Does Plymouth require owner-occupancy?',
+  'How many ADU permits has Scituate approved?',
+  "What's the ADU situation in Andover?",
+  'How are ADUs impacting housing production?',
+]
+
+const STORAGE_KEY = 'adupulse_chat_usage'
+const FREE_LIMIT = 5
+
+function stripMarkdown(text: string): string {
+  return text
+    .replace(/^#{1,6}\s+/gm, '')      // headers
+    .replace(/\*\*(.+?)\*\*/g, '$1')  // bold
+    .replace(/\*(.+?)\*/g, '$1')      // italic
+    .replace(/^\d+\.\s+/gm, '')       // numbered lists
+    .replace(/`(.+?)`/g, '$1')        // inline code
+}
+
+function renderResponse(text: string) {
+  const cleaned = stripMarkdown(text)
+  const paragraphs = cleaned.split(/\n\n+/).filter(p => p.trim())
+  return paragraphs.map((para, i) => {
+    const lines = para.split('\n')
+    // Check if this block is list-like: most lines start with - or are short phrases
+    const listLines = lines.filter(l => l.trim()).map(l => {
+      const stripped = l.replace(/^[-*]\s+/, '')
+      const isListItem = l.trimStart().startsWith('- ') || l.trimStart().startsWith('* ')
+      return { text: isListItem ? stripped : l, isListItem }
+    })
+    const listItemCount = listLines.filter(l => l.isListItem).length
+    const isListBlock = listItemCount >= 2
+
+    if (isListBlock) {
+      return (
+        <div key={i} className="mb-3 last:mb-0 space-y-1.5">
+          {listLines.map((l, j) =>
+            l.isListItem ? (
+              <div key={j} className="flex gap-2 pl-1 border-l-2 border-emerald-500/30 ml-1">
+                <span className="pl-2">{renderInline(l.text)}</span>
+              </div>
+            ) : (
+              <p key={j}>{renderInline(l.text)}</p>
+            )
+          )}
+        </div>
+      )
+    }
+
+    return (
+      <p key={i} className="mb-3 last:mb-0">
+        {lines.map((line, j) => (
+          <span key={j}>
+            {j > 0 && <br />}
+            {renderInline(line)}
+          </span>
+        ))}
+      </p>
+    )
+  })
+}
+
+function renderInline(text: string) {
+  // First, normalize any full URLs to relative paths
+  const cleaned = text.replace(/https?:\/\/(?:www\.)?adupulse\.com(\/[^\s]*)/g, '$1')
+
+  const parts: (string | JSX.Element)[] = []
+  // Match markdown links [text](url) OR relative paths /towns/... /compliance/... /housing-production/... /pricing
+  const regex = /(\[([^\]]+)\]\(([^)]+)\))|(\/(?:towns|compliance|housing-production|pricing|blog)(?:\/[a-z0-9-]+)*)/g
+  let lastIndex = 0
+  let match
+  let key = 0
+  while ((match = regex.exec(cleaned)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(cleaned.slice(lastIndex, match.index))
+    }
+    if (match[2] && match[3]) {
+      // Markdown link — normalize href too
+      const href = match[3].replace(/https?:\/\/(?:www\.)?adupulse\.com(\/[^\s]*)/, '$1')
+      parts.push(
+        <a key={key++} href={href} target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 no-underline hover:underline">
+          {match[2]}
+        </a>
+      )
+    } else if (match[4]) {
+      const path = match[4]
+      const segments = path.split('/').filter(Boolean)
+      const lastSegment = segments[segments.length - 1] || ''
+      let display: string
+      if (path === '/compliance') display = 'Policy Tracker'
+      else if (path === '/housing-production') display = 'Housing Production'
+      else if (path === '/pricing') display = 'Pricing'
+      else if (path === '/blog') display = 'Blog'
+      else display = lastSegment.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+      parts.push(
+        <a key={key++} href={path} target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 no-underline hover:underline">
+          {display}
+        </a>
+      )
+    }
+    lastIndex = match.index + match[0].length
+  }
+  if (lastIndex < cleaned.length) {
+    parts.push(cleaned.slice(lastIndex))
+  }
+  return <>{parts}</>
+}
+
 export default function Home() {
   const { setSelectedTown } = useTown()
   const [query, setQuery] = useState('')
-  const [focused, setFocused] = useState(false)
+  const [askedQuestion, setAskedQuestion] = useState('')
+  const [answer, setAnswer] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
+  const [questionsUsed, setQuestionsUsed] = useState(0)
+  const [hydrated, setHydrated] = useState(false)
+  const [bypassLimit, setBypassLimit] = useState(false)
   const [sortBy, setSortBy] = useState<SortKey>('permits')
   const inputRef = useRef<HTMLInputElement>(null)
+  const answerRef = useRef<HTMLDivElement>(null)
 
-  const filtered = useMemo(() => {
-    if (!query.trim()) return []
-    const q = query.toLowerCase()
-    return allTowns
-      .filter(t => t.name.toLowerCase().includes(q) || t.county.toLowerCase().includes(q))
-      .slice(0, 6)
-  }, [query])
+  // Load usage from localStorage + check for admin bypass
+  useEffect(() => {
+    // Skip quota in development
+    const isDev = process.env.NODE_ENV === 'development'
+    const hasAdminParam = new URLSearchParams(window.location.search).get('admin') === 'true'
+    const hasAdminKey = localStorage.getItem('adupulse_admin') === 'true'
+
+    // Persist admin if set via URL param
+    if (hasAdminParam) localStorage.setItem('adupulse_admin', 'true')
+
+    if (isDev || hasAdminParam || hasAdminKey) {
+      setBypassLimit(true)
+    } else {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY)
+        if (stored) {
+          const { count, month } = JSON.parse(stored)
+          const currentMonth = new Date().toISOString().slice(0, 7)
+          if (month === currentMonth) {
+            setQuestionsUsed(count)
+          } else {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify({ count: 0, month: currentMonth }))
+          }
+        }
+      } catch { /* ignore */ }
+    }
+    setHydrated(true)
+  }, [])
+
+  const atLimit = !bypassLimit && questionsUsed >= FREE_LIMIT
+  const remaining = FREE_LIMIT - questionsUsed
+
+  const sendQuestion = useCallback(async (text: string) => {
+    if (!text.trim() || isLoading || atLimit) return
+
+    setAskedQuestion(text)
+    setIsLoading(true)
+    setAnswer('')
+    setError('')
+    setQuery('')
+
+    // Increment usage (skip if bypassing)
+    if (!bypassLimit) {
+      const currentMonth = new Date().toISOString().slice(0, 7)
+      const newCount = questionsUsed + 1
+      setQuestionsUsed(newCount)
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ count: newCount, month: currentMonth }))
+    }
+
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text }),
+      })
+      if (!res.ok) throw new Error('Failed')
+
+      const reader = res.body!.getReader()
+      const decoder = new TextDecoder()
+      let accumulated = ''
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+        accumulated += decoder.decode(value, { stream: true })
+        setAnswer(accumulated)
+      }
+    } catch {
+      setError('Something went wrong. Please try again.')
+    } finally {
+      setIsLoading(false)
+    }
+  }, [isLoading, atLimit, bypassLimit, questionsUsed])
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    sendQuestion(query)
+  }
+
+  const clearAnswer = () => {
+    setAskedQuestion('')
+    setAnswer('')
+    setError('')
+    inputRef.current?.focus()
+  }
 
   const topTowns = useMemo(() => {
     const sorted = [...allTowns]
@@ -51,90 +245,133 @@ export default function Home() {
     return sorted.slice(0, 8)
   }, [sortBy])
 
-  const showResults = focused && query.trim().length > 0
-
   return (
     <div className="min-h-screen bg-gray-900">
       <NavBar current="Home" />
 
       <main>
-        {/* ===== HERO + SEARCH ===== */}
+        {/* ===== HERO + CHAT INPUT ===== */}
         <div className="px-5 pt-10 pb-9">
           <div className="max-w-[560px] mx-auto text-center">
-            <h1 className="font-bold text-white tracking-tight leading-[1.15] mb-6" style={{ fontSize: 'clamp(26px, 5.5vw, 36px)', letterSpacing: -0.8 }}>
+            <h1 className="font-bold text-white tracking-tight leading-[1.15] mb-3" style={{ fontSize: 'clamp(26px, 5.5vw, 36px)', letterSpacing: -0.8 }}>
               Massachusetts legalized ADUs.
               <br />
-              <span className="text-emerald-400">We&apos;re tracking how it&apos;s actually going.</span>
+              <span className="text-emerald-400">Ask us anything.</span>
             </h1>
+            <p className="text-gray-400 text-sm sm:text-base leading-relaxed mb-6 max-w-[480px] mx-auto">
+              Instant answers on permits, local bylaws, and consistency with state law — powered by real data from 293 towns.
+            </p>
 
-            {/* Search */}
-            <div className="relative max-w-[440px] mx-auto">
+            {/* Chat input */}
+            <form onSubmit={handleSubmit} className="relative max-w-[440px] mx-auto">
               <div
                 className={`flex items-center rounded-xl px-4 transition-all duration-200 bg-gray-800 border-2 ${
-                  focused ? 'border-emerald-500 shadow-[0_0_0_4px_rgba(16,185,129,0.1)]' : 'border-gray-600 shadow-none'
+                  atLimit ? 'border-gray-700 opacity-60' :
+                  'border-gray-600 focus-within:border-emerald-500 focus-within:shadow-[0_0_0_4px_rgba(16,185,129,0.1)]'
                 }`}
               >
                 <span className="text-lg mr-2.5 text-gray-500 select-none">&#x2315;</span>
                 <input
                   ref={inputRef}
                   type="text"
-                  placeholder="Enter your town name..."
+                  placeholder={atLimit ? 'Free question limit reached' : "Ask about any MA town's ADU policy..."}
                   value={query}
                   onChange={e => setQuery(e.target.value)}
-                  onFocus={() => setFocused(true)}
-                  onBlur={() => setTimeout(() => setFocused(false), 200)}
-                  className="flex-1 py-3.5 border-none outline-none text-base bg-transparent text-white placeholder-gray-500"
+                  disabled={atLimit || isLoading}
+                  className="flex-1 py-3.5 border-none outline-none text-base bg-transparent text-white placeholder-gray-500 disabled:cursor-not-allowed"
                 />
-                {query && (
+                {query && !isLoading && (
                   <button
-                    onClick={() => { setQuery(''); inputRef.current?.focus() }}
-                    className="text-base text-gray-500 hover:text-gray-300 cursor-pointer p-1 bg-transparent border-none"
+                    type="submit"
+                    className="text-emerald-400 hover:text-emerald-300 cursor-pointer p-1 bg-transparent border-none"
+                    aria-label="Send"
                   >
-                    &#x2715;
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </button>
+                )}
+                {isLoading && (
+                  <div className="flex gap-1 p-1">
+                    <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-bounce [animation-delay:0ms]" />
+                    <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-bounce [animation-delay:150ms]" />
+                    <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-bounce [animation-delay:300ms]" />
+                  </div>
+                )}
+              </div>
+            </form>
+
+            {/* Suggested queries */}
+            {!askedQuestion && !isLoading && (
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 mt-4 max-w-[480px] mx-auto">
+                {SUGGESTED_QUERIES.map(q => (
+                  <button
+                    key={q}
+                    onClick={() => sendQuestion(q)}
+                    disabled={atLimit}
+                    className="px-2.5 py-1.5 text-[11px] leading-tight text-gray-400 bg-gray-800/60 border border-gray-700 rounded-lg hover:text-white hover:border-gray-600 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed text-left"
+                  >
+                    {q}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {/* Question counter / limit message */}
+            {hydrated && !bypassLimit && (
+              <div className="mt-3 text-center">
+                {atLimit ? (
+                  <p className="text-xs text-gray-500">
+                    You&apos;ve used your {FREE_LIMIT} free questions this month.{' '}
+                    <Link href="/pricing" className="text-blue-400 hover:text-blue-300 underline">
+                      See pricing
+                    </Link>
+                  </p>
+                ) : questionsUsed > 0 ? (
+                  <p className="text-xs text-gray-500">
+                    {remaining} of {FREE_LIMIT} free questions remaining
+                  </p>
+                ) : null}
+              </div>
+            )}
+          </div>
+
+          {/* ===== ANSWER CARD ===== */}
+          {(askedQuestion || isLoading) && (
+            <div ref={answerRef} className="max-w-[560px] mx-auto mt-6">
+              <div className="bg-gray-800 border border-gray-700 rounded-xl p-5">
+                {/* User question */}
+                <div className="text-xs text-gray-500 mb-3">
+                  <span className="text-gray-600">Q:</span> {askedQuestion}
+                </div>
+
+                {/* AI response */}
+                {error ? (
+                  <p className="text-red-400 text-sm">{error}</p>
+                ) : answer ? (
+                  <div className="text-gray-300 text-sm leading-relaxed">
+                    {renderResponse(answer)}
+                  </div>
+                ) : isLoading ? (
+                  <div className="flex gap-1.5 py-2">
+                    <span className="w-2 h-2 bg-gray-600 rounded-full animate-bounce [animation-delay:0ms]" />
+                    <span className="w-2 h-2 bg-gray-600 rounded-full animate-bounce [animation-delay:150ms]" />
+                    <span className="w-2 h-2 bg-gray-600 rounded-full animate-bounce [animation-delay:300ms]" />
+                  </div>
+                ) : null}
+
+                {/* Clear / ask another */}
+                {!isLoading && (answer || error) && (
+                  <button
+                    onClick={clearAnswer}
+                    className="mt-4 text-xs text-blue-400 hover:text-blue-300 cursor-pointer bg-transparent border-none p-0"
+                  >
+                    Ask another question
                   </button>
                 )}
               </div>
-
-              {/* Search results dropdown */}
-              {showResults && (
-                <div className="absolute top-full left-0 right-0 mt-1.5 bg-gray-800 border border-gray-700 rounded-xl shadow-2xl overflow-hidden z-50">
-                  {filtered.length === 0 ? (
-                    <div className="px-5 py-4 text-[13px] text-gray-400 text-center">
-                      No towns found matching &ldquo;{query}&rdquo;
-                    </div>
-                  ) : (
-                    filtered.map((t, i) => (
-                      <Link
-                        key={t.slug}
-                        href={`/towns/${t.slug}`}
-                        className={`flex items-center py-3 px-4 gap-3 no-underline hover:bg-gray-700/50 transition-colors ${
-                          i < filtered.length - 1 ? 'border-b border-gray-700/50' : ''
-                        }`}
-                        onMouseDown={e => e.preventDefault()}
-                        onClick={() => { setQuery(''); setSelectedTown(t.name) }}
-                      >
-                        <div className="flex-1 min-w-0">
-                          <div className="text-sm font-semibold text-white">{t.name}</div>
-                          <div className="text-[11px] text-gray-500">{t.county} County · Pop. {t.pop.toLocaleString()}</div>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-sm font-bold text-emerald-400">{t.permits}</div>
-                          <div className="font-mono text-[9px] text-gray-500 uppercase">permits</div>
-                        </div>
-                        <div className="text-right min-w-[42px]">
-                          <div className={`text-sm font-bold ${
-                            t.approvalRate >= 70 ? 'text-emerald-400' :
-                            t.approvalRate >= 50 ? 'text-amber-400' : 'text-red-400'
-                          }`}>{t.approvalRate}%</div>
-                          <div className="font-mono text-[9px] text-gray-500 uppercase">approval</div>
-                        </div>
-                      </Link>
-                    ))
-                  )}
-                </div>
-              )}
             </div>
-          </div>
+          )}
 
           {/* Stats row */}
           <div className="flex justify-center mt-7" style={{ gap: 'clamp(20px, 6vw, 48px)' }}>
@@ -252,56 +489,8 @@ export default function Home() {
           </div>
 
           <div className="mt-3 text-center">
-            <Link href="/map" className="font-mono text-xs text-blue-400 no-underline font-medium hover:text-blue-300 transition-colors">
+            <Link href="/compliance" className="font-mono text-xs text-blue-400 no-underline font-medium hover:text-blue-300 transition-colors">
               View all {totalTowns} towns →
-            </Link>
-          </div>
-        </div>
-
-        {/* ===== WHAT'S ON EVERY TOWN PAGE ===== */}
-        <div className="px-5 py-7 max-w-[600px] mx-auto border-t border-gray-800">
-          <h2 className="text-xl font-bold text-white mb-3.5">What&apos;s on every town page</h2>
-          <div className="grid grid-cols-2 gap-2">
-            {[
-              { icon: '📊', title: 'Permit Data', desc: 'Applications, approvals, and per-capita rates from EOHLC' },
-              { icon: '📋', title: 'Bylaw Analysis', desc: "Which local rules conflict with state law — and what's unenforceable" },
-              { icon: '💰', title: 'Cost Estimates', desc: 'Real project costs from permitted ADUs in your area' },
-              { icon: '🔄', title: 'Town Comparison', desc: 'How your town stacks up against nearby communities' },
-            ].map((f, i) => (
-              <div key={i} className="p-3.5 bg-gray-800/60 border border-gray-700 rounded-lg">
-                <div className="text-xl mb-1.5">{f.icon}</div>
-                <div className="text-[13px] font-semibold text-white mb-0.5">{f.title}</div>
-                <div className="text-xs text-gray-400 leading-[1.45]">{f.desc}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* ===== AUDIENCE CTAs ===== */}
-        <div className="px-5 py-7 max-w-[600px] mx-auto">
-          <div className="flex flex-col gap-2">
-            <Link
-              href="/club"
-              className="flex items-center gap-3.5 py-4 px-[18px] rounded-lg no-underline text-white bg-emerald-700 hover:bg-emerald-600 transition-colors"
-            >
-              <div className="text-2xl">🏠</div>
-              <div className="flex-1 min-w-0">
-                <div className="text-sm font-bold">ADU Club for Homeowners</div>
-                <div className="text-xs text-emerald-200/70 mt-0.5">Group builder rates in your town. Free to join.</div>
-              </div>
-              <div className="text-base text-emerald-200/50">→</div>
-            </Link>
-
-            <Link
-              href="/builders"
-              className="flex items-center gap-3.5 py-4 px-[18px] rounded-lg no-underline text-white bg-gray-800/60 border border-gray-700 hover:border-gray-600 transition-colors"
-            >
-              <div className="text-2xl">🔨</div>
-              <div className="flex-1 min-w-0">
-                <div className="text-sm font-bold">For Builders</div>
-                <div className="text-xs text-gray-400 mt-0.5">Demand data, clustered leads, and market intelligence.</div>
-              </div>
-              <div className="text-base text-gray-600">→</div>
             </Link>
           </div>
         </div>

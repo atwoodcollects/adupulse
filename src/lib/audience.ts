@@ -52,7 +52,7 @@ export const AUDIENCE_CONTENT: Record<Audience, {
     perCapitaLabel: 'Approval reliability',
     provisionBottomLineLabel: 'Risk factor',
     provisionBottomLine: (p) => {
-      if (p.status === 'inconsistent') return 'Regulatory risk: local rule conflicts with state law but has not been formally challenged.'
+      if (p.status === 'inconsistent') return 'Regulatory risk: local rule is inconsistent with state law but has not been formally challenged.'
       if (p.status === 'review') return 'Moderate risk: provision may be interpreted restrictively by local boards.'
       return 'Low risk: provision is consistent with state standards.'
     },

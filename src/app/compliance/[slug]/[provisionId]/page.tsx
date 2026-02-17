@@ -181,7 +181,7 @@ export default function ProvisionPage({
             href="/compliance"
             className="text-blue-400 hover:text-blue-300 transition-colors"
           >
-            Bylaw Tracker
+            Policy Tracker
           </Link>
           <span className="mx-2 text-gray-600">/</span>
           <Link

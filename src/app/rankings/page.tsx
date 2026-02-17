@@ -482,11 +482,11 @@ export default function RankingsPage() {
               See the bylaw analysis
             </h3>
             <p className="text-gray-400 text-sm">
-              Provision-by-provision breakdown of where town bylaws conflict with
+              Provision-by-provision breakdown of where town bylaws are inconsistent with
               state law.
             </p>
             <span className="text-purple-400 text-sm mt-2 inline-block">
-              Bylaw Tracker &rarr;
+              Policy Tracker &rarr;
             </span>
           </Link>
         </div>

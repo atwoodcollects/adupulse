@@ -11,21 +11,23 @@ const PUBLIC_FEATURES = [
   "State law references & citations",
   "Permit data for tracked towns",
   "Quadrant rankings & town grades",
+  "5 AI-powered questions per month",
 ];
 
 const PRO_FEATURES = [
   "Everything in Public, plus:",
+  "Unlimited AI-powered questions",
+  "Persona-tailored answers (homeowner, builder, lender framing)",
   "Email alerts for bylaw changes & AG decisions",
-  "Quarterly consistency re-reviews",
   "Downloadable PDF reports per community",
   "Custom audit requests",
 ];
 
 const MUNICIPAL_FEATURES = [
   "Everything in Pro, plus:",
+  "Embeddable AI chat widget for your website",
   "API access to consistency data",
   "Bulk CSV/JSON exports",
-  "Embeddable widgets for your site",
   "White-label reports",
   "Multi-seat team access",
 ];

@@ -7,10 +7,8 @@ import townSEOData from '@/data/town_seo_data'
 import { useTown } from '@/contexts/TownContext'
 
 const mainNav = [
-  { name: 'Towns', href: '/map' },
-  { name: 'Bylaw Tracker', href: '/compliance' },
+  { name: 'Policy Tracker', href: '/compliance' },
   { name: 'Housing', href: '/housing-production' },
-  { name: 'For Builders', href: '/builders' },
   { name: 'Blog', href: '/blog' },
   { name: 'Pricing', href: '/pricing' },
 ]
@@ -19,26 +17,10 @@ const mobileGroups = [
   {
     label: 'Explore',
     links: [
-      { name: 'All Towns', href: '/map' },
-      { name: 'Bylaw Tracker', href: '/compliance' },
+      { name: 'Policy Tracker', href: '/compliance' },
       { name: 'Housing Production', href: '/housing-production' },
-      { name: 'Town Rankings', href: '/rankings' },
-    ],
-  },
-  {
-    label: 'Tools',
-    links: [
-      { name: 'Cost Estimator', href: '/estimate' },
-      { name: 'ADU Quiz', href: '/quiz' },
-      { name: 'Compare Towns', href: '/compare' },
-    ],
-  },
-  {
-    label: 'For You',
-    links: [
-      { name: 'ADU Club', href: '/club' },
-      { name: 'Builder Network', href: '/builders' },
       { name: 'Blog', href: '/blog' },
+      { name: 'Pricing', href: '/pricing' },
     ],
   },
 ]
@@ -198,27 +180,7 @@ export default function NavBar({ current }: { current?: string }) {
                 </div>
               </div>
             ))}
-
-            {/* Pricing standalone */}
-            <Link
-              href="/pricing"
-              className="block px-3 py-3 text-sm text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg transition-colors"
-              onClick={closeAll}
-            >
-              Pricing
-            </Link>
           </nav>
-
-          {/* Bottom CTA */}
-          <div className="px-4 py-4 border-t border-gray-800">
-            <Link
-              href="/pricing"
-              onClick={closeAll}
-              className="block w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white text-center rounded-lg font-medium text-sm"
-            >
-              Explore Pricing
-            </Link>
-          </div>
         </div>
       </div>
     </>

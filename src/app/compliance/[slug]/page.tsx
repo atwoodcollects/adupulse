@@ -55,7 +55,7 @@ export default function ComplianceTownPage({ params }: { params: { slug: string 
           <nav className="max-w-4xl mx-auto mb-6 text-sm text-gray-400">
             <Link href="/" className="text-blue-400 hover:text-blue-300 transition-colors">Dashboard</Link>
             <span className="mx-2 text-gray-600">/</span>
-            <Link href="/compliance" className="text-blue-400 hover:text-blue-300 transition-colors">Bylaw Tracker</Link>
+            <Link href="/compliance" className="text-blue-400 hover:text-blue-300 transition-colors">Policy Tracker</Link>
             <span className="mx-2 text-gray-600">/</span>
             <span className="text-gray-400">{narrative.name}</span>
           </nav>
@@ -91,7 +91,7 @@ export default function ComplianceTownPage({ params }: { params: { slug: string 
             href="/compliance"
             className="text-blue-400 hover:text-blue-300 transition-colors"
           >
-            Bylaw Tracker
+            Policy Tracker
           </Link>
           <span className="mx-2 text-gray-600">/</span>
           <span className="text-gray-400">{town.name}</span>

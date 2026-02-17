@@ -23,7 +23,7 @@ export async function POST(req: Request) {
 
     // Detect mentioned towns, log query, and build context
     const townSlugs = detectTowns(message)
-    logQuery(message, townSlugs)
+    logQuery(message, townSlugs).catch(() => {})
     let userContent = message
 
     if (townSlugs.length > 0) {

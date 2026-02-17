@@ -1,5 +1,4 @@
-import fs from 'fs'
-import path from 'path'
+import { Redis } from '@upstash/redis'
 
 export interface QueryLogEntry {
   timestamp: string
@@ -7,31 +6,43 @@ export interface QueryLogEntry {
   towns: string[]
 }
 
-const LOG_PATH = path.join(process.cwd(), 'data', 'query-log.json')
+const REDIS_KEY = 'adupulse:query_log'
 
-function readLog(): QueryLogEntry[] {
-  try {
-    const raw = fs.readFileSync(LOG_PATH, 'utf-8')
-    return JSON.parse(raw)
-  } catch {
-    return []
-  }
+function getRedis(): Redis | null {
+  if (!process.env.KV_REST_API_URL || !process.env.KV_REST_API_TOKEN) return null
+  return new Redis({
+    url: process.env.KV_REST_API_URL,
+    token: process.env.KV_REST_API_TOKEN,
+  })
 }
 
-export function logQuery(question: string, towns: string[]): void {
+export async function logQuery(question: string, towns: string[]): Promise<void> {
   try {
-    const entries = readLog()
-    entries.push({
+    const redis = getRedis()
+    if (!redis) return
+
+    const entry: QueryLogEntry = {
       timestamp: new Date().toISOString(),
       question,
       towns,
-    })
-    fs.writeFileSync(LOG_PATH, JSON.stringify(entries, null, 2))
+    }
+    // Push to the end of a Redis list
+    await redis.rpush(REDIS_KEY, JSON.stringify(entry))
   } catch {
     // Don't let logging failures break chat
   }
 }
 
-export function getQueryLog(): QueryLogEntry[] {
-  return readLog()
+export async function getQueryLog(): Promise<QueryLogEntry[]> {
+  try {
+    const redis = getRedis()
+    if (!redis) return []
+
+    const raw = await redis.lrange(REDIS_KEY, 0, -1)
+    return raw.map(item =>
+      typeof item === 'string' ? JSON.parse(item) : item as QueryLogEntry
+    )
+  } catch {
+    return []
+  }
 }

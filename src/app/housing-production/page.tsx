@@ -258,49 +258,55 @@ export default function HousingProductionPage() {
                 <Link
                   key={row.slug}
                   href={`/towns/${row.slug}`}
-                  className="grid grid-cols-12 gap-2 px-4 py-3 items-center hover:bg-gray-700/30 transition-colors group"
+                  className="block md:grid md:grid-cols-12 md:gap-2 px-4 py-3 md:items-center hover:bg-gray-700/30 transition-colors group"
                 >
-                  {/* Town */}
-                  <div className="col-span-6 md:col-span-3 min-w-0">
+                  {/* Mobile layout */}
+                  <div className="md:hidden">
+                    <div className="flex items-center justify-between">
+                      <div className="min-w-0">
+                        <span className="text-white font-medium group-hover:text-blue-400 transition-colors truncate block">
+                          {row.name}
+                        </span>
+                        <span className="text-gray-500 text-xs">{row.county}</span>
+                      </div>
+                      <span
+                        className={`w-2.5 h-2.5 rounded-full shrink-0 ml-2 ${cc.dot}`}
+                        title={cc.label}
+                      />
+                    </div>
+                    <div className="flex items-baseline gap-2 mt-1.5 text-xs text-gray-400">
+                      <span><span className="text-white font-medium">{row.aduApproved}</span> approved</span>
+                      <span className="text-gray-600">&middot;</span>
+                      <span className={`font-medium ${shareColor}`}>{shareDisplay}</span>
+                      <span>ADU share</span>
+                    </div>
+                  </div>
+
+                  {/* Desktop layout */}
+                  <div className="hidden md:block col-span-3 min-w-0">
                     <span className="text-white font-medium group-hover:text-blue-400 transition-colors truncate block">
                       {row.name}
                     </span>
-                    <span className="md:hidden text-gray-500 text-xs">{row.county}</span>
                   </div>
-
-                  {/* County (hidden mobile) */}
                   <div className="hidden md:block col-span-1 text-gray-500 text-sm truncate">
                     {row.county}
                   </div>
-
-                  {/* 2024 Building Permits */}
                   <div className="hidden md:block col-span-2 text-right text-gray-400 text-sm">
                     {row.totalBuildingPermits > 0 ? row.totalBuildingPermits.toLocaleString() : '—'}
                   </div>
-
-                  {/* ADU Apps (hidden mobile) */}
                   <div className="hidden md:block col-span-1 text-right text-gray-400 text-sm">
                     {row.aduSubmitted}
                   </div>
-
-                  {/* ADU Approved */}
-                  <div className="col-span-2 md:col-span-1 text-right text-white text-sm">
+                  <div className="hidden md:block col-span-1 text-right text-white text-sm">
                     {row.aduApproved}
                   </div>
-
-                  {/* Approval Rate */}
                   <div className="hidden md:block col-span-1 text-right text-sm text-white">
                     {row.approvalRate}%
                   </div>
-
-                  {/* ADU Share */}
-                  <div className={`col-span-3 md:col-span-2 text-right text-sm font-medium ${shareColor}`}>
+                  <div className={`hidden md:block col-span-2 text-right text-sm font-medium ${shareColor}`}>
                     {shareDisplay}
-                    <span className="md:hidden text-gray-600 text-xs ml-1">share</span>
                   </div>
-
-                  {/* Consistency dot */}
-                  <div className="col-span-1 flex justify-center">
+                  <div className="hidden md:flex col-span-1 justify-center">
                     <span
                       className={`w-2.5 h-2.5 rounded-full ${cc.dot}`}
                       title={cc.label}

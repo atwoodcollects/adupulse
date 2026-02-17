@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import crypto from 'crypto'
-import { getQueryLog } from '@/lib/query-log'
+import { getQueryLog, getRedisStatus } from '@/lib/query-log'
 
 function isValidToken(token: string): boolean {
   if (!process.env.ADMIN_PASSWORD) return false
@@ -19,5 +19,6 @@ export async function GET(req: NextRequest) {
   }
 
   const log = await getQueryLog()
-  return NextResponse.json(log)
+  const redis = getRedisStatus()
+  return NextResponse.json({ redis, count: log.length, entries: log })
 }

@@ -38,7 +38,7 @@ export default function AdminQueriesPage() {
         return
       }
       const data = await logRes.json()
-      setEntries(data)
+      setEntries(data.entries || [])
       setLoaded(true)
     } catch {
       setError('Failed to connect')

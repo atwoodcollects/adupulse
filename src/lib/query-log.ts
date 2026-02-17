@@ -9,11 +9,10 @@ export interface QueryLogEntry {
 const REDIS_KEY = 'adupulse:query_log'
 
 function getRedis(): Redis | null {
-  if (!process.env.KV_REST_API_URL || !process.env.KV_REST_API_TOKEN) return null
-  return new Redis({
-    url: process.env.KV_REST_API_URL,
-    token: process.env.KV_REST_API_TOKEN,
-  })
+  const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL
+  const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN
+  if (!url || !token) return null
+  return new Redis({ url, token })
 }
 
 export async function logQuery(question: string, towns: string[]): Promise<void> {
@@ -31,6 +30,14 @@ export async function logQuery(question: string, towns: string[]): Promise<void>
   } catch {
     // Don't let logging failures break chat
   }
+}
+
+export function getRedisStatus(): { connected: boolean; source: string } {
+  const kv = !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN)
+  const upstash = !!(process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN)
+  if (kv) return { connected: true, source: 'KV_REST_API_*' }
+  if (upstash) return { connected: true, source: 'UPSTASH_REDIS_REST_*' }
+  return { connected: false, source: 'none' }
 }
 
 export async function getQueryLog(): Promise<QueryLogEntry[]> {

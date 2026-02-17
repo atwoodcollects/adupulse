@@ -191,31 +191,54 @@ export default function Home() {
               <Link
                 key={t.slug}
                 href={`/towns/${t.slug}`}
-                className="flex items-center py-3 px-3.5 gap-2.5 bg-gray-800/60 border border-gray-700 rounded-lg no-underline hover:border-gray-600 transition-colors min-h-[48px]"
+                className="block py-3 px-3.5 bg-gray-800/60 border border-gray-700 rounded-lg no-underline hover:border-gray-600 transition-colors"
                 onClick={() => setSelectedTown(t.name)}
               >
-                {/* Rank */}
-                <div className={`font-mono text-xs font-semibold w-5 text-center shrink-0 ${i < 3 ? 'text-emerald-400' : 'text-gray-600'}`}>
-                  {i + 1}
+                {/* Top line: rank + town info (mobile), rank + town + stats inline (desktop) */}
+                <div className="flex items-center gap-2.5">
+                  {/* Rank */}
+                  <div className={`font-mono text-xs font-semibold w-5 text-center shrink-0 ${i < 3 ? 'text-emerald-400' : 'text-gray-600'}`}>
+                    {i + 1}
+                  </div>
+
+                  {/* Town info */}
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm font-semibold text-white truncate">{t.name}</div>
+                    <div className="text-[11px] text-gray-500">{t.county} · {t.pop.toLocaleString()}</div>
+                  </div>
+
+                  {/* Stats — desktop only (inline) */}
+                  <div className="hidden sm:flex gap-3 items-center shrink-0">
+                    <div className="text-center min-w-[36px]">
+                      <div className={`text-sm font-bold ${sortBy === 'permits' ? 'text-emerald-400' : 'text-gray-400'}`}>{t.permits}</div>
+                      <div className="font-mono text-[8px] text-gray-600 uppercase">permits</div>
+                    </div>
+                    <div className="text-center min-w-[36px]">
+                      <div className={`text-sm font-bold ${sortBy === 'percapita' ? 'text-blue-400' : 'text-gray-400'}`}>{t.per10k}</div>
+                      <div className="font-mono text-[8px] text-gray-600 uppercase">per 10k</div>
+                    </div>
+                    <div className="text-center min-w-[36px]">
+                      <div className={`text-sm font-bold ${
+                        sortBy === 'approval'
+                          ? (t.approvalRate >= 70 ? 'text-emerald-400' : t.approvalRate >= 50 ? 'text-amber-400' : 'text-red-400')
+                          : 'text-gray-400'
+                      }`}>{t.approvalRate}%</div>
+                      <div className="font-mono text-[8px] text-gray-600 uppercase">approval</div>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Town info */}
-                <div className="flex-1 min-w-0">
-                  <div className="text-sm font-semibold text-white truncate">{t.name}</div>
-                  <div className="text-[11px] text-gray-500">{t.county} · {t.pop.toLocaleString()}</div>
-                </div>
-
-                {/* Stats — all three always visible */}
-                <div className="flex gap-3 items-center shrink-0">
-                  <div className="text-center min-w-[36px]">
+                {/* Stats — mobile only (second line, indented past rank) */}
+                <div className="flex sm:hidden gap-4 mt-2 ml-[30px]">
+                  <div className="text-center flex-1">
                     <div className={`text-sm font-bold ${sortBy === 'permits' ? 'text-emerald-400' : 'text-gray-400'}`}>{t.permits}</div>
                     <div className="font-mono text-[8px] text-gray-600 uppercase">permits</div>
                   </div>
-                  <div className="text-center min-w-[36px]">
+                  <div className="text-center flex-1">
                     <div className={`text-sm font-bold ${sortBy === 'percapita' ? 'text-blue-400' : 'text-gray-400'}`}>{t.per10k}</div>
                     <div className="font-mono text-[8px] text-gray-600 uppercase">per 10k</div>
                   </div>
-                  <div className="text-center min-w-[36px]">
+                  <div className="text-center flex-1">
                     <div className={`text-sm font-bold ${
                       sortBy === 'approval'
                         ? (t.approvalRate >= 70 ? 'text-emerald-400' : t.approvalRate >= 50 ? 'text-amber-400' : 'text-red-400')

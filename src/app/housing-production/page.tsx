@@ -104,7 +104,7 @@ const PAGE_SIZE = 50
 export default function HousingProductionPage() {
   const [search, setSearch] = useState('')
   const [countyFilter, setCountyFilter] = useState('')
-  const [sortBy, setSortBy] = useState<SortKey>('aduShare')
+  const [sortBy, setSortBy] = useState<SortKey>('totalPermits')
   const [page, setPage] = useState(0)
 
   const counties = useMemo(

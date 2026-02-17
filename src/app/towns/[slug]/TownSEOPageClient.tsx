@@ -632,7 +632,7 @@ export default function TownSEOPageClient({
           <section className="mb-10">
             <h2 className="text-lg font-bold text-white mb-4">ADU Impact on Housing Production</h2>
             <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5">
-              {buildingPermits.totalUnits < 5 ? (
+              {buildingPermits.totalUnits < 10 ? (
                 <>
                   <p className="text-gray-400 text-sm leading-relaxed">
                     In 2024, {town.name} issued <span className="text-white font-medium">{buildingPermits.totalUnits}</span> total

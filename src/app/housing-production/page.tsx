@@ -38,7 +38,7 @@ const allRows: HousingRow[] = townSEOData
   .map(town => {
     const bp = buildingPermitMap.get(town.slug)
     const totalBP = bp?.totalUnits || 0
-    const aduShare = totalBP >= 5
+    const aduShare = totalBP >= 10
       ? Math.round((town.approved / totalBP) * 1000) / 10
       : null
 
@@ -66,7 +66,7 @@ const allRows: HousingRow[] = townSEOData
 
 // --- Summary stats ---
 
-const sufficientRows = allRows.filter(r => r.totalBuildingPermits >= 5)
+const sufficientRows = allRows.filter(r => r.totalBuildingPermits >= 10)
 const totalBuildingPermits = sufficientRows.reduce((s, r) => s + r.totalBuildingPermits, 0)
 const totalAduApproved = sufficientRows.reduce((s, r) => s + r.aduApproved, 0)
 const townsWithBoth = sufficientRows.length
@@ -172,6 +172,19 @@ export default function HousingProductionPage() {
           ))}
         </div>
 
+        {/* Data source callout */}
+        <div className="bg-gray-800/40 border border-gray-700/50 rounded-xl px-4 py-3 mb-6 text-xs text-gray-500 leading-relaxed space-y-1">
+          <p>
+            <span className="text-gray-400">Building Permits:</span> U.S. Census Building Permits Survey (2024) via UMass Donahue Institute
+            &nbsp;&middot;&nbsp;
+            <span className="text-gray-400">ADU Permits:</span> EOHLC ADU Survey (Feb 2026)
+          </p>
+          <p>
+            2024 is used as baseline — the last full year before ADUs were legalized statewide (Feb 2, 2025).
+            Census BPS has a known ~14% undercount for Massachusetts. Towns with fewer than 10 reported building permits are excluded from ADU Share calculations.
+          </p>
+        </div>
+
         {/* Sticky filter bar */}
         <div className="sticky top-0 z-10 bg-gray-900/95 backdrop-blur border-b border-gray-800 -mx-4 px-4 py-4 mb-6 space-y-3">
           <div className="relative">
@@ -229,7 +242,7 @@ export default function HousingProductionPage() {
           <div className="divide-y divide-gray-700/50">
             {paged.map(row => {
               const cc = consistencyConfig[row.consistencyStatus]
-              const lowData = row.totalBuildingPermits > 0 && row.totalBuildingPermits < 5
+              const lowData = row.totalBuildingPermits > 0 && row.totalBuildingPermits < 10
               const shareDisplay = row.aduShareOfProduction !== null
                 ? `${row.aduShareOfProduction}%`
                 : lowData ? 'Limited data' : 'N/A'

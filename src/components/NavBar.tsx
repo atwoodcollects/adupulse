@@ -9,6 +9,7 @@ import { useTown } from '@/contexts/TownContext'
 const mainNav = [
   { name: 'Towns', href: '/map' },
   { name: 'Bylaw Tracker', href: '/compliance' },
+  { name: 'Housing', href: '/housing-production' },
   { name: 'For Builders', href: '/builders' },
   { name: 'Blog', href: '/blog' },
   { name: 'Pricing', href: '/pricing' },
@@ -20,6 +21,7 @@ const mobileGroups = [
     links: [
       { name: 'All Towns', href: '/map' },
       { name: 'Bylaw Tracker', href: '/compliance' },
+      { name: 'Housing Production', href: '/housing-production' },
       { name: 'Town Rankings', href: '/rankings' },
     ],
   },

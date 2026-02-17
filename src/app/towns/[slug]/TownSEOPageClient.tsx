@@ -24,6 +24,7 @@ import {
   AUDIENCE_STORAGE_KEY,
   AUDIENCE_CONTENT,
 } from '@/lib/audience'
+import type { BuildingPermitData } from '@/data/building_permits_2024'
 import {
   CheckCircle,
   AlertTriangle,
@@ -342,11 +343,13 @@ export default function TownSEOPageClient({
   nearbyTowns,
   statewidePerCapita,
   townPerCapita,
+  buildingPermits,
 }: {
   town: TownSEOData
   nearbyTowns: TownSEOData[]
   statewidePerCapita: number
   townPerCapita: number
+  buildingPermits: BuildingPermitData | null
 }) {
   const { setSelectedTown } = useTown()
   const { isPro } = useSubscription()
@@ -623,6 +626,63 @@ export default function TownSEOPageClient({
             </div>
           )}
         </section>
+
+        {/* ── SECTION 3.5: ADU IMPACT ON HOUSING PRODUCTION ── */}
+        {buildingPermits && buildingPermits.totalUnits > 0 && (
+          <section className="mb-10">
+            <h2 className="text-lg font-bold text-white mb-4">ADU Impact on Housing Production</h2>
+            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5">
+              {buildingPermits.totalUnits < 5 ? (
+                <>
+                  <p className="text-gray-400 text-sm leading-relaxed">
+                    In 2024, {town.name} issued <span className="text-white font-medium">{buildingPermits.totalUnits}</span> total
+                    residential building permit{buildingPermits.totalUnits !== 1 ? 's' : ''}. In the first year of the ADU law, <span className="text-emerald-400 font-medium">{town.approved}</span> ADU
+                    permit{town.approved !== 1 ? 's were' : ' was'} approved.
+                  </p>
+                  <p className="text-amber-400/80 text-xs mt-3">
+                    Limited 2024 building permit data available. ADU share of production not shown.
+                  </p>
+                  <p className="text-gray-500 text-xs mt-3">
+                    Source: Census Bureau (2024) via UMass Donahue Institute; EOHLC ADU Survey (2025)
+                  </p>
+                </>
+              ) : (
+                (() => {
+                  const aduShare = Math.round((town.approved / buildingPermits.totalUnits) * 1000) / 10
+                  const maxBar = Math.max(buildingPermits.totalUnits, town.approved) * 1.1 || 1
+                  return (
+                    <>
+                      <p className="text-gray-400 text-sm leading-relaxed mb-5">
+                        In 2024, {town.name} issued <span className="text-white font-medium">{buildingPermits.totalUnits.toLocaleString()}</span> total
+                        residential building permits. In the first year of the ADU law, <span className="text-emerald-400 font-medium">{town.approved}</span> ADU
+                        permits were approved — equivalent to <span className="text-white font-medium">{aduShare}%</span> of prior-year housing production.
+                      </p>
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-3">
+                          <span className="text-xs text-gray-400 w-36 shrink-0">2024 Building Permits</span>
+                          <div className="flex-1 h-4 bg-gray-700 rounded-full overflow-hidden">
+                            <div className="h-full bg-blue-500 rounded-full" style={{ width: `${(buildingPermits.totalUnits / maxBar) * 100}%` }} />
+                          </div>
+                          <span className="text-xs text-white w-12 text-right font-medium">{buildingPermits.totalUnits.toLocaleString()}</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <span className="text-xs text-gray-400 w-36 shrink-0">2025 ADU Approvals</span>
+                          <div className="flex-1 h-4 bg-gray-700 rounded-full overflow-hidden">
+                            <div className="h-full bg-emerald-400 rounded-full" style={{ width: `${(town.approved / maxBar) * 100}%` }} />
+                          </div>
+                          <span className="text-xs text-emerald-400 w-12 text-right font-medium">{town.approved}</span>
+                        </div>
+                      </div>
+                      <p className="text-gray-500 text-xs mt-4">
+                        Source: Census Bureau (2024) via UMass Donahue Institute; EOHLC ADU Survey (2025)
+                      </p>
+                    </>
+                  )
+                })()
+              )}
+            </div>
+          </section>
+        )}
 
         {/* ── SECTION 4: HOW TOWN COMPARES ── */}
         {nearbyTowns.length > 0 && (

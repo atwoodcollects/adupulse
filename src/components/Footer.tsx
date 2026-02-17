@@ -24,6 +24,7 @@ export default function Footer() {
                 { name: 'Cost Estimator', href: '/estimate' },
                 { name: 'ADU Quiz', href: '/quiz' },
                 { name: 'Compare Towns', href: '/compare' },
+                { name: 'Housing Production', href: '/housing-production' },
                 { name: 'Town Rankings', href: '/rankings' },
               ].map(l => (
                 <Link key={l.href} href={l.href} className="block text-gray-400 text-xs hover:text-white transition-colors py-1">{l.name}</Link>

@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import townSEOData, { getTownBySlug, getAllTownSlugs } from '@/data/town_seo_data'
 import { approvalsPerTenThousandResidents, computeStatewidePerCapitaAverage } from '@/lib/townAnalytics'
+import { getBuildingPermitsBySlug } from '@/data/building_permits_2024'
 import TownSEOPageClient from './TownSEOPageClient'
 
 export function generateStaticParams() {
@@ -65,11 +66,12 @@ export default function TownSEOPage({ params }: { params: { slug: string } }) {
 
   const statewidePerCapita = computeStatewidePerCapitaAverage(townSEOData)
   const townPerCapita = approvalsPerTenThousandResidents(town)
+  const buildingPermits = getBuildingPermitsBySlug(town.slug) || null
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <TownSEOPageClient town={town} nearbyTowns={nearbyTowns} statewidePerCapita={statewidePerCapita} townPerCapita={townPerCapita} />
+      <TownSEOPageClient town={town} nearbyTowns={nearbyTowns} statewidePerCapita={statewidePerCapita} townPerCapita={townPerCapita} buildingPermits={buildingPermits} />
     </>
   )
 }

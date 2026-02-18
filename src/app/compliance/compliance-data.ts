@@ -155,6 +155,20 @@ const SOURCES = {
   revere_adu: 'https://www.revere.org/departments/planning-development/accessory-dwelling-units',
   /** Revere Home Rule Petition — March 2025 */
   revere_home_rule: 'https://www.revere.org/departments/city-council',
+  /** Revere Journal — Home Rule Petition coverage, March 2025 */
+  revere_journal: 'https://reverejournal.com/2025/03/18/councillors-look-for-relief-from-mandated-state-adu-ordinance/',
+  /** CommonWealth Beacon — Fall River ADU opposition, February 2025 */
+  fall_river_beacon: 'https://commonwealthbeacon.org/government/behind-the-scenes-of-the-fight-over-accessory-dwelling-units/',
+  /** Fall River Reporter — ZBA "no ADU" conditions, August 2025 */
+  fall_river_reporter: 'https://fallriverreporter.com/fall-river-zoning-board-of-appeals-grants-zoning-variances-and-special-permits-for-several-projects-that-would-generate-new-housing-units/',
+  /** Lowell Sun — Council defeats ADU ordinance 7-4, October 2023 */
+  lowell_sun: 'https://www.lowellsun.com/2023/10/18/rip-adus-for-now/',
+  /** City of Medford — Council withdraws ADU proposal, December 2025 */
+  medford_zoning: 'https://www.medfordma.org/departments/planning-development-sustainability/zoning',
+  /** This Week in Worcester — Council votes 9-2 on owner-occupancy, December 2023 */
+  worcester_twiw: 'https://thisweekinworcester.com/accessory-dwelling-units-council-121223/',
+  /** Green Needham — 12 ADUs in 3+ years, April 2023 */
+  needham_green: 'https://www.greenneedham.org/blog/2023/04/a-needed-amendment-to-the-accessory-dwelling-unit-bylaw/',
 } as const;
 
 // ---------------------------------------------------------------------------
@@ -1598,7 +1612,7 @@ export const towns: TownComplianceProfile[] = [
         stateLaw:
           'MGL c.40A §3 — ADUs must be allowed by right. No discretionary approval may be required.',
         localBylaw:
-          'Planning Board intends to use site plan review process for ADUs. Board member stated it could be used "almost like a special permit."',
+          'Planning Board intends to use site plan review process for ADUs. Board member Wayne Dennison stated it could be used "almost like a special permit" (Duxbury Clipper, October 2024).',
         impact:
           'Gray area — depends on whether review is ministerial or discretionary.',
         citations: [
@@ -2154,7 +2168,7 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Needham Zoning Bylaw (2023, Planning Board planning fall 2025 update)',
     agDisapprovals: 0,
     permits: { submitted: 4, approved: 4, denied: 0, pending: 0, approvalRate: 100 },
-    bottomLine: 'Needham is a textbook restrictive town — special permit required, no detached ADUs, owner-occupancy enforced. The result: 12 ADUs in 3+ years. All 4 inconsistent provisions are unenforceable under state law. Planning Board is working on updates but hasn’t adopted them yet.',
+    bottomLine: 'Needham is a textbook restrictive town — special permit required, no detached ADUs, owner-occupancy enforced. The result: 12 ADUs in 3+ years (Green Needham, April 2023). All 4 inconsistent provisions are unenforceable under state law. Planning Board is working on updates but hasn’t adopted them yet.',
     provisions: [
       {
         id: 'nee-01',
@@ -2199,7 +2213,7 @@ export const towns: TownComplianceProfile[] = [
         localBylaw:
           'ADUs require special permit from Board of Appeals.',
         impact:
-          'State law requires by-right permitting for first ADU. Unenforceable. Result: only 12 ADUs permitted in 3+ years.',
+          'State law requires by-right permitting for first ADU. Unenforceable. Result: only 12 ADUs permitted in 3+ years (Green Needham, April 2023).',
         citations: [
           { label: 'Needham ADU Presentation', url: SOURCES.needham_planning },
           { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
@@ -2606,7 +2620,7 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Worcester Zoning Ordinance, ADU provisions (December 2023, amendments proposed May 2025)',
     agDisapprovals: 0,
     permits: { submitted: 31, approved: 23, denied: 0, pending: 0, approvalRate: 74 },
-    bottomLine: 'Worcester’s ordinance is mostly builder-friendly — no site plan review, no parking restrictions, by-right through building permit. The two issues are owner-occupancy (which the city council voted 9-2 to keep) and the 2-bedroom cap (which mirrors a provision the AG struck down in Leicester).',
+    bottomLine: 'Worcester’s ordinance is mostly builder-friendly — no site plan review, no parking restrictions, by-right through building permit. The two issues are owner-occupancy (which the city council voted 9-2 to keep, per This Week in Worcester, December 2023) and the 2-bedroom cap (which mirrors a provision the AG struck down in Leicester).',
     provisions: [
       {
         id: 'wor-01',
@@ -2616,7 +2630,7 @@ export const towns: TownComplianceProfile[] = [
         stateLaw:
           'MGL c.40A §3 — No owner-occupancy requirement may be imposed for protected-use ADUs.',
         localBylaw:
-          'City Council added owner-occupancy requirement by amendment (9-2 vote). Owner must reside at property and file notarized affidavit at Registry of Deeds.',
+          'City Council added owner-occupancy requirement by amendment (9-2 vote, This Week in Worcester, December 2023). Owner must reside at property and file notarized affidavit at Registry of Deeds.',
         impact:
           'State law prohibits owner-occupancy requirements. Unenforceable for protected use ADUs.',
         citations: [
@@ -3566,7 +3580,7 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Revere Zoning Ordinance, Title 17, Chapter 17.25 (October 2022)',
     agDisapprovals: 0,
     permits: { submitted: 17, approved: 9, denied: 0, pending: 0, approvalRate: 53 },
-    bottomLine: 'Revere is actively resisting the state ADU law. Councillor Michelle Kelley filed a Home Rule Petition in March 2025 seeking exemption. The Planning Director expressed skepticism about its viability. Meanwhile, all 4 conflicting provisions have been unenforceable since February 2, 2025.',
+    bottomLine: 'Revere is actively resisting the state ADU law. Councillor Michelle Kelley filed a Home Rule Petition in March 2025 seeking exemption (Revere Journal, March 2025). The Planning Director expressed skepticism about its viability (Revere Journal, March 2025). Meanwhile, all 4 conflicting provisions have been unenforceable since February 2, 2025.',
     provisions: [
       {
         id: 'rev-01',
@@ -3672,7 +3686,7 @@ export const narrativeCities: NarrativeCityProfile[] = [
     tag: 'passive-resistance',
     title: 'Fall River: Passive Resistance',
     summary: 'Mayor publicly opposed ADU law. ZBA attaching \u201cno ADU\u201d conditions to permits.',
-    body: 'Fall River represents a case of passive resistance to the state ADU law. Mayor Paul Coogan has publicly opposed the legislation, and the city\u2019s Zoning Board of Appeals has been attaching \u201cno ADU\u201d conditions to variance and special permit approvals \u2014 an unusual tactic that attempts to preemptively block homeowners from exercising their state-law right to build an ADU.\n\nThis approach is legally questionable. Since February 2, 2025, the right to build a first ADU is protected by state law and cannot be conditioned away by local boards. A \u201cno ADU\u201d condition attached to an unrelated permit likely has no legal force.\n\nDespite the resistance, Fall River has processed 25 ADU applications with 13 approved (52% rate). The below-average approval rate may reflect the adversarial administrative environment rather than legitimate permitting concerns.\n\nADU Pulse is monitoring Fall River for further developments. Homeowners who have been denied or discouraged from building an ADU may have legal recourse under G.L. c. 40A \u00a73.',
+    body: 'Fall River represents a case of passive resistance to the state ADU law. Mayor Paul Coogan has publicly opposed the legislation (CommonWealth Beacon, February 2025), and the city\u2019s Zoning Board of Appeals has been attaching \u201cno ADU\u201d conditions to variance and special permit approvals (Fall River Reporter, August 2025) \u2014 an unusual tactic that attempts to preemptively block homeowners from exercising their state-law right to build an ADU.\n\nThis approach is legally questionable. Since February 2, 2025, the right to build a first ADU is protected by state law and cannot be conditioned away by local boards. A \u201cno ADU\u201d condition attached to an unrelated permit likely has no legal force.\n\nDespite the resistance, Fall River has processed 25 ADU applications with 13 approved (52% rate). The below-average approval rate may reflect the adversarial administrative environment rather than legitimate permitting concerns.\n\nADU Pulse is monitoring Fall River for further developments. Homeowners who have been denied or discouraged from building an ADU may have legal recourse under G.L. c. 40A \u00a73.',
   },
   {
     slug: 'lowell',
@@ -3685,7 +3699,7 @@ export const narrativeCities: NarrativeCityProfile[] = [
     tag: 'no-ordinance',
     title: 'Lowell: No Local Ordinance',
     summary: 'Council defeated ADU ordinance 7-4, but city is 4th in state for ADU permits (26).',
-    body: 'Lowell\u2019s City Council defeated a proposed ADU ordinance by a 7-4 vote in October 2023 \u2014 before the state ADU law took effect. The council chose not to create local ADU regulations, leaving state law as the sole framework governing ADU construction in the city.\n\nThe result is striking: Lowell is the 4th highest municipality in Massachusetts for ADU permits, with 26 submitted and all 26 approved (100% rate). This makes Lowell a powerful case study demonstrating that state law alone is sufficient to enable ADU construction \u2014 local ordinances are not required.\n\nBy not passing a local ordinance, Lowell inadvertently created one of the most permissive ADU environments in the state. There are no local restrictions layered on top of state law, no additional review hurdles, and no provisions that might conflict with G.L. c. 40A \u00a73.\n\nLowell\u2019s experience suggests that the simplest path to ADU-friendly policy may be no local policy at all.',
+    body: 'Lowell\u2019s City Council defeated a proposed ADU ordinance by a 7-4 vote in October 2023 (Lowell Sun, October 2023) \u2014 before the state ADU law took effect. The council chose not to create local ADU regulations, leaving state law as the sole framework governing ADU construction in the city.\n\nThe result is striking: Lowell is the 4th highest municipality in Massachusetts for ADU permits, with 26 submitted and all 26 approved (100% rate). This makes Lowell a powerful case study demonstrating that state law alone is sufficient to enable ADU construction \u2014 local ordinances are not required.\n\nBy not passing a local ordinance, Lowell inadvertently created one of the most permissive ADU environments in the state. There are no local restrictions layered on top of state law, no additional review hurdles, and no provisions that might conflict with G.L. c. 40A \u00a73.\n\nLowell\u2019s experience suggests that the simplest path to ADU-friendly policy may be no local policy at all.',
   },
   {
     slug: 'medford',
@@ -3698,7 +3712,7 @@ export const narrativeCities: NarrativeCityProfile[] = [
     tag: 'stalled',
     title: 'Medford: Stalled',
     summary: 'Council withdrew ADU proposal Dec 16, 2025. Old ordinance predates state law.',
-    body: 'Medford\u2019s City Council withdrew its ADU ordinance proposal on December 16, 2025, leaving the city without updated ADU regulations. The existing ordinance (Section 94-8.2) predates the state ADU law and has not been reconciled with G.L. c. 40A \u00a73 or 760 CMR 71.00.\n\nThe risk: local permitting staff may still be applying outdated rules from the old ordinance in practice, even though any provisions inconsistent with state law are technically unenforceable. Without an updated ordinance, there\u2019s no clear local framework that reflects the current legal landscape.\n\nDespite the regulatory uncertainty, Medford has processed 22 ADU applications with 19 approved (86% rate), suggesting that the building department is largely processing applications under state law regardless of the stalled local ordinance.\n\nADU Pulse is monitoring Medford for any renewed effort to update the ordinance. Homeowners should be aware that state law governs their ADU rights regardless of local ordinance status.',
+    body: 'Medford\u2019s City Council withdrew its ADU ordinance proposal on December 16, 2025 (City of Medford, December 2025), leaving the city without updated ADU regulations. The existing ordinance (Section 94-8.2) predates the state ADU law and has not been reconciled with G.L. c. 40A \u00a73 or 760 CMR 71.00.\n\nThe risk: local permitting staff may still be applying outdated rules from the old ordinance in practice, even though any provisions inconsistent with state law are technically unenforceable. Without an updated ordinance, there\u2019s no clear local framework that reflects the current legal landscape.\n\nDespite the regulatory uncertainty, Medford has processed 22 ADU applications with 19 approved (86% rate), suggesting that the building department is largely processing applications under state law regardless of the stalled local ordinance.\n\nADU Pulse is monitoring Medford for any renewed effort to update the ordinance. Homeowners should be aware that state law governs their ADU rights regardless of local ordinance status.',
   },
 ];
 

@@ -1,4 +1,5 @@
 import townSEOData from '@/data/town_seo_data'
+import { buildingPermitMap } from '@/data/building_permits_2024'
 import { allEntries, narrativeCities, getStatusCounts } from '@/app/compliance/compliance-data'
 
 // ── Base system prompt (short, no data) ──
@@ -11,7 +12,9 @@ When you link to a page, ONLY use relative paths starting with a slash. NEVER ou
 
 IMPORTANT — only these towns have compliance profile pages at /compliance/[town]: plymouth, nantucket, leicester, brookline, canton, hanson, new-bedford, newton, andover, milton, duxbury, barnstable, falmouth, sudbury, needham, boston, somerville, worcester, east-bridgewater, weston, upton, wilbraham, quincy, salem, revere, fall-river, lowell, medford. For these towns, you may link to /compliance/[town] for bylaw analysis. For ALL other towns, link to /towns/[town] only. Never send a user to /compliance/[town] for a town not in this list.
 
-Whenever you cite a specific number or data point, briefly mention where it comes from — EOHLC survey, Census ACS, AG decision, etc. Keep it natural and inline, like: According to EOHLC survey data, Duxbury has approved 2 of 3 applications. Or: Census data shows Duxbury has a population of about 16,000. Don't add a sources section at the end — just weave attribution into the sentence.`
+Whenever you cite a specific number or data point, briefly mention where it comes from — EOHLC survey, Census ACS, Census Building Permit Survey, AG decision, etc. Keep it natural and inline, like: According to EOHLC survey data, Duxbury has approved 2 of 3 applications. Or: Census data shows Duxbury has a population of about 16,000. Don't add a sources section at the end — just weave attribution into the sentence.
+
+For questions about housing production, building permits, or how ADUs fit into overall construction, cite the relevant stats and link to /housing-production.`
 
 // ── Headline stats for broad questions ──
 
@@ -37,6 +40,34 @@ const stats = (() => {
   const totalSubmitted = townSEOData.filter(t => t.responded).reduce((s, t) => s + t.submitted, 0)
   const respondedCount = townSEOData.filter(t => t.responded).length
 
+  // Housing production stats (Census Building Permit Survey 2024)
+  const respondedWithPermits = townSEOData.filter(t => t.responded && t.submitted > 0)
+  const top10ByApproved = [...respondedWithPermits]
+    .sort((a, b) => b.approved - a.approved)
+    .slice(0, 10)
+    .map(t => {
+      const bp = buildingPermitMap.get(t.slug)
+      const totalBP = bp?.totalUnits || 0
+      const aduShare = totalBP >= 10
+        ? Math.round((t.approved / totalBP) * 1000) / 10
+        : null
+      return `${t.name}: ${t.approved} approved of ${t.submitted} submitted${aduShare !== null ? `, ADUs = ${aduShare}% of total building permits` : ''}`
+    })
+
+  // Statewide housing production totals (towns with 10+ building permits)
+  const sufficientRows = respondedWithPermits.filter(t => {
+    const bp = buildingPermitMap.get(t.slug)
+    return bp && bp.totalUnits >= 10
+  })
+  const totalBuildingPermits = sufficientRows.reduce((s, t) => {
+    const bp = buildingPermitMap.get(t.slug)
+    return s + (bp?.totalUnits || 0)
+  }, 0)
+  const totalAduApprovedForShare = sufficientRows.reduce((s, t) => s + t.approved, 0)
+  const overallAduShare = totalBuildingPermits > 0
+    ? Math.round((totalAduApprovedForShare / totalBuildingPermits) * 1000) / 10
+    : 0
+
   return {
     inconsistentProvisions: inconsistent,
     reviewProvisions: review,
@@ -46,12 +77,19 @@ const stats = (() => {
     respondedTowns: respondedCount,
     totalApproved,
     totalSubmitted,
+    top10ByApproved,
+    totalBuildingPermits,
+    totalAduApprovedForShare,
+    overallAduShare,
+    townsWithBothDatasets: sufficientRows.length,
   }
 })()
 
 export function getHeadlineContext(): string {
   return `Headline stats for your reference (use these for broad questions):
-${stats.respondedTowns} towns responded to the EOHLC survey. ${stats.totalApproved} ADU permits approved statewide out of ${stats.totalSubmitted} submitted. We've analyzed bylaws for ${stats.communitiesTracked} communities in detail. ${stats.inconsistentProvisions} provisions are inconsistent with state law across ${stats.townsWithInconsistencies} towns. ${stats.reviewProvisions} more are in a grey area. The most common inconsistencies are: ${stats.topIssueTypes.join(', ')}.`
+${stats.respondedTowns} towns responded to the EOHLC survey. ${stats.totalApproved} ADU permits approved statewide out of ${stats.totalSubmitted} submitted. We've analyzed bylaws for ${stats.communitiesTracked} communities in detail. ${stats.inconsistentProvisions} provisions are inconsistent with state law across ${stats.townsWithInconsistencies} towns. ${stats.reviewProvisions} more are in a grey area. The most common inconsistencies are: ${stats.topIssueTypes.join(', ')}.
+
+Housing production data (Census Building Permit Survey 2024): Across ${stats.townsWithBothDatasets} towns with both ADU and building permit data, ADU approvals account for ${stats.overallAduShare}% of all ${stats.totalBuildingPermits.toLocaleString()} building permits issued. Top 10 towns by ADU approvals: ${stats.top10ByApproved.join('; ')}. For more detail, link users to /housing-production.`
 }
 
 // ── Town data lookup ──
@@ -80,7 +118,16 @@ export function getTownContext(slugs: string[]): string {
     // Permit data
     const seo = townSEOData.find(t => t.slug === slug)
     if (seo) {
-      parts.push(`Permit data for ${seo.name}: ${seo.submitted} submitted, ${seo.approved} approved, ${seo.denied} denied, ${seo.approvalRate}% approval rate. Population ${seo.population.toLocaleString()}, ${seo.county} County. By-right: ${seo.byRight ? 'yes' : 'no'}.`)
+      let permitLine = `Permit data for ${seo.name}: ${seo.submitted} submitted, ${seo.approved} approved, ${seo.denied} denied, ${seo.approvalRate}% approval rate. Population ${seo.population.toLocaleString()}, ${seo.county} County. By-right: ${seo.byRight ? 'yes' : 'no'}.`
+      // Add building permit context if available
+      const bp = buildingPermitMap.get(slug)
+      if (bp && bp.totalUnits > 0) {
+        const aduShare = bp.totalUnits >= 10
+          ? ` ADUs represent ${Math.round((seo.approved / bp.totalUnits) * 1000) / 10}% of total housing production.`
+          : ''
+        permitLine += ` Census Building Permit Survey 2024: ${bp.totalUnits} total building permits (${bp.singleFamilyUnits} single-family, ${bp.multifamilyUnits} multifamily).${aduShare}`
+      }
+      parts.push(permitLine)
     }
 
     // Compliance data

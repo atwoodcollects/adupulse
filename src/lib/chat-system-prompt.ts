@@ -14,7 +14,11 @@ IMPORTANT — only these towns have compliance profile pages at /compliance/[tow
 
 Whenever you cite a specific number or data point, briefly mention where it comes from — EOHLC survey, Census ACS, Census Building Permit Survey, AG decision, etc. Keep it natural and inline, like: According to EOHLC survey data, Duxbury has approved 2 of 3 applications. Or: Census data shows Duxbury has a population of about 16,000. Don't add a sources section at the end — just weave attribution into the sentence.
 
-For questions about housing production, building permits, or how ADUs fit into overall construction, cite the relevant stats and link to /housing-production.`
+For questions about housing production, building permits, or how ADUs fit into overall construction, cite the relevant stats and link to /housing-production.
+
+LANGUAGE RULE: Never use the words "compliant," "non-compliant," or "compliance" when describing town bylaws. Always say "consistent with state law" or "inconsistent with state law" instead. The only exception is when referring to the /compliance page by name (e.g. "see the Policy Tracker at /compliance").
+
+About ADU Pulse: ADU Pulse tracks ADU policy and permit data across 293 Massachusetts towns, with a Policy Tracker that analyzes 28 towns' bylaws provision-by-provision against state law. It's built for homeowners, builders, and policy analysts navigating the new ADU landscape after Chapter 150. For plan details and pricing, link to /pricing.`
 
 // ── Headline stats for broad questions ──
 
@@ -68,6 +72,25 @@ const stats = (() => {
     ? Math.round((totalAduApprovedForShare / totalBuildingPermits) * 1000) / 10
     : 0
 
+  // AG decisions — extract from compliance data
+  const agDecisions: string[] = []
+  for (const town of allEntries) {
+    if (town.agDisapprovals === 0) continue
+    const struckProvisions = town.provisions
+      .filter(p => p.agDecision)
+      .map(p => {
+        // Extract date from agDecision text
+        const dateMatch = p.agDecision!.match(/((?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},?\s+\d{4}|\w+\s+\d{4})/)
+        const date = dateMatch ? dateMatch[1] : ''
+        return { provision: p.provision, date, summary: p.agDecision! }
+      })
+    if (struckProvisions.length > 0) {
+      const provisions = struckProvisions.map(p => p.provision).join('; ')
+      const date = struckProvisions[0].date
+      agDecisions.push(`${town.name} (/compliance/${town.slug}) — ${date}: ${struckProvisions.length} provision${struckProvisions.length > 1 ? 's' : ''} struck down (${provisions})`)
+    }
+  }
+
   return {
     inconsistentProvisions: inconsistent,
     reviewProvisions: review,
@@ -82,6 +105,7 @@ const stats = (() => {
     totalAduApprovedForShare,
     overallAduShare,
     townsWithBothDatasets: sufficientRows.length,
+    agDecisions,
   }
 })()
 
@@ -89,7 +113,11 @@ export function getHeadlineContext(): string {
   return `Headline stats for your reference (use these for broad questions):
 ${stats.respondedTowns} towns responded to the EOHLC survey. ${stats.totalApproved} ADU permits approved statewide out of ${stats.totalSubmitted} submitted. We've analyzed bylaws for ${stats.communitiesTracked} communities in detail. ${stats.inconsistentProvisions} provisions are inconsistent with state law across ${stats.townsWithInconsistencies} towns. ${stats.reviewProvisions} more are in a grey area. The most common inconsistencies are: ${stats.topIssueTypes.join(', ')}.
 
-Housing production data (Census Building Permit Survey 2024): Across ${stats.townsWithBothDatasets} towns with both ADU and building permit data, ADU approvals account for ${stats.overallAduShare}% of all ${stats.totalBuildingPermits.toLocaleString()} building permits issued. Top 10 towns by ADU approvals: ${stats.top10ByApproved.join('; ')}. For more detail, link users to /housing-production.`
+Housing production data (Census Building Permit Survey 2024): Across ${stats.townsWithBothDatasets} towns with both ADU and building permit data, ADU approvals account for ${stats.overallAduShare}% of all ${stats.totalBuildingPermits.toLocaleString()} building permits issued. Top 10 towns by ADU approvals: ${stats.top10ByApproved.join('; ')}. For more detail, link users to /housing-production.
+
+Attorney General decisions on ADU bylaws (${stats.agDecisions.length} towns with provisions struck down as inconsistent with state law):
+${stats.agDecisions.join('\n')}
+When discussing AG decisions, always link to /compliance/[town] for the full analysis.`
 }
 
 // ── Town data lookup ──
@@ -134,14 +162,21 @@ export function getTownContext(slugs: string[]): string {
     const compliance = allEntries.find(t => t.slug === slug)
     if (compliance) {
       const counts = getStatusCounts(compliance.provisions)
-      let summary = `Bylaw analysis for ${compliance.name}: ${counts.inconsistent} inconsistent, ${counts.review} under review, ${counts.compliant} compliant.`
+      let summary = `Bylaw analysis for ${compliance.name}: ${counts.inconsistent} inconsistent with state law, ${counts.review} under review, ${counts.compliant} consistent with state law.`
       if (compliance.bottomLine) summary += ` ${compliance.bottomLine}`
       if (counts.inconsistent > 0) {
         const issues = compliance.provisions
           .filter(p => p.status === 'inconsistent')
           .map(p => p.provision)
           .join(', ')
-        summary += ` Inconsistent provisions: ${issues}.`
+        summary += ` Provisions inconsistent with state law: ${issues}.`
+      }
+      if (compliance.agDisapprovals > 0) {
+        const agProvisions = compliance.provisions
+          .filter(p => p.agDecision)
+          .map(p => `${p.provision}: ${p.agDecision}`)
+          .join(' ')
+        summary += ` AG decisions: ${agProvisions}`
       }
       parts.push(summary)
     }

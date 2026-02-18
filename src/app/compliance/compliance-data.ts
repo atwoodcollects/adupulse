@@ -169,6 +169,8 @@ const SOURCES = {
   worcester_twiw: 'https://thisweekinworcester.com/accessory-dwelling-units-council-121223/',
   /** Green Needham — 12 ADUs in 3+ years, April 2023 */
   needham_green: 'https://www.greenneedham.org/blog/2023/04/a-needed-amendment-to-the-accessory-dwelling-unit-bylaw/',
+  /** My Southborough — AG partial disapproval of ADU bylaw, February 2026 */
+  southborough_ag: 'https://www.mysouthborough.com/2026/02/17/ags-office-partially-approves-towns-adu-bylaw/',
 } as const;
 
 // ---------------------------------------------------------------------------
@@ -3647,6 +3649,40 @@ export const towns: TownComplianceProfile[] = [
           { label: 'MGL c.40A \u00a77', url: SOURCES.mgl40a_s3 },
           { label: 'AG Leicester Decision', url: SOURCES.ag_leicester },
           { label: 'Revere ADU Info', url: SOURCES.revere_adu },
+        ],
+      },
+    ],
+  },
+  // ── SOUTHBOROUGH ────────────────────────────────────────────────────────
+  {
+    slug: 'southborough',
+    name: 'Southborough',
+    county: 'Worcester',
+    population: 10450,
+    lastReviewed: '2026-02-17',
+    bylawLastUpdated: '2025 (AG partial disapproval February 2026)',
+    bylawSource: 'Southborough Zoning Bylaw, ADU provisions (AG Decision, February 17, 2026)',
+    agDisapprovals: 1,
+    permits: { submitted: 2, approved: 0, denied: 0, pending: 0, approvalRate: 0 },
+    bottomLine: 'Southborough tried to ban mobile homes from being used as ADUs, but the AG struck down the restriction because the town\u2019s broad definition of \u201cmobile home\u201d included manufactured homes protected under state law. The travel trailer ban was upheld. The Planning Board is already working on revisions for April Town Meeting. This decision sets a precedent: towns cannot use overbroad definitions to exclude modular or manufactured ADUs. (My Southborough, February 2026)',
+    provisions: [
+      {
+        id: 'sou-01',
+        provision: 'ADU Structure Type Restrictions',
+        category: 'Building & Safety',
+        status: 'inconsistent',
+        stateLaw:
+          '760 CMR 71.03(3)(b)(7) provides that any requirement prohibiting a Modular Dwelling Unit from being used as a Protected Use ADU that is more restrictive than Building Code is unreasonable.',
+        localBylaw:
+          'ADUs shall not be located in a travel trailer or mobile home.',
+        impact:
+          'The town\u2019s definition of \u201cmobile home\u201d was broad enough to include manufactured homes that qualify as Modular Dwelling Units under state regulations. The AG struck the words \u201cor mobile home\u201d from the bylaw \u2014 the travel trailer ban remains.',
+        agDecision:
+          'AG partial disapproval February 17, 2026 (AAG Nicole B. Caprioli): Disapproved ban on mobile homes as ADUs because town definition encompasses protected Modular Dwelling Units.',
+        citations: [
+          { label: '760 CMR 71.03(3)(b)(7)', url: SOURCES.cmr71 },
+          { label: 'MGL c.40A \u00a73', url: SOURCES.mgl40a_s3 },
+          { label: 'My Southborough', url: SOURCES.southborough_ag },
         ],
       },
     ],

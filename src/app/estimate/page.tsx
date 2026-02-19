@@ -2,7 +2,9 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import SavingsCalculator from '@/components/SavingsCalculator'
+import NavBar from '@/components/NavBar'
+import Footer from '@/components/Footer'
+import { allEntries, getStatusCounts, getTownStatusLabel } from '@/app/compliance/compliance-data'
 
 // --- EXISTING COST DATA ---
 const costData = {
@@ -51,16 +53,15 @@ const townMarketData: Record<string, { avgRent: number; rentYoY: number; medianH
   sudbury: { avgRent: 2800, rentYoY: -0.3, medianHome: 1050000, propertyUplift: 0.15 },
 }
 
-const NATIONAL_RENT_YOY = -1.4
-const NATIONAL_AVG_RENT = 1695
 const ASSISTED_LIVING_MONTHLY_MA = 6000
 
-type GoalKey = 'rental' | 'family' | 'aging' | 'value'
+type GoalKey = 'rental' | 'family' | 'aging' | 'value' | 'assisted'
 const GOALS: Record<GoalKey, { icon: string; label: string; desc: string }> = {
-  rental: { icon: '💰', label: 'Rental Income', desc: 'Generate monthly cash flow' },
-  family: { icon: '👨‍👩‍👧', label: 'Family Housing', desc: 'House a family member' },
-  aging: { icon: '🏡', label: 'Age in Place', desc: 'Stay home as you age' },
-  value: { icon: '📈', label: 'Property Value', desc: 'Increase home equity' },
+  rental: { icon: '\u{1F4B0}', label: 'Rental Income', desc: 'Generate monthly cash flow' },
+  family: { icon: '\u{1F468}\u{200D}\u{1F469}\u{200D}\u{1F467}', label: 'Family Housing', desc: 'House a family member' },
+  aging: { icon: '\u{1F3E1}', label: 'Age in Place', desc: 'Stay home as you age' },
+  value: { icon: '\u{1F4C8}', label: 'Property Value', desc: 'Increase home equity' },
+  assisted: { icon: '\u{1F3E5}', label: 'vs. Assisted Living', desc: 'Compare to care costs' },
 }
 
 // --- HELPERS ---
@@ -74,49 +75,12 @@ const getPermitCounts = () => {
 }
 
 const fmt = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const fmtPct = (n: number) => `${n > 0 ? '+' : ''}${n.toFixed(1)}%`
 
 // --- COMPONENTS ---
 
-function RentMarketCallout({ town, townKey }: { town: string; townKey: string }) {
-  const data = townMarketData[townKey]
-  if (!data) return null
-  const diff = data.rentYoY - NATIONAL_RENT_YOY
-  const better = diff > 0
-
-  return (
-    <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-500/30 rounded-lg p-4 sm:p-6 relative overflow-hidden">
-      <div className={`absolute -top-10 -right-10 w-28 h-28 rounded-full ${better ? 'bg-emerald-500/10' : 'bg-amber-500/10'}`} />
-      <div className="text-xs uppercase tracking-widest text-blue-400 mb-3 font-medium">
-        📍 National Headlines vs. Your Town
-      </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6">
-        <div>
-          <div className="text-text-muted text-xs mb-1">US Avg Rent YoY</div>
-          <div className="text-2xl font-bold text-red-400">{fmtPct(NATIONAL_RENT_YOY)}</div>
-          <div className="text-text-muted text-xs mt-0.5">{fmt(NATIONAL_AVG_RENT)}/mo avg</div>
-        </div>
-        <div className="sm:border-l sm:border-blue-500/20 sm:pl-6">
-          <div className="text-text-muted text-xs mb-1">{town} Rent YoY</div>
-          <div className={`text-2xl font-bold ${better ? 'text-emerald-400' : 'text-amber-400'}`}>{fmtPct(data.rentYoY)}</div>
-          <div className="text-text-muted text-xs mt-0.5">{fmt(data.avgRent)}/mo avg</div>
-        </div>
-        <div className="col-span-2 sm:col-span-1 sm:border-l sm:border-blue-500/20 sm:pl-6">
-          <div className="text-text-muted text-xs mb-1">Local Context</div>
-          <div className="text-text-secondary text-sm leading-relaxed">
-            {better
-              ? `${town} is outperforming the national average by ${diff.toFixed(1)}pp. Local demand remains stronger than headlines suggest.`
-              : `${town} is tracking close to national trends. Focus on non-rental value drivers like property uplift.`}
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
 function GoalSelector({ selected, onSelect }: { selected: GoalKey; onSelect: (g: GoalKey) => void }) {
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+    <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
       {(Object.entries(GOALS) as [GoalKey, typeof GOALS[GoalKey]][]).map(([key, { icon, label, desc }]) => {
         const active = selected === key
         return (
@@ -153,7 +117,6 @@ function RentScenarioSlider({ value, onChange }: { value: number; onChange: (v: 
           {value > 0 ? '+' : ''}{value}% YoY — {current.label}
         </span>
       </div>
-      {/* Bigger slider with touch-friendly hit area */}
       <div className="py-2">
         <input
           type="range" min={-2} max={2} step={1} value={value}
@@ -161,7 +124,6 @@ function RentScenarioSlider({ value, onChange }: { value: number; onChange: (v: 
           className="w-full h-3 bg-gray-700 rounded-lg appearance-none cursor-pointer slider-touch"
         />
       </div>
-      {/* Tap-friendly step buttons on mobile */}
       <div className="flex justify-between mt-2 sm:mt-1">
         {scenarios.map(s => (
           <button
@@ -256,6 +218,75 @@ function ValueBreakdown({ goal, townKey, aduCost, rentScenario, years }: {
   )
 }
 
+function AssistedLivingComparison({ aduCost, years, rentScenario }: { aduCost: number; years: number; rentScenario: number }) {
+  const assistedLivingAnnual = ASSISTED_LIVING_MONTHLY_MA * 12
+  const assistedLivingTotal = assistedLivingAnnual * years
+  const savings = assistedLivingTotal - aduCost
+  const breakeven = Math.ceil(aduCost / assistedLivingAnnual * 10) / 10
+  const weeklySavings = savings > 0 ? Math.round(savings / (years * 52)) : 0
+
+  return (
+    <div className="bg-gray-800/50 border border-border rounded-lg p-4 sm:p-6">
+      <div className="text-xs uppercase tracking-widest text-blue-400 mb-4 font-medium">
+        {years}-Year Comparison — {GOALS.assisted.icon} vs. Assisted Living
+      </div>
+
+      <div className="space-y-3 mb-6">
+        <div>
+          <div className="flex justify-between text-sm mb-1">
+            <span className="text-gray-400">Your ADU (one-time cost)</span>
+            <span className="text-white font-medium">{fmt(aduCost)}</span>
+          </div>
+          <div className="w-full bg-gray-700 rounded-full h-4">
+            <div
+              className="bg-emerald-500 h-4 rounded-full transition-all duration-500"
+              style={{ width: `${Math.min((aduCost / assistedLivingTotal) * 100, 100)}%` }}
+            />
+          </div>
+        </div>
+        <div>
+          <div className="flex justify-between text-sm mb-1">
+            <span className="text-gray-400">Assisted living ({years} {years === 1 ? 'year' : 'years'})</span>
+            <span className="text-red-400 font-medium">{fmt(assistedLivingTotal)}</span>
+          </div>
+          <div className="w-full bg-gray-700 rounded-full h-4">
+            <div className="bg-red-500 h-4 rounded-full transition-all duration-500" style={{ width: '100%' }} />
+          </div>
+        </div>
+      </div>
+
+      {savings > 0 ? (
+        <div className="bg-emerald-900/20 border border-emerald-500/20 rounded-lg p-4">
+          <div className="text-center mb-3">
+            <div className="text-emerald-400 font-bold text-2xl">{fmt(savings)}</div>
+            <div className="text-gray-400 text-sm">saved over {years} years vs. assisted living</div>
+          </div>
+          <div className="grid grid-cols-2 gap-3 text-center">
+            <div>
+              <div className="text-white font-bold">{breakeven} yrs</div>
+              <div className="text-gray-500 text-xs">Breakeven</div>
+            </div>
+            <div>
+              <div className="text-white font-bold">${weeklySavings}/wk</div>
+              <div className="text-gray-500 text-xs">Weekly savings</div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="bg-gray-800 border border-gray-600 rounded-lg p-4 text-center">
+          <p className="text-gray-400 text-sm">
+            Over {years} {years === 1 ? 'year' : 'years'}, the costs are comparable. Extend the timeline to see where an ADU wins.
+          </p>
+        </div>
+      )}
+
+      <p className="text-gray-600 text-xs mt-3 text-center">
+        Based on MA average assisted living cost of $6,000/month. ADU costs from real permit data.
+      </p>
+    </div>
+  )
+}
+
 function EmailCapture() {
   const [email, setEmail] = useState('')
   const [requestedTown, setRequestedTown] = useState('')
@@ -337,11 +368,11 @@ function PermitCard({ c, type, townNames }: { c: typeof allComparisons[0]; type:
           <div className="text-text-muted text-[10px]">Total</div>
         </div>
         <div>
-          <div className="text-white font-medium text-sm">{c.sqft > 0 ? c.sqft : '—'}</div>
+          <div className="text-white font-medium text-sm">{c.sqft > 0 ? c.sqft : '\u2014'}</div>
           <div className="text-text-muted text-[10px]">Sqft</div>
         </div>
         <div>
-          <div className="text-white font-medium text-sm">{c.ppsf > 0 ? `$${c.ppsf}` : '—'}</div>
+          <div className="text-white font-medium text-sm">{c.ppsf > 0 ? `$${c.ppsf}` : '\u2014'}</div>
           <div className="text-text-muted text-[10px]">$/sf</div>
         </div>
       </div>
@@ -354,7 +385,7 @@ function PermitCard({ c, type, townNames }: { c: typeof allComparisons[0]; type:
 export default function EstimatePage() {
   const [town, setTown] = useState('milton')
   const [type, setType] = useState<'detached' | 'attached' | 'conversion'>('detached')
-  const [sqft, setSqft] = useState(800)
+  const [sqft, setSqft] = useState(750)
   const [builder, setBuilder] = useState<'diy' | 'contractor'>('contractor')
   const [goal, setGoal] = useState<GoalKey>('rental')
   const [rentScenario, setRentScenario] = useState(0)
@@ -411,156 +442,162 @@ export default function EstimatePage() {
   const confidence = getConfidenceLevel()
   const hasMarketData = !!townMarketData[town]
 
+  // Compliance data lookup
+  const complianceProfile = allEntries.find(t => t.slug === town)
+
   return (
     <div className="min-h-screen bg-gray-900">
+      <NavBar current="Cost Estimator" />
+
       <div className="max-w-4xl mx-auto px-4 py-6">
-        <Link href="/" className="text-blue-400 text-sm mb-2 inline-block">← Back</Link>
-        <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">ADU Cost Estimator</h1>
-        <p className="text-text-secondary text-sm mb-6">Based on real MA permit data from 2025. <Link href="/methodology" className="text-blue-400 hover:underline">See methodology →</Link></p>
+        <Link href="/" className="text-blue-400 text-sm mb-2 inline-block">&larr; Back</Link>
+        <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">How Much Does an ADU Cost in Massachusetts?</h1>
+        <p className="text-text-secondary text-sm mb-6">Based on real MA permit data from 2025. <Link href="/methodology" className="text-blue-400 hover:underline">See methodology &rarr;</Link></p>
 
-        {/* Cost Estimator */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-          <div className="bg-gray-800/50 border border-border rounded-lg p-4 sm:p-6">
-            <h2 className="text-white font-medium mb-4">Your Project</h2>
-            <div className="space-y-5 sm:space-y-4">
-              {/* Town selector */}
-              <div>
-                <label className="text-text-secondary text-sm block mb-2">Town</label>
-                <select value={town} onChange={(e) => setTown(e.target.value)}
-                  className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-3 sm:py-2 text-white text-base sm:text-sm min-h-[48px]">
-                  <option value="boston">Boston</option>
-                  <option value="newton">Newton</option>
-                  <option value="milton">Milton</option>
-                  <option value="plymouth">Plymouth</option>
-                  <option value="duxbury">Duxbury</option>
-                  <option value="needham">Needham</option>
-                  <option value="andover">Andover</option>
-                  <option value="sudbury">Sudbury</option>
-                </select>
-              </div>
+        {/* SEO Text */}
+        <div className="text-gray-400 text-sm leading-relaxed space-y-3 mb-8">
+          <p>
+            Estimate the cost of building an accessory dwelling unit in Massachusetts. This calculator uses real permit data from local building departments to project construction costs by town, ADU type, and square footage.
+          </p>
+          <p>
+            Select your town and project type to see estimated costs, ROI projections, and how your town&apos;s ADU bylaws may affect your project. Cost data is derived from building permits issued across Massachusetts in 2024&ndash;2025.
+          </p>
+        </div>
 
-              {/* ADU Type — bigger touch targets */}
-              <div>
-                <label className="text-text-secondary text-sm block mb-2">ADU Type</label>
-                <div className="grid grid-cols-3 gap-2">
-                  {(['detached', 'attached', 'conversion'] as const).map((t) => (
-                    <button key={t} onClick={() => setType(t)}
-                      className={`px-3 py-3 sm:py-2 rounded-lg text-sm capitalize min-h-[48px] ${
-                        type === t ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                      }`}>{t}</button>
-                  ))}
-                </div>
-              </div>
+        {/* ===== SHARED INPUTS ===== */}
+        <div className="bg-gray-800/50 border border-border rounded-lg p-4 sm:p-6 mb-6">
+          <h2 className="text-white font-medium mb-4">Your Project</h2>
+          <div className="space-y-5 sm:space-y-4">
+            {/* Town selector */}
+            <div>
+              <label className="text-text-secondary text-sm block mb-2">Town</label>
+              <select value={town} onChange={(e) => setTown(e.target.value)}
+                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-3 sm:py-2 text-white text-base sm:text-sm min-h-[48px]">
+                <option value="boston">Boston</option>
+                <option value="newton">Newton</option>
+                <option value="milton">Milton</option>
+                <option value="plymouth">Plymouth</option>
+                <option value="duxbury">Duxbury</option>
+                <option value="needham">Needham</option>
+                <option value="andover">Andover</option>
+                <option value="sudbury">Sudbury</option>
+              </select>
+            </div>
 
-              {/* Square Feet — slider + numeric input */}
-              <div>
-                <div className="flex justify-between items-center mb-2">
-                  <label className="text-text-secondary text-sm">Square Feet</label>
-                  <div className="flex items-center gap-1">
-                    <input
-                      type="number" min={300} max={1200} step={50} value={sqft}
-                      onChange={e => {
-                        const v = Math.min(1200, Math.max(300, Number(e.target.value)))
-                        setSqft(v)
-                      }}
-                      className="w-20 bg-gray-700 border border-gray-600 rounded px-2 py-1 text-white text-sm text-right min-h-[36px]"
-                    />
-                    <span className="text-text-muted text-xs">sf</span>
-                  </div>
-                </div>
-                <div className="py-2">
-                  <input type="range" min="300" max="1200" step="50" value={sqft}
-                    onChange={(e) => setSqft(Number(e.target.value))}
-                    className="w-full h-3 bg-gray-700 rounded-lg appearance-none cursor-pointer slider-touch" />
-                </div>
-                <div className="flex justify-between text-xs text-text-muted mt-0.5"><span>300 sf</span><span>1200 sf</span></div>
-              </div>
-
-              {/* Builder — bigger touch targets */}
-              <div>
-                <label className="text-text-secondary text-sm block mb-2">Builder</label>
-                <div className="grid grid-cols-2 gap-2">
-                  <button onClick={() => setBuilder('diy')}
-                    className={`px-3 py-3 sm:py-2 rounded-lg text-sm min-h-[48px] ${
-                      builder === 'diy' ? 'bg-emerald-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                    }`}>DIY / Homeowner</button>
-                  <button onClick={() => setBuilder('contractor')}
-                    className={`px-3 py-3 sm:py-2 rounded-lg text-sm min-h-[48px] ${
-                      builder === 'contractor' ? 'bg-amber-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                    }`}>Contractor</button>
-                </div>
+            {/* ADU Type */}
+            <div>
+              <label className="text-text-secondary text-sm block mb-2">ADU Type</label>
+              <div className="grid grid-cols-3 gap-2">
+                {(['detached', 'attached', 'conversion'] as const).map((t) => (
+                  <button key={t} onClick={() => setType(t)}
+                    className={`px-3 py-3 sm:py-2 rounded-lg text-sm capitalize min-h-[48px] ${
+                      type === t ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                    }`}>{t}</button>
+                ))}
               </div>
             </div>
-          </div>
 
-          {/* Results panel */}
-          <div className="bg-gray-800/50 border border-border rounded-lg p-4 sm:p-6">
-            <div className="flex justify-between items-start mb-4">
-              <h2 className="text-white font-medium">Estimated Cost</h2>
-              <span className={`px-2 py-1 rounded text-xs ${confidence.bg} ${confidence.color}`}>{confidence.label} confidence</span>
+            {/* Square Feet */}
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <label className="text-text-secondary text-sm">Square Feet</label>
+                <div className="flex items-center gap-1">
+                  <input
+                    type="number" min={300} max={900} step={50} value={sqft}
+                    onChange={e => {
+                      const v = Math.min(900, Math.max(300, Number(e.target.value)))
+                      setSqft(v)
+                    }}
+                    className="w-20 bg-gray-700 border border-gray-600 rounded px-2 py-1 text-white text-sm text-right min-h-[36px]"
+                  />
+                  <span className="text-text-muted text-xs">sf</span>
+                </div>
+              </div>
+              <div className="py-2">
+                <input type="range" min="300" max="900" step="50" value={sqft}
+                  onChange={(e) => setSqft(Number(e.target.value))}
+                  className="w-full h-3 bg-gray-700 rounded-lg appearance-none cursor-pointer slider-touch" />
+              </div>
+              <div className="flex justify-between text-xs text-text-muted mt-0.5"><span>300 sf</span><span>900 sf</span></div>
+              <p className="text-text-muted text-xs mt-1.5">MA law allows ADUs up to 900 sf or 50% of principal dwelling, whichever is less.</p>
             </div>
-            <div className="text-center py-4">
-              <div className="text-4xl sm:text-5xl font-bold text-white mb-2">{formatCost(result.avg)}</div>
-              <div className="text-text-secondary text-sm">Range: {formatCost(result.low)} - {formatCost(result.high)}</div>
-              <div className="text-text-muted text-xs mt-1">~${Math.round(result.ppsf)}/sf</div>
-            </div>
-            <div className="bg-gray-700/30 rounded-lg p-3 mb-4">
-              <div className="text-xs text-text-muted mb-1">$/sf range for {type} + {builder === 'diy' ? 'DIY' : 'Contractor'}</div>
-              <div className="text-sm text-white">${costData[type][builder].min} - ${costData[type][builder].max}/sf<span className="text-text-muted ml-2">({dataCount > 0 ? dataCount : totalTypeCount} permits)</span></div>
-            </div>
-            <div className="border-t border-border pt-4">
-              <h3 className="text-text-secondary text-sm mb-3">Cost Breakdown (typical)</h3>
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between"><span className="text-text-muted">Building/Labor</span><span className="text-white">{formatCost(result.avg * 0.65)}</span></div>
-                <div className="flex justify-between"><span className="text-text-muted">Electrical</span><span className="text-white">{formatCost(result.avg * 0.10)}</span></div>
-                <div className="flex justify-between"><span className="text-text-muted">Plumbing</span><span className="text-white">{formatCost(result.avg * 0.12)}</span></div>
-                <div className="flex justify-between"><span className="text-text-muted">HVAC</span><span className="text-white">{formatCost(result.avg * 0.08)}</span></div>
-                <div className="flex justify-between"><span className="text-text-muted">Permits/Other</span><span className="text-white">{formatCost(result.avg * 0.05)}</span></div>
+
+            {/* Builder */}
+            <div>
+              <label className="text-text-secondary text-sm block mb-2">Builder</label>
+              <div className="grid grid-cols-2 gap-2">
+                <button onClick={() => setBuilder('diy')}
+                  className={`px-3 py-3 sm:py-2 rounded-lg text-sm min-h-[48px] ${
+                    builder === 'diy' ? 'bg-emerald-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                  }`}>DIY / Homeowner</button>
+                <button onClick={() => setBuilder('contractor')}
+                  className={`px-3 py-3 sm:py-2 rounded-lg text-sm min-h-[48px] ${
+                    builder === 'contractor' ? 'bg-amber-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                  }`}>Contractor</button>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Savings Calculator */}
-        <div className="mt-6">
-          <SavingsCalculator />
+        {/* ===== SECTION 1: WHAT WILL IT COST? ===== */}
+        <div className="bg-gray-800/50 border border-border rounded-lg p-4 sm:p-6 mb-6">
+          <div className="flex justify-between items-start mb-4">
+            <h2 className="text-lg font-bold text-white">What Will It Cost?</h2>
+            <span className={`px-2 py-1 rounded text-xs ${confidence.bg} ${confidence.color}`}>{confidence.label} confidence</span>
+          </div>
+          <div className="text-center py-4">
+            <div className="text-4xl sm:text-5xl font-bold text-white mb-2">{formatCost(result.avg)}</div>
+            <div className="text-text-secondary text-sm">Range: {formatCost(result.low)} - {formatCost(result.high)}</div>
+            <div className="text-text-muted text-xs mt-1">~${Math.round(result.ppsf)}/sf</div>
+          </div>
+          <div className="bg-gray-700/30 rounded-lg p-3 mb-4">
+            <div className="text-xs text-text-muted mb-1">$/sf range for {type} + {builder === 'diy' ? 'DIY' : 'Contractor'}</div>
+            <div className="text-sm text-white">${costData[type][builder].min} - ${costData[type][builder].max}/sf<span className="text-text-muted ml-2">({dataCount > 0 ? dataCount : totalTypeCount} permits)</span></div>
+          </div>
+          <div className="border-t border-border pt-4">
+            <h3 className="text-text-secondary text-sm mb-3">Cost Breakdown (typical)</h3>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between"><span className="text-text-muted">Building/Labor</span><span className="text-white">{formatCost(result.avg * 0.65)}</span></div>
+              <div className="flex justify-between"><span className="text-text-muted">Electrical</span><span className="text-white">{formatCost(result.avg * 0.10)}</span></div>
+              <div className="flex justify-between"><span className="text-text-muted">Plumbing</span><span className="text-white">{formatCost(result.avg * 0.12)}</span></div>
+              <div className="flex justify-between"><span className="text-text-muted">HVAC</span><span className="text-white">{formatCost(result.avg * 0.08)}</span></div>
+              <div className="flex justify-between"><span className="text-text-muted">Permits/Other</span><span className="text-white">{formatCost(result.avg * 0.05)}</span></div>
+            </div>
+          </div>
         </div>
 
-        {/* Goal-Based ROI Section */}
+        {/* ===== SECTION 2: WHAT'S IT WORTH? ===== */}
         {hasMarketData && (
-          <div className="mt-6 space-y-4">
+          <div className="space-y-4 mb-6">
             <div className="border-t border-border pt-6">
-              <div className="flex items-center gap-3 mb-1">
-                <span className="text-xl">⚡</span>
-                <h2 className="text-lg sm:text-xl font-bold text-white">What&apos;s your ADU really worth?</h2>
-              </div>
-              <p className="text-text-secondary text-sm mb-4 ml-9">
-                See the full ROI picture based on your goal — not just the sticker price.
+              <h2 className="text-lg sm:text-xl font-bold text-white mb-1">What&apos;s It Worth?</h2>
+              <p className="text-text-secondary text-sm mb-4">
+                See the full value picture based on your goal — not just the sticker price.
               </p>
             </div>
-
-            <RentMarketCallout town={townNames[town] || town} townKey={town} />
 
             <div>
               <label className="text-text-secondary text-sm block mb-2">What&apos;s your primary goal?</label>
               <GoalSelector selected={goal} onSelect={setGoal} />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <RentScenarioSlider value={rentScenario} onChange={setRentScenario} />
+            {/* Controls: Rent Scenario + Time Horizon */}
+            <div className={`grid grid-cols-1 ${goal === 'rental' || goal === 'assisted' ? 'sm:grid-cols-2' : ''} gap-4`}>
+              {(goal === 'rental' || goal === 'assisted') && (
+                <RentScenarioSlider value={rentScenario} onChange={setRentScenario} />
+              )}
               <div className="bg-gray-800/30 border border-border rounded-lg p-4">
                 <div className="flex justify-between items-center mb-3">
                   <span className="text-text-muted text-xs uppercase tracking-wider">Time Horizon</span>
                   <span className="text-sm font-semibold text-white">{roiYears} years</span>
                 </div>
                 <div className="py-2">
-                  <input type="range" min={5} max={20} step={5} value={roiYears}
+                  <input type="range" min={goal === 'assisted' ? 1 : 5} max={goal === 'assisted' ? 15 : 20} step={goal === 'assisted' ? 1 : 5} value={roiYears}
                     onChange={e => setRoiYears(Number(e.target.value))}
                     className="w-full h-3 bg-gray-700 rounded-lg appearance-none cursor-pointer slider-touch" />
                 </div>
-                {/* Tap-friendly year buttons */}
                 <div className="flex justify-between mt-2 sm:mt-1">
-                  {[5, 10, 15, 20].map(y => (
+                  {(goal === 'assisted' ? [1, 5, 10, 15] : [5, 10, 15, 20]).map(y => (
                     <button
                       key={y}
                       onClick={() => setRoiYears(y)}
@@ -575,24 +612,68 @@ export default function EstimatePage() {
               </div>
             </div>
 
-            <ValueBreakdown goal={goal} townKey={town} aduCost={result.avg} rentScenario={rentScenario} years={roiYears} />
+            {/* Goal-specific content */}
+            {goal === 'assisted' ? (
+              <AssistedLivingComparison aduCost={result.avg} years={roiYears} rentScenario={rentScenario} />
+            ) : (
+              <ValueBreakdown goal={goal} townKey={town} aduCost={result.avg} rentScenario={rentScenario} years={roiYears} />
+            )}
 
             <div className="text-text-muted text-xs leading-relaxed p-3 bg-gray-800/20 rounded-lg border border-border/50">
-              ⚠️ Estimates are illustrative and based on local market averages. Actual costs, rents, and property values vary significantly. Assisted living cost based on MA state average of $6,000/mo. Consult a financial advisor before making investment decisions. <Link href="/methodology" className="text-blue-400 hover:underline">See our methodology</Link>.
+              Estimates are illustrative and based on local market averages. Actual costs, rents, and property values vary significantly. Assisted living cost based on MA state average of $6,000/mo. Consult a financial advisor before making investment decisions. <Link href="/methodology" className="text-blue-400 hover:underline">See our methodology</Link>.
             </div>
           </div>
         )}
 
+        {/* ===== SECTION 3: WHAT DOES YOUR TOWN ALLOW? ===== */}
+        <div className="bg-gray-800/50 border border-border rounded-lg p-4 sm:p-6 mb-6">
+          <h2 className="text-lg font-bold text-white mb-3">What Does Your Town Allow?</h2>
+          {complianceProfile ? (() => {
+            const counts = getStatusCounts(complianceProfile.provisions)
+            const statusLabel = getTownStatusLabel(complianceProfile)
+            const flagged = counts.inconsistent + counts.review
+            return (
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <span className={`px-2 py-0.5 rounded text-xs font-medium ${statusLabel.bg} ${statusLabel.color}`}>
+                    {statusLabel.label}
+                  </span>
+                  {flagged > 0 && (
+                    <span className="text-text-muted text-xs">
+                      {counts.inconsistent} inconsistent{counts.review > 0 ? `, ${counts.review} under review` : ''} of {complianceProfile.provisions.length} provisions
+                    </span>
+                  )}
+                </div>
+                {complianceProfile.bottomLine && (
+                  <p className="text-gray-400 text-sm leading-relaxed mb-3">{complianceProfile.bottomLine}</p>
+                )}
+                <Link href={`/compliance/${complianceProfile.slug}`} className="text-blue-400 text-sm hover:underline">
+                  See full compliance analysis &rarr;
+                </Link>
+              </div>
+            )
+          })() : (
+            <div>
+              <p className="text-gray-400 text-sm mb-2">
+                We haven&apos;t profiled {townNames[town] || town}&apos;s ADU bylaw yet.
+              </p>
+              <Link href="/" className="text-blue-400 text-sm hover:underline">
+                Ask our AI assistant about {townNames[town] || town} &rarr;
+              </Link>
+            </div>
+          )}
+        </div>
+
         {/* Email Capture */}
-        <div className="mt-6">
+        <div className="mb-6">
           <EmailCapture />
         </div>
 
-        {/* Similar Permitted Projects — card layout on mobile, table on desktop */}
-        <div className="mt-6 bg-gray-800/50 border border-border rounded-lg p-4 sm:p-6">
+        {/* Similar Permitted Projects */}
+        <div className="bg-gray-800/50 border border-border rounded-lg p-4 sm:p-6">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-white font-medium">Similar Permitted Projects</h2>
-            {townLinks[town] && <Link href={townLinks[town]} className="text-blue-400 text-xs hover:underline">View all {townNames[town]} →</Link>}
+            {townLinks[town] && <Link href={townLinks[town]} className="text-blue-400 text-xs hover:underline">View all {townNames[town]} &rarr;</Link>}
           </div>
           {filteredComparisons.length > 0 ? (
             <>
@@ -620,9 +701,9 @@ export default function EstimatePage() {
                       <tr key={i} className="border-b border-border/50">
                         <td className="p-2"><span className="text-white">{c.label}</span><span className="text-text-muted text-xs block">{townNames[c.town]}</span></td>
                         <td className="p-2"><span className={`px-2 py-0.5 rounded text-xs capitalize ${c.type === type ? 'bg-blue-500/20 text-blue-400' : 'text-text-secondary'}`}>{c.type}</span></td>
-                        <td className="p-2 text-text-secondary">{c.sqft > 0 ? c.sqft : '—'}</td>
+                        <td className="p-2 text-text-secondary">{c.sqft > 0 ? c.sqft : '\u2014'}</td>
                         <td className="p-2 text-white font-medium">{formatCost(c.cost)}</td>
-                        <td className="p-2 text-text-secondary">{c.ppsf > 0 ? '$' + c.ppsf : '—'}</td>
+                        <td className="p-2 text-text-secondary">{c.ppsf > 0 ? '$' + c.ppsf : '\u2014'}</td>
                         <td className="p-2 text-text-muted text-xs">{c.notes}</td>
                       </tr>
                     ))}
@@ -644,6 +725,8 @@ export default function EstimatePage() {
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   )
 }

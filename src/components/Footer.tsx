@@ -22,6 +22,7 @@ export default function Footer() {
               {[
                 { name: 'Policy Tracker', href: '/compliance' },
                 { name: 'Housing Production', href: '/housing-production' },
+                { name: 'Cost Estimator', href: '/estimate' },
                 { name: 'Pricing', href: '/pricing' },
               ].map(l => (
                 <Link key={l.href} href={l.href} className="block text-gray-400 text-xs hover:text-white transition-colors py-1">{l.name}</Link>

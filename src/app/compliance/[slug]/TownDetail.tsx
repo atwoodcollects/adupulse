@@ -366,6 +366,75 @@ export default function TownDetail({ slug }: { slug: string }) {
             {bottomLine}
           </p>
         </div>
+
+        {/* ── PROVENANCE ── */}
+        <div className="mt-4 px-4 py-3 bg-gray-900/30 border border-gray-700/30 rounded-lg">
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-600 mb-2">
+            Data Provenance
+          </p>
+          <div className="space-y-1 text-xs text-gray-500">
+            <p>
+              <span className="text-gray-400">Reviewed:</span>{' '}
+              {formatReviewDate(town.lastReviewed)}
+            </p>
+            <p>
+              <span className="text-gray-400">AG action:</span>{' '}
+              {town.agDecisionDate ? (
+                <>
+                  {formatReviewDate(town.agDecisionDate)}
+                  {town.agDecisionUrl && (
+                    <>
+                      {' '}
+                      <a
+                        href={town.agDecisionUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-400/70 hover:text-blue-300 underline underline-offset-2"
+                      >
+                        source
+                      </a>
+                    </>
+                  )}
+                </>
+              ) : (
+                'None'
+              )}
+            </p>
+            <p>
+              <span className="text-gray-400">{ruleWord} source:</span>{' '}
+              {town.bylawSourceUrl ? (
+                <a
+                  href={town.bylawSourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-400/70 hover:text-blue-300 underline underline-offset-2"
+                >
+                  {town.bylawSourceTitle || ruleWord}
+                </a>
+              ) : (
+                town.bylawSourceTitle || town.bylawSource
+              )}
+              {town.bylawRetrievedAt && (
+                <span className="text-gray-600">
+                  {' '}&middot; retrieved {formatReviewDate(town.bylawRetrievedAt)}
+                </span>
+              )}
+            </p>
+            {town.bylawVersionDate ? (
+              <p>
+                <span className="text-gray-400">{ruleWord} version:</span>{' '}
+                {formatReviewDate(town.bylawVersionDate)}
+              </p>
+            ) : (
+              <p className="text-gray-600 italic">
+                Version date not published; analysis based on publicly available text
+                {town.bylawRetrievedAt && (
+                  <> retrieved {formatReviewDate(town.bylawRetrievedAt)}</>
+                )}
+              </p>
+            )}
+          </div>
+        </div>
       </div>
 
       {/* ── METHODOLOGY NOTE ── */}

@@ -95,6 +95,13 @@ export interface TownComplianceProfile {
   provisions: ComplianceProvision[];
   resistanceTag?: 'active-resistance';
   isExempt?: boolean;
+  // ── Provenance fields ──
+  agDecisionDate?: string;
+  agDecisionUrl?: string;
+  bylawRetrievedAt?: string;
+  bylawSourceUrl?: string;
+  bylawSourceTitle?: string;
+  bylawVersionDate?: string;
 }
 
 export interface NarrativeCityProfile {
@@ -233,6 +240,8 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Plymouth Zoning Bylaw §205-51',
     agDisapprovals: 0,
     permits: { submitted: 42, approved: 34, denied: 8, pending: 0, approvalRate: 81 },
+    bylawRetrievedAt: '2026-02-19',
+    bylawSourceTitle: 'Zoning Bylaw',
     bottomLine: 'Plymouth has 3 inconsistent provisions on the books that haven’t been reviewed by the AG. Owner-occupancy and lot frontage requirements mirror provisions struck down in other towns. These are preempted by state law but may still be applied locally.',
     provisions: [
       {
@@ -394,10 +403,12 @@ export const towns: TownComplianceProfile[] = [
     county: 'Nantucket',
     population: 14255,
     lastReviewed: '2026-02-15',
-    bylawLastUpdated: 'Pre-2024 (not updated post-Chapter 150)',
+    bylawLastUpdated: 'Pre-2025 (not updated for Chapter 150)',
     bylawSource: 'Nantucket Zoning Bylaw §139-16A',
     agDisapprovals: 0,
     permits: { submitted: 27, approved: 27, denied: 0, pending: 0, approvalRate: 100 },
+    bylawRetrievedAt: '2026-02-19',
+    bylawSourceTitle: 'Zoning Bylaw',
     bottomLine: 'Nantucket’s HDC review adds a layer of design scrutiny that doesn’t exist on the mainland. The 4 inconsistent provisions are preempted by state law, but the island’s unique regulatory culture means pushback is common. Budget extra time for approvals.',
     provisions: [
       {
@@ -518,6 +529,10 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Leicester Zoning Bylaw — Town Meeting Article 9',
     agDisapprovals: 3,
     permits: { submitted: 2, approved: 2, denied: 0, pending: 0, approvalRate: 100 },
+    agDecisionDate: '2025-05-27',
+    agDecisionUrl: SOURCES.ag_leicester,
+    bylawRetrievedAt: '2026-02-19',
+    bylawSourceTitle: 'Zoning Bylaw',
     bottomLine: 'Leicester was one of the first AG decisions and set the precedents other towns ignored. The bedroom cap, single-family restriction, and dimensional provisions were all struck down. The remaining bylaw is workable but the town’s enforcement posture may still reflect the old rules.',
     provisions: [
       {
@@ -639,6 +654,10 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Brookline Zoning Bylaw — Town Meeting Article',
     agDisapprovals: 2,
     permits: { submitted: 5, approved: 2, denied: 3, pending: 0, approvalRate: 40 },
+    agDecisionDate: '2025-06-01',
+    agDecisionUrl: SOURCES.ag_brookline,
+    bylawRetrievedAt: '2026-02-19',
+    bylawSourceTitle: 'Zoning Bylaw',
     bottomLine: 'Brookline’s bylaw is relatively clean with only one inconsistent provision (owner-occupancy for detached ADUs). The town is generally ADU-friendly with an 81% approval rate. Builders can operate with reasonable confidence here.',
     provisions: [
       {
@@ -763,6 +782,10 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Canton Zoning Bylaw — Town Meeting Article',
     agDisapprovals: 1,
     permits: { submitted: 2, approved: 1, denied: 1, pending: 0, approvalRate: 50 },
+    agDecisionDate: '2025-06-04',
+    agDecisionUrl: SOURCES.ag_canton,
+    bylawRetrievedAt: '2026-02-19',
+    bylawSourceTitle: 'Zoning Bylaw',
     bottomLine: 'Canton lost its minimum lot size requirement to the AG in June 2025. The remaining bylaw is mostly consistent but the special permit requirement is a significant barrier — it adds months and creates discretionary denial risk.',
     provisions: [
       {
@@ -875,6 +898,10 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Hanson Zoning Bylaw — Town Meeting Article',
     agDisapprovals: 1,
     permits: { submitted: 3, approved: 2, denied: 1, pending: 0, approvalRate: 67 },
+    agDecisionDate: '2025-06-01',
+    agDecisionUrl: SOURCES.ag_hanson,
+    bylawRetrievedAt: '2026-02-19',
+    bylawSourceTitle: 'Zoning Bylaw',
     provisions: [
       {
         id: 'han-01',
@@ -974,6 +1001,8 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'New Bedford Zoning Ordinance Ch. 9, §§2340 & 1200',
     agDisapprovals: 0,
     permits: { submitted: 6, approved: 2, denied: 4, pending: 0, approvalRate: 33 },
+    bylawRetrievedAt: '2026-02-19',
+    bylawSourceTitle: 'Zoning Ordinance',
     provisions: [
       {
         id: 'nb-01',
@@ -1137,6 +1166,9 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Newton Zoning Ordinance §30-22 (April 2025 amendments)',
     agDisapprovals: 0,
     permits: { submitted: 40, approved: 18, denied: 0, pending: 22, approvalRate: 45 },
+    bylawRetrievedAt: '2026-02-19',
+    bylawSourceUrl: SOURCES.newton_adu,
+    bylawSourceTitle: 'Zoning Ordinance',
     bottomLine: 'Newton’s two-tier system creates confusion but most ADUs can proceed by right. The site plan review path adds cost and time for larger units but isn’t technically a barrier. Builders should confirm which tier applies before quoting projects.',
     provisions: [
       {
@@ -1302,6 +1334,9 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Andover Zoning Bylaw Article VIII, Art. 22 (April 2025 Town Meeting)',
     agDisapprovals: 0,
     permits: { submitted: 10, approved: 9, denied: 0, pending: 1, approvalRate: 90 },
+    bylawRetrievedAt: '2026-02-19',
+    bylawSourceUrl: SOURCES.andover_adu,
+    bylawSourceTitle: 'Zoning Bylaw',
     bottomLine: 'Andover’s ZBA site plan review is the main friction point — it’s not a special permit, but it adds time, cost, and unpredictability. ADUs are allowed by right, but expect the review process to take longer than towns without ZBA involvement.',
     provisions: [
       {
@@ -1433,7 +1468,10 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Milton Zoning Bylaw §275-10.13',
     agDisapprovals: 0,
     permits: { submitted: 25, approved: 24, denied: 0, pending: 1, approvalRate: 96 },
-    bottomLine: 'Milton’s bylaw hasn’t been updated since the state law took effect. Three provisions — owner-occupancy, family/caregiver restrictions, and the special permit requirement — are preempted by state law. Homeowners should cite G.L. c. 40A §3 if the town tries to enforce them.',
+    bylawRetrievedAt: '2026-02-19',
+    bylawSourceUrl: SOURCES.milton_adu,
+    bylawSourceTitle: 'Zoning Bylaw',
+    bottomLine: 'Milton’s bylaw predates the state ADU law and has not been reconciled with G.L. c. 40A §3. Three provisions — owner-occupancy, family/caregiver restrictions, and the special permit requirement — are preempted by state law. Homeowners should cite G.L. c. 40A §3 if the town tries to enforce them.',
     provisions: [
       {
         id: 'mil-01',
@@ -1597,6 +1635,8 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Duxbury Zoning Bylaw',
     agDisapprovals: 0,
     permits: { submitted: 3, approved: 2, denied: 0, pending: 1, approvalRate: 67 },
+    bylawRetrievedAt: '2026-02-19',
+    bylawSourceTitle: 'Zoning Bylaw',
     bottomLine: "Duxbury's bylaw is technically consistent but designed to feel like a special permit process. The planning board review, design standards, and documentation requirements create soft barriers. Experienced builders will navigate it fine; first-time ADU owners may find it intimidating.",
     provisions: [
       {
@@ -1735,6 +1775,9 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Barnstable Zoning Ordinance §240-47.2 (May 2025 amendments)',
     agDisapprovals: 0,
     permits: { submitted: 31, approved: 6, denied: 0, pending: 25, approvalRate: 19 },
+    bylawRetrievedAt: '2026-02-19',
+    bylawSourceUrl: SOURCES.barnstable_adu,
+    bylawSourceTitle: 'Zoning Ordinance',
     bottomLine: 'Barnstable has the lowest approval rate in the tracker at 19%. The entrance visibility requirement and site plan review process appear to be limiting approvals. Builders should factor in a longer timeline and potential pushback from planning staff.',
     provisions: [
       {
@@ -1893,6 +1936,9 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Falmouth Zoning Bylaw Chapter 240, ADU provisions (amendments under Planning Board review)',
     agDisapprovals: 0,
     permits: { submitted: 12, approved: 12, denied: 0, pending: 0, approvalRate: 100 },
+    bylawRetrievedAt: '2026-02-19',
+    bylawSourceUrl: SOURCES.falmouth_adu,
+    bylawSourceTitle: 'Zoning Bylaw',
     bottomLine: 'Falmouth requires site plan review for ALL ADU types — internal, attached, and detached. The $200 fee and abutter notification create a quasi-hearing process. The design compatibility requirement is subjective and could be used to slow approvals.',
     provisions: [
       {
@@ -2033,6 +2079,11 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Sudbury Zoning Bylaw, Art. 28 (May 2025 STM — AG partially disapproved October 2025)',
     agDisapprovals: 3,
     permits: { submitted: 3, approved: 3, denied: 0, pending: 0, approvalRate: 100 },
+    agDecisionDate: '2025-10-01',
+    agDecisionUrl: SOURCES.sudbury_ag,
+    bylawRetrievedAt: '2026-02-19',
+    bylawSourceUrl: SOURCES.sudbury_adu,
+    bylawSourceTitle: 'Zoning Bylaw',
     bottomLine: 'Sudbury’s bylaw was partially gutted by the AG in October 2025 — 3 provisions deleted, 1 partially struck. The surviving ‘architecturally harmonious’ requirement is a gray area. Confirm with the building department which version of the bylaw they’re enforcing.',
     provisions: [
       {
@@ -2214,6 +2265,9 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Needham Zoning Bylaw (2023, Planning Board planning fall 2025 update)',
     agDisapprovals: 0,
     permits: { submitted: 4, approved: 4, denied: 0, pending: 0, approvalRate: 100 },
+    bylawRetrievedAt: '2026-02-19',
+    bylawSourceUrl: SOURCES.needham_adu,
+    bylawSourceTitle: 'Zoning Bylaw',
     bottomLine: 'Needham is a textbook restrictive town — special permit required, no detached ADUs, owner-occupancy enforced. The result: 12 ADUs in 3+ years (Green Needham, April 2023). All 4 inconsistent provisions are preempted by state law. Planning Board is working on updates but hasn’t adopted them yet.',
     provisions: [
       {
@@ -2357,6 +2411,9 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Boston Zoning Code (BPDA Citywide ADU Program, ongoing zoning updates)',
     agDisapprovals: 0,
     permits: { submitted: 69, approved: 44, denied: 0, pending: 0, approvalRate: 64 },
+    bylawRetrievedAt: '2026-02-19',
+    bylawSourceUrl: SOURCES.boston_adu,
+    bylawSourceTitle: 'Zoning Code',
     bottomLine: 'Boston is exempt from the state ADU law entirely — it’s the only municipality in Massachusetts that doesn’t operate under G.L. c. 40A. Owner-occupancy is required, only internal conversions are allowed, and workshop attendance is mandatory. The BPDA is working on zoning updates but hasn’t changed the rules yet. The zero-interest loan program (up to $30K) is a genuine advantage.',
     provisions: [
       {
@@ -2527,6 +2584,9 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Somerville Zoning Ordinance (Ord. 2025-16, adopted 06/26/2025)',
     agDisapprovals: 0,
     permits: { submitted: 40, approved: 24, denied: 0, pending: 0, approvalRate: 60 },
+    bylawRetrievedAt: '2026-02-19',
+    bylawSourceUrl: SOURCES.somerville_adu,
+    bylawSourceTitle: 'Zoning Ordinance',
     bottomLine: 'Somerville is relatively ADU-friendly after adopting Ord. 2025-16. The ‘Backyard Cottage’ building type makes detached ADUs straightforward. The main watch item is the affordability requirement in Neighborhood Residential zones — it adds compliance costs that may discourage some projects.',
     provisions: [
       {
@@ -2666,6 +2726,9 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Worcester Zoning Ordinance, ADU provisions (December 2023, amendments proposed May 2025)',
     agDisapprovals: 0,
     permits: { submitted: 31, approved: 23, denied: 0, pending: 0, approvalRate: 74 },
+    bylawRetrievedAt: '2026-02-19',
+    bylawSourceUrl: SOURCES.worcester_adu,
+    bylawSourceTitle: 'Zoning Ordinance',
     bottomLine: 'Worcester’s ordinance is mostly builder-friendly — no site plan review, no parking restrictions, by-right through building permit. The two issues are owner-occupancy (which the city council voted 9-2 to keep, per This Week in Worcester, December 2023) and the 2-bedroom cap (which mirrors a provision the AG struck down in Leicester).',
     provisions: [
       {
@@ -2838,6 +2901,10 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'East Bridgewater Zoning Bylaw (AG Decision Case #11579, April 14, 2025)',
     agDisapprovals: 2,
     permits: { submitted: 8, approved: 8, denied: 0, pending: 0, approvalRate: 100 },
+    agDecisionDate: '2025-04-14',
+    agDecisionUrl: SOURCES.ag_east_bridgewater,
+    bylawRetrievedAt: '2026-02-19',
+    bylawSourceTitle: 'Zoning Bylaw',
     bottomLine: 'East Bridgewater had 2 provisions disapproved by the AG in April 2025. The single-family-lot restriction and a 4-year waiting period were both struck down. Site plan review scope and design standards remain under review.',
     provisions: [
       {
@@ -2967,6 +3034,10 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Weston Zoning Bylaw (AG Decision Case #11649, June 9, 2025)',
     agDisapprovals: 3,
     permits: { submitted: 0, approved: 0, denied: 0, pending: 0, approvalRate: 0 },
+    agDecisionDate: '2025-06-09',
+    agDecisionUrl: SOURCES.ag_weston,
+    bylawRetrievedAt: '2026-02-19',
+    bylawSourceTitle: 'Zoning Bylaw',
     bottomLine: 'Weston had 3 provisions disapproved by the AG in June 2025 — a 12-month minimum lease, a 4-year dwelling existence requirement, and a special permit for newer dwellings. Zero permits submitted suggests the restrictions may be deterring applicants.',
     provisions: [
       {
@@ -3128,6 +3199,10 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Upton Zoning Bylaw (AG Decision Case #11658, June 9, 2025)',
     agDisapprovals: 2,
     permits: { submitted: 5, approved: 4, denied: 0, pending: 0, approvalRate: 80 },
+    agDecisionDate: '2025-06-09',
+    agDecisionUrl: SOURCES.ag_upton,
+    bylawRetrievedAt: '2026-02-19',
+    bylawSourceTitle: 'Zoning Bylaw',
     bottomLine: 'Upton had 2 provisions disapproved by the AG in June 2025. The AG struck the limitation of by-right ADUs to residential districts only and the special permit requirement in non-residential districts. The incomplete ADU definition and special permit criteria bleed-through remain under review.',
     provisions: [
       {
@@ -3255,6 +3330,10 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Wilbraham Zoning Bylaw (AG Decision Case #11778, December 19, 2025)',
     agDisapprovals: 4,
     permits: { submitted: 4, approved: 4, denied: 0, pending: 0, approvalRate: 100 },
+    agDecisionDate: '2025-12-19',
+    agDecisionUrl: SOURCES.ag_wilbraham,
+    bylawRetrievedAt: '2026-02-19',
+    bylawSourceTitle: 'Zoning Bylaw',
     bottomLine: 'Wilbraham had 4 provisions disapproved by the AG in December 2025 — single-family-only references, minimum lot area, blanket parking requirement, and special permit for nonconforming dwellings. The most disapprovals of any town reviewed so far.',
     provisions: [
       {
@@ -3435,6 +3514,9 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Quincy ADU Guidelines (February 28, 2025)',
     agDisapprovals: 0,
     permits: { submitted: 17, approved: 6, denied: 0, pending: 0, approvalRate: 35 },
+    bylawRetrievedAt: '2026-02-19',
+    bylawSourceUrl: SOURCES.quincy_adu,
+    bylawSourceTitle: 'ADU Guidelines',
     bottomLine: 'Quincy has 3 provisions identified as inconsistent through ADU Pulse\u2019s independent analysis. District exclusions, a variance lot exclusion, and a detached ADU one-story limit all conflict with state law. The 35% approval rate \u2014 among the lowest for cities \u2014 may reflect these barriers.',
     provisions: [
       {
@@ -3546,6 +3628,9 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Salem Zoning Ordinance, ADU provisions (2022, amendment pending May 2025)',
     agDisapprovals: 0,
     permits: { submitted: 9, approved: 9, denied: 0, pending: 0, approvalRate: 100 },
+    bylawRetrievedAt: '2026-02-19',
+    bylawSourceUrl: SOURCES.salem_adu,
+    bylawSourceTitle: 'Zoning Ordinance',
     bottomLine: 'Salem has 1 provision identified as inconsistent: a mandatory 70% Fair Market Rent cap that conflicts with state regulations. Two additional provisions are under review. Despite this, Salem has a 100% approval rate on the 9 permits submitted.',
     provisions: [
       {
@@ -3626,6 +3711,9 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Revere Zoning Ordinance, Title 17, Chapter 17.25 (October 2022)',
     agDisapprovals: 0,
     permits: { submitted: 17, approved: 9, denied: 0, pending: 0, approvalRate: 53 },
+    bylawRetrievedAt: '2026-02-19',
+    bylawSourceUrl: SOURCES.revere_adu,
+    bylawSourceTitle: 'Zoning Ordinance',
     bottomLine: 'Revere is actively resisting the state ADU law. A city councillor filed a Home Rule Petition in March 2025 seeking exemption (Revere Journal, March 2025). The planning director expressed skepticism about its viability (Revere Journal, March 2025). Meanwhile, all 4 conflicting provisions have been preempted by state law since February 2, 2025.',
     provisions: [
       {
@@ -3708,6 +3796,10 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Southborough Zoning Bylaw, ADU provisions (AG Decision, February 17, 2026)',
     agDisapprovals: 1,
     permits: { submitted: 2, approved: 0, denied: 0, pending: 0, approvalRate: 0 },
+    agDecisionDate: '2026-02-17',
+    agDecisionUrl: SOURCES.southborough_ag,
+    bylawRetrievedAt: '2026-02-19',
+    bylawSourceTitle: 'Zoning Bylaw',
     bottomLine: 'Southborough tried to ban mobile homes from being used as ADUs, but the AG struck down the restriction because the town\u2019s broad definition of \u201cmobile home\u201d included manufactured homes protected under state law. The travel trailer ban was upheld. The Planning Board is already working on revisions for April Town Meeting. This decision sets a precedent: towns cannot use overbroad definitions to exclude modular or manufactured ADUs. (My Southborough, February 2026)',
     provisions: [
       {

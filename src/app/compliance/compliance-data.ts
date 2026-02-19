@@ -1658,7 +1658,7 @@ export const towns: TownComplianceProfile[] = [
         stateLaw:
           'MGL c.40A §3 — ADUs must be allowed by right. No discretionary approval may be required.',
         localBylaw:
-          'Planning Board intends to use site plan review process for ADUs. Board member Wayne Dennison stated it could be used "almost like a special permit" (Duxbury Clipper, October 2024).',
+          'Planning Board intends to use site plan review process for ADUs. A board member stated it could be used "almost like a special permit" (Duxbury Clipper, October 2024).',
         impact:
           'Gray area — depends on whether review is ministerial or discretionary.',
         citations: [
@@ -3626,7 +3626,7 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Revere Zoning Ordinance, Title 17, Chapter 17.25 (October 2022)',
     agDisapprovals: 0,
     permits: { submitted: 17, approved: 9, denied: 0, pending: 0, approvalRate: 53 },
-    bottomLine: 'Revere is actively resisting the state ADU law. Councillor Michelle Kelley filed a Home Rule Petition in March 2025 seeking exemption (Revere Journal, March 2025). The Planning Director expressed skepticism about its viability (Revere Journal, March 2025). Meanwhile, all 4 conflicting provisions have been preempted by state law since February 2, 2025.',
+    bottomLine: 'Revere is actively resisting the state ADU law. A city councillor filed a Home Rule Petition in March 2025 seeking exemption (Revere Journal, March 2025). The planning director expressed skepticism about its viability (Revere Journal, March 2025). Meanwhile, all 4 conflicting provisions have been preempted by state law since February 2, 2025.',
     provisions: [
       {
         id: 'rev-01',
@@ -3766,7 +3766,7 @@ export const narrativeCities: NarrativeCityProfile[] = [
     tag: 'passive-resistance',
     title: 'Fall River: Passive Resistance',
     summary: 'Mayor publicly opposed ADU law. ZBA attaching \u201cno ADU\u201d conditions to permits.',
-    body: 'Fall River represents a case of passive resistance to the state ADU law. Mayor Paul Coogan has publicly opposed the legislation (CommonWealth Beacon, February 2025), and the city\u2019s Zoning Board of Appeals has been attaching \u201cno ADU\u201d conditions to variance and special permit approvals (Fall River Reporter, August 2025) \u2014 an unusual tactic that attempts to preemptively block homeowners from exercising their state-law right to build an ADU.\n\nThis approach is legally questionable. Since February 2, 2025, the right to build a first ADU is protected by state law and cannot be conditioned away by local boards. A \u201cno ADU\u201d condition attached to an unrelated permit likely has no legal force.\n\nDespite the resistance, Fall River has processed 25 ADU applications with 13 approved (52% rate). The below-average approval rate may reflect the adversarial administrative environment rather than legitimate permitting concerns.\n\nADU Pulse is monitoring Fall River for further developments. Homeowners who have been denied or discouraged from building an ADU may have legal recourse under G.L. c. 40A \u00a73.',
+    body: 'Fall River represents a case of passive resistance to the state ADU law. The mayor has publicly opposed the legislation (CommonWealth Beacon, February 2025), and the city\u2019s Zoning Board of Appeals has been attaching \u201cno ADU\u201d conditions to variance and special permit approvals (Fall River Reporter, August 2025) \u2014 an unusual tactic that attempts to preemptively block homeowners from exercising their state-law right to build an ADU.\n\nThis approach is legally questionable. Since February 2, 2025, the right to build a first ADU is protected by state law and cannot be conditioned away by local boards. A \u201cno ADU\u201d condition attached to an unrelated permit likely has no legal force.\n\nDespite the resistance, Fall River has processed 25 ADU applications with 13 approved (52% rate). The below-average approval rate may reflect the adversarial administrative environment rather than legitimate permitting concerns.\n\nADU Pulse is monitoring Fall River for further developments. Homeowners who have been denied or discouraged from building an ADU may have legal recourse under G.L. c. 40A \u00a73.',
   },
   {
     slug: 'lowell',

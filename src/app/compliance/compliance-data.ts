@@ -93,7 +93,7 @@ export interface TownComplianceProfile {
   permits: TownPermitData;
   bottomLine?: string;
   provisions: ComplianceProvision[];
-  resistanceTag?: 'active-resistance';
+  resistanceTag?: 'legislative-challenge';
   isExempt?: boolean;
   // ── Provenance fields ──
   agDecisionDate?: string;
@@ -112,7 +112,7 @@ export interface NarrativeCityProfile {
   municipalityType: 'city';
   lastReviewed: string;
   permits: TownPermitData;
-  tag: 'passive-resistance' | 'no-ordinance' | 'stalled';
+  tag: 'administrative-friction' | 'no-ordinance' | 'stalled';
   title: string;
   summary: string;
   body: string;
@@ -3705,7 +3705,7 @@ export const towns: TownComplianceProfile[] = [
     county: 'Suffolk',
     population: 62186,
     municipalityType: 'city',
-    resistanceTag: 'active-resistance',
+    resistanceTag: 'legislative-challenge',
     lastReviewed: '2026-02-15',
     bylawLastUpdated: 'October 2022',
     bylawSource: 'Revere Zoning Ordinance, Title 17, Chapter 17.25 (October 2022)',
@@ -3714,7 +3714,7 @@ export const towns: TownComplianceProfile[] = [
     bylawRetrievedAt: '2026-02-19',
     bylawSourceUrl: SOURCES.revere_adu,
     bylawSourceTitle: 'Zoning Ordinance',
-    bottomLine: 'Revere is actively resisting the state ADU law. A city councillor filed a Home Rule Petition in March 2025 seeking exemption (Revere Journal, March 2025). The planning director expressed skepticism about its viability (Revere Journal, March 2025). Meanwhile, all 4 conflicting provisions have been preempted by state law since February 2, 2025.',
+    bottomLine: 'Revere has pursued a legislative exemption from the state ADU law. A city councillor filed a Home Rule Petition in March 2025 seeking exemption (Revere Journal, March 2025). The planning director expressed skepticism about its viability (Revere Journal, March 2025). Meanwhile, all 4 provisions that conflict with state law have been preempted since February 2, 2025.',
     provisions: [
       {
         id: 'rev-01',
@@ -3855,10 +3855,10 @@ export const narrativeCities: NarrativeCityProfile[] = [
     municipalityType: 'city',
     lastReviewed: '2026-02-15',
     permits: { submitted: 25, approved: 13, denied: 0, pending: 0, approvalRate: 52 },
-    tag: 'passive-resistance',
-    title: 'Fall River: Passive Resistance',
-    summary: 'Mayor publicly opposed ADU law. ZBA attaching \u201cno ADU\u201d conditions to permits.',
-    body: 'Fall River represents a case of passive resistance to the state ADU law. The mayor has publicly opposed the legislation (CommonWealth Beacon, February 2025), and the city\u2019s Zoning Board of Appeals has been attaching \u201cno ADU\u201d conditions to variance and special permit approvals (Fall River Reporter, August 2025) \u2014 an unusual tactic that attempts to preemptively block homeowners from exercising their state-law right to build an ADU.\n\nThis approach is legally questionable. Since February 2, 2025, the right to build a first ADU is protected by state law and cannot be conditioned away by local boards. A \u201cno ADU\u201d condition attached to an unrelated permit likely has no legal force.\n\nDespite the resistance, Fall River has processed 25 ADU applications with 13 approved (52% rate). The below-average approval rate may reflect the adversarial administrative environment rather than legitimate permitting concerns.\n\nADU Pulse is monitoring Fall River for further developments. Homeowners who have been denied or discouraged from building an ADU may have legal recourse under G.L. c. 40A \u00a73.',
+    tag: 'administrative-friction',
+    title: 'Fall River: Administrative Friction',
+    summary: 'Mayor publicly opposed ADU law (CommonWealth Beacon, Feb 2025). ZBA has attached \u201cno ADU\u201d conditions to unrelated permits.',
+    body: 'Fall River illustrates how local administrative practices can create friction for ADU applicants even when state law is clear. The mayor has publicly opposed the legislation (CommonWealth Beacon, February 2025), and the city\u2019s Zoning Board of Appeals has been attaching \u201cno ADU\u201d conditions to variance and special permit approvals (Fall River Reporter, August 2025) \u2014 an unusual practice that attempts to restrict homeowners from exercising their state-law right to build an ADU.\n\nThis approach raises legal questions. Since February 2, 2025, the right to build a first ADU is protected by state law and cannot be conditioned away by local boards. A \u201cno ADU\u201d condition attached to an unrelated permit likely has no legal force under G.L. c. 40A \u00a73.\n\nDespite these challenges, Fall River has processed 25 ADU applications with 13 approved (52% rate). The below-average approval rate may reflect administrative hurdles rather than legitimate permitting concerns.\n\nADU Pulse is monitoring Fall River for further developments. Homeowners who have been denied or discouraged from building an ADU may have legal recourse under G.L. c. 40A \u00a73.',
   },
   {
     slug: 'lowell',
@@ -3961,8 +3961,8 @@ export function getTownStatusLabel(town: TownComplianceProfile): {
   bg: string;
 } {
   // Active resistance badge (gray)
-  if (town.resistanceTag === 'active-resistance') {
-    return { label: 'ACTIVE RESISTANCE', color: 'text-gray-300', bg: 'bg-gray-600/30' };
+  if (town.resistanceTag === 'legislative-challenge') {
+    return { label: 'LEGISLATIVE CHALLENGE', color: 'text-gray-300', bg: 'bg-gray-600/30' };
   }
   // AG disapproval badge (red) — only towns get AG review
   if (town.agDisapprovals > 0) {

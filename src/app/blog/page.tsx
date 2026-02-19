@@ -15,7 +15,7 @@ const posts = [
   },
   {
     slug: 'ag-disapprovals-sudbury-leicester-canton',
-    title: '3 Towns the AG Struck Down — What Sudbury, Leicester, and Canton Got Wrong',
+    title: '3 Towns the AG Struck Down — What Sudbury, Leicester, and Canton Had Disapproved',
     description: 'Sudbury, Leicester, and Canton had 7 ADU bylaw provisions disapproved by the Massachusetts Attorney General. Here\'s what they tried, why it failed, and what every town should learn.',
     date: '2026-02-13',
     readTime: '9 min read',

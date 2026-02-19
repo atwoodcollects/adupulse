@@ -136,8 +136,8 @@ export default function MassachusettsADUYearOne() {
           share of its 26 permits came from the Belvidere neighborhood — the same
           area where residents vocally opposed the city&apos;s ADU ordinance in
           2023. Two years later, those same neighborhoods are among the most
-          active ADU builders in the state. When the economics work, opposition
-          tends to quiet down.
+          active ADU builders in the state. When the economics work, initial
+          skepticism often gives way to practical engagement.
         </p>
 
         <h2 className="text-2xl font-bold text-white mt-10 mb-4">

@@ -398,6 +398,27 @@ export default function Home() {
           </div>
         </div>
 
+        {/* ===== AUDIENCE PATHWAYS ===== */}
+        <div className="px-5 py-6 max-w-[600px] mx-auto">
+          <div className="grid sm:grid-cols-3 gap-2.5">
+            <Link href="/club" className="block p-4 bg-gray-800/60 border border-gray-700 rounded-lg no-underline hover:border-gray-600 transition-colors text-center">
+              <div className="text-2xl mb-1.5">🏠</div>
+              <div className="text-sm font-semibold text-white mb-1">Homeowners</div>
+              <div className="text-xs text-gray-400 leading-snug">See what&apos;s allowed in your town and explore your options.</div>
+            </Link>
+            <Link href="/compliance" className="block p-4 bg-gray-800/60 border border-gray-700 rounded-lg no-underline hover:border-gray-600 transition-colors text-center">
+              <div className="text-2xl mb-1.5">⚖️</div>
+              <div className="text-sm font-semibold text-white mb-1">Policy &amp; Legal</div>
+              <div className="text-xs text-gray-400 leading-snug">Bylaw analysis, AG decisions, and consistency with state law.</div>
+            </Link>
+            <Link href="/housing-production" className="block p-4 bg-gray-800/60 border border-gray-700 rounded-lg no-underline hover:border-gray-600 transition-colors text-center">
+              <div className="text-2xl mb-1.5">📊</div>
+              <div className="text-sm font-semibold text-white mb-1">Housing Data</div>
+              <div className="text-xs text-gray-400 leading-snug">ADU permits in context — how they fit into overall housing production.</div>
+            </Link>
+          </div>
+        </div>
+
         {/* ===== TOP TOWNS ===== */}
         <div className="px-5 pb-8 max-w-[600px] mx-auto">
           <div className="flex items-baseline justify-between mb-3.5 flex-wrap gap-2">
@@ -492,6 +513,32 @@ export default function Home() {
             <Link href="/compliance" className="font-mono text-xs text-blue-400 no-underline font-medium hover:text-blue-300 transition-colors">
               View all {totalTowns} towns →
             </Link>
+          </div>
+        </div>
+
+        {/* ===== CREDIBILITY ===== */}
+        <div className="px-5 py-6 max-w-[600px] mx-auto border-t border-gray-800">
+          <div className="text-center space-y-2">
+            <p className="font-mono text-[10px] text-gray-500 uppercase tracking-wider">Trusted by</p>
+            <p className="text-sm text-gray-400 leading-relaxed">
+              Homeowners, builders, and policy analysts across Massachusetts use ADU Pulse
+              to navigate the post-Chapter 150 landscape. Our data powers research by housing
+              advocates and is referenced in municipal planning discussions.
+            </p>
+            <div className="flex justify-center gap-6 pt-2">
+              <div className="text-center">
+                <div className="text-lg font-bold text-white">293</div>
+                <div className="font-mono text-[9px] text-gray-600 uppercase">Towns Covered</div>
+              </div>
+              <div className="text-center">
+                <div className="text-lg font-bold text-white">28</div>
+                <div className="font-mono text-[9px] text-gray-600 uppercase">Bylaws Analyzed</div>
+              </div>
+              <div className="text-center">
+                <div className="text-lg font-bold text-white">10</div>
+                <div className="font-mono text-[9px] text-gray-600 uppercase">AG Decisions Tracked</div>
+              </div>
+            </div>
           </div>
         </div>
 

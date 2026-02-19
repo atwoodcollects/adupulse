@@ -20,7 +20,7 @@ type SortKey = 'issues' | 'fewest' | 'alpha'
 type StatusFilter = 'all' | 'ag' | 'not-updated' | 'updated'
 
 const tagConfig: Record<string, { label: string; color: string; bg: string }> = {
-  'passive-resistance': { label: 'PASSIVE RESISTANCE', color: 'text-amber-400', bg: 'bg-amber-400/10' },
+  'administrative-friction': { label: 'ADMIN. FRICTION', color: 'text-amber-400', bg: 'bg-amber-400/10' },
   'no-ordinance': { label: 'NO LOCAL ORDINANCE', color: 'text-blue-400', bg: 'bg-blue-400/10' },
   'stalled': { label: 'STALLED', color: 'text-gray-300', bg: 'bg-gray-600/30' },
 }

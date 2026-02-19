@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title:
-    "3 Towns the AG Struck Down — What Sudbury, Leicester, and Canton Got Wrong | ADU Pulse",
+    "3 Towns the AG Struck Down — What Sudbury, Leicester, and Canton Had Disapproved | ADU Pulse",
   description:
     "Sudbury, Leicester, and Canton had 7 ADU bylaw provisions disapproved by the Massachusetts Attorney General. Here's what they tried, why it failed, and what every town should learn.",
 };
@@ -15,7 +15,7 @@ export default function AGDisapprovals() {
       </a>
       <h1 className="text-3xl md:text-4xl font-bold text-white mt-6 mb-4">
         3 Towns the AG Struck Down &mdash; What Sudbury, Leicester, and Canton
-        Got Wrong
+        Had Disapproved
       </h1>
       <div className="flex items-center gap-4 text-sm text-gray-500 mb-8">
         <span>February 13, 2026</span>

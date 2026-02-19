@@ -1,9 +1,53 @@
 // compliance-data.ts
 // ADU Bylaw & Ordinance Consistency Data — 25 communities (21 towns + 4 cities) profiled against 760 CMR 71.00 and Chapter 150
-// Per EOHLC guidance: local zoning that conflicts with the ADU statute is unenforceable,
+// Per EOHLC guidance: local zoning that conflicts with the ADU statute is preempted by state law,
 // but towns are not "out of compliance" — state law simply overrides inconsistent provisions.
 
 export type ComplianceStatus = 'inconsistent' | 'review' | 'compliant';
+
+// ── EVIDENCE BASIS — derived at runtime from existing provision data ─────
+export type EvidenceBasis = 'ag_disapproved' | 'statutory_conflict' | 'ambiguous' | 'consistent';
+
+export function getEvidenceBasis(provision: ComplianceProvision): EvidenceBasis {
+  if (provision.agDecision) return 'ag_disapproved';
+  if (provision.status === 'inconsistent') return 'statutory_conflict';
+  if (provision.status === 'review') return 'ambiguous';
+  return 'consistent';
+}
+
+export const evidenceBasisConfig: Record<
+  EvidenceBasis,
+  { label: string; color: string; bg: string; border: string; dot: string }
+> = {
+  ag_disapproved: {
+    label: 'AG Disapproved',
+    color: 'text-red-400',
+    bg: 'bg-red-400/10',
+    border: 'border-red-400/30',
+    dot: 'bg-red-400',
+  },
+  statutory_conflict: {
+    label: 'Appears Inconsistent',
+    color: 'text-orange-400',
+    bg: 'bg-orange-400/10',
+    border: 'border-orange-400/30',
+    dot: 'bg-orange-400',
+  },
+  ambiguous: {
+    label: 'Needs Review',
+    color: 'text-amber-400',
+    bg: 'bg-amber-400/10',
+    border: 'border-amber-400/30',
+    dot: 'bg-amber-400',
+  },
+  consistent: {
+    label: 'Consistent',
+    color: 'text-emerald-400',
+    bg: 'bg-emerald-400/10',
+    border: 'border-emerald-400/30',
+    dot: 'bg-emerald-400',
+  },
+};
 
 export type ProvisionCategory =
   | 'Use & Occupancy'
@@ -189,7 +233,7 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Plymouth Zoning Bylaw §205-51',
     agDisapprovals: 0,
     permits: { submitted: 42, approved: 34, denied: 8, pending: 0, approvalRate: 81 },
-    bottomLine: 'Plymouth has 3 inconsistent provisions on the books that haven’t been reviewed by the AG. Owner-occupancy and lot frontage requirements mirror provisions struck down in other towns. These are technically unenforceable but may still be applied locally.',
+    bottomLine: 'Plymouth has 3 inconsistent provisions on the books that haven’t been reviewed by the AG. Owner-occupancy and lot frontage requirements mirror provisions struck down in other towns. These are preempted by state law but may still be applied locally.',
     provisions: [
       {
         id: 'ply-01',
@@ -201,7 +245,7 @@ export const towns: TownComplianceProfile[] = [
         localBylaw:
           'Plymouth §205-51 requires the property owner to occupy either the principal dwelling or the ADU.',
         impact:
-          'This provision is unenforceable under state law. Homeowners may build ADUs regardless of occupancy status.',
+          'This provision appears inconsistent with G.L. c. 40A §3 and is preempted by state law. Homeowners may build ADUs regardless of occupancy status.',
         citations: [
           { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
           { label: 'Ch. 150 §§7–8', url: SOURCES.ch150_s78 },
@@ -218,7 +262,7 @@ export const towns: TownComplianceProfile[] = [
         localBylaw:
           'Plymouth requires 1 parking space per bedroom for the ADU, which can exceed the state maximum of 1 total.',
         impact:
-          'The bedroom-based ratio is unenforceable — state law caps parking at 1 space regardless of bedroom count.',
+          'The bedroom-based ratio is preempted by state law — parking is capped at 1 space regardless of bedroom count.',
         citations: [
           { label: '760 CMR 71.05(2)', url: SOURCES.cmr71 },
           { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
@@ -234,7 +278,7 @@ export const towns: TownComplianceProfile[] = [
         localBylaw:
           'Plymouth limits ADUs to single-family residential zoning districts, excluding mixed-use and other zones where single-family homes exist.',
         impact:
-          'This district restriction is unenforceable. Homeowners in any zoning district with a single-family dwelling may build an ADU under state law.',
+          'This district restriction is preempted by state law. Homeowners in any zoning district with a single-family dwelling may build an ADU under G.L. c. 40A §3.',
         citations: [
           { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
           { label: '760 CMR 71.02 (definitions)', url: SOURCES.cmr71 },
@@ -354,7 +398,7 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Nantucket Zoning Bylaw §139-16A',
     agDisapprovals: 0,
     permits: { submitted: 27, approved: 27, denied: 0, pending: 0, approvalRate: 100 },
-    bottomLine: 'Nantucket’s HDC review adds a layer of design scrutiny that doesn’t exist on the mainland. The 4 inconsistent provisions are unenforceable, but the island’s unique regulatory culture means pushback is common. Budget extra time for approvals.',
+    bottomLine: 'Nantucket’s HDC review adds a layer of design scrutiny that doesn’t exist on the mainland. The 4 inconsistent provisions are preempted by state law, but the island’s unique regulatory culture means pushback is common. Budget extra time for approvals.',
     provisions: [
       {
         id: 'nan-01',
@@ -365,7 +409,7 @@ export const towns: TownComplianceProfile[] = [
         localBylaw:
           'Nantucket §139-16A requires the property owner to reside on the premises.',
         impact:
-          'This provision is unenforceable under state law. Absentee owners may build ADUs regardless of this local requirement.',
+          'This provision appears inconsistent with G.L. c. 40A §3 and is preempted by state law. Absentee owners may build ADUs regardless of this local requirement.',
         citations: [
           { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
           { label: '760 CMR 71.03(2)(a)', url: SOURCES.cmr71 },
@@ -381,7 +425,7 @@ export const towns: TownComplianceProfile[] = [
         localBylaw:
           'Pre-state-law bylaw only allows ADUs within the existing footprint of a single-family home. No detached or new-construction ADUs.',
         impact:
-          'The internal-only restriction is unenforceable. Homeowners may build detached or attached ADUs under state law.',
+          'The internal-only restriction is preempted by state law. Homeowners may build detached or attached ADUs under G.L. c. 40A §3.',
         citations: [
           { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
           { label: '760 CMR 71.03(2)(e)', url: SOURCES.cmr71 },
@@ -395,7 +439,7 @@ export const towns: TownComplianceProfile[] = [
         stateLaw: '760 CMR 71.05(3) — ADUs must be allowed up to 900 sq ft.',
         localBylaw: 'Nantucket caps ADUs at 800 sq ft under pre-existing bylaw.',
         impact:
-          'The 800 sq ft cap is unenforceable — state law guarantees up to 900 sq ft.',
+          'The 800 sq ft cap is preempted by state law — 760 CMR 71.05(3) guarantees up to 900 sq ft.',
         citations: [
           { label: '760 CMR 71.05(3)', url: SOURCES.cmr71 },
           { label: 'MGL c.40A §1A', url: SOURCES.mgl40a_s1a },
@@ -412,7 +456,7 @@ export const towns: TownComplianceProfile[] = [
         localBylaw:
           'Nantucket restricts ADUs to "single-family residential" properties only, excluding properties with nonconforming uses or mixed designations.',
         impact:
-          'This restriction is unenforceable. Any lot with a single-family dwelling qualifies under state law, regardless of other designations.',
+          'This restriction appears inconsistent with state law. Any lot with a single-family dwelling qualifies under G.L. c. 40A §3, regardless of other designations.',
         citations: [
           { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
           { label: '760 CMR 71.02 (definitions)', url: SOURCES.cmr71 },
@@ -485,7 +529,7 @@ export const towns: TownComplianceProfile[] = [
           '760 CMR 71.05 — no provision authorizes towns to limit the number of bedrooms in an ADU. Size is governed by square footage only.',
         localBylaw: 'Leicester limited ADUs to a maximum of 2 bedrooms.',
         impact:
-          'This bedroom limit is unenforceable under state law. The AG formally disapproved this provision.',
+          'The AG disapproved this bedroom limit as inconsistent with state law.',
         agDecision:
           'AG disapproved May 2025 — bedroom limits not authorized under Ch. 150 or 760 CMR 71.00.',
         citations: [
@@ -505,7 +549,7 @@ export const towns: TownComplianceProfile[] = [
         localBylaw:
           'Leicester restricted ADUs to single-family residential zoning districts only.',
         impact:
-          'This district restriction is unenforceable. The AG formally disapproved this provision.',
+          'The AG disapproved this district restriction as inconsistent with state law.',
         agDecision:
           'AG disapproved May 2025 — cannot limit ADUs to specific zoning districts.',
         citations: [
@@ -524,7 +568,7 @@ export const towns: TownComplianceProfile[] = [
         localBylaw:
           'Leicester required ADUs to comply with "all applicable dimensional requirements" — interpreted to mean the combined footprint must meet lot coverage, FAR, and setback rules designed for single structures.',
         impact:
-          'This blanket dimensional requirement is unenforceable. The AG disapproved it as exceeding state limits.',
+          'The AG disapproved this blanket dimensional requirement as exceeding state limits.',
         agDecision:
           'AG disapproved May 2025 — blanket dimensional compliance exceeds state limits.',
         citations: [
@@ -607,7 +651,7 @@ export const towns: TownComplianceProfile[] = [
         localBylaw:
           'Brookline imposed a FAR cap on lots with ADUs that effectively limited ADU size below the 900 sq ft state minimum on smaller lots.',
         impact:
-          'This FAR cap is unenforceable where it reduces ADU size below 900 sq ft. The AG formally disapproved this provision.',
+          'The AG disapproved this FAR cap as inconsistent with state law where it reduces ADU size below 900 sq ft.',
         agDecision:
           'AG disapproved June 2025 — FAR caps that reduce ADU size below state minimums violate Ch. 150.',
         citations: [
@@ -627,7 +671,7 @@ export const towns: TownComplianceProfile[] = [
         localBylaw:
           'Brookline required that lots with pre-existing nonconforming conditions (setbacks, lot coverage) could not add ADUs unless the nonconformity was cured.',
         impact:
-          'This provision is unenforceable. Pre-existing nonconformities cannot bar ADU construction under state law. The AG formally disapproved this.',
+          'The AG disapproved this provision as inconsistent with state law. Pre-existing nonconformities cannot bar ADU construction under G.L. c. 40A §3.',
         agDecision:
           'AG disapproved June 2025 — pre-existing nonconformities cannot bar ADU construction.',
         citations: [
@@ -731,7 +775,7 @@ export const towns: TownComplianceProfile[] = [
         localBylaw:
           'Canton imposed a minimum lot size of 10,000 sq ft for ADU eligibility.',
         impact:
-          'This lot size requirement is unenforceable under state law. The AG formally disapproved this provision.',
+          'The AG disapproved this lot size requirement as inconsistent with state law.',
         agDecision:
           'AG disapproved June 2025 — minimum lot size requirements for ADUs violate Ch. 150.',
         citations: [
@@ -842,7 +886,7 @@ export const towns: TownComplianceProfile[] = [
         localBylaw:
           'Hanson requires site plan review with Planning Board authority to impose conditions and potentially deny applications based on subjective criteria.',
         impact:
-          'This discretionary review process is unenforceable for Protected Use ADUs. The AG formally disapproved this provision.',
+          'The AG disapproved this discretionary review process as inconsistent with state law for Protected Use ADUs.',
         agDecision:
           'AG partial disapproval 2025 — site plan review functioning as special permit violates Ch. 150.',
         citations: [
@@ -1389,7 +1433,7 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Milton Zoning Bylaw §275-10.13',
     agDisapprovals: 0,
     permits: { submitted: 25, approved: 24, denied: 0, pending: 1, approvalRate: 96 },
-    bottomLine: 'Milton’s bylaw hasn’t been updated since the state law took effect. Three provisions — owner-occupancy, family/caregiver restrictions, and the special permit requirement — are unenforceable. Homeowners should cite state law if the town tries to enforce them.',
+    bottomLine: 'Milton’s bylaw hasn’t been updated since the state law took effect. Three provisions — owner-occupancy, family/caregiver restrictions, and the special permit requirement — are preempted by state law. Homeowners should cite G.L. c. 40A §3 if the town tries to enforce them.',
     provisions: [
       {
         id: 'mil-01',
@@ -2170,7 +2214,7 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Needham Zoning Bylaw (2023, Planning Board planning fall 2025 update)',
     agDisapprovals: 0,
     permits: { submitted: 4, approved: 4, denied: 0, pending: 0, approvalRate: 100 },
-    bottomLine: 'Needham is a textbook restrictive town — special permit required, no detached ADUs, owner-occupancy enforced. The result: 12 ADUs in 3+ years (Green Needham, April 2023). All 4 inconsistent provisions are unenforceable under state law. Planning Board is working on updates but hasn’t adopted them yet.',
+    bottomLine: 'Needham is a textbook restrictive town — special permit required, no detached ADUs, owner-occupancy enforced. The result: 12 ADUs in 3+ years (Green Needham, April 2023). All 4 inconsistent provisions are preempted by state law. Planning Board is working on updates but hasn’t adopted them yet.',
     provisions: [
       {
         id: 'nee-01',
@@ -3403,7 +3447,7 @@ export const towns: TownComplianceProfile[] = [
         localBylaw:
           'Quincy excludes ADUs from Business C, Industrial A, and Industrial B districts, even where single-family homes exist.',
         impact:
-          'These exclusions are unenforceable. If single-family homes are permitted in a district, ADUs must also be allowed by right.',
+          'These exclusions are preempted by state law. If single-family homes are permitted in a district, ADUs must also be allowed by right.',
         citations: [
           { label: '760 CMR 71.02', url: SOURCES.cmr71 },
           { label: 'MGL c.40A \u00a73', url: SOURCES.mgl40a_s3 },
@@ -3436,7 +3480,7 @@ export const towns: TownComplianceProfile[] = [
         localBylaw:
           'Detached ADUs limited to one story regardless of what the principal dwelling allows.',
         impact:
-          'This restriction is more restrictive than what state law allows for the principal dwelling and is unenforceable.',
+          'This restriction is more restrictive than what state law allows for the principal dwelling and is subject to statutory override under G.L. c. 40A §3.',
         citations: [
           { label: '760 CMR 71.03(3)(b)(2)', url: SOURCES.cmr71 },
           { label: 'Quincy ADU Info', url: SOURCES.quincy_adu },
@@ -3514,7 +3558,7 @@ export const towns: TownComplianceProfile[] = [
         localBylaw:
           'ADU rent capped at 70% of HUD Fair Market Rent for the area.',
         impact:
-          'A mandatory rent cap on protected-use ADUs is unenforceable. Voluntary affordability incentives are permissible, but requiring below-market rent as a condition of approval conflicts with state law.',
+          'A mandatory rent cap on protected-use ADUs appears inconsistent with state law. Voluntary affordability incentives are permissible, but requiring below-market rent as a condition of approval is subject to statutory override under G.L. c. 40A §3.',
         citations: [
           { label: '760 CMR 71.03(3)(b)(4)', url: SOURCES.cmr71 },
           { label: 'Salem ADU Info', url: SOURCES.salem_adu },
@@ -3582,7 +3626,7 @@ export const towns: TownComplianceProfile[] = [
     bylawSource: 'Revere Zoning Ordinance, Title 17, Chapter 17.25 (October 2022)',
     agDisapprovals: 0,
     permits: { submitted: 17, approved: 9, denied: 0, pending: 0, approvalRate: 53 },
-    bottomLine: 'Revere is actively resisting the state ADU law. Councillor Michelle Kelley filed a Home Rule Petition in March 2025 seeking exemption (Revere Journal, March 2025). The Planning Director expressed skepticism about its viability (Revere Journal, March 2025). Meanwhile, all 4 conflicting provisions have been unenforceable since February 2, 2025.',
+    bottomLine: 'Revere is actively resisting the state ADU law. Councillor Michelle Kelley filed a Home Rule Petition in March 2025 seeking exemption (Revere Journal, March 2025). The Planning Director expressed skepticism about its viability (Revere Journal, March 2025). Meanwhile, all 4 conflicting provisions have been preempted by state law since February 2, 2025.',
     provisions: [
       {
         id: 'rev-01',
@@ -3594,7 +3638,7 @@ export const towns: TownComplianceProfile[] = [
         localBylaw:
           'Property owner must have occupied the dwelling for at least 2 years before building an ADU.',
         impact:
-          'This provision is unenforceable. State law prohibits owner-occupancy requirements for protected-use ADUs.',
+          'This provision is preempted by state law. G.L. c. 40A §3 prohibits owner-occupancy requirements for protected-use ADUs.',
         citations: [
           { label: '760 CMR 71.03(3)(b)(3)', url: SOURCES.cmr71 },
           { label: 'MGL c.40A \u00a73', url: SOURCES.mgl40a_s3 },
@@ -3611,7 +3655,7 @@ export const towns: TownComplianceProfile[] = [
         localBylaw:
           'ADUs limited to lots with single-family homes only.',
         impact:
-          'This restriction is unenforceable. ADUs are allowed on any lot in a district where single-family homes are permitted.',
+          'This restriction is preempted by state law. ADUs are allowed on any lot in a district where single-family homes are permitted.',
         citations: [
           { label: '760 CMR 71.02', url: SOURCES.cmr71 },
           { label: 'EOHLC FAQ', url: SOURCES.eohlc_faq },
@@ -3628,7 +3672,7 @@ export const towns: TownComplianceProfile[] = [
         localBylaw:
           'ADU construction cannot enlarge the principal dwelling.',
         impact:
-          'This effectively prohibits attached ADUs, which state law explicitly allows. Unenforceable.',
+          'This effectively prohibits attached ADUs, which state law explicitly allows. Preempted by G.L. c. 40A §3.',
         citations: [
           { label: 'MGL c.40A \u00a73', url: SOURCES.mgl40a_s3 },
           { label: 'Revere ADU Info', url: SOURCES.revere_adu },
@@ -3644,7 +3688,7 @@ export const towns: TownComplianceProfile[] = [
         localBylaw:
           'ADUs capped at 600 sqft and limited to 1 bedroom.',
         impact:
-          'Both the 600 SF cap and the 1-bedroom limit are more restrictive than state law allows and are unenforceable. The AG struck down similar bedroom caps in Leicester.',
+          'Both the 600 SF cap and the 1-bedroom limit are more restrictive than state law allows and are preempted by state law. The AG struck down similar bedroom caps in Leicester.',
         citations: [
           { label: 'MGL c.40A \u00a77', url: SOURCES.mgl40a_s3 },
           { label: 'AG Leicester Decision', url: SOURCES.ag_leicester },
@@ -3748,7 +3792,7 @@ export const narrativeCities: NarrativeCityProfile[] = [
     tag: 'stalled',
     title: 'Medford: Stalled',
     summary: 'Council withdrew ADU proposal Dec 16, 2025. Old ordinance predates state law.',
-    body: 'Medford\u2019s City Council withdrew its ADU ordinance proposal on December 16, 2025 (City of Medford, December 2025), leaving the city without updated ADU regulations. The existing ordinance (Section 94-8.2) predates the state ADU law and has not been reconciled with G.L. c. 40A \u00a73 or 760 CMR 71.00.\n\nThe risk: local permitting staff may still be applying outdated rules from the old ordinance in practice, even though any provisions inconsistent with state law are technically unenforceable. Without an updated ordinance, there\u2019s no clear local framework that reflects the current legal landscape.\n\nDespite the regulatory uncertainty, Medford has processed 22 ADU applications with 19 approved (86% rate), suggesting that the building department is largely processing applications under state law regardless of the stalled local ordinance.\n\nADU Pulse is monitoring Medford for any renewed effort to update the ordinance. Homeowners should be aware that state law governs their ADU rights regardless of local ordinance status.',
+    body: 'Medford\u2019s City Council withdrew its ADU ordinance proposal on December 16, 2025 (City of Medford, December 2025), leaving the city without updated ADU regulations. The existing ordinance (Section 94-8.2) predates the state ADU law and has not been reconciled with G.L. c. 40A \u00a73 or 760 CMR 71.00.\n\nThe risk: local permitting staff may still be applying outdated rules from the old ordinance in practice, even though any provisions inconsistent with state law are preempted by state law. Without an updated ordinance, there\u2019s no clear local framework that reflects the current legal landscape.\n\nDespite the regulatory uncertainty, Medford has processed 22 ADU applications with 19 approved (86% rate), suggesting that the building department is largely processing applications under state law regardless of the stalled local ordinance.\n\nADU Pulse is monitoring Medford for any renewed effort to update the ordinance. Homeowners should be aware that state law governs their ADU rights regardless of local ordinance status.',
   },
 ];
 
@@ -3802,7 +3846,7 @@ export function generateBottomLine(town: TownComplianceProfile): string {
 
   if (counts.inconsistent > 0) {
     parts.push(
-      `${town.name} has ${counts.inconsistent} provision${counts.inconsistent > 1 ? 's' : ''} inconsistent with state ADU law — these are unenforceable under Chapter 150`,
+      `${town.name} has ${counts.inconsistent} provision${counts.inconsistent > 1 ? 's' : ''} that appear${counts.inconsistent === 1 ? 's' : ''} inconsistent with G.L. c. 40A §3 and ${counts.inconsistent === 1 ? 'is' : 'are'} subject to statutory override under Chapter 150`,
     );
   }
   if (hasAg) {

@@ -92,7 +92,7 @@ export default function CompliancePage() {
           </div>
           <p className="text-gray-400 text-sm sm:text-base leading-relaxed max-w-2xl">
             How consistent are local ADU bylaws and ordinances with Massachusetts Chapter 150
-            and 760 CMR 71.00? Inconsistent provisions are unenforceable — we
+            and 760 CMR 71.00? Inconsistent provisions are preempted by state law — we
             read the rules so you don&apos;t have to.
           </p>
           <p className="text-gray-500 text-sm leading-relaxed max-w-2xl mt-2">
@@ -104,7 +104,7 @@ export default function CompliancePage() {
           {/* ── STATEWIDE SNAPSHOT ── */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
             {[
-              { value: statewide.totalInconsistent, label: 'Unenforceable Provisions', color: 'text-red-400' },
+              { value: statewide.totalInconsistent, label: 'Inconsistent Provisions', color: 'text-red-400' },
               { value: statewide.totalAgDisapprovals, label: 'AG Disapprovals', color: 'text-red-400' },
               { value: statewide.townsWithInconsistencies, label: 'w/ Inconsistencies', color: 'text-amber-400' },
               { value: statewide.communitiesTracked, label: 'Communities Tracked', color: 'text-emerald-400' },
@@ -318,7 +318,7 @@ export default function CompliancePage() {
               </a>
               , communities are not &ldquo;inconsistent&rdquo; simply because their local zoning has not
               been updated — however, any local provisions inconsistent with the ADU statute
-              are unenforceable as of February 2, 2025. Attorney General
+              are preempted by state law as of February 2, 2025. Attorney General
               disapproval data sourced from published{' '}
               <a
                 href="https://massago.onbaseonline.com/Massago/1700PublicAccess/MLU.htm"

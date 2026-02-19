@@ -12,9 +12,16 @@ export default function MethodologyPage() {
       <main className="max-w-3xl mx-auto px-4 py-8 md:py-12">
         <Link href="/" className="text-blue-400 text-sm mb-4 inline-block">← Back to dashboard</Link>
         <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">Methodology &amp; Data Sources</h1>
-        <p className="text-gray-400 text-lg mb-10">
+        <p className="text-gray-400 text-lg mb-6">
           How we collect, classify, and present ADU permit data across Massachusetts.
         </p>
+
+        {/* Disclaimer */}
+        <div className="mb-10 border-l-4 border-amber-500/50 bg-amber-900/10 rounded-r-lg p-4">
+          <p className="text-sm text-amber-200/90 leading-relaxed">
+            <strong>Disclaimer:</strong> This platform provides structured statutory comparison and public-record analysis. It does not render legal opinions or determine enforceability in specific cases. Consult a zoning attorney for project-specific guidance.
+          </p>
+        </div>
 
         {/* Data Sources */}
         <section className="mb-10">
@@ -114,6 +121,36 @@ export default function MethodologyPage() {
           </div>
         </section>
 
+        {/* Confidence Tiers */}
+        <section className="mb-10">
+          <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+            <span className="text-blue-400">🏷️</span> Confidence Tiers
+          </h2>
+          <div className="bg-gray-800/50 border border-border rounded-lg p-5 space-y-4">
+            <p className="text-gray-400 text-sm leading-relaxed">
+              Each provision in our Consistency Tracker is classified into one of four confidence tiers based on available evidence:
+            </p>
+            <div className="space-y-3">
+              <div className="flex items-start gap-3">
+                <span className="text-red-400 font-semibold text-sm shrink-0 w-40">AG Disapproved</span>
+                <p className="text-gray-400 text-sm">The Massachusetts Attorney General has formally disapproved this provision as inconsistent with state law. This is the highest confidence level — backed by an official government determination.</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="text-orange-400 font-semibold text-sm shrink-0 w-40">Appears Inconsistent</span>
+                <p className="text-gray-400 text-sm">ADU Pulse&apos;s analysis identifies this provision as appearing to conflict with G.L. c. 40A &sect;3 or 760 CMR 71.00, but it has not been the subject of an AG decision. These findings are based on statutory comparison, not official adjudication.</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="text-amber-400 font-semibold text-sm shrink-0 w-40">Needs Review</span>
+                <p className="text-gray-400 text-sm">The provision is in a gray area — it may be within the municipality&apos;s authority or may face future challenges. Further legal evaluation is recommended.</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="text-emerald-400 font-semibold text-sm shrink-0 w-40">Consistent</span>
+                <p className="text-gray-400 text-sm">The provision appears consistent with state law. No issues expected during permitting.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Cost Estimator Methodology */}
         <section className="mb-10">
           <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
@@ -169,6 +206,12 @@ export default function MethodologyPage() {
             <Link href="/club" className="inline-block px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium">
               Get in touch
             </Link>
+          </div>
+        </section>
+        {/* Copyright */}
+        <section className="mb-10">
+          <div className="text-xs text-gray-500 leading-relaxed">
+            <p>&copy; 2025&ndash;2026 ADU Pulse. Data sources include EOHLC, U.S. Census Bureau, Attorney General decisions, and municipal bylaws.</p>
           </div>
         </section>
       </main>

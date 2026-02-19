@@ -5,7 +5,9 @@ import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
 import {
   allEntries,
-  type ComplianceStatus,
+  getEvidenceBasis,
+  evidenceBasisConfig,
+  type EvidenceBasis,
   type ComplianceProvision,
   type Citation,
 } from '../../compliance-data'
@@ -52,43 +54,18 @@ export function generateMetadata({
   }
 }
 
-// ── STATUS CONFIG ───────────────────────────────────────────────────────
-const statusConfig: Record<
-  ComplianceStatus,
-  { label: string; color: string; bg: string; border: string; dot: string }
-> = {
-  inconsistent: {
-    label: 'Inconsistent with State Law',
-    color: 'text-red-400',
-    bg: 'bg-red-400/10',
-    border: 'border-red-400/30',
-    dot: 'bg-red-400',
-  },
-  review: {
-    label: 'Needs Review',
-    color: 'text-amber-400',
-    bg: 'bg-amber-400/10',
-    border: 'border-amber-400/30',
-    dot: 'bg-amber-400',
-  },
-  compliant: {
-    label: 'Consistent',
-    color: 'text-emerald-400',
-    bg: 'bg-emerald-400/10',
-    border: 'border-emerald-400/30',
-    dot: 'bg-emerald-400',
-  },
-}
-
 // ── HERO TEXT LOGIC ─────────────────────────────────────────────────────
 function getHeroText(
-  status: ComplianceStatus,
+  basis: EvidenceBasis,
   townName: string,
 ): string {
-  if (status === 'inconsistent') {
-    return `This provision conflicts with state law and is not enforceable. However, it may still appear in ${townName}'s local code and could create confusion during the permitting process. Builders should be prepared to cite state law if this comes up.`
+  if (basis === 'ag_disapproved') {
+    return `The Attorney General has disapproved this provision as inconsistent with G.L. c. 40A §3. It is preempted by state law, though it may still appear in ${townName}'s local code. Builders should cite the AG decision if this comes up during permitting.`
   }
-  if (status === 'review') {
+  if (basis === 'statutory_conflict') {
+    return `This provision appears inconsistent with G.L. c. 40A §3 and is subject to statutory override. However, it may still appear in ${townName}'s local code and could create confusion during the permitting process. Builders should be prepared to cite state law if this comes up.`
+  }
+  if (basis === 'ambiguous') {
     return `This provision is in a gray area — it may be within the town's authority, but could add time or uncertainty to your ADU project depending on how ${townName} interprets it.`
   }
   return 'This provision is consistent with Massachusetts state law. No issues expected during permitting.'
@@ -140,7 +117,8 @@ export default function ProvisionPage({
   )
   if (provisionIndex === -1) notFound()
   const provision = town.provisions[provisionIndex]
-  const cfg = statusConfig[provision.status]
+  const basis = getEvidenceBasis(provision)
+  const cfg = evidenceBasisConfig[basis]
   const isCity = town.municipalityType === 'city'
   const ruleWord = isCity ? 'Ordinance' : 'Bylaw'
 
@@ -206,11 +184,6 @@ export default function ProvisionPage({
               >
                 {cfg.label}
               </span>
-              {provision.agDecision && (
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-red-400 bg-red-400/10 px-2 py-0.5 rounded">
-                  AG Decision
-                </span>
-              )}
             </div>
             <p className="text-gray-400 text-sm">
               {town.name}, {town.county} County
@@ -229,7 +202,7 @@ export default function ProvisionPage({
               </p>
             </div>
             <p className="text-sm text-gray-300 leading-relaxed">
-              {getHeroText(provision.status, town.name)}
+              {getHeroText(basis, town.name)}
             </p>
           </div>
 
@@ -295,7 +268,7 @@ export default function ProvisionPage({
               </h2>
               <div className="space-y-2">
                 {related.map((r) => {
-                  const rc = statusConfig[r.provision.status]
+                  const rc = evidenceBasisConfig[getEvidenceBasis(r.provision)]
                   return (
                     <Link
                       key={`${r.slug}-${r.provision.id}`}

@@ -7,6 +7,8 @@ import {
   allEntries,
   getStatusCounts,
   generateBottomLine,
+  getEvidenceBasis,
+  evidenceBasisConfig,
   categories,
   type TownComplianceProfile,
   type ComplianceStatus,
@@ -14,34 +16,6 @@ import {
   type Citation,
 } from '../compliance-data';
 import { formatReviewDate } from '@/lib/dates';
-
-// ── STATUS CONFIG ───────────────────────────────────────────────────────
-const statusConfig: Record<
-  ComplianceStatus,
-  { label: string; color: string; bg: string; border: string; dot: string }
-> = {
-  inconsistent: {
-    label: 'Inconsistent with State Law',
-    color: 'text-red-400',
-    bg: 'bg-red-400/10',
-    border: 'border-red-400/30',
-    dot: 'bg-red-400',
-  },
-  review: {
-    label: 'Needs Review',
-    color: 'text-amber-400',
-    bg: 'bg-amber-400/10',
-    border: 'border-amber-400/30',
-    dot: 'bg-amber-400',
-  },
-  compliant: {
-    label: 'Consistent',
-    color: 'text-emerald-400',
-    bg: 'bg-emerald-400/10',
-    border: 'border-emerald-400/30',
-    dot: 'bg-emerald-400',
-  },
-};
 
 // ── CITATION LINKS ──────────────────────────────────────────────────────
 function CitationLinks({ citations }: { citations: Citation[] }) {
@@ -85,7 +59,7 @@ function CitationLinks({ citations }: { citations: Citation[] }) {
 // ── PROVISION ROW ───────────────────────────────────────────────────────
 function ProvisionRow({ provision, isPro, slug, isCity }: { provision: ComplianceProvision; isPro: boolean; slug: string; isCity?: boolean }) {
   const [expanded, setExpanded] = useState(false);
-  const cfg = statusConfig[provision.status];
+  const cfg = evidenceBasisConfig[getEvidenceBasis(provision)];
 
   return (
     <div
@@ -106,11 +80,6 @@ function ProvisionRow({ provision, isPro, slug, isCity }: { provision: Complianc
           </Link>
         </div>
         <div className="flex items-center gap-2 flex-shrink-0 ml-3">
-          {provision.agDecision && (
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-red-400 bg-red-400/10 px-1.5 py-0.5 rounded">
-              AG
-            </span>
-          )}
           <span className={`text-xs font-medium ${cfg.color}`}>
             {cfg.label}
           </span>
@@ -442,7 +411,7 @@ export default function TownDetail({ slug }: { slug: string }) {
           </a>
           , towns are not &ldquo;inconsistent&rdquo; simply because their local zoning has not
           been updated — however, any local provisions inconsistent with the ADU statute
-          are unenforceable as of February 2, 2025. Local permitting decisions should not
+          are preempted by state law as of February 2, 2025. Local permitting decisions should not
           take into account zoning rules that conflict with state law. Attorney General
           disapproval data sourced from published{' '}
           <a

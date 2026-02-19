@@ -1,4 +1,4 @@
-import type { ComplianceProvision } from '@/app/compliance/compliance-data'
+import { getEvidenceBasis, type ComplianceProvision } from '@/app/compliance/compliance-data'
 
 export type Audience = 'homeowner' | 'builder' | 'lender'
 
@@ -22,8 +22,10 @@ export const AUDIENCE_CONTENT: Record<Audience, {
     perCapitaLabel: 'How active is your town?',
     provisionBottomLineLabel: 'What this means for your project',
     provisionBottomLine: (p) => {
-      if (p.status === 'inconsistent') return 'This local rule is overridden by state law. You can proceed under the state standard.'
-      if (p.status === 'review') return 'This provision is in a grey area. Ask your building department how they apply it.'
+      const basis = getEvidenceBasis(p)
+      if (basis === 'ag_disapproved') return 'The AG has disapproved this rule as inconsistent with state law. You can proceed under the state standard.'
+      if (basis === 'statutory_conflict') return 'This local rule appears inconsistent with state law and is subject to statutory override. You can proceed under the state standard.'
+      if (basis === 'ambiguous') return 'This provision is in a grey area. Ask your building department how they apply it.'
       return 'This provision matches state law. No issues expected.'
     },
     nextSteps: [
@@ -37,8 +39,10 @@ export const AUDIENCE_CONTENT: Record<Audience, {
     perCapitaLabel: 'Market activity',
     provisionBottomLineLabel: 'Market impact',
     provisionBottomLine: (p) => {
-      if (p.status === 'inconsistent') return 'State law overrides this rule. Projects can proceed under state standards.'
-      if (p.status === 'review') return 'Ambiguous standard may cause permitting delays. Build this into timelines.'
+      const basis = getEvidenceBasis(p)
+      if (basis === 'ag_disapproved') return 'The AG has disapproved this rule. Projects can proceed under state standards with AG backing.'
+      if (basis === 'statutory_conflict') return 'This rule appears inconsistent with state law. Projects can proceed under state standards, but expect possible pushback.'
+      if (basis === 'ambiguous') return 'Ambiguous standard may cause permitting delays. Build this into timelines.'
       return 'Aligned with state law. No regulatory friction on this provision.'
     },
     nextSteps: [
@@ -52,8 +56,10 @@ export const AUDIENCE_CONTENT: Record<Audience, {
     perCapitaLabel: 'Approval reliability',
     provisionBottomLineLabel: 'Risk factor',
     provisionBottomLine: (p) => {
-      if (p.status === 'inconsistent') return 'Regulatory risk: local rule is inconsistent with state law but has not been formally challenged.'
-      if (p.status === 'review') return 'Moderate risk: provision may be interpreted restrictively by local boards.'
+      const basis = getEvidenceBasis(p)
+      if (basis === 'ag_disapproved') return 'Low regulatory risk: the AG has disapproved this rule as inconsistent with state law.'
+      if (basis === 'statutory_conflict') return 'Moderate regulatory risk: local rule appears inconsistent with state law but has not been formally challenged by the AG.'
+      if (basis === 'ambiguous') return 'Elevated risk: provision may be interpreted restrictively by local boards.'
       return 'Low risk: provision is consistent with state standards.'
     },
     nextSteps: [

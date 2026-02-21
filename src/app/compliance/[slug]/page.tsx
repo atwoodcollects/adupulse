@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
-import { allEntries, narrativeCities, getStatusCounts, getTownStatusLabel } from '../compliance-data'
+import { allEntries, narrativeCities, getStatusCounts, getTownStatusLabel, getEvidenceBasis } from '../compliance-data'
 import TownDetail from './TownDetail'
 import NarrativeDetail from './NarrativeDetail'
 
@@ -74,8 +74,45 @@ export default function ComplianceTownPage({ params }: { params: { slug: string 
   const statusLabel = getTownStatusLabel(town)
   const ruleWord = town.municipalityType === 'city' ? 'Ordinance' : 'Bylaw'
 
+  const jsonLd: Record<string, unknown> = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        name: `${town.name} ADU ${ruleWord} Consistency`,
+        url: `https://www.adupulse.com/compliance/${town.slug}`,
+        description: `Provision-by-provision analysis of ${town.name}'s ADU ${ruleWord.toLowerCase()} against Massachusetts Chapter 150 and 760 CMR 71.00.`,
+        isPartOf: { '@type': 'WebSite', name: 'ADU Pulse', url: 'https://www.adupulse.com' },
+        ...(town.agDecisionDate ? { datePublished: town.agDecisionDate } : {}),
+        dateModified: town.lastReviewed,
+      },
+      {
+        '@type': 'GovernmentService',
+        name: `${town.name} ADU ${ruleWord}`,
+        serviceType: 'Zoning Regulation',
+        areaServed: { '@type': 'Place', name: `${town.name}, Massachusetts` },
+        ...(town.bylawSourceUrl ? { isBasedOn: { '@type': 'Legislation', name: town.bylawSourceTitle || town.bylawSource, url: town.bylawSourceUrl } } : {}),
+      },
+      {
+        '@type': 'Dataset',
+        name: `${town.name} ADU ${ruleWord} Consistency Data`,
+        description: `${counts.inconsistent} inconsistent and ${counts.compliant} consistent provisions identified.`,
+        url: `https://www.adupulse.com/compliance/${town.slug}`,
+        creator: { '@type': 'Organization', name: 'ADU Pulse', url: 'https://www.adupulse.com' },
+        spatialCoverage: { '@type': 'Place', name: `${town.name}, Massachusetts` },
+        variableMeasured: [
+          { '@type': 'PropertyValue', name: 'Inconsistent Provisions', value: counts.inconsistent },
+          { '@type': 'PropertyValue', name: 'Consistent Provisions', value: counts.compliant },
+          { '@type': 'PropertyValue', name: 'Needs Review', value: counts.review },
+          { '@type': 'PropertyValue', name: 'Total Provisions', value: town.provisions.length },
+        ],
+      },
+    ],
+  }
+
   return (
     <div className="min-h-screen bg-gray-900">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <NavBar />
       <main className="px-4 py-6 sm:py-10">
         {/* Breadcrumbs */}
@@ -101,7 +138,7 @@ export default function ComplianceTownPage({ params }: { params: { slug: string 
         <div className="max-w-4xl mx-auto mb-8">
           <div className="flex items-center gap-3 mb-2 flex-wrap">
             <h1 className="text-2xl sm:text-3xl font-bold text-white">
-              {town.name} {ruleWord} Analysis
+              {town.name} ADU {ruleWord} Analysis
             </h1>
             <span className={`text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded ${statusLabel.color} ${statusLabel.bg}`}>
               {statusLabel.label}

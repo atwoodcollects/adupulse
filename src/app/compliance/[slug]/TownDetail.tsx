@@ -288,6 +288,11 @@ export default function TownDetail({ slug }: { slug: string }) {
               {town.permits.pending})
             </span>
           </div>
+          <p className="mt-2 text-xs text-gray-500">
+            <Link href={`/towns/${town.slug}`} className="text-blue-400/70 hover:text-blue-300 transition-colors">
+              View {town.name} ADU permit data &rarr;
+            </Link>
+          </p>
         </div>
 
         {/* Filter tabs */}

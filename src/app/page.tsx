@@ -38,7 +38,7 @@ const SUGGESTED_QUERIES = [
 ]
 
 const STORAGE_KEY = 'adupulse_chat_usage'
-const FREE_LIMIT = 5
+const FREE_LIMIT = 3
 
 function stripMarkdown(text: string): string {
   return text

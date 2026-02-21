@@ -11,7 +11,7 @@ const PUBLIC_FEATURES = [
   "State law references & citations",
   "Permit data for tracked towns",
   "Quadrant rankings & town grades",
-  "5 AI-powered questions per month",
+  "3 AI-powered questions per month",
 ];
 
 const PRO_FEATURES = [

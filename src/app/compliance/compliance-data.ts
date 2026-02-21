@@ -170,6 +170,16 @@ const SOURCES = {
   falmouth_adu: 'https://www.falmouthma.gov/1087/Accessory-Dwelling-Units',
   /** Falmouth zoning bylaw */
   falmouth_bylaw: 'https://ecode360.com/14216444',
+  /** Falmouth Zoning Bylaw § 240-9.1 ADU provisions */
+  falmouth_bylaw_241: 'https://www.falmouthma.gov/DocumentCenter/View/19715/Falmouth-Zoning-Bylaw-Section-240-91-Accessory-Dwelling-Units',
+  /** Falmouth AG Decision — Case #11635, June 2, 2025 */
+  ag_falmouth: 'https://massago.onbaseonline.com/Massago/1700PublicAccess/MLU.htm',
+  /** Falmouth town zoning maps and docs page */
+  falmouth_zoning: 'https://www.falmouthma.gov/1290/Zoning-Maps-Docs',
+  /** Falmouth Planning Board ADU checklist */
+  falmouth_checklist: 'https://www.falmouthma.gov/DocumentCenter/View/19210/Falmouth-Planning-Board-ADU-Application-Checklist--Regulations',
+  /** Falmouth ecode360 */
+  falmouth_ecode: 'https://ecode360.com/9074715',
   /** Sudbury ADU planning page */
   sudbury_adu: 'https://sudbury.ma.us/planning/2025/01/22/accessory-dwelling-units-adus/',
   /** Sudbury AG Decision — STM May 2025, Article 28 */
@@ -1931,138 +1941,188 @@ export const towns: TownComplianceProfile[] = [
     name: 'Falmouth',
     county: 'Barnstable',
     population: 32517,
-    lastReviewed: '2026-02-15',
-    bylawLastUpdated: 'Pre-Chapter 150',
-    bylawSource: 'Falmouth Zoning Bylaw Chapter 240, ADU provisions (amendments under Planning Board review)',
-    agDisapprovals: 0,
+    lastReviewed: '2026-02-20',
+    bylawLastUpdated: 'November 2024 (AG partial disapproval June 2, 2025)',
+    bylawSource: 'Falmouth Zoning Bylaw § 240-9.1 Accessory Dwelling Units (Town Meeting Nov. 18, 2024; AG Decision June 2, 2025)',
+    agDisapprovals: 4,
     permits: { submitted: 12, approved: 12, denied: 0, pending: 0, approvalRate: 100 },
-    bylawRetrievedAt: '2026-02-19',
-    bylawSourceUrl: SOURCES.falmouth_adu,
-    bylawSourceTitle: 'Zoning Bylaw',
-    bottomLine: 'Falmouth requires site plan review for ALL ADU types — internal, attached, and detached. The $200 fee and abutter notification create a quasi-hearing process. The design compatibility requirement is subjective and could be used to slow approvals.',
+    agDecisionDate: '2025-06-02',
+    agDecisionUrl: SOURCES.ag_falmouth,
+    bylawRetrievedAt: '2026-02-20',
+    bylawSourceUrl: SOURCES.falmouth_bylaw_241,
+    bylawSourceTitle: 'Falmouth Zoning Bylaw § 240-9.1 Accessory Dwelling Units (Town Meeting Nov. 18, 2024; AG Decision June 2, 2025)',
+    bylawVersionDate: '2024-11-18',
+    bottomLine: 'The Attorney General partially approved Falmouth\'s November 2024 ADU bylaw on June 2, 2025, disapproving and deleting four categories of provisions: references limiting ADUs to single-family dwellings, a minimum lot size requirement, a six-month rental minimum, and bedroom limitations including a two-bedroom cap and overlay district bedroom density rules. The AG determined these provisions conflict with G.L. c. 40A, § 3 and 760 CMR 71.00. Several approved provisions received detailed advisory warnings — most notably, the site plan review process must operate as ministerial review and cannot function as discretionary approval, and the town must allow ADUs in Business Districts where single-family homes are permitted. Falmouth\'s parking requirements, short-term rental prohibition, and footprint restriction are consistent with state law.',
     provisions: [
       {
         id: 'fal-01',
-        provision: 'Site Plan Review for ALL ADUs',
-        category: 'Process & Administration',
-        status: 'review',
+        provision: 'ADUs Limited to Single-Family Dwellings',
+        category: 'Use & Occupancy',
+        status: 'inconsistent',
         stateLaw:
-          '760 CMR 71.04(1) — Protected-use ADUs shall be subject only to reasonable regulations concerning dimensional and design standards. Site plan review is permissible but must not function as a de facto special permit.',
+          'G.L. c. 40A, § 3 and 760 CMR 71.00 allow Protected Use ADUs as of right on the same lot as any type of \'Principal Dwelling\' — including two-family and multi-family structures — not just single-family homes.',
         localBylaw:
-          'Site plan review required for internal, attached, AND detached ADUs. $200 fee plus abutter notification.',
+          'Falmouth\'s bylaw defined ADUs in relation to \'single-family\' dwellings and required ADUs to maintain the appearance of a \'single-family\' residence (§§ 240-9.1A, 240-9.1B, 240-9.1D(a) and (b)).',
         impact:
-          'While not technically a special permit, the universal application to all ADU types and public notification process could function as a de facto barrier. Most towns only require site plan review for detached ADUs.',
+          'The Attorney General disapproved and deleted all references to \'single-family\' in these sections because the state law allows ADUs on lots with any type of principal dwelling.',
+        agDecision: 'AG disapproved June 2, 2025 — all references to \'single-family\' deleted from §§ 240-9.1A, 240-9.1B, 240-9.1D(a) and (b).',
         citations: [
-          { label: 'Falmouth ADU Info', url: SOURCES.falmouth_adu },
-          { label: 'Falmouth Zoning Bylaw', url: SOURCES.falmouth_bylaw },
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
           { label: '760 CMR 71.00', url: SOURCES.cmr71 },
+          { label: 'AG Decision — Falmouth (6/2/2025)', url: SOURCES.ag_falmouth },
+          { label: 'Falmouth Bylaw § 240-9.1', url: SOURCES.falmouth_bylaw_241 },
         ],
       },
       {
         id: 'fal-02',
-        provision: 'Design Compatibility / Single-Family Appearance',
-        category: 'Building & Safety',
-        status: 'review',
+        provision: 'Minimum Lot Size Requirement',
+        category: 'Dimensional & Parking',
+        status: 'inconsistent',
         stateLaw:
-          '760 CMR 71.04(1) — Dimensional and design standards are permitted but must be reasonable and not function as barriers to ADU construction.',
+          '760 CMR 71.03(3)(b)(2) expressly prohibits municipalities from imposing a minimum lot size requirement for Protected Use ADUs.',
         localBylaw:
-          'ADU must maintain single-family appearance of property.',
+          'Section 240-9.1C(3) required a minimum lot size of 7,500 square feet (7,000 square feet in sewer service areas) for ADU construction.',
         impact:
-          'Subjective standard that could be used to deny or delay otherwise compliant projects.',
+          'The Attorney General disapproved this provision because the regulations expressly prohibit minimum lot size requirements for ADUs.',
+        agDecision: 'AG disapproved June 2, 2025 — minimum lot size requirement deleted from § 240-9.1C(3).',
         citations: [
-          { label: 'Falmouth Zoning Bylaw', url: SOURCES.falmouth_bylaw },
-          { label: '760 CMR 71.00', url: SOURCES.cmr71 },
+          { label: '760 CMR 71.03(3)(b)(2)', url: SOURCES.cmr71 },
+          { label: 'AG Decision — Falmouth (6/2/2025)', url: SOURCES.ag_falmouth },
         ],
       },
       {
         id: 'fal-03',
-        provision: 'Abutter Notification Requirement',
-        category: 'Process & Administration',
-        status: 'review',
+        provision: 'Six-Month Minimum Rental Period',
+        category: 'Use & Occupancy',
+        status: 'inconsistent',
         stateLaw:
-          '760 CMR 71.04(1) — Protected-use ADUs are by-right and shall not require discretionary review. Notification requirements that create opportunities for opposition may undermine by-right status.',
+          'G.L. c. 40A, § 3 and the regulations only authorize municipalities to prohibit short-term rentals as defined in G.L. c. 64G, § 1 — which covers stays of 31 consecutive calendar days or less. A six-month minimum rental period exceeds the state-authorized restriction.',
         localBylaw:
-          'Abutters must be notified of ADU site plan review applications.',
+          'Section 240-9.1C(4) prohibited ADU rentals of less than six months.',
         impact:
-          'Creates opportunity for neighbor opposition and potential delays even though ADUs are by-right under state law.',
+          'The Attorney General disapproved and deleted this provision as an unreasonable regulation of ADU rentals. The remaining language prohibiting weekly and monthly \'summer rentals\' was approved but the AG advised the town to consult with counsel on aligning the language with G.L. c. 64G, § 1.',
+        agDecision: 'AG disapproved June 2, 2025 — six-month minimum rental period deleted from § 240-9.1C(4).',
         citations: [
-          { label: 'Falmouth ADU Info', url: SOURCES.falmouth_adu },
-          { label: '760 CMR 71.00', url: SOURCES.cmr71 },
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: 'G.L. c. 64G, § 1', url: SOURCES.ch150 },
+          { label: 'AG Decision — Falmouth (6/2/2025)', url: SOURCES.ag_falmouth },
         ],
       },
       {
         id: 'fal-04',
-        provision: '6-Month Minimum Lease',
+        provision: 'Bedroom Limitations (2-BR Cap and Overlay District Density)',
         category: 'Use & Occupancy',
-        status: 'compliant',
+        status: 'inconsistent',
         stateLaw:
-          'MGL c.40A §3 — Towns may regulate short-term rentals of ADUs.',
+          'G.L. c. 40A, § 3 prohibits the direct regulation of the interior area of a single-family residential building. Bedroom limits also constitute impermissible \'Use and Occupancy Restrictions\' under 760 CMR 71.02 because they limit the number of occupants beyond what is required by applicable state code.',
         localBylaw:
-          'Minimum lease of 6 months, no short-term rentals under 6 months.',
+          'Section 240-9.1C(5) capped ADUs at two bedrooms. Sections 240-9.1C(8) and (9) imposed additional bedroom density limits in the Water Resource Protection Overlay District and Coastal Pond Overlay District (one bedroom per 10,000 square feet of lot area).',
         impact:
-          'Consistent with state law. Towns may regulate STRs.',
+          'The Attorney General disapproved all three provisions on two independent grounds: interior area regulation and impermissible occupancy restrictions. The AG also noted that bedroom limitations would likely violate Fair Housing laws prohibiting discrimination based on family status.',
+        agDecision: 'AG disapproved June 2, 2025 — bedroom cap (§ 240-9.1C(5)) and overlay district bedroom density rules (§§ 240-9.1C(8), (9)) all deleted.',
         citations: [
           { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: '760 CMR 71.02', url: SOURCES.cmr71 },
+          { label: 'AG Decision — Falmouth (6/2/2025)', url: SOURCES.ag_falmouth },
         ],
       },
       {
         id: 'fal-05',
-        provision: 'By-Right Permitting',
+        provision: 'Site Plan Review Process',
         category: 'Process & Administration',
-        status: 'compliant',
+        status: 'review',
         stateLaw:
-          'MGL c.40A §3 — First ADU on a lot is permitted by right.',
+          '760 CMR 71.04(1) — Protected-use ADUs shall be subject only to reasonable regulations. Site plan review is permissible but must be ministerial, not discretionary.',
         localBylaw:
-          'First ADU allowed by right per state law.',
+          'Section 240-9.1E requires all ADUs to obtain Site Plan Review approval from the Planning Board under § 240-12.2 and Chapter 300 of the Planning Board\'s regulations before a building permit can be issued.',
         impact:
-          'Consistent with state law.',
+          'The Attorney General approved this provision but issued a detailed advisory warning: the site plan process must be ministerial, not discretionary. The Planning Board cannot \'reject\' a site plan for \'insufficient information,\' cannot require information outside the scope of what the town may lawfully regulate, and cannot impose unreasonable terms or conditions. The AG advised the town to consult with counsel on whether an amendment is needed.',
         citations: [
-          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: '760 CMR 71.04(1)', url: SOURCES.cmr71 },
+          { label: 'AG Decision — Falmouth (6/2/2025)', url: SOURCES.ag_falmouth },
+          { label: 'Planning Board Checklist', url: SOURCES.falmouth_checklist },
         ],
       },
       {
         id: 'fal-06',
-        provision: 'ADU Size Limits',
-        category: 'Dimensional & Parking',
-        status: 'compliant',
+        provision: 'ADUs Not Allowed in Business Districts',
+        category: 'Use & Occupancy',
+        status: 'inconsistent',
         stateLaw:
-          '760 CMR 71.05(1) — ADU shall not exceed 900 sqft or 50% of the principal dwelling gross floor area.',
+          'G.L. c. 40A, § 3 and 760 CMR 71.00 require that Protected Use ADUs be allowed as of right on any lot where single-family dwellings are permitted as of right.',
         localBylaw:
-          'Consistent with state limits (900 sqft or 50% of principal).',
+          'Under Articles 16 and 17, the town allowed ADUs as of right only in Agricultural and Residence Districts. Business Districts (B-1, B-2, B-3, and BR) also allow single-family dwellings as of right but ADUs were not included.',
         impact:
-          'Consistent with state law.',
+          'The AG noted that ADUs must also be allowed as of right in Business Districts where single-family homes are permitted and advised the town to amend the bylaw and use tables to make this explicit.',
         citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
           { label: '760 CMR 71.00', url: SOURCES.cmr71 },
+          { label: 'AG Decision — Falmouth (6/2/2025)', url: SOURCES.ag_falmouth },
         ],
       },
       {
         id: 'fal-07',
-        provision: 'Number of ADUs',
-        category: 'Use & Occupancy',
-        status: 'compliant',
+        provision: 'Water Resource Protection Overlay District Requirements',
+        category: 'Dimensional & Parking',
+        status: 'review',
         stateLaw:
-          'MGL c.40A §3 — At least one ADU shall be permitted by right on each lot.',
+          '760 CMR 71.03(3)(b)(2) prohibits minimum lot size requirements for ADUs. Remaining density or dimensional requirements must serve a legitimate municipal interest and cannot nullify or substantially diminish development of a Protected Use ADU.',
         localBylaw:
-          'One per lot.',
+          'Section 240-9.1C(8) subjects ADUs in the Water Resource Protection Overlay District to the provisions of that district.',
         impact:
-          'Consistent with state law.',
+          'The AG approved this general reference but issued an advisory warning that the WRPOD\'s minimum lot size of 80,000 square feet cannot be applied to ADUs, and that if remaining requirements are used to deny a Protected Use ADU, such application would run afoul of the Dover Amendment protections.',
         citations: [
-          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: '760 CMR 71.03(3)(b)(2)', url: SOURCES.cmr71 },
+          { label: 'AG Decision — Falmouth (6/2/2025)', url: SOURCES.ag_falmouth },
         ],
       },
       {
         id: 'fal-08',
-        provision: 'Detached ADU Allowance',
+        provision: 'Short-Term Rental Prohibition',
         category: 'Use & Occupancy',
         status: 'compliant',
         stateLaw:
-          'MGL c.40A §3 — ADUs may be within, attached to, or detached from the principal dwelling.',
+          'Chapter 150 explicitly authorizes municipalities to restrict or prohibit short-term rentals of ADUs as defined in G.L. c. 64G, § 1.',
         localBylaw:
-          'Both internal and detached permitted.',
+          'The remaining language in Section 240-9.1C(4) prohibiting \'weekly, monthly rentals (so called summer rentals)\' was approved.',
         impact:
-          'Consistent with state law.',
+          'Consistent with state law. The AG advised the town to consult with counsel on whether to amend the language to reference G.L. c. 64G, § 1 directly.',
         citations: [
           { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: 'G.L. c. 64G, § 1', url: SOURCES.ch150 },
+          { label: 'AG Decision — Falmouth (6/2/2025)', url: SOURCES.ag_falmouth },
+        ],
+      },
+      {
+        id: 'fal-09',
+        provision: 'Parking Requirements',
+        category: 'Dimensional & Parking',
+        status: 'compliant',
+        stateLaw:
+          'G.L. c. 40A, § 3 provides that not more than one additional parking space may be required and no parking may be required near transit.',
+        localBylaw:
+          'Falmouth requires one on-site parking space for ADUs, with an exemption for ADUs located within 0.5 miles of a commuter rail station, subway station, ferry terminal, or bus station (§ 240-9.1C(6)).',
+        impact:
+          'Consistent with state law parking framework.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: '760 CMR 71.05(2)', url: SOURCES.cmr71 },
+        ],
+      },
+      {
+        id: 'fal-10',
+        provision: 'Detached ADU Footprint Restriction',
+        category: 'Dimensional & Parking',
+        status: 'compliant',
+        stateLaw:
+          '760 CMR 71.03 authorizes reasonable dimensional requirements, provided they are not more restrictive than what is required for the principal dwelling or accessory structures in the same district.',
+        localBylaw:
+          'The footprint of a new detached ADU cannot exceed that of the principal dwelling (§ 240-9.1C(7)).',
+        impact:
+          'This dimensional restriction was not addressed in the AG\'s disapproval and appears consistent with 760 CMR 71.03.',
+        citations: [
+          { label: '760 CMR 71.03', url: SOURCES.cmr71 },
+          { label: 'Falmouth Bylaw § 240-9.1', url: SOURCES.falmouth_bylaw_241 },
         ],
       },
     ],

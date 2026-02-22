@@ -321,12 +321,22 @@ export default function Home() {
             {hydrated && !bypassLimit && (
               <div className="mt-3 text-center">
                 {atLimit ? (
-                  <p className="text-xs text-gray-500">
-                    You&apos;ve used your {FREE_LIMIT} free questions this month.{' '}
-                    <Link href="/pricing" className="text-blue-400 hover:text-blue-300 underline">
-                      See pricing
-                    </Link>
-                  </p>
+                  <div className="text-xs text-gray-500 space-y-2">
+                    <p className="font-medium text-gray-400">
+                      You&apos;ve used your {FREE_LIMIT} free questions.
+                    </p>
+                    <p>
+                      We track detailed, provision-by-provision compliance analysis for 28 Massachusetts towns — mapped against Chapter 150 and 760 CMR 71.00.
+                    </p>
+                    <p>
+                      <Link href="/compliance" className="text-emerald-400 hover:text-emerald-300 font-medium">
+                        See the full compliance tracker &rarr;
+                      </Link>
+                    </p>
+                    <p className="text-gray-600">
+                      Want analysis for a specific town? Tell us what you&apos;re working on and we&apos;ll send you the full breakdown.
+                    </p>
+                  </div>
                 ) : questionsUsed > 0 ? (
                   <p className="text-xs text-gray-500">
                     {remaining} of {FREE_LIMIT} free questions remaining

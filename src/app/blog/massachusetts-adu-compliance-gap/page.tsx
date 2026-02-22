@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title:
-    "Why Permit Numbers Don't Tell the Full Story: Inside Massachusetts' ADU Compliance Gap | ADU Pulse",
+    "Why Permit Numbers Don't Tell the Full Story: Inside Massachusetts' ADU Consistency Gap | ADU Pulse",
   description:
     "Permit counts measure activity, not access. A provision-by-provision analysis of 28 Massachusetts towns reveals how local bylaws still conflict with state ADU law — even in towns issuing permits.",
 };
@@ -15,7 +15,7 @@ export default function MassachusettsADUComplianceGap() {
       </a>
       <h1 className="text-3xl md:text-4xl font-bold text-white mt-6 mb-4">
         Why Permit Numbers Don&apos;t Tell the Full Story: Inside
-        Massachusetts&apos; ADU Compliance Gap
+        Massachusetts&apos; ADU Consistency Gap
       </h1>
       <div className="flex items-center gap-4 text-sm text-gray-500 mb-8">
         <span>February 22, 2026</span>
@@ -48,7 +48,7 @@ export default function MassachusettsADUComplianceGap() {
           &mdash; line by line &mdash; and comparing them to what Chapter 150 and
           760 CMR 71.00 actually require. I&apos;ve reviewed every publicly
           available Attorney General decision on ADU bylaws issued since the law
-          took effect. And I&apos;ve built a structured compliance tracker that
+          took effect. And I&apos;ve built a structured consistency tracker that
           maps specific provisions in 28 towns against state law.
         </p>
 
@@ -208,7 +208,7 @@ export default function MassachusettsADUComplianceGap() {
 
         {/* ── The compliance gap is measurable ── */}
         <h2 className="text-2xl font-bold text-white mt-10 mb-4">
-          The compliance gap is measurable
+          The consistency gap is measurable
         </h2>
 
         <p className="text-gray-300 leading-relaxed mb-6">
@@ -299,7 +299,7 @@ export default function MassachusettsADUComplianceGap() {
         </p>
 
         <p className="text-gray-300 leading-relaxed mb-6">
-          <strong className="text-white">For builders,</strong> the compliance
+          <strong className="text-white">For builders,</strong> the consistency
           picture is a market intelligence question. Understanding which towns
           have clean bylaws versus which have provisions that are likely to be
           preempted by state law helps you advise clients, allocate resources,
@@ -317,7 +317,7 @@ export default function MassachusettsADUComplianceGap() {
         <p className="text-gray-300 leading-relaxed mb-8">
           And for anyone tracking Massachusetts housing production, the
           takeaway is this: the 1,224 ADUs approved in year one are a
-          meaningful start, but the compliance gap suggests the actual
+          meaningful start, but the consistency gap suggests the actual
           addressable market for ADU development is significantly larger than
           current production levels indicate. Cleaning up bylaw inconsistencies
           won&apos;t just be a legal exercise &mdash; it should unlock projects
@@ -330,7 +330,7 @@ export default function MassachusettsADUComplianceGap() {
         </h2>
 
         <p className="text-gray-300 leading-relaxed mb-6">
-          ADU Pulse&apos;s compliance tracker now covers 28 Massachusetts towns
+          ADU Pulse&apos;s consistency tracker now covers 28 Massachusetts towns
           with structured, provision-by-provision analysis. Each profile
           includes the specific bylaw language, the relevant state statute or
           regulation, our confidence assessment, the evidence basis, and source
@@ -346,7 +346,7 @@ export default function MassachusettsADUComplianceGap() {
 
         <p className="text-gray-300 leading-relaxed mb-8">
           If you&apos;re a builder, lender, or housing policy professional who
-          would benefit from structured compliance data, I&apos;d like to hear
+          would benefit from structured consistency data, I&apos;d like to hear
           from you. This is the kind of analysis that doesn&apos;t exist
           anywhere else, and I&apos;m building it based on what the market
           actually needs.
@@ -359,7 +359,7 @@ export default function MassachusettsADUComplianceGap() {
           Explore the Policy Tracker
         </h3>
         <p className="text-gray-400 mb-4">
-          See provision-by-provision compliance analysis for 28 Massachusetts
+          See provision-by-provision consistency analysis for 28 Massachusetts
           towns.
         </p>
         <div className="flex flex-wrap gap-3">
@@ -381,7 +381,7 @@ export default function MassachusettsADUComplianceGap() {
       <div className="text-gray-600 text-sm mt-8 italic space-y-3">
         <p>
           ADU Pulse tracks ADU permits and analyzes local bylaw consistency
-          with state law across Massachusetts. Our compliance analysis is
+          with state law across Massachusetts. Our consistency analysis is
           provided for informational purposes and does not constitute legal
           advice. For specific legal questions about your town&apos;s bylaws,
           consult a qualified attorney.

@@ -7,7 +7,7 @@ import Footer from '@/components/Footer'
 const posts = [
   {
     slug: 'massachusetts-adu-compliance-gap',
-    title: 'Why Permit Numbers Don\'t Tell the Full Story: Inside Massachusetts\' ADU Compliance Gap',
+    title: 'Why Permit Numbers Don\'t Tell the Full Story: Inside Massachusetts\' ADU Consistency Gap',
     description: 'Permit counts measure activity, not access. A provision-by-provision analysis of 28 Massachusetts towns reveals how local bylaws still conflict with state ADU law — even in towns issuing permits.',
     date: '2026-02-22',
     readTime: '8 min read',

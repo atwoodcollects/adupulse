@@ -322,7 +322,7 @@ export default function MassachusettsADUYearOne() {
             className="text-blue-400 hover:underline"
             href="/blog/massachusetts-adu-compliance-gap"
           >
-            Read our compliance gap analysis &rarr;
+            Read our consistency gap analysis &rarr;
           </a>
         </p>
 

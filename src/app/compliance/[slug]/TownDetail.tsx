@@ -19,6 +19,15 @@ import {
 import ComplianceGate from '@/components/ComplianceGate';
 import { formatReviewDate } from '@/lib/dates';
 
+function trackOutboundClick(href: string) {
+  if (typeof window !== 'undefined') {
+    window.gtag?.('event', 'outbound_source_click', {
+      event_category: 'engagement',
+      event_label: href,
+    });
+  }
+}
+
 // ── CITATION LINKS ──────────────────────────────────────────────────────
 function CitationLinks({ citations }: { citations: Citation[] }) {
   if (!citations || citations.length === 0) return null;
@@ -35,6 +44,7 @@ function CitationLinks({ citations }: { citations: Citation[] }) {
             href={cite.url}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackOutboundClick(cite.url)}
             className="inline-flex items-center gap-1 text-[11px] font-medium text-blue-400 hover:text-blue-300 bg-blue-400/5 hover:bg-blue-400/10 border border-blue-400/20 hover:border-blue-400/30 px-2 py-1 rounded-md transition-colors"
           >
             <svg
@@ -319,6 +329,7 @@ export default function TownDetail({ slug }: { slug: string }) {
                         href={town.agDecisionUrl}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackOutboundClick(town.agDecisionUrl!)}
                         className="text-blue-400/70 hover:text-blue-300 underline underline-offset-2"
                       >
                         source
@@ -337,6 +348,7 @@ export default function TownDetail({ slug }: { slug: string }) {
                   href={town.bylawSourceUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackOutboundClick(town.bylawSourceUrl!)}
                   className="text-blue-400/70 hover:text-blue-300 underline underline-offset-2"
                 >
                   {town.bylawSourceTitle || ruleWord}
@@ -474,6 +486,7 @@ export default function TownDetail({ slug }: { slug: string }) {
                 href="https://malegislature.gov/Laws/SessionLaws/Acts/2024/Chapter150"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackOutboundClick('https://malegislature.gov/Laws/SessionLaws/Acts/2024/Chapter150')}
                 className="text-blue-400 hover:text-blue-300 underline underline-offset-2"
               >
                 Chapter 150 (2024)
@@ -483,6 +496,7 @@ export default function TownDetail({ slug }: { slug: string }) {
                 href="https://malegislature.gov/Laws/GeneralLaws/PartI/TitleVII/Chapter40A/Section3"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackOutboundClick('https://malegislature.gov/Laws/GeneralLaws/PartI/TitleVII/Chapter40A/Section3')}
                 className="text-blue-400 hover:text-blue-300 underline underline-offset-2"
               >
                 MGL c.40A §3
@@ -492,6 +506,7 @@ export default function TownDetail({ slug }: { slug: string }) {
                 href="https://www.mass.gov/doc/760-cmr-7100-protected-use-adus-final-version/download"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackOutboundClick('https://www.mass.gov/doc/760-cmr-7100-protected-use-adus-final-version/download')}
                 className="text-blue-400 hover:text-blue-300 underline underline-offset-2"
               >
                 760 CMR 71.00
@@ -501,6 +516,7 @@ export default function TownDetail({ slug }: { slug: string }) {
                 href="https://www.mass.gov/info-details/accessory-dwelling-units"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackOutboundClick('https://www.mass.gov/info-details/accessory-dwelling-units')}
                 className="text-blue-400 hover:text-blue-300 underline underline-offset-2"
               >
                 EOHLC guidance
@@ -514,6 +530,7 @@ export default function TownDetail({ slug }: { slug: string }) {
                 href="https://massago.onbaseonline.com/Massago/1700PublicAccess/MLU.htm"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackOutboundClick('https://massago.onbaseonline.com/Massago/1700PublicAccess/MLU.htm')}
                 className="text-blue-400 hover:text-blue-300 underline underline-offset-2"
               >
                 AG Municipal Law Unit decisions

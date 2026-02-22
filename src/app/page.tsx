@@ -208,6 +208,13 @@ export default function Home() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify({ count: newCount, month: currentMonth }))
     }
 
+    if (typeof window !== 'undefined') {
+      window.gtag?.('event', 'chat_question_submitted', {
+        event_category: 'engagement',
+        event_label: text?.substring(0, 100) || 'unknown',
+      });
+    }
+
     try {
       const res = await fetch('/api/chat', {
         method: 'POST',

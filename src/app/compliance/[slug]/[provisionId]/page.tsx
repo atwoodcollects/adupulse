@@ -14,6 +14,7 @@ import {
 } from '../../compliance-data'
 import ProvisionCTA from './ProvisionCTA'
 import ComplianceGate from '@/components/ComplianceGate'
+import ProvisionViewTracker from '@/components/ProvisionViewTracker'
 
 // ── STATIC PARAMS ───────────────────────────────────────────────────────
 export function generateStaticParams() {
@@ -216,6 +217,7 @@ export default function ProvisionPage({
 
   return (
     <div className="min-h-screen bg-gray-900">
+      <ProvisionViewTracker slug={params.slug} provisionId={params.provisionId} />
       <NavBar />
       <main className="px-4 py-6 sm:py-10">
         {/* Breadcrumbs */}

@@ -13,10 +13,19 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   const town = getTownBySlug(params.slug)
   if (!town) return { title: 'Town Not Found | ADU Pulse' }
 
-  const title = town.submitted === 0
-    ? `${town.name} ADU Permits — No Applications Filed Yet | ADU Pulse`
-    : `${town.name} ADU Permits — ${town.approved} of ${town.submitted} Approved | ADU Pulse`
-  const description = `${town.name}, MA has ${town.approved} approved ADU permits with a ${town.approvalRate}% approval rate. See local ADU data, costs, and how to get started.`
+  const hasApplications = town.submitted > 0
+  const hasApprovals = town.approved > 0
+  const rate = hasApplications ? Math.round((town.approved / town.submitted) * 100) : 0
+
+  const title = hasApplications && hasApprovals
+    ? `${town.name} ADU Permits: ${town.approved} Approved, ${rate}% Approval Rate`
+    : hasApplications
+      ? `${town.name} ADU Permits: ${town.submitted} Applications Filed`
+      : `${town.name} ADU Permits & Data | ADU Pulse`
+
+  const description = hasApplications
+    ? `${town.name} has approved ${town.approved} of ${town.submitted} ADU applications (${rate}%). See permit data, local bylaw details, and how ${town.name} compares to neighboring towns.`
+    : `${town.name}, MA — ADU permit data, local bylaw analysis, and housing production trends.`
   const ogImageUrl = `https://www.adupulse.com/api/og?town=${town.slug}`
 
   return {

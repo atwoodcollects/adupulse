@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface ComplianceGateProps {
   townName: string;
@@ -33,6 +33,15 @@ export default function ComplianceGate({
   const [interestedTown, setInterestedTown] = useState('');
   const [formState, setFormState] = useState<FormState>('idle');
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.gtag?.('event', 'compliance_gate_viewed', {
+        event_category: 'conversion',
+        event_label: townSlug || townName || 'unknown',
+      });
+    }
+  }, [townSlug, townName]);
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setFormState('submitting');
@@ -54,6 +63,12 @@ export default function ComplianceGate({
       }
 
       setFormState('success');
+      if (typeof window !== 'undefined') {
+        window.gtag?.('event', 'compliance_gate_submitted', {
+          event_category: 'conversion',
+          event_label: townSlug || townName || 'unknown',
+        });
+      }
     } catch {
       setFormState('error');
     }

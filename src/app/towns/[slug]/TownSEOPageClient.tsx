@@ -606,8 +606,7 @@ export default function TownSEOPageClient({
             </div>
           ) : (
             <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 text-center">
-              <p className="text-gray-400 text-sm">We haven&apos;t reviewed {town.name}&apos;s {ruleWord.toLowerCase()}s yet.</p>
-              <p className="text-gray-500 text-xs mt-1">Check back soon — we&apos;re adding new communities regularly.</p>
+              <p className="text-gray-400 text-sm">We haven&apos;t reviewed {town.name}&apos;s {ruleWord.toLowerCase()}s yet. See the <a href="/compliance" className="text-blue-400 hover:text-blue-300 underline underline-offset-2">28 towns we&apos;ve analyzed</a> for consistency with Chapter 150.</p>
             </div>
           )}
         </section>

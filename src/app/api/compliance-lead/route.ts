@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server'
+import { Resend } from 'resend'
 import { getRedis } from '@/lib/redis'
+
+const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(request: Request) {
   try {
@@ -46,6 +49,29 @@ export async function POST(request: Request) {
 
     await redis.set(`lead:${timestamp}:${email}`, JSON.stringify(leadData))
     await redis.sadd('lead-emails', email)
+
+    // Notify via email — don't block on failure
+    try {
+      await resend.emails.send({
+        from: 'onboarding@resend.dev',
+        to: 'nick@adupulse.com',
+        subject: `New Lead: ${role} — ${town || 'Unknown'}`,
+        text: [
+          'New compliance analysis request:',
+          '',
+          `Name: ${name}`,
+          `Email: ${email}`,
+          `Role: ${role}`,
+          `Viewing: ${town || 'Not specified'}`,
+          `Most interested in: ${interestedTown || 'Not specified'}`,
+          `Submitted: ${new Date().toLocaleString('en-US', { timeZone: 'America/New_York' })}`,
+          '',
+          `Reply directly to ${email} to follow up.`,
+        ].join('\n'),
+      })
+    } catch (emailErr) {
+      console.error('Failed to send lead notification email:', emailErr)
+    }
 
     return NextResponse.json({ success: true })
   } catch (err) {

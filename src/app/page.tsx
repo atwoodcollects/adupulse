@@ -551,7 +551,7 @@ export default function Home() {
           </div>
 
           <div className="mt-3 text-center">
-            <Link href="/compliance" className="font-mono text-xs text-blue-400 no-underline font-medium hover:text-blue-300 transition-colors">
+            <Link href="/housing-production" className="font-mono text-xs text-blue-400 no-underline font-medium hover:text-blue-300 transition-colors">
               View all {totalTowns} towns →
             </Link>
           </div>

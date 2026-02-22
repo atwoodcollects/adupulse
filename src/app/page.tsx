@@ -555,17 +555,17 @@ export default function Home() {
         {/* ===== BLOG PREVIEW ===== */}
         <div className="px-5 pt-5 pb-8 max-w-[600px] mx-auto border-t border-gray-800">
           <Link
-            href="/blog/massachusetts-adu-year-one"
+            href="/blog/massachusetts-adu-compliance-gap"
             className="block py-[18px] px-5 bg-gray-800/60 border border-gray-700 rounded-lg no-underline hover:border-gray-600 transition-colors"
           >
             <div className="font-mono text-[10px] text-gray-500 uppercase tracking-wider mb-1.5">
               Latest Analysis
             </div>
             <div className="text-base font-bold text-white leading-[1.3] mb-1.5">
-              What 1,224 ADU Permits Taught Me About Massachusetts Housing
+              Why Permit Numbers Don&apos;t Tell the Full Story: Inside Massachusetts&apos; ADU Consistency Gap
             </div>
             <div className="text-xs text-gray-400 leading-[1.5]">
-              One year in: which towns are succeeding, which are stalling, and why the numbers tell a more complicated story.
+              Permit counts measure activity, not access. A provision-by-provision analysis of 28 towns reveals how local bylaws still conflict with state ADU law — even in towns issuing permits.
             </div>
           </Link>
         </div>

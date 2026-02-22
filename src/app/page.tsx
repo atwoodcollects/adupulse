@@ -37,6 +37,12 @@ const SUGGESTED_QUERIES = [
   'How are ADUs impacting housing production?',
 ]
 
+const HOMEOWNER_CHIPS = [
+  'Can I build an ADU on my property?',
+  'What permits do I need in my town?',
+  'How much does an ADU cost?',
+]
+
 const STORAGE_KEY = 'adupulse_chat_usage'
 const FREE_LIMIT = 3
 
@@ -148,6 +154,7 @@ export default function Home() {
   const [questionsUsed, setQuestionsUsed] = useState(0)
   const [hydrated, setHydrated] = useState(false)
   const [bypassLimit, setBypassLimit] = useState(false)
+  const [showHomeownerChips, setShowHomeownerChips] = useState(false)
   const [sortBy, setSortBy] = useState<SortKey>('permits')
   const inputRef = useRef<HTMLInputElement>(null)
   const answerRef = useRef<HTMLDivElement>(null)
@@ -303,18 +310,33 @@ export default function Home() {
 
             {/* Suggested queries */}
             {!askedQuestion && !isLoading && (
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 mt-4 max-w-[480px] mx-auto">
-                {SUGGESTED_QUERIES.map(q => (
-                  <button
-                    key={q}
-                    onClick={() => sendQuestion(q)}
-                    disabled={atLimit}
-                    className="px-2.5 py-1.5 text-[11px] leading-tight text-gray-400 bg-gray-800/60 border border-gray-700 rounded-lg hover:text-white hover:border-gray-600 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed text-left"
-                  >
-                    {q}
-                  </button>
-                ))}
-              </div>
+              showHomeownerChips ? (
+                <div className="flex flex-col gap-2 mt-4 max-w-[440px] mx-auto">
+                  {HOMEOWNER_CHIPS.map(q => (
+                    <button
+                      key={q}
+                      onClick={() => sendQuestion(q)}
+                      disabled={atLimit}
+                      className="px-4 py-2.5 text-sm text-left text-white bg-emerald-600/20 border border-emerald-500/30 rounded-lg hover:bg-emerald-600/30 hover:border-emerald-500/50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {q}
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 mt-4 max-w-[480px] mx-auto">
+                  {SUGGESTED_QUERIES.map(q => (
+                    <button
+                      key={q}
+                      onClick={() => sendQuestion(q)}
+                      disabled={atLimit}
+                      className="px-2.5 py-1.5 text-[11px] leading-tight text-gray-400 bg-gray-800/60 border border-gray-700 rounded-lg hover:text-white hover:border-gray-600 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed text-left"
+                    >
+                      {q}
+                    </button>
+                  ))}
+                </div>
+              )
             )}
 
             {/* Question counter / limit message */}
@@ -409,13 +431,14 @@ export default function Home() {
         </div>
 
         {/* ===== AUDIENCE PATHWAYS ===== */}
+        {!showHomeownerChips && (
         <div className="px-5 py-6 max-w-[600px] mx-auto">
           <div className="grid sm:grid-cols-3 gap-2.5">
-            <Link href="/club" className="block p-4 bg-gray-800/60 border border-gray-700 rounded-lg no-underline hover:border-gray-600 transition-colors text-center">
+            <button onClick={() => { setShowHomeownerChips(true); setTimeout(() => { inputRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }); inputRef.current?.focus() }, 100) }} className="p-4 bg-gray-800/60 border border-gray-700 rounded-lg hover:border-gray-600 transition-colors text-center cursor-pointer">
               <div className="text-2xl mb-1.5">🏠</div>
               <div className="text-sm font-semibold text-white mb-1">Homeowners</div>
               <div className="text-xs text-gray-400 leading-snug">See what&apos;s allowed in your town and explore your options.</div>
-            </Link>
+            </button>
             <Link href="/compliance" className="block p-4 bg-gray-800/60 border border-gray-700 rounded-lg no-underline hover:border-gray-600 transition-colors text-center">
               <div className="text-2xl mb-1.5">⚖️</div>
               <div className="text-sm font-semibold text-white mb-1">Policy &amp; Legal</div>
@@ -428,6 +451,7 @@ export default function Home() {
             </Link>
           </div>
         </div>
+        )}
 
         {/* ===== TOP TOWNS ===== */}
         <div className="px-5 pb-8 max-w-[600px] mx-auto">

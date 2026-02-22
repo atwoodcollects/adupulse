@@ -6,6 +6,7 @@ const nextConfig = {
       { source: '/scores', destination: '/rankings', permanent: true },
       { source: '/scorecards', destination: '/rankings', permanent: true },
       { source: '/leaderboard', destination: '/rankings', permanent: true },
+      { source: '/club', destination: '/', permanent: true },
     ]
   },
 }

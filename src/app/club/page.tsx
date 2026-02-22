@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useState, useRef, useEffect, useMemo } from 'react'
 import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
+import TownSearch from '@/components/TownSearch'
 import townSEOData from '@/data/town_seo_data'
 
 const townNames = townSEOData.map(t => t.name).sort()
@@ -75,14 +76,7 @@ export default function ClubPage() {
         <section className="mb-10">
           <div className="bg-gray-800 border border-gray-700 rounded-xl p-5 sm:p-6">
             <h2 className="text-lg font-bold text-white mb-3">Check Your Town</h2>
-            <select
-              value={selectedTown}
-              onChange={e => setSelectedTown(e.target.value)}
-              className="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2.5 text-sm text-white focus:border-emerald-500 focus:outline-none min-h-[48px]"
-            >
-              <option value="">Select your town...</option>
-              {townNames.map(t => <option key={t} value={t}>{t}</option>)}
-            </select>
+            <TownSearch towns={townNames} value={selectedTown} onSelect={setSelectedTown} />
 
             {townData && (
               <div className="mt-4 bg-gray-900/50 border border-gray-700 rounded-lg p-4">
@@ -169,11 +163,7 @@ export default function ClubPage() {
                   <p className="text-gray-400 text-sm">Get notified when there&apos;s news for your town — permit data updates, bylaw changes, or new resources.</p>
                   <div>
                     <label className="block text-gray-400 text-xs mb-1">Your town</label>
-                    <select value={selectedTown} onChange={e => setSelectedTown(e.target.value)}
-                      className="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2.5 text-sm text-white focus:border-blue-500 focus:outline-none min-h-[48px]">
-                      <option value="">Select your town...</option>
-                      {townNames.map(t => <option key={t} value={t}>{t}</option>)}
-                    </select>
+                    <TownSearch towns={townNames} value={selectedTown} onSelect={setSelectedTown} />
                   </div>
                   <div>
                     <label className="block text-gray-400 text-xs mb-1">I&apos;m a...</label>

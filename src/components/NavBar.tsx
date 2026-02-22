@@ -10,7 +10,6 @@ const mainNav = [
   { name: 'Policy Tracker', href: '/compliance' },
   { name: 'Housing', href: '/housing-production' },
   { name: 'Blog', href: '/blog' },
-  { name: 'Pricing', href: '/pricing' },
 ]
 
 const mobileGroups = [
@@ -20,7 +19,6 @@ const mobileGroups = [
       { name: 'Policy Tracker', href: '/compliance' },
       { name: 'Housing Production', href: '/housing-production' },
       { name: 'Blog', href: '/blog' },
-      { name: 'Pricing', href: '/pricing' },
     ],
   },
 ]

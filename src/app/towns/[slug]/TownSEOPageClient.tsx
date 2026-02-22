@@ -16,6 +16,7 @@ import { useSubscription } from '@/lib/subscription'
 import {
   allEntries as complianceTowns,
   getStatusCounts,
+  isTownOpen,
   type TownComplianceProfile,
   type ComplianceProvision,
 } from '@/app/compliance/compliance-data'
@@ -569,18 +570,39 @@ export default function TownSEOPageClient({
                 </div>
               </div>
 
-              {/* Provision list — sorted by status */}
-              <div className="divide-y divide-gray-700/30">
-                {sortedProvisions.map(p => (
-                  <ProvisionRow key={p.id} provision={p} isPro={isPro} townSlug={town.slug} audience={audience} ruleWord={ruleWord} />
-                ))}
-              </div>
+              {compliance.bottomLine && (
+                <p className="text-sm text-gray-400 leading-relaxed mb-4">{compliance.bottomLine}</p>
+              )}
 
-              <div className="mt-4 pt-3 border-t border-gray-700/50">
-                <Link href={`/compliance/${town.slug}`} className="inline-flex items-center gap-1.5 text-sm text-blue-400 hover:text-blue-300 transition-colors">
-                  Full {town.name} consistency analysis <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
+              {isTownOpen(compliance) ? (
+                <>
+                  {/* Provision list — sorted by status */}
+                  <div className="divide-y divide-gray-700/30">
+                    {sortedProvisions.map(p => (
+                      <ProvisionRow key={p.id} provision={p} isPro={isPro} townSlug={town.slug} audience={audience} ruleWord={ruleWord} />
+                    ))}
+                  </div>
+
+                  <div className="mt-4 pt-3 border-t border-gray-700/50">
+                    <Link href={`/compliance/${town.slug}`} className="inline-flex items-center gap-1.5 text-sm text-blue-400 hover:text-blue-300 transition-colors">
+                      Full {town.name} consistency analysis <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
+                </>
+              ) : (
+                <div className="mt-4 pt-4 border-t border-gray-700/50">
+                  <p className="text-white font-medium text-sm mb-1.5">Provision-by-provision analysis available</p>
+                  <p className="text-gray-400 text-xs leading-relaxed mb-4">
+                    We&apos;ve mapped {compliance.provisions.length} provisions in {town.name} against Chapter 150. See which specific {ruleWord.toLowerCase()} sections appear inconsistent with state law.
+                  </p>
+                  <Link
+                    href={`/compliance/${town.slug}`}
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-emerald-400 hover:text-emerald-300 transition-colors"
+                  >
+                    See full compliance analysis <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              )}
             </div>
           ) : (
             <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 text-center">
@@ -658,19 +680,19 @@ export default function TownSEOPageClient({
                         permits were approved — equivalent to <span className="text-white font-medium">{aduShare}%</span> of prior-year housing production.
                       </p>
                       <div className="space-y-3">
-                        <div className="flex items-center gap-3">
-                          <span className="text-xs text-gray-400 w-36 shrink-0">2024 Building Permits</span>
+                        <div className="flex items-center gap-2 sm:gap-3">
+                          <span className="text-xs text-gray-400 w-24 sm:w-36 shrink-0">2024 Building Permits</span>
                           <div className="flex-1 h-4 bg-gray-700 rounded-full overflow-hidden">
                             <div className="h-full bg-blue-500 rounded-full" style={{ width: `${(buildingPermits.totalUnits / maxBar) * 100}%` }} />
                           </div>
-                          <span className="text-xs text-white w-12 text-right font-medium">{buildingPermits.totalUnits.toLocaleString()}</span>
+                          <span className="text-xs text-white w-10 sm:w-12 text-right font-medium">{buildingPermits.totalUnits.toLocaleString()}</span>
                         </div>
-                        <div className="flex items-center gap-3">
-                          <span className="text-xs text-gray-400 w-36 shrink-0">2025 ADU Approvals</span>
+                        <div className="flex items-center gap-2 sm:gap-3">
+                          <span className="text-xs text-gray-400 w-24 sm:w-36 shrink-0">2025 ADU Approvals</span>
                           <div className="flex-1 h-4 bg-gray-700 rounded-full overflow-hidden">
                             <div className="h-full bg-emerald-400 rounded-full" style={{ width: `${(town.approved / maxBar) * 100}%` }} />
                           </div>
-                          <span className="text-xs text-emerald-400 w-12 text-right font-medium">{town.approved}</span>
+                          <span className="text-xs text-emerald-400 w-10 sm:w-12 text-right font-medium">{town.approved}</span>
                         </div>
                       </div>
                       <p className="text-gray-500 text-xs mt-4">

@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <meta name="google-site-verification" content="QBGy7R5DcEfbYLKiHrkEp24Ha6tRDMmF4uf74SbvAGY" />
       </head>
-      <body className="min-h-screen bg-void">
+      <body className="min-h-screen bg-void overflow-x-hidden">
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-C22JP3HEV8" strategy="afterInteractive" />
         <Script id="gtag-init" strategy="afterInteractive">
           {`

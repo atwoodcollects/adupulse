@@ -81,7 +81,7 @@ export default function CompliancePage() {
         </nav>
 
         {/* Page header */}
-        <div className="max-w-4xl mx-auto mb-8">
+        <div className="max-w-4xl mx-auto mb-4">
           <div className="flex items-center gap-3 mb-2">
             <h1 className="text-2xl sm:text-3xl font-bold text-white">
               Consistency Tracker
@@ -95,63 +95,9 @@ export default function CompliancePage() {
             and 760 CMR 71.00? Inconsistent provisions are preempted by state law — we
             read the rules so you don&apos;t have to.
           </p>
-          <p className="text-gray-500 text-sm leading-relaxed max-w-2xl mt-2">
-            If a community&apos;s bylaw or ordinance conflicts with state law, those provisions cannot legally be enforced — yet they still create confusion for homeowners and uncertainty for builders.
-          </p>
         </div>
 
         <div className="max-w-4xl mx-auto">
-          {/* ── STATEWIDE SNAPSHOT ── */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
-            {[
-              { value: statewide.totalInconsistent, label: 'Inconsistent Provisions', color: 'text-red-400' },
-              { value: statewide.totalAgDisapprovals, label: 'AG Disapprovals', color: 'text-red-400' },
-              { value: statewide.townsWithInconsistencies, label: 'w/ Inconsistencies', color: 'text-amber-400' },
-              { value: statewide.communitiesTracked, label: 'Communities Tracked', color: 'text-emerald-400' },
-            ].map((stat) => (
-              <div
-                key={stat.label}
-                className="bg-gray-800 border border-gray-700 rounded-xl p-3 sm:p-4 text-center"
-              >
-                <p className={`text-2xl sm:text-3xl font-bold ${stat.color}`}>
-                  {stat.value}
-                </p>
-                <p className="text-xs text-gray-400 mt-1">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* ── HOW WE AUDIT ── */}
-          <div className="mb-6">
-            <button
-              onClick={() => setAuditOpen(!auditOpen)}
-              className="text-sm text-blue-400 hover:text-blue-300 transition-colors"
-            >
-              How We Determine Inconsistencies {auditOpen ? '▾' : '▸'}
-            </button>
-            {auditOpen && (
-              <div className="mt-3 bg-gray-800/30 border border-gray-700/50 rounded-lg p-4 text-sm text-gray-400 leading-relaxed">
-                <p className="mb-3">Every analysis in this tracker follows the same process:</p>
-                <ol className="list-decimal list-inside space-y-2 mb-3">
-                  <li>We read the full local ADU bylaw or ordinance as adopted by the municipality.</li>
-                  <li>We compare each provision against Massachusetts Chapter 150 (the Affordable Homes Act) and the implementing regulations at 760 CMR 71.00.</li>
-                  <li>For towns, we review all published Attorney General decisions on that town&apos;s bylaw, including partial disapprovals. City ordinances are not subject to AG review — those inconsistencies are identified through our independent analysis.</li>
-                  <li>We flag provisions as <span className="text-red-400">Inconsistent</span> (conflicts with state law), <span className="text-amber-400">Needs Review</span> (gray area or discretionary), or <span className="text-emerald-400">Consistent</span> (clearly within state authority).</li>
-                </ol>
-                <p className="mb-3">
-                  Bylaw analysis is powered by AI to identify local provisions that may conflict with state law. AG disapprovals are independently sourced and serve as additional validation. AI analysis may not capture every nuance of local zoning interpretation — towns marked needs review reflect provisions where further legal evaluation is recommended.
-                </p>
-                <p className="mb-3">
-                  This is legal research, not legal advice. We cite specific statutes and AG decisions for every finding. Local rules can change — we track the latest version available and note the last review date for each community.
-                </p>
-                <p className="text-gray-500">
-                  Questions about our methodology? Contact{' '}
-                  <a href="mailto:nick@adupulse.com" className="text-blue-400 hover:underline">nick@adupulse.com</a>
-                </p>
-              </div>
-            )}
-          </div>
-
           {/* ── SORT & FILTER ── */}
           <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
             <div className="flex gap-2 flex-wrap">
@@ -274,6 +220,57 @@ export default function CompliancePage() {
               </div>
             </div>
           )}
+
+          {/* ── STATEWIDE SNAPSHOT ── */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+            {[
+              { value: statewide.totalInconsistent, label: 'Inconsistent Provisions', color: 'text-red-400' },
+              { value: statewide.totalAgDisapprovals, label: 'AG Disapprovals', color: 'text-red-400' },
+              { value: statewide.townsWithInconsistencies, label: 'w/ Inconsistencies', color: 'text-amber-400' },
+              { value: statewide.communitiesTracked, label: 'Communities Tracked', color: 'text-emerald-400' },
+            ].map((stat) => (
+              <div
+                key={stat.label}
+                className="bg-gray-800 border border-gray-700 rounded-xl p-3 sm:p-4 text-center"
+              >
+                <p className={`text-2xl sm:text-3xl font-bold ${stat.color}`}>
+                  {stat.value}
+                </p>
+                <p className="text-xs text-gray-400 mt-1">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* ── HOW WE AUDIT ── */}
+          <div className="mb-6">
+            <button
+              onClick={() => setAuditOpen(!auditOpen)}
+              className="text-sm text-blue-400 hover:text-blue-300 transition-colors"
+            >
+              How We Determine Inconsistencies {auditOpen ? '▾' : '▸'}
+            </button>
+            {auditOpen && (
+              <div className="mt-3 bg-gray-800/30 border border-gray-700/50 rounded-lg p-4 text-sm text-gray-400 leading-relaxed">
+                <p className="mb-3">Every analysis in this tracker follows the same process:</p>
+                <ol className="list-decimal list-inside space-y-2 mb-3">
+                  <li>We read the full local ADU bylaw or ordinance as adopted by the municipality.</li>
+                  <li>We compare each provision against Massachusetts Chapter 150 (the Affordable Homes Act) and the implementing regulations at 760 CMR 71.00.</li>
+                  <li>For towns, we review all published Attorney General decisions on that town&apos;s bylaw, including partial disapprovals. City ordinances are not subject to AG review — those inconsistencies are identified through our independent analysis.</li>
+                  <li>We flag provisions as <span className="text-red-400">Inconsistent</span> (conflicts with state law), <span className="text-amber-400">Needs Review</span> (gray area or discretionary), or <span className="text-emerald-400">Consistent</span> (clearly within state authority).</li>
+                </ol>
+                <p className="mb-3">
+                  Bylaw analysis is powered by AI to identify local provisions that may conflict with state law. AG disapprovals are independently sourced and serve as additional validation. AI analysis may not capture every nuance of local zoning interpretation — towns marked needs review reflect provisions where further legal evaluation is recommended.
+                </p>
+                <p className="mb-3">
+                  This is legal research, not legal advice. We cite specific statutes and AG decisions for every finding. Local rules can change — we track the latest version available and note the last review date for each community.
+                </p>
+                <p className="text-gray-500">
+                  Questions about our methodology? Contact{' '}
+                  <a href="mailto:nick@adupulse.com" className="text-blue-400 hover:underline">nick@adupulse.com</a>
+                </p>
+              </div>
+            )}
+          </div>
 
           {/* ── METHODOLOGY NOTE ── */}
           <div className="mt-8 bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 text-xs text-gray-500 leading-relaxed">

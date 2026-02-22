@@ -315,6 +315,17 @@ export default function MassachusettsADUYearOne() {
           Transparency helps. That&apos;s why I built this.
         </p>
 
+        <p className="text-gray-300 leading-relaxed mb-8">
+          We&apos;ve since gone deeper on the <em>why</em> behind these
+          numbers.{" "}
+          <a
+            className="text-blue-400 hover:underline"
+            href="/blog/massachusetts-adu-compliance-gap"
+          >
+            Read our compliance gap analysis &rarr;
+          </a>
+        </p>
+
         {/* NEW SECTION: National context teaser */}
         <h2 className="text-2xl font-bold text-white mt-10 mb-4">
           Where Massachusetts fits nationally

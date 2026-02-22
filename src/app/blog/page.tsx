@@ -6,12 +6,20 @@ import Footer from '@/components/Footer'
 
 const posts = [
   {
+    slug: 'massachusetts-adu-compliance-gap',
+    title: 'Why Permit Numbers Don\'t Tell the Full Story: Inside Massachusetts\' ADU Compliance Gap',
+    description: 'Permit counts measure activity, not access. A provision-by-provision analysis of 28 Massachusetts towns reveals how local bylaws still conflict with state ADU law — even in towns issuing permits.',
+    date: '2026-02-22',
+    readTime: '8 min read',
+    featured: true,
+  },
+  {
     slug: 'boston-adu-exemption',
     title: 'Boston Is the Only MA Town Exempt from the State ADU Law. Here\'s What That Means.',
     description: 'Boston doesn\'t operate under G.L. c. 40A, making it the only municipality where the statewide ADU by-right law doesn\'t apply. Here\'s what that means for homeowners and builders.',
     date: '2026-02-13',
     readTime: '8 min read',
-    featured: true,
+    featured: false,
   },
   {
     slug: 'ag-disapprovals-sudbury-leicester-canton',

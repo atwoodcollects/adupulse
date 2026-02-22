@@ -7,11 +7,13 @@ import {
   allEntries,
   getEvidenceBasis,
   evidenceBasisConfig,
+  isTownOpen,
   type EvidenceBasis,
   type ComplianceProvision,
   type Citation,
 } from '../../compliance-data'
 import ProvisionCTA from './ProvisionCTA'
+import ComplianceGate from '@/components/ComplianceGate'
 
 // ── STATIC PARAMS ───────────────────────────────────────────────────────
 export function generateStaticParams() {
@@ -121,6 +123,76 @@ export default function ProvisionPage({
   const cfg = evidenceBasisConfig[basis]
   const isCity = town.municipalityType === 'city'
   const ruleWord = isCity ? 'Ordinance' : 'Bylaw'
+
+  // Gate provision detail for non-open towns
+  if (!isTownOpen(town)) {
+    return (
+      <div className="min-h-screen bg-gray-900">
+        <NavBar />
+        <main className="px-4 py-6 sm:py-10">
+          <nav className="max-w-4xl mx-auto mb-6 text-sm text-gray-400">
+            <Link
+              href="/"
+              className="text-blue-400 hover:text-blue-300 transition-colors"
+            >
+              Dashboard
+            </Link>
+            <span className="mx-2 text-gray-600">/</span>
+            <Link
+              href="/compliance"
+              className="text-blue-400 hover:text-blue-300 transition-colors"
+            >
+              Policy Tracker
+            </Link>
+            <span className="mx-2 text-gray-600">/</span>
+            <Link
+              href={`/compliance/${town.slug}`}
+              className="text-blue-400 hover:text-blue-300 transition-colors"
+            >
+              {town.name}
+            </Link>
+            <span className="mx-2 text-gray-600">/</span>
+            <span className="text-gray-400 truncate">{provision.provision}</span>
+          </nav>
+          <div className="max-w-4xl mx-auto">
+            <div className="mb-6">
+              <div className="flex items-center gap-2 flex-wrap mb-2">
+                <h1 className="text-2xl sm:text-3xl font-bold text-white">
+                  {provision.provision}
+                </h1>
+                <span
+                  className={`text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded ${cfg.color} ${cfg.bg}`}
+                >
+                  {cfg.label}
+                </span>
+              </div>
+              <p className="text-gray-400 text-sm">
+                {town.name}, {town.county} County
+              </p>
+              <span className="inline-block mt-1.5 text-[10px] font-medium text-gray-500 bg-gray-800 px-2 py-0.5 rounded">
+                {provision.category}
+              </span>
+            </div>
+            <ComplianceGate
+              townName={town.name}
+              townSlug={town.slug}
+              provisionCount={town.provisions.length}
+              isProvisionPage
+            />
+            <div className="mt-6 text-sm">
+              <Link
+                href={`/compliance/${town.slug}`}
+                className="text-blue-400 hover:text-blue-300 transition-colors"
+              >
+                &larr; Back to {town.name} Analysis
+              </Link>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    )
+  }
 
   // Prev/next within same town
   const prev =

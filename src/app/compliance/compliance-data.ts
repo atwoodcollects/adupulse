@@ -95,6 +95,7 @@ export interface TownComplianceProfile {
   provisions: ComplianceProvision[];
   resistanceTag?: 'legislative-challenge';
   isExempt?: boolean;
+  isOpen?: boolean;
   // ── Provenance fields ──
   agDecisionDate?: string;
   agDecisionUrl?: string;
@@ -102,6 +103,10 @@ export interface TownComplianceProfile {
   bylawSourceUrl?: string;
   bylawSourceTitle?: string;
   bylawVersionDate?: string;
+}
+
+export function isTownOpen(town: TownComplianceProfile): boolean {
+  return town.isOpen === true;
 }
 
 export interface NarrativeCityProfile {
@@ -1006,6 +1011,7 @@ export const towns: TownComplianceProfile[] = [
     name: 'New Bedford',
     county: 'Bristol',
     population: 101079,
+    isOpen: true,
     lastReviewed: '2026-02-15',
     bylawLastUpdated: 'September 2024',
     bylawSource: 'New Bedford Zoning Ordinance Ch. 9, §§2340 & 1200',
@@ -1640,6 +1646,7 @@ export const towns: TownComplianceProfile[] = [
     name: 'Duxbury',
     county: 'Plymouth',
     population: 16090,
+    isOpen: true,
     lastReviewed: '2026-02-15',
     bylawLastUpdated: 'June 2025 (STM amendments pending AG approval)',
     bylawSource: 'Duxbury Zoning Bylaw',
@@ -1941,6 +1948,7 @@ export const towns: TownComplianceProfile[] = [
     name: 'Falmouth',
     county: 'Barnstable',
     population: 32517,
+    isOpen: true,
     lastReviewed: '2026-02-20',
     bylawLastUpdated: 'November 2024 (AG partial disapproval June 2, 2025)',
     bylawSource: 'Falmouth Zoning Bylaw § 240-9.1 Accessory Dwelling Units (Town Meeting Nov. 18, 2024; AG Decision June 2, 2025)',
@@ -3682,6 +3690,7 @@ export const towns: TownComplianceProfile[] = [
     name: 'Salem',
     county: 'Essex',
     population: 44480,
+    isOpen: true,
     municipalityType: 'city',
     lastReviewed: '2026-02-15',
     bylawLastUpdated: '2022 (amendment pending May 2025)',
@@ -3851,6 +3860,7 @@ export const towns: TownComplianceProfile[] = [
     name: 'Southborough',
     county: 'Worcester',
     population: 10450,
+    isOpen: true,
     lastReviewed: '2026-02-17',
     bylawLastUpdated: '2025 (AG partial disapproval February 2026)',
     bylawSource: 'Southborough Zoning Bylaw, ADU provisions (AG Decision, February 17, 2026)',

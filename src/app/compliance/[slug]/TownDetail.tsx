@@ -10,11 +10,13 @@ import {
   getEvidenceBasis,
   evidenceBasisConfig,
   categories,
+  isTownOpen,
   type TownComplianceProfile,
   type ComplianceStatus,
   type ComplianceProvision,
   type Citation,
 } from '../compliance-data';
+import ComplianceGate from '@/components/ComplianceGate';
 import { formatReviewDate } from '@/lib/dates';
 
 // ── CITATION LINKS ──────────────────────────────────────────────────────
@@ -295,84 +297,7 @@ export default function TownDetail({ slug }: { slug: string }) {
           </p>
         </div>
 
-        {/* Filter tabs */}
-        <div className="flex flex-wrap gap-2 mb-5">
-          {(
-            [
-              { key: 'all' as const, label: 'All Provisions', count: town.provisions.length },
-              { key: 'inconsistent' as const, label: 'Inconsistent', count: counts.inconsistent },
-              { key: 'review' as const, label: 'Needs Review', count: counts.review },
-              { key: 'compliant' as const, label: 'Consistent', count: counts.compliant },
-            ] as const
-          ).map(({ key, label, count }) => {
-            const isActive = statusFilter === key;
-            const colorMap: Record<string, string> = {
-              all: isActive ? 'bg-blue-500/20 text-blue-400 border-blue-500/30' : '',
-              inconsistent: isActive
-                ? 'bg-red-400/20 text-red-400 border-red-400/30'
-                : '',
-              review: isActive
-                ? 'bg-amber-400/20 text-amber-400 border-amber-400/30'
-                : '',
-              compliant: isActive
-                ? 'bg-emerald-400/20 text-emerald-400 border-emerald-400/30'
-                : '',
-            };
-            return (
-              <button
-                key={key}
-                onClick={() => setStatusFilter(key)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border transition-colors ${
-                  isActive
-                    ? colorMap[key]
-                    : 'text-gray-400 border-gray-700 hover:text-white hover:border-gray-600'
-                }`}
-              >
-                {label}
-                <span
-                  className={`text-[10px] px-1.5 py-0.5 rounded ${
-                    isActive ? 'bg-white/10' : 'bg-gray-700 text-gray-500'
-                  }`}
-                >
-                  {count}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Provisions grouped by category */}
-        <div className="space-y-5">
-          {Object.entries(filteredProvisions).map(([category, provisions]) => (
-            <div key={category}>
-              <p className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 mb-2">
-                {category}
-              </p>
-              <div className="space-y-2">
-                {provisions.map((p) => (
-                  <ProvisionRow key={p.id} provision={p} isPro={isPro} slug={slug} isCity={isCity} />
-                ))}
-              </div>
-            </div>
-          ))}
-          {Object.keys(filteredProvisions).length === 0 && (
-            <p className="text-center text-gray-500 py-8 text-sm">
-              No provisions match the current filter.
-            </p>
-          )}
-        </div>
-
-        {/* Bottom line */}
-        <div className="mt-6 p-4 bg-gray-900/50 border border-gray-700/50 rounded-lg">
-          <p className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 mb-1">
-            Bottom Line
-          </p>
-          <p className="text-sm text-gray-300 leading-relaxed">
-            {bottomLine}
-          </p>
-        </div>
-
-        {/* ── PROVENANCE ── */}
+        {/* ── PROVENANCE (shown for all towns) ── */}
         <div className="mt-4 px-4 py-3 bg-gray-900/30 border border-gray-700/30 rounded-lg">
           <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-600 mb-2">
             Data Provenance
@@ -440,102 +365,201 @@ export default function TownDetail({ slug }: { slug: string }) {
             )}
           </div>
         </div>
+
+        {/* ── GATED vs OPEN SPLIT ── */}
+        {!isTownOpen(town) ? (
+          <>
+            <p className="mt-5 text-sm text-gray-400">
+              {town.provisions.length} provisions analyzed against Chapter 150
+            </p>
+            <div className="mt-4">
+              <ComplianceGate
+                townName={town.name}
+                townSlug={town.slug}
+                provisionCount={town.provisions.length}
+              />
+            </div>
+          </>
+        ) : (
+          <>
+            {/* Filter tabs */}
+            <div className="flex flex-wrap gap-2 mt-5 mb-5">
+              {(
+                [
+                  { key: 'all' as const, label: 'All Provisions', count: town.provisions.length },
+                  { key: 'inconsistent' as const, label: 'Inconsistent', count: counts.inconsistent },
+                  { key: 'review' as const, label: 'Needs Review', count: counts.review },
+                  { key: 'compliant' as const, label: 'Consistent', count: counts.compliant },
+                ] as const
+              ).map(({ key, label, count }) => {
+                const isActive = statusFilter === key;
+                const colorMap: Record<string, string> = {
+                  all: isActive ? 'bg-blue-500/20 text-blue-400 border-blue-500/30' : '',
+                  inconsistent: isActive
+                    ? 'bg-red-400/20 text-red-400 border-red-400/30'
+                    : '',
+                  review: isActive
+                    ? 'bg-amber-400/20 text-amber-400 border-amber-400/30'
+                    : '',
+                  compliant: isActive
+                    ? 'bg-emerald-400/20 text-emerald-400 border-emerald-400/30'
+                    : '',
+                };
+                return (
+                  <button
+                    key={key}
+                    onClick={() => setStatusFilter(key)}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border transition-colors ${
+                      isActive
+                        ? colorMap[key]
+                        : 'text-gray-400 border-gray-700 hover:text-white hover:border-gray-600'
+                    }`}
+                  >
+                    {label}
+                    <span
+                      className={`text-[10px] px-1.5 py-0.5 rounded ${
+                        isActive ? 'bg-white/10' : 'bg-gray-700 text-gray-500'
+                      }`}
+                    >
+                      {count}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Provisions grouped by category */}
+            <div className="space-y-5">
+              {Object.entries(filteredProvisions).map(([category, provisions]) => (
+                <div key={category}>
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 mb-2">
+                    {category}
+                  </p>
+                  <div className="space-y-2">
+                    {provisions.map((p) => (
+                      <ProvisionRow key={p.id} provision={p} isPro={isPro} slug={slug} isCity={isCity} />
+                    ))}
+                  </div>
+                </div>
+              ))}
+              {Object.keys(filteredProvisions).length === 0 && (
+                <p className="text-center text-gray-500 py-8 text-sm">
+                  No provisions match the current filter.
+                </p>
+              )}
+            </div>
+
+            {/* Bottom line */}
+            <div className="mt-6 p-4 bg-gray-900/50 border border-gray-700/50 rounded-lg">
+              <p className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 mb-1">
+                Bottom Line
+              </p>
+              <p className="text-sm text-gray-300 leading-relaxed">
+                {bottomLine}
+              </p>
+            </div>
+          </>
+        )}
       </div>
 
-      {/* ── METHODOLOGY NOTE ── */}
-      <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 text-xs text-gray-500 leading-relaxed">
-        <p className="font-semibold text-gray-400 mb-1">Methodology</p>
-        <p>
-          This analysis compares each town&apos;s published ADU zoning bylaw or
-          ordinance against Massachusetts{' '}
-          <a
-            href="https://malegislature.gov/Laws/SessionLaws/Acts/2024/Chapter150"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-400 hover:text-blue-300 underline underline-offset-2"
-          >
-            Chapter 150 (2024)
-          </a>
-          ,{' '}
-          <a
-            href="https://malegislature.gov/Laws/GeneralLaws/PartI/TitleVII/Chapter40A/Section3"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-400 hover:text-blue-300 underline underline-offset-2"
-          >
-            MGL c.40A §3
-          </a>
-          , and{' '}
-          <a
-            href="https://www.mass.gov/doc/760-cmr-7100-protected-use-adus-final-version/download"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-400 hover:text-blue-300 underline underline-offset-2"
-          >
-            760 CMR 71.00
-          </a>
-          . Per{' '}
-          <a
-            href="https://www.mass.gov/info-details/accessory-dwelling-units"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-400 hover:text-blue-300 underline underline-offset-2"
-          >
-            EOHLC guidance
-          </a>
-          , towns are not &ldquo;inconsistent&rdquo; simply because their local zoning has not
-          been updated — however, any local provisions inconsistent with the ADU statute
-          are preempted by state law as of February 2, 2025. Local permitting decisions should not
-          take into account zoning rules that conflict with state law. Attorney General
-          disapproval data sourced from published{' '}
-          <a
-            href="https://massago.onbaseonline.com/Massago/1700PublicAccess/MLU.htm"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-400 hover:text-blue-300 underline underline-offset-2"
-          >
-            AG Municipal Law Unit decisions
-          </a>
-          . This is not legal advice — consult a zoning attorney for project-specific
-          guidance.
-        </p>
-      </div>
+      {isTownOpen(town) && (
+        <>
+          {/* ── METHODOLOGY NOTE ── */}
+          <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 text-xs text-gray-500 leading-relaxed">
+            <p className="font-semibold text-gray-400 mb-1">Methodology</p>
+            <p>
+              This analysis compares each town&apos;s published ADU zoning bylaw or
+              ordinance against Massachusetts{' '}
+              <a
+                href="https://malegislature.gov/Laws/SessionLaws/Acts/2024/Chapter150"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-400 hover:text-blue-300 underline underline-offset-2"
+              >
+                Chapter 150 (2024)
+              </a>
+              ,{' '}
+              <a
+                href="https://malegislature.gov/Laws/GeneralLaws/PartI/TitleVII/Chapter40A/Section3"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-400 hover:text-blue-300 underline underline-offset-2"
+              >
+                MGL c.40A §3
+              </a>
+              , and{' '}
+              <a
+                href="https://www.mass.gov/doc/760-cmr-7100-protected-use-adus-final-version/download"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-400 hover:text-blue-300 underline underline-offset-2"
+              >
+                760 CMR 71.00
+              </a>
+              . Per{' '}
+              <a
+                href="https://www.mass.gov/info-details/accessory-dwelling-units"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-400 hover:text-blue-300 underline underline-offset-2"
+              >
+                EOHLC guidance
+              </a>
+              , towns are not &ldquo;inconsistent&rdquo; simply because their local zoning has not
+              been updated — however, any local provisions inconsistent with the ADU statute
+              are preempted by state law as of February 2, 2025. Local permitting decisions should not
+              take into account zoning rules that conflict with state law. Attorney General
+              disapproval data sourced from published{' '}
+              <a
+                href="https://massago.onbaseonline.com/Massago/1700PublicAccess/MLU.htm"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-400 hover:text-blue-300 underline underline-offset-2"
+              >
+                AG Municipal Law Unit decisions
+              </a>
+              . This is not legal advice — consult a zoning attorney for project-specific
+              guidance.
+            </p>
+          </div>
 
-      {/* ── SUBSCRIBE CTA ── */}
-      <div className="mt-6 bg-gray-800 border border-gray-700 rounded-xl p-4 sm:p-6">
-        <h3 className="text-white font-bold mb-1">
-          Stay Updated on {town.name} ADU Bylaws
-        </h3>
-        <p className="text-gray-400 text-sm mb-4">
-          Get notified when this town updates its bylaw, the AG issues a decision, or enforcement practices change.
-        </p>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            const form = e.target as HTMLFormElement;
-            const email = (form.elements.namedItem('email') as HTMLInputElement).value;
-            window.location.href = `mailto:nick@adupulse.com?subject=${encodeURIComponent(`Bylaw alert signup: ${town.name}`)}&body=${encodeURIComponent(`Please add me to ${town.name} bylaw update alerts.\n\nEmail: ${email}`)}`;
-          }}
-          className="flex gap-2 flex-col sm:flex-row"
-        >
-          <input
-            type="email"
-            name="email"
-            required
-            placeholder="you@email.com"
-            className="flex-1 px-4 py-2.5 bg-gray-900 border border-gray-600 rounded-lg text-white text-sm placeholder-gray-500 focus:outline-none focus:border-blue-500"
-          />
-          <button
-            type="submit"
-            className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-sm font-medium shrink-0"
-          >
-            Subscribe
-          </button>
-        </form>
-        <p className="text-gray-600 text-xs mt-2">
-          Free alerts. No spam. Unsubscribe anytime.
-        </p>
-      </div>
+          {/* ── SUBSCRIBE CTA ── */}
+          <div className="mt-6 bg-gray-800 border border-gray-700 rounded-xl p-4 sm:p-6">
+            <h3 className="text-white font-bold mb-1">
+              Stay Updated on {town.name} ADU Bylaws
+            </h3>
+            <p className="text-gray-400 text-sm mb-4">
+              Get notified when this town updates its bylaw, the AG issues a decision, or enforcement practices change.
+            </p>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                const form = e.target as HTMLFormElement;
+                const email = (form.elements.namedItem('email') as HTMLInputElement).value;
+                window.location.href = `mailto:nick@adupulse.com?subject=${encodeURIComponent(`Bylaw alert signup: ${town.name}`)}&body=${encodeURIComponent(`Please add me to ${town.name} bylaw update alerts.\n\nEmail: ${email}`)}`;
+              }}
+              className="flex gap-2 flex-col sm:flex-row"
+            >
+              <input
+                type="email"
+                name="email"
+                required
+                placeholder="you@email.com"
+                className="flex-1 px-4 py-2.5 bg-gray-900 border border-gray-600 rounded-lg text-white text-sm placeholder-gray-500 focus:outline-none focus:border-blue-500"
+              />
+              <button
+                type="submit"
+                className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-sm font-medium shrink-0"
+              >
+                Subscribe
+              </button>
+            </form>
+            <p className="text-gray-600 text-xs mt-2">
+              Free alerts. No spam. Unsubscribe anytime.
+            </p>
+          </div>
+        </>
+      )}
     </div>
   );
 }

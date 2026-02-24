@@ -801,7 +801,7 @@ export const towns: TownComplianceProfile[] = [
     agDecisionUrl: SOURCES.ag_canton,
     bylawRetrievedAt: '2026-02-19',
     bylawSourceTitle: 'Zoning Bylaw',
-    bottomLine: 'Canton lost its minimum lot size requirement to the AG in June 2025. The remaining bylaw is mostly consistent but the special permit requirement is a significant barrier — it adds months and creates discretionary denial risk.',
+    bottomLine: 'Canton lost its minimum lot size requirement to the AG in June 2025. The remaining bylaw is mostly consistent — by-right permitting, no owner-occupancy, correct size cap. The impervious surface cap may restrict ADU construction on smaller lots depending on how it is applied.',
     provisions: [
       {
         id: 'can-01',

@@ -673,7 +673,7 @@ export const towns: TownComplianceProfile[] = [
     agDecisionUrl: SOURCES.ag_brookline,
     bylawRetrievedAt: '2026-02-19',
     bylawSourceTitle: 'Zoning Bylaw',
-    bottomLine: 'Brookline’s bylaw is relatively clean with only one inconsistent provision (owner-occupancy for detached ADUs). The town is generally ADU-friendly with an 81% approval rate. Builders can operate with reasonable confidence here.',
+    bottomLine: 'Brookline had two provisions disapproved by the AG in June 2025 — a Floor Area Ratio cap on ADUs and a restriction tied to pre-existing nonconforming conditions. The historic district design review process remains ambiguous. With an 81% approval rate and 4 compliant provisions, the town is relatively ADU-friendly once the disapproved provisions are set aside.',
     provisions: [
       {
         id: 'brk-01',
@@ -917,6 +917,7 @@ export const towns: TownComplianceProfile[] = [
     agDecisionUrl: SOURCES.ag_hanson,
     bylawRetrievedAt: '2026-02-19',
     bylawSourceTitle: 'Zoning Bylaw',
+    bottomLine: 'Hanson had its site plan review process disapproved by the AG in June 2025 for functioning as a de facto special permit. A deed restriction requirement remains under review. The remaining provisions — size limits, detached ADUs, parking, and owner-occupancy — are consistent with Chapter 150.',
     provisions: [
       {
         id: 'han-01',
@@ -1019,6 +1020,7 @@ export const towns: TownComplianceProfile[] = [
     permits: { submitted: 6, approved: 2, denied: 4, pending: 0, approvalRate: 33 },
     bylawRetrievedAt: '2026-02-19',
     bylawSourceTitle: 'Zoning Ordinance',
+    bottomLine: 'New Bedford has no provisions that appear inconsistent with Chapter 150. Three provisions remain under review — short-term rental restrictions, design guidelines for detached ADUs, and a special permit requirement for larger ADUs. The remaining 7 provisions are consistent with state law.',
     provisions: [
       {
         id: 'nb-01',
@@ -1654,7 +1656,7 @@ export const towns: TownComplianceProfile[] = [
     permits: { submitted: 3, approved: 2, denied: 0, pending: 1, approvalRate: 67 },
     bylawRetrievedAt: '2026-02-19',
     bylawSourceTitle: 'Zoning Bylaw',
-    bottomLine: "Duxbury's bylaw is technically consistent but designed to feel like a special permit process. The planning board review, design standards, and documentation requirements create soft barriers. Experienced builders will navigate it fine; first-time ADU owners may find it intimidating.",
+    bottomLine: "Duxbury has 3 provisions that appear inconsistent with Chapter 150 — owner-occupancy, a special permit requirement, and a 10-year home age requirement. None have been reviewed by the AG. The site plan review process and pending STR regulation add ambiguity. The bylaw predates the state ADU law and has not been reconciled with it.",
     provisions: [
       {
         id: 'dux-01',

@@ -1656,7 +1656,7 @@ export const towns: TownComplianceProfile[] = [
     permits: { submitted: 3, approved: 2, denied: 0, pending: 1, approvalRate: 67 },
     bylawRetrievedAt: '2026-02-19',
     bylawSourceTitle: 'Zoning Bylaw',
-    bottomLine: "Duxbury has 3 provisions that appear inconsistent with Chapter 150 — owner-occupancy, a special permit requirement, and a 10-year home age requirement. None have been reviewed by the AG. The site plan review process and pending STR regulation add ambiguity. The bylaw predates the state ADU law and has not been reconciled with it.",
+    bottomLine: "Duxbury has 2 provisions that appear inconsistent with Chapter 150 — owner-occupancy and a special permit requirement. The 10-year home age requirement in Section 410.3(3) cross-references the ADU section but may only apply to the special permit pathway, not Protected Use ADUs. None have been reviewed by the AG. The site plan review process and pending STR regulation add ambiguity. The bylaw predates the state ADU law and has not been reconciled with it.",
     provisions: [
       {
         id: 'dux-01',
@@ -1696,7 +1696,7 @@ export const towns: TownComplianceProfile[] = [
         id: 'dux-03',
         provision: '10-Year Home Age Requirement',
         category: 'Process & Administration',
-        status: 'inconsistent',
+        status: 'review',
         stateLaw:
           'MGL c.40A §3 — ADUs are a protected use on any lot with a single-family dwelling. No age-of-structure requirement is authorized.',
         localBylaw:
@@ -3852,6 +3852,227 @@ export const towns: TownComplianceProfile[] = [
           { label: 'MGL c.40A \u00a77', url: SOURCES.mgl40a_s3 },
           { label: 'AG Leicester Decision', url: SOURCES.ag_leicester },
           { label: 'Revere ADU Info', url: SOURCES.revere_adu },
+        ],
+      },
+    ],
+  },
+  // ── AMESBURY ────────────────────────────────────────────────────────────
+  {
+    slug: 'amesbury',
+    name: 'Amesbury',
+    county: 'Essex',
+    population: 17474,
+    lastReviewed: '2026-02-23',
+    bylawLastUpdated: '2003 (1971 ordinance, revised through 2003)',
+    bylawSource: 'Amesbury Zoning Ordinance — "Family Dwelling Unit" provisions',
+    agDisapprovals: 0,
+    permits: { submitted: 3, approved: 3, denied: 0, pending: 0, approvalRate: 100 },
+    agDecisionDate: '',
+    agDecisionUrl: '',
+    bylawRetrievedAt: '2026-02-23',
+    bylawSourceTitle: 'Amesbury Zoning Ordinance',
+    bottomLine: 'Amesbury still operates under a 1971 "Family Dwelling Unit" ordinance. Four provisions appear inconsistent with Chapter 150 — occupancy limited to relatives, special permit required, use conditioned on medical need, and approvals limited to 5-year terms. A proposed update (Bill 2023-097) was never adopted. As a city, ordinances are not subject to AG bylaw review.',
+    provisions: [
+      {
+        id: 'ame-01',
+        provision: 'Family Relationship Requirement',
+        category: 'Use & Occupancy',
+        status: 'inconsistent',
+        stateLaw:
+          '760 CMR 71.03(3)(a) — occupancy restrictions, including limits on who may live in an ADU, are explicitly prohibited.',
+        localBylaw:
+          'Ordinance limits ADU occupancy to relatives "by reason of birth or marriage."',
+        impact:
+          'Directly conflicts with Chapter 150 prohibition on occupancy restrictions.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: '760 CMR 71.03(3)(a)', url: SOURCES.cmr71 },
+        ],
+      },
+      {
+        id: 'ame-02',
+        provision: 'Special Permit Requirement',
+        category: 'Process & Administration',
+        status: 'inconsistent',
+        stateLaw:
+          'MGL c.40A §3 — Protected Use ADUs must be allowed by right without discretionary zoning approval.',
+        localBylaw:
+          'Family dwelling units require a special permit from the Board of Appeals in all residential districts.',
+        impact:
+          'Special permit requirement is preempted by Chapter 150 for conforming ADUs.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+      {
+        id: 'ame-03',
+        provision: 'Illness/Disability/Age Condition',
+        category: 'Use & Occupancy',
+        status: 'inconsistent',
+        stateLaw:
+          '760 CMR 71.03(3)(a) — occupancy restrictions are prohibited, including conditions on medical need or age.',
+        localBylaw:
+          'Ordinance conditions ADU use on a medical or age-related need requiring "extended care or supervision."',
+        impact:
+          'Constitutes an occupancy restriction not permitted under Chapter 150.',
+        citations: [
+          { label: '760 CMR 71.03(3)(a)', url: SOURCES.cmr71 },
+        ],
+      },
+      {
+        id: 'ame-04',
+        provision: 'Renewable Time Periods (5-Year Limit)',
+        category: 'Process & Administration',
+        status: 'inconsistent',
+        stateLaw:
+          'MGL c.40A §3 — Protected Use ADUs are permanent by-right uses and cannot be subject to time-limited approvals.',
+        localBylaw:
+          'Special permit is subject to renewable 5-year terms.',
+        impact:
+          'Time-limited approvals conflict with the permanent by-right status of Protected Use ADUs.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: '760 CMR 71.03(3)(a)', url: SOURCES.cmr71 },
+        ],
+      },
+      {
+        id: 'ame-05',
+        provision: 'No Clear Provision for Detached ADUs',
+        category: 'Use & Occupancy',
+        status: 'review',
+        stateLaw:
+          '760 CMR 71.02 — Chapter 150 protects attached, internal, and detached ADUs equally.',
+        localBylaw:
+          'Ordinance references "a detached one-family dwelling or accessory building" but is oriented toward internal conversions. Lacks explicit detached ADU provisions.',
+        impact:
+          'Ambiguity may deter detached ADU applications despite state law protections.',
+        citations: [
+          { label: '760 CMR 71.02', url: SOURCES.cmr71 },
+        ],
+      },
+    ],
+  },
+  // ── NEWBURYPORT ────────────────────────────────────────────────────────────
+  {
+    slug: 'newburyport',
+    name: 'Newburyport',
+    county: 'Essex',
+    population: 18994,
+    lastReviewed: '2026-02-23',
+    bylawLastUpdated: 'January 2025 (adopted January 27, 2025)',
+    bylawSource: 'Newburyport Zoning Ordinance, Section XXII — Accessory Dwelling Units',
+    agDisapprovals: 0,
+    permits: { submitted: 8, approved: 8, denied: 0, pending: 0, approvalRate: 100 },
+    agDecisionDate: '',
+    agDecisionUrl: '',
+    bylawRetrievedAt: '2026-02-23',
+    bylawSourceTitle: 'Newburyport Zoning Ordinance, Section XXII',
+    bottomLine: 'Newburyport adopted a new ADU ordinance in January 2025 that is among the most consistent in the state. By-right approval, no owner-occupancy requirement, and correct size caps. Two areas merit review: the STR prohibition extends to the principal dwelling, and the Zoning Determination process adds a procedural step beyond a standard building permit.',
+    provisions: [
+      {
+        id: 'nbp-01',
+        provision: 'No Owner-Occupancy Requirement',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw:
+          '760 CMR 71.03(3)(a) — occupancy requirements are a Prohibited Regulation.',
+        localBylaw:
+          'Ordinance deliberately omits any owner-occupancy requirement. The old in-law provisions included one; Newburyport correctly removed it.',
+        impact:
+          'Consistent with state law.',
+        citations: [
+          { label: '760 CMR 71.03(3)(a)', url: SOURCES.cmr71 },
+        ],
+      },
+      {
+        id: 'nbp-02',
+        provision: 'By-Right Approval for Protected Use ADUs',
+        category: 'Process & Administration',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §3 — conforming ADUs must be allowed by right.',
+        localBylaw:
+          'Section XXII-B(2)(b) states that a conforming ADU "shall be allowed as-of-right." Processed through building permit without discretionary review.',
+        impact:
+          'Consistent with state law.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+      {
+        id: 'nbp-03',
+        provision: 'Size Limitations (900 sq ft / 50%)',
+        category: 'Dimensional & Parking',
+        status: 'compliant',
+        stateLaw:
+          'MGL c.40A §7; 760 CMR 71.02 — ADU shall not exceed the lesser of half the principal dwelling or 900 sq ft.',
+        localBylaw:
+          'Mirrors the state cap exactly: ADU shall not exceed the lesser of half the principal dwelling\'s gross floor area or 900 square feet.',
+        impact:
+          'Consistent with state law.',
+        citations: [
+          { label: '760 CMR 71.05(3)', url: SOURCES.cmr71 },
+        ],
+      },
+      {
+        id: 'nbp-04',
+        provision: 'Detached ADU Height and Design Standards',
+        category: 'Dimensional & Parking',
+        status: 'compliant',
+        stateLaw:
+          '760 CMR 71.03(3)(b) — measurable, objective design standards are permitted regulations.',
+        localBylaw:
+          'Height limited to the lesser of the principal dwelling or 20 feet. Measurable, objective design standards for screening and privacy.',
+        impact:
+          'Consistent with state law.',
+        citations: [
+          { label: '760 CMR 71.03(3)(b)', url: SOURCES.cmr71 },
+        ],
+      },
+      {
+        id: 'nbp-05',
+        provision: 'Plum Island Overlay District Restrictions',
+        category: 'Use & Occupancy',
+        status: 'compliant',
+        stateLaw:
+          '760 CMR 71.03(3)(b); 310 CMR 15.000 (Title 5) — environmental and infrastructure-based overlay restrictions are distinct from zoning use restrictions.',
+        localBylaw:
+          'PIOD restrictions on bedroom additions are tied to a DEP Consent Order regarding water and sewer capacity.',
+        impact:
+          'Environmental basis distinguishes this from prohibited zoning restrictions.',
+        citations: [
+          { label: '760 CMR 71.03(3)(b)', url: SOURCES.cmr71 },
+        ],
+      },
+      {
+        id: 'nbp-06',
+        provision: 'STR Restriction on Principal Dwelling',
+        category: 'Use & Occupancy',
+        status: 'review',
+        stateLaw:
+          'MGL c.40A §3 — STR restrictions on ADUs are explicitly authorized, but extending the prohibition to the principal dwelling goes beyond what Chapter 150 authorizes.',
+        localBylaw:
+          'Prohibits both the ADU and the principal dwelling from short-term rental use.',
+        impact:
+          'Could deter ADU creation by restricting use of the principal dwelling. Not yet tested.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+        ],
+      },
+      {
+        id: 'nbp-07',
+        provision: 'Zoning Determination Process',
+        category: 'Process & Administration',
+        status: 'review',
+        stateLaw:
+          'MGL c.40A §3; 760 CMR 71.03 — conforming ADUs must be allowed by right. Administrative steps that introduce delays or subjective judgment could function as de facto discretionary approval.',
+        localBylaw:
+          'Requires a written Zoning Determination from the Zoning Administrator before building permit issuance.',
+        impact:
+          'If ministerial, likely consistent. If it introduces delays or subjective judgment, it could function as de facto discretionary approval.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: '760 CMR 71.03', url: SOURCES.cmr71 },
         ],
       },
     ],

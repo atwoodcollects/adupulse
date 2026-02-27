@@ -24,7 +24,7 @@ const allTowns = townSEOData
 // Statewide stats from EOHLC survey
 const totalApproved = 1224
 const totalTowns = 293
-const overallRate = 68
+const overallRate = 75
 
 type SortKey = 'permits' | 'percapita' | 'approval'
 

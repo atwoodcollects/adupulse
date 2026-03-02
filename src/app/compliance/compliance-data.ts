@@ -197,6 +197,10 @@ const SOURCES = {
   boston_adu: 'https://search.boston.gov/departments/housing/addition-dwelling-units/adu-program',
   /** Boston BPDA ADU zoning */
   boston_zoning: 'https://www.bostonplans.org/adu_zoning',
+  /** Boston BPDA ADU Guidebook (StoryMaps) */
+  boston_guidebook: 'https://storymaps.arcgis.com/collections/3c200fb878524d21a7afaee4c1d144b9?item=1',
+  /** Boston ADU Financial Assistance Program */
+  boston_loans: 'https://www.boston.gov/departments/housing/adu-financial-assistance-program',
   /** Somerville ADU rules (YourMaADU) */
   somerville_adu: 'https://www.yourmaadu.com/local-adu-rules-ma/adu-in-somerville-ma',
   /** Somerville Ord. 2025-16 */
@@ -2484,7 +2488,7 @@ export const towns: TownComplianceProfile[] = [
     bylawRetrievedAt: '2026-02-19',
     bylawSourceUrl: SOURCES.boston_adu,
     bylawSourceTitle: 'Zoning Code',
-    bottomLine: 'Boston is exempt from the state ADU law entirely — it’s the only municipality in Massachusetts that doesn’t operate under G.L. c. 40A. Owner-occupancy is required, only internal conversions are allowed, and workshop attendance is mandatory. The BPDA is working on zoning updates but hasn’t changed the rules yet. The zero-interest loan program (up to $30K) is a genuine advantage.',
+    bottomLine: 'Boston is exempt from the state ADU law entirely — it\u2019s the only municipality in Massachusetts that doesn\u2019t operate under G.L. c. 40A. Owner-occupancy is required and workshop attendance is mandatory, but internal, attached, and detached ADUs are all allowed. The zero-interest loan program (up to $50K for income-eligible homeowners) is a genuine advantage.',
     provisions: [
       {
         id: 'bos-01',
@@ -2520,18 +2524,19 @@ export const towns: TownComplianceProfile[] = [
       },
       {
         id: 'bos-03',
-        provision: 'Internal-Only Restriction (Current Program)',
+        provision: 'ADU Type Allowances',
         category: 'Use & Occupancy',
-        status: 'inconsistent',
+        status: 'compliant',
         stateLaw:
           'MGL c.40A §3 — ADUs may be within, attached to, or detached from the principal dwelling (does not apply to Boston).',
         localBylaw:
-          'Current ADU program only allows units within the existing footprint of the home (basement, attic conversions).',
+          'Boston allows internal, exterior attached, and exterior detached ADUs. The BPDA ADU Guidebook includes detached ADU designs, including a completed detached unit in West Roxbury.',
         impact:
-          'Detached and external ADUs are not yet allowed by-right, though the BPDA is actively working on zoning updates to change this.',
+          'Consistent with state law — all three ADU types are permitted.',
         citations: [
           { label: 'Boston ADU Program', url: SOURCES.boston_adu },
           { label: 'BPDA ADU Zoning', url: SOURCES.boston_zoning },
+          { label: 'BPDA ADU Guidebook', url: SOURCES.boston_guidebook },
         ],
       },
       {
@@ -2618,11 +2623,11 @@ export const towns: TownComplianceProfile[] = [
         stateLaw:
           'No state requirement — this is an additional city benefit.',
         localBylaw:
-          'City offers zero-interest deferred equity loans up to $30,000 for eligible homeowners.',
+          'City offers zero-interest deferred equity loans up to $50,000 for income-eligible homeowners (up to 135% AMI).',
         impact:
           'A positive incentive not offered elsewhere.',
         citations: [
-          { label: 'Boston ADU Program', url: SOURCES.boston_adu },
+          { label: 'ADU Financial Assistance Program', url: SOURCES.boston_loans },
         ],
       },
       {

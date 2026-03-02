@@ -145,7 +145,7 @@ export default function BostonADUExemption() {
 
         <p className="text-gray-300 leading-relaxed mb-4">
           If you&apos;re a homeowner in Boston considering an ADU, the
-          city&apos;s loan program (zero-interest up to $30,000) is a genuine
+          city&apos;s loan program (zero-interest up to $50,000) is a genuine
           advantage that doesn&apos;t exist elsewhere. But go in with realistic
           expectations about the process.
         </p>

@@ -67,12 +67,12 @@ const allRows: HousingRow[] = townSEOData
 // --- Summary stats ---
 
 const sufficientRows = allRows.filter(r => r.totalBuildingPermits >= 10)
-const totalBuildingPermits = sufficientRows.reduce((s, r) => s + r.totalBuildingPermits, 0)
-const totalAduApproved = sufficientRows.reduce((s, r) => s + r.aduApproved, 0)
 const townsWithBoth = sufficientRows.length
-const overallAduShare = totalBuildingPermits > 0
-  ? Math.round((totalAduApproved / totalBuildingPermits) * 1000) / 10
-  : 0
+
+// Statewide headline stats — 2025 Census BPS (preliminary) + full EOHLC statewide total
+const totalBuildingPermits = 12096
+const totalAduApproved = 1224
+const overallAduShare = 10
 
 // --- Insight stats ---
 
@@ -159,7 +159,7 @@ export default function HousingProductionPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
           {[
             { value: townsWithBoth, label: 'Towns With Data' },
-            { value: totalBuildingPermits.toLocaleString(), label: '2024 Building Permits' },
+            { value: totalBuildingPermits.toLocaleString(), label: '2025 Building Permits' },
             { value: totalAduApproved.toLocaleString(), label: '2025 ADU Approvals' },
             { value: `${overallAduShare}%`, label: 'ADU Share of Production' },
           ].map((s, i) => (
@@ -175,13 +175,13 @@ export default function HousingProductionPage() {
         {/* Data source callout */}
         <div className="bg-gray-800/40 border border-gray-700/50 rounded-xl px-4 py-3 mb-6 text-xs text-gray-500 leading-relaxed space-y-1">
           <p>
-            <span className="text-gray-400">Building Permits:</span> U.S. Census Building Permits Survey (2024) via UMass Donahue Institute
+            <span className="text-gray-400">Building Permits:</span> U.S. Census Building Permits Survey (2025 Preliminary)
             &nbsp;&middot;&nbsp;
             <span className="text-gray-400">ADU Permits:</span> EOHLC ADU Survey (Feb 2026)
           </p>
           <p>
-            2024 is used as baseline — the last full year before ADUs were legalized statewide (Feb 2, 2025).
-            Census BPS has a known ~14% undercount for Massachusetts. Towns with fewer than 10 reported building permits are excluded from ADU Share calculations.
+            2025 preliminary data allows same-year comparison of ADU permits and total housing production.
+            Census BPS has a known undercount for Massachusetts &mdash; actual production is likely higher. Towns with fewer than 10 reported building permits are excluded from ADU Share calculations.
           </p>
         </div>
 
@@ -391,10 +391,10 @@ export default function HousingProductionPage() {
           <h3 className="text-sm font-bold text-white mb-2">Methodology</h3>
           <div className="text-gray-500 text-xs space-y-2 leading-relaxed">
             <p>
-              Building permit data is from the 2024 Annual New Privately-Owned Residential Building
-              Permits survey, conducted by the U.S. Census Bureau and processed by the UMass Donahue
-              Institute. We use imputed columns that include estimated data for non-reporting and
-              partial-reporting municipalities, providing the most complete picture.
+              Building permit data is from the 2025 preliminary Annual New Privately-Owned Residential Building
+              Permits survey, conducted by the U.S. Census Bureau. We use imputed columns that include estimated
+              data for non-reporting and partial-reporting municipalities, providing the most complete picture.
+              Town-level breakdowns use 2024 Census place-level data until 2025 place-level data is available.
             </p>
             <p>
               ADU data is from the EOHLC ADU Survey, published February 2026, covering the first year
@@ -402,10 +402,10 @@ export default function HousingProductionPage() {
             </p>
             <p>
               <strong className="text-gray-400">ADU Share of Housing Production</strong> = (2025 ADU permits
-              approved) / (2024 total residential units permitted) &times; 100. This metric compares ADU output
-              in the first year of the law against the most recent full year of traditional housing production.
-              Values above 100% indicate a town approved more ADU permits in year one than it issued total
-              building permits the prior year.
+              approved) / (2025 total residential units permitted) &times; 100. This metric compares first-year
+              ADU output against total residential housing production in the same period.
+              Values above 100% indicate a town approved more ADU permits than it issued total
+              building permits.
             </p>
           </div>
         </section>

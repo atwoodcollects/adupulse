@@ -21,6 +21,7 @@ export default function Footer() {
             <div className="space-y-1">
               {[
                 { name: 'Policy Tracker', href: '/compliance' },
+                { name: 'Infrastructure', href: '/infrastructure' },
                 { name: 'Housing Production', href: '/housing-production' },
                 { name: 'Pricing', href: '/pricing' },
               ].map(l => (

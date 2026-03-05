@@ -111,7 +111,7 @@ export const infrastructureTowns: InfrastructureTown[] = [
     stateBaseline: '310 CMR 15.000 (Title 5 of the State Environmental Code)',
     localAuthority: 'M.G.L. c. 111, § 31',
     lastReviewed: '2026-03-03',
-    bottomLine: "Massachusetts law (M.G.L. c. 111, § 31) authorizes local Boards of Health to adopt septic regulations stricter than the state Title 5 baseline. Duxbury has exercised that authority \u2014 its supplementary rules exceed Title 5 minimums in at least four areas relevant to ADU construction: groundwater separation, wetland setbacks, private well setbacks, and irrigation well setbacks. These stricter standards are legally authorized and reflect local environmental and public health priorities. However, because ADUs are treated as new construction, variance relief is not available \u2014 unlike virtually every other septic project that comes before the Board. A homeowner may have the right to build an ADU under state zoning law, but their lot may not support a septic system under the town\u2019s Board of Health rules.",
+    bottomLine: "Massachusetts law (M.G.L. c. 111, § 31) authorizes local Boards of Health to adopt septic regulations stricter than the state Title 5 baseline. Duxbury has exercised that authority \u2014 its supplementary rules exceed Title 5 minimums in at least four areas relevant to ADU construction: groundwater separation, wetland setbacks, private well setbacks, and irrigation well setbacks. These stricter standards are legally authorized and reflect local environmental and public health priorities. However, because ADUs are treated as new construction, variance relief is not available \u2014 unlike virtually every other septic project that comes before the Board. A homeowner may have the right to build an ADU under state zoning law, but their lot may not support a septic system under the town\u2019s Board of Health rules. A critical open question is whether Duxbury accepts bedroom reallocation \u2014 reducing the main house bedroom count to allocate septic capacity to the ADU \u2014 as a feasibility pathway. This practice is becoming standard in other Massachusetts towns but has not been publicly confirmed in Duxbury.",
     provisions: [
       {
         id: 'DUX-T5-01',
@@ -185,6 +185,19 @@ export const infrastructureTowns: InfrastructureTown[] = [
         localRegulation: 'Septic System Requirements',
         stateCitation: '310 CMR 15.002',
         details: "Duxbury\u2019s bedroom definition appears consistent with the Title 5 definition. A 1-bedroom ADU = 110 gpd design flow. If an ADU contains a room qualifying as a second bedroom, design flow increases accordingly.",
+      },
+      {
+        id: 'DUX-T5-07',
+        title: 'Bedroom Reallocation Policy',
+        status: 'needs_review',
+        impact: 'critical',
+        localRule: "Not explicitly addressed in Duxbury BoH supplementary rules. Town allows ADU connection to existing septic if system has adequate capacity and passes Title 5 inspection. Bedroom reallocation (reducing main house bedroom count to allocate to ADU) has not been explicitly confirmed or denied as an accepted pathway.",
+        stateBaseline: "Title 5 (310 CMR 15.000) calculates septic capacity based on total bedroom count on a lot. No state-level provision specifically addresses bedroom reallocation between a principal dwelling and an ADU. EOHLC has not issued guidance on this practice.",
+        gap: "No explicit local policy \u2014 standard practice emerging statewide but not codified in Duxbury",
+        localRegulation: 'No specific regulation identified',
+        stateCitation: '310 CMR 15.002 (bedroom definition), 310 CMR 15.203 (design flow)',
+        details: "Bedroom reallocation \u2014 reducing the main house bedroom count and allocating that capacity to the ADU \u2014 is emerging as the primary feasibility pathway for ADU construction on septic-constrained lots across Massachusetts. Builders report that for lots where septic expansion is impossible due to water protection overlays, high groundwater, or wetland setbacks (see DUX-T5-01 through DUX-T5-04), reallocation is often the only viable option. The process typically involves removing a closet and widening a doorway to 48 inches so the room no longer qualifies as a bedroom under building code, then tying the ADU into the existing septic system. However, whether Duxbury\u2019s Board of Health and building inspector accept this approach has not been publicly confirmed. Given that DUX-T5-05 indicates ADUs are treated as new construction without variance relief, the question of whether bedroom reallocation is treated as a septic modification (requiring BoH review) or simply a building code change (handled by the building inspector) is unresolved.",
+        sourcingNote: "This provision is based on builder interviews and cross-town pattern analysis, not Duxbury-specific BoH documentation. Builders active in Sharon, Mansfield, and other towns confirm bedroom reallocation is accepted practice in those communities. Duxbury\u2019s specific position has not been confirmed through BoH meeting minutes or published guidance. Verification with Duxbury\u2019s BoH and building inspector is recommended before relying on this pathway for a specific project.",
       },
     ],
     sources: [

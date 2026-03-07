@@ -20,6 +20,7 @@ const blogSlugs = [
   'boston-adu-exemption',
   'massachusetts-adu-national-comparison',
   'ag-disapprovals-sudbury-leicester-canton',
+  'massachusetts-adu-septic-constraints',
 ]
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

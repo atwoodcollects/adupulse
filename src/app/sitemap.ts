@@ -30,7 +30,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Static pages
   const staticPaths = [
-    '/compliance', '/housing-production', '/pricing', '/methodology',
+    '/compliance', '/infrastructure', '/housing-production', '/pricing', '/methodology',
     '/map', '/estimate', '/club', '/builders', '/rankings', '/blog', '/compare',
   ]
   for (const path of staticPaths) {
@@ -50,6 +50,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Town pages
   for (const town of townSEOData) {
     pages.push({ url: `${BASE_URL}/towns/${town.slug}`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 })
+  }
+
+  // Infrastructure town pages
+  const infrastructureSlugs = [
+    'duxbury', 'falmouth', 'nantucket', 'plymouth', 'upton', 'east-bridgewater',
+  ]
+  for (const slug of infrastructureSlugs) {
+    pages.push({ url: `${BASE_URL}/infrastructure/${slug}`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 })
   }
 
   return pages

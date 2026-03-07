@@ -6,6 +6,10 @@ import Footer from '@/components/Footer'
 import { infrastructureTowns, getStatusCounts, getTownStatusLabel } from '../infrastructure-data'
 import InfraDetail from './InfraDetail'
 
+const complianceProfileSlugs = [
+  'duxbury', 'falmouth', 'nantucket', 'plymouth', 'upton', 'east-bridgewater',
+]
+
 export function generateStaticParams() {
   return infrastructureTowns.map(t => ({ slug: t.slug }))
 }
@@ -91,6 +95,23 @@ export default function InfrastructureTownPage({ params }: { params: { slug: str
           <span className="mx-2 text-gray-600">/</span>
           <span className="text-gray-400">{town.name}</span>
         </nav>
+
+        {complianceProfileSlugs.includes(params.slug) && (
+          <div className="max-w-4xl mx-auto mb-6">
+            <div className="flex items-center gap-3 px-4 py-3 bg-emerald-400/10 border border-emerald-400/30 rounded-lg text-sm">
+              <span className="text-emerald-400">⚖</span>
+              <span className="text-gray-300">
+                This town also has a zoning bylaw consistency profile.{' '}
+                <Link
+                  href={`/compliance/${params.slug}`}
+                  className="text-emerald-400 hover:text-emerald-300 font-medium transition-colors"
+                >
+                  View {town.name} Policy Tracker →
+                </Link>
+              </span>
+            </div>
+          </div>
+        )}
 
         {/* Page header */}
         <div className="max-w-4xl mx-auto mb-8">

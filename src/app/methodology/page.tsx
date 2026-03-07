@@ -121,6 +121,47 @@ export default function MethodologyPage() {
           </div>
         </section>
 
+        {/* Infrastructure Tracker Methodology */}
+        <section className="mb-10">
+          <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+            <span className="text-blue-400">🔧</span> Infrastructure Tracker Methodology
+          </h2>
+          <div className="bg-gray-800/50 border border-border rounded-lg p-5 space-y-4">
+            <p className="text-gray-400 text-sm leading-relaxed">
+              The Infrastructure Tracker analyzes local Board of Health septic regulations against the Title 5 state baseline (310 CMR 15.000). Local Boards of Health are authorized under M.G.L. c. 111, § 31 to adopt regulations stricter than Title 5. Exceeding the state baseline is not a legal deficiency — it is an exercise of granted local authority. The tracker documents where local rules create additional constraints for ADU construction.
+            </p>
+            <div className="space-y-3">
+              <div className="flex items-start gap-3">
+                <span className="text-orange-400 font-semibold text-sm shrink-0 w-40">Exceeds Baseline</span>
+                <p className="text-gray-400 text-sm">The local Board of Health rule is stricter than the Title 5 minimum. Legally authorized under M.G.L. c. 111, § 31 — not a deficiency, but a real constraint for ADU design and siting.</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="text-red-400 font-semibold text-sm shrink-0 w-40">Barrier</span>
+                <p className="text-gray-400 text-sm">A structural obstacle that cannot be addressed through standard design adjustments — for example, a prohibition on variance relief for ADU projects, or a mandatory system type that cannot be substituted.</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="text-amber-400 font-semibold text-sm shrink-0 w-40">Needs Review</span>
+                <p className="text-gray-400 text-sm">The provision is ambiguous, unconfirmed, or dependent on local BoH practice that has not been publicly documented. Direct inquiry to the Board of Health is recommended before relying on any assumption.</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="text-emerald-400 font-semibold text-sm shrink-0 w-40">Consistent</span>
+                <p className="text-gray-400 text-sm">The local rule matches or is less strict than the Title 5 baseline. No additional constraint identified for ADU projects.</p>
+              </div>
+            </div>
+            <div className="border-t border-border pt-4 space-y-2">
+              <p className="text-gray-400 text-sm leading-relaxed">
+                <span className="text-white font-medium">Source methodology:</span> Each town entry is based on primary source documents — the Board of Health's published regulations, not secondary summaries. Documents are retrieved directly from town websites or municipal code aggregators (e.g., ecode360.com) and dated at retrieval. Where regulations reference maps or plans incorporated by reference, those dependencies are noted in the provision detail.
+              </p>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                <span className="text-white font-medium">Attorney review:</span> Provisions flagged for legal review are noted with a sourcing note in each town profile. This analysis does not constitute a legal opinion.
+              </p>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                <span className="text-white font-medium">Not engineering advice:</span> This analysis documents regulatory requirements. It does not constitute a site evaluation, septic system design, or engineering opinion. Consult a licensed engineer and the local Board of Health before relying on this analysis for a specific project.
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* Confidence Tiers */}
         <section className="mb-10">
           <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">

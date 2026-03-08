@@ -57,6 +57,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const infrastructureSlugs = [
     'duxbury', 'falmouth', 'nantucket', 'plymouth', 'upton', 'east-bridgewater',
     'weston', 'sudbury', 'southborough',
+    'canton', 'needham', 'hanson', 'wilbraham', 'milton',
   ]
   for (const slug of infrastructureSlugs) {
     pages.push({ url: `${BASE_URL}/infrastructure/${slug}`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 })

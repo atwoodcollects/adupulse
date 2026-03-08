@@ -1,0 +1,2 @@
+[     714ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://www.hanson-ma.gov/board-of-health:0
+[     714ms] [ERROR] The Content Security Policy directive 'upgrade-insecure-requests' is ignored when delivered in a report-only policy. @ https://www.hanson-ma.gov/board-of-health:0

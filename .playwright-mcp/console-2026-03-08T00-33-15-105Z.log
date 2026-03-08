@@ -1,0 +1,173 @@
+[      46ms] [ERROR] The Content Security Policy directive 'upgrade-insecure-requests' is ignored when delivered in a report-only policy. @ https://www.hanson-ma.gov/board-health:0
+[     252ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://s7.addthis.com/static/btn/sm-share-en.gif:0
+[     252ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://s7.addthis.com/js/300/addthis_widget.js:0
+[   13282ms] [ERROR] The Content Security Policy directive 'upgrade-insecure-requests' is ignored when delivered in a report-only policy. @ https://www.hanson-ma.gov/:0
+[   13327ms] [ERROR] The Content Security Policy directive 'upgrade-insecure-requests' is ignored when delivered in a report-only policy. @ https://platform.twitter.com/widgets.js:7
+[   13368ms] [ERROR] The Content Security Policy directive 'upgrade-insecure-requests' is ignored when delivered in a report-only policy. @ https://connect.facebook.net/en_US/sdk.js?hash=3929756eb1ae3da7a3af5793a50c946f:192
+[   13369ms] [ERROR] The Content Security Policy directive 'upgrade-insecure-requests' is ignored when delivered in a report-only policy. @ https://connect.facebook.net/en_US/sdk.js?hash=3929756eb1ae3da7a3af5793a50c946f:192
+[   13432ms] [ERROR] The Content Security Policy directive 'upgrade-insecure-requests' is ignored when delivered in a report-only policy. @ https://platform.twitter.com/widgets.js:7
+[   13432ms] [ERROR] The Content Security Policy directive 'upgrade-insecure-requests' is ignored when delivered in a report-only policy. @ https://platform.twitter.com/widgets.js:7
+[   13435ms] [ERROR] The Content Security Policy directive 'upgrade-insecure-requests' is ignored when delivered in a report-only policy. @ https://weatherwidget.io/js/widget.min.js:0
+[   13509ms] [ERROR] Failed to load resource: the server responded with a status of 429 () @ https://syndication.twitter.com/srv/timeline-profile/screen-name/townofHanson?dnt=true&embedId=twitter-widget-0&features=eyJ0ZndfdGltZWxpbmVfbGlzdCI6eyJidWNrZXQiOltdLCJ2ZXJzaW9uIjpudWxsfSwidGZ3X2ZvbGxvd2VyX2NvdW50X3N1bnNldCI6eyJidWNrZXQiOnRydWUsInZlcnNpb24iOm51bGx9LCJ0ZndfdHdlZXRfZWRpdF9iYWNrZW5kIjp7ImJ1Y2tldCI6Im9uIiwidmVyc2lvbiI6bnVsbH0sInRmd19yZWZzcmNfc2Vzc2lvbiI6eyJidWNrZXQiOiJvbiIsInZlcnNpb24iOm51bGx9LCJ0ZndfZm9zbnJfc29mdF9pbnRlcnZlbnRpb25zX2VuYWJsZWQiOnsiYnVja2V0Ijoib24iLCJ2ZXJzaW9uIjpudWxsfSwidGZ3X21peGVkX21lZGlhXzE1ODk3Ijp7ImJ1Y2tldCI6InRyZWF0bWVudCIsInZlcnNpb24iOm51bGx9LCJ0ZndfZXhwZXJpbWVudHNfY29va2llX2V4cGlyYXRpb24iOnsiYnVja2V0IjoxMjA5NjAwLCJ2ZXJzaW9uIjpudWxsfSwidGZ3X3Nob3dfYmlyZHdhdGNoX3Bpdm90c19lbmFibGVkIjp7ImJ1Y2tldCI6Im9uIiwidmVyc2lvbiI6bnVsbH0sInRmd19kdXBsaWNhdGVfc2NyaWJlc190b19zZXR0aW5ncyI6eyJidWNrZXQiOiJvbiIsInZlcnNpb24iOm51bGx9LCJ0ZndfdXNlX3Byb2ZpbGVfaW1hZ2Vfc2hhcGVfZW5hYmxlZCI6eyJidWNrZXQiOiJvbiIsInZlcnNpb24iOm51bGx9LCJ0ZndfdmlkZW9faGxzX2R5bmFtaWNfbWFuaWZlc3RzXzE1MDgyIjp7ImJ1Y2tldCI6InRydWVfYml0cmF0ZSIsInZlcnNpb24iOm51bGx9LCJ0ZndfbGVnYWN5X3RpbWVsaW5lX3N1bnNldCI6eyJidWNrZXQiOnRydWUsInZlcnNpb24iOm51bGx9LCJ0ZndfdHdlZXRfZWRpdF9mcm9udGVuZCI6eyJidWNrZXQiOiJvbiIsInZlcnNpb24iOm51bGx9fQ%3D%3D&frame=false&hideBorder=false&hideFooter=false&hideHeader=false&hideScrollBar=false&lang=en&origin=https%3A%2F%2Fwww.hanson-ma.gov%2F&sessionId=9ced465afd3ddc008cbdb283dd990b4ea9d18061&showHeader=true&showReplies=false&transparent=false&widgetsVersion=2615f7e52b7e0%3A1702314776716:0
+[   13719ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_w_Sl" [Caught in: Module "__elem_a588f507_1_0_C3"]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: sp1pxq} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13719ms] [ERROR] ErrorUtils caught an error:
+
+DataStore.get: namespace is required, got undefined
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 694, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: k1vswp} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13720ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_1_DF" [Caught in: Module "__elem_9fc087ed_1_0_nR"]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: sp1pxq} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13720ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_1_DF" [Caught in: Module "__elem_9fc087ed_1_0_nR"] [Caught in: Requiring module "__elem_9fc087ed_1_0_nR" which threw an exception]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: sp1pxq} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13721ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_4_E5" [Caught in: Module "__elem_9fc087ed_1_1_lt"]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: sp1pxq} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13721ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_4_E5" [Caught in: Module "__elem_9fc087ed_1_1_lt"] [Caught in: Requiring module "__elem_9fc087ed_1_1_lt" which threw an exception]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: sp1pxq} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13721ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_3_TN" [Caught in: Module "__elem_9fc087ed_1_2_iI"]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: sp1pxq} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13721ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_3_TN" [Caught in: Module "__elem_9fc087ed_1_2_iI"] [Caught in: Requiring module "__elem_9fc087ed_1_2_iI" which threw an exception]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: sp1pxq} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13721ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_0_2w" [Caught in: Module "__elem_9fc087ed_1_3_6M"]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: sp1pxq} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13721ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_0_2w" [Caught in: Module "__elem_9fc087ed_1_3_6M"] [Caught in: Requiring module "__elem_9fc087ed_1_3_6M" which threw an exception]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: sp1pxq} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13721ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_2_Pe" [Caught in: Module "__elem_9fc087ed_1_4_Uv"]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: sp1pxq} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13721ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_2_Pe" [Caught in: Module "__elem_9fc087ed_1_4_Uv"] [Caught in: Requiring module "__elem_9fc087ed_1_4_Uv" which threw an exception]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: sp1pxq} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13721ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_c_Vs" [Caught in: Module "__elem_a588f507_1_2_kO"]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: sp1pxq} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13722ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_d_a1" [Caught in: Module "__elem_de92090e_1_0_Qi"]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: sp1pxq} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13722ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_e_c/" [Caught in: Module "__elem_072b8e64_1_0_FU"]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: sp1pxq} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13722ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_f_Br" [Caught in: Module "__elem_a588f507_1_3_Ss"]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: sp1pxq} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13722ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_g_/j" [Caught in: Module "__elem_de92090e_1_1_8y"]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: sp1pxq} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13722ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_h_eE" [Caught in: Module "__elem_072b8e64_1_1_cf"]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: sp1pxq} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13722ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_i_Mw" [Caught in: Module "__elem_a588f507_1_4_wr"]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: sp1pxq} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13722ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_j_3g" [Caught in: Module "__elem_de92090e_1_2_j7"]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: sp1pxq} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13723ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_k_TG" [Caught in: Module "__elem_072b8e64_1_2_rn"]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: sp1pxq} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13723ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_l_Ns" [Caught in: Module "__elem_a588f507_1_5_7V"]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: sp1pxq} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13723ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_m_6P" [Caught in: Module "__elem_de92090e_1_3_Yb"]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: sp1pxq} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13723ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_n_EC" [Caught in: Module "__elem_072b8e64_1_3_um"]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: sp1pxq} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13724ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_u_Pd" [Caught in: Module "__elem_fc9f538f_1_0_4c"]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: tuyylu} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13724ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_r_tc" [Caught in: Module "__elem_fc9f538f_1_1_nJ"]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: tuyylu} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13724ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_s_dj" [Caught in: Module "__elem_fc9f538f_1_2_/+"]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: tuyylu} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13724ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_o_ym" [Caught in: Module "__elem_a588f507_1_6_o3"]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: sp1pxq} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13724ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_p_s/" [Caught in: Module "__elem_de92090e_1_4_YH"]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: sp1pxq} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13724ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_q_pJ" [Caught in: Module "__elem_072b8e64_1_4_4/"]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: sp1pxq} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13724ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_t_FA" [Caught in: Module "__elem_fc9f538f_1_3_1V"]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: tuyylu} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   13724ms] [ERROR] ErrorUtils caught an error:
+
+Could not find element "u_1_v_D2" [Caught in: Module "__elem_fc9f538f_1_4_Gd"]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1772930008, extra: Object, guardList: Array(4), hash: tuyylu} @ https://static.xx.fbcdn.net/rsrc.php/v4/yO/r/YdJqtQ7glMZ.js:75
+[   16523ms] [ERROR] The Content Security Policy directive 'upgrade-insecure-requests' is ignored when delivered in a report-only policy. @ https://platform.twitter.com/widgets.js:7
+[   16524ms] [ERROR] The Content Security Policy directive 'upgrade-insecure-requests' is ignored when delivered in a report-only policy. @ https://platform.twitter.com/widgets.js:7

@@ -1,0 +1,8 @@
+[    1512ms] Error: data-elementqueryclasses attribute can only by used on elements with unique id.
+    at HTMLDivElement.<anonymous> (https://www.town.canton.ma.us/Assets/Scripts/RWD/MediaFramework.js:584:11)
+    at ce.each (https://www.town.canton.ma.us/Assets/Scripts/jQuery/jquery-3.7.1.min.js:2:3129)
+    at e.<computed>.each (https://www.town.canton.ma.us/Assets/Scripts/jQuery/jquery-3.7.1.min.js:2:1594)
+    at applyElementQueryToChildren (https://www.town.canton.ma.us/Assets/Scripts/RWD/MediaFramework.js:579:45)
+    at HTMLDocument.<anonymous> (https://www.town.canton.ma.us/Assets/Scripts/RWD/MediaFramework.js:696:2)
+    at e (https://www.town.canton.ma.us/Assets/Scripts/jQuery/jquery-3.7.1.min.js:2:27028)
+    at t (https://www.town.canton.ma.us/Assets/Scripts/jQuery/jquery-3.7.1.min.js:2:27330)

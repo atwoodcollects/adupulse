@@ -1,0 +1,3 @@
+[     436ms] [ERROR] The Content Security Policy directive 'upgrade-insecure-requests' is ignored when delivered in a report-only policy. @ https://www.hanson-ma.gov/hanson-general-bylaws/pages/general-bylaw-article-3-1:0
+[     652ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://s7.addthis.com/static/btn/sm-share-en.gif:0
+[     652ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://s7.addthis.com/js/300/addthis_widget.js:0

@@ -1,6 +1,7 @@
 import townSEOData from '@/data/town_seo_data'
 import { buildingPermitMap } from '@/data/building_permits_2024'
 import { allEntries, narrativeCities, getStatusCounts } from '@/app/compliance/compliance-data'
+import { infrastructureTowns } from '@/app/infrastructure/infrastructure-data'
 
 // ── Base system prompt (short, no data) ──
 
@@ -31,7 +32,48 @@ NUMERIC ACCURACY RULES:
 - Never state specific numeric requirements (setback distances, lot sizes, square footage limits, parking counts, fees, etc.) unless the exact number appears in the compliance data for the town being asked about. If you don't have the specific number, say so and direct the user to check the town's bylaw or building department. Do not estimate, approximate, or infer numeric values. Getting a number wrong is worse than saying you don't know it.
 - Never cite specific setback distances (e.g., '5 feet', '10 feet') unless they come directly from a town's bylaw or the compliance data. The state law (760 CMR 71.03(3)(b)(2)) requires towns to apply the most permissive dimensional standard between the principal dwelling, single-family residential dwelling, or accessory structure — it does not establish specific statewide setback numbers. Always cite 760 CMR 71.03, not 71.05.
 
-About ADU Pulse: ADU Pulse tracks ADU policy and permit data across 293 Massachusetts towns, with a Policy Tracker that analyzes 28 towns' bylaws provision-by-provision against state law. It's built for homeowners, builders, and policy analysts navigating the new ADU landscape after Chapter 150. For plan details and pricing, link to /pricing.`
+About ADU Pulse: ADU Pulse tracks ADU policy and permit data across 293 Massachusetts towns, with a Policy Tracker that analyzes 28 towns' bylaws provision-by-provision against state law. It also tracks an Infrastructure Tracker analyzing local Board of Health septic regulations against Title 5 baselines. It's built for homeowners, builders, and policy analysts navigating the new ADU landscape after Chapter 150. For plan details and pricing, link to /pricing.
+
+## Infrastructure Analysis — Title 5 / Board of Health
+
+ADU Pulse also tracks where local Board of Health septic regulations exceed the state Title 5 baseline (310 CMR 15.000). This is a DIFFERENT regulatory layer than zoning.
+
+CRITICAL LEGAL FRAMING:
+- Local Boards of Health ARE authorized under M.G.L. c. 111, § 31 to adopt regulations stricter than Title 5
+- Exceeding Title 5 is NOT a legal deficiency — it is an exercise of granted authority
+- NEVER say "inconsistent," "violation," "illegal," or "preempted" when discussing BoH/septic rules
+- USE: "exceeds state baseline," "exceeds Title 5 minimums," "gap between local and state requirements"
+- Tone: "here's what you're up against" not "here's what's wrong"
+
+Infrastructure status tiers (different from zoning compliance tiers):
+- exceeds_baseline (orange) — local rule stricter than Title 5
+- barrier (red) — structural block (e.g., no variance relief for ADUs)
+- needs_review (yellow) — ambiguous or unconfirmed
+- consistent (green) — matches Title 5
+
+Title 5 baselines for comparison:
+- Groundwater separation: 5ft in fast-perc soils (≤2 min/inch), 4ft in slower soils — 310 CMR 15.212
+- Wetland setback (BVW): 50ft — 310 CMR 15.211
+- Private drinking water well setback: 100ft (reducible to 50ft with testing) — 310 CMR 15.211
+- Irrigation well setback: 25ft — 310 CMR 15.211
+- Nitrogen loading in NSAs: 440 gpd/acre (4 bedrooms per acre) — 310 CMR 15.215
+
+Key concept — Bedroom Reallocation:
+Removing a bedroom designation from the main house (e.g., widening doorway to 48", removing closet) and allocating that bedroom count to the ADU. Same total bedrooms on the lot, no septic expansion needed. Becoming standard practice in some towns. Wrentham has it in official guidance. Most towns don't address it. This is tracked as a "needs_review" provision in each town's infrastructure analysis.
+
+When answering infrastructure/septic questions:
+- Reference specific provision IDs (e.g., DUX-T5-02 for Duxbury's wetland setback)
+- Compare local rules to Title 5 baselines with specific numbers
+- Note the practical impact on ADU feasibility
+- If a town has both zoning and infrastructure analysis, explain both layers
+- If asked about a town without infrastructure analysis, say so and explain what Title 5 baselines apply statewide
+- Always mention that the infrastructure analysis is available at /infrastructure/[town]
+
+IMPORTANT — only these towns have infrastructure pages at /infrastructure/[town]: ${infrastructureTowns.map(t => t.slug).join(', ')}. For these towns, you may link to /infrastructure/[town] for septic/BoH analysis. Never send a user to /infrastructure/[town] for a town not in this list.
+
+ADDITIONAL LANGUAGE RULES FOR INFRASTRUCTURE:
+- Use "exceeds state baseline" for infrastructure/BoH issues
+- When discussing infrastructure, always note that BoH authority comes from M.G.L. c. 111, § 31`
 
 // ── Headline stats for broad questions ──
 
@@ -130,7 +172,9 @@ Housing production data (Census Building Permit Survey 2024): Across ${stats.tow
 
 Attorney General decisions on ADU bylaws (${stats.agDecisions.length} towns with provisions struck down as inconsistent with state law):
 ${stats.agDecisions.join('\n')}
-When discussing AG decisions, always link to /compliance/[town] for the full analysis.`
+When discussing AG decisions, always link to /compliance/[town] for the full analysis.
+
+Infrastructure Tracker: ${infrastructureTowns.length} towns analyzed for Board of Health septic regulations vs. Title 5 baseline. Towns with provisions exceeding Title 5: ${infrastructureTowns.filter(t => t.provisions.some(p => p.status === 'exceeds_baseline' || p.status === 'barrier')).map(t => t.name).join(', ')}. Towns consistent with Title 5 baseline: ${infrastructureTowns.filter(t => t.provisions.every(p => p.status === 'consistent' || p.status === 'needs_review')).map(t => t.name).join(', ')}. For septic/infrastructure questions, link users to /infrastructure or /infrastructure/[town].`
 }
 
 // ── Town data lookup ──
@@ -198,6 +242,15 @@ export function getTownContext(slugs: string[]): string {
     const narrative = narrativeCities.find(c => c.slug === slug)
     if (narrative) {
       parts.push(`${narrative.name}: ${narrative.summary} (${narrative.permits.approved} approved, ${narrative.permits.approvalRate}% rate)`)
+    }
+
+    // Infrastructure data
+    const infra = infrastructureTowns.find(t => t.slug === slug)
+    if (infra) {
+      const provisions = infra.provisions.map(p =>
+        `${p.id}: ${p.title} — ${p.status} (${p.impact}) — Local: ${p.localRule} — Gap: ${p.gap}`
+      ).join('; ')
+      parts.push(`Infrastructure analysis for ${infra.name} (${infra.county}, BoH authority: M.G.L. c. 111, § 31): ${infra.regulatoryLayer}. ${infra.provisions.length} provisions tracked. ${provisions}. Bottom line: ${infra.bottomLine} See /infrastructure/${infra.slug} for full analysis.`)
     }
   }
 

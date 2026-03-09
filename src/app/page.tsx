@@ -29,12 +29,22 @@ const overallRate = 75
 type SortKey = 'permits' | 'percapita' | 'approval'
 
 const SUGGESTED_QUERIES = [
-  'Can I build an ADU in Duxbury?',
-  'What did the AG strike down in Canton?',
-  'Does Plymouth require owner-occupancy?',
-  'How many ADU permits has Scituate approved?',
-  "What's the ADU situation in Andover?",
-  'How are ADUs impacting housing production?',
+  {
+    label: 'What are the barriers in Falmouth?',
+    prompt: 'What are the regulatory barriers to building an ADU in Falmouth? Include both zoning and septic/infrastructure if available.',
+  },
+  {
+    label: 'Which towns are easiest to build in?',
+    prompt: 'Which Massachusetts towns have the fewest regulatory barriers to building an ADU, considering both zoning consistency and infrastructure constraints?',
+  },
+  {
+    label: "What's the septic situation?",
+    prompt: 'How do local Board of Health septic rules affect ADU construction in Massachusetts? What is bedroom reallocation and which towns accept it?',
+  },
+  {
+    label: 'How many ADUs have been built?',
+    prompt: 'How many ADU permits have been filed and approved across Massachusetts? Which towns are most active?',
+  },
 ]
 
 const HOMEOWNER_CHIPS = [
@@ -331,15 +341,15 @@ export default function Home() {
                   ))}
                 </div>
               ) : (
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 mt-4 max-w-[480px] mx-auto">
+                <div className="grid grid-cols-2 gap-1.5 mt-4 max-w-[480px] mx-auto">
                   {SUGGESTED_QUERIES.map(q => (
                     <button
-                      key={q}
-                      onClick={() => sendQuestion(q)}
+                      key={q.label}
+                      onClick={() => sendQuestion(q.prompt)}
                       disabled={atLimit}
                       className="px-2.5 py-1.5 text-[11px] leading-tight text-gray-400 bg-gray-800/60 border border-gray-700 rounded-lg hover:text-white hover:border-gray-600 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed text-left"
                     >
-                      {q}
+                      {q.label}
                     </button>
                   ))}
                 </div>

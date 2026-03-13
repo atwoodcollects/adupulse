@@ -66,6 +66,9 @@ function stripMarkdown(text: string): string {
 }
 
 const fixRelativePaths = (text: string) => text
+  // Fix malformed URLs where domain and path got separated (e.g. "https://adupulse.comFalmouth")
+  .replace(/https:\/\/adupulse\.com([A-Z][a-z-]+)/g, (_match, town: string) =>
+    `https://adupulse.com/compliance/${town.toLowerCase()}`)
   .replace(/(^|\s)\/infrastructure\/([a-z-]+)/g, '$1https://adupulse.com/infrastructure/$2')
   .replace(/(^|\s)\/compliance\/([a-z-]+)/g, '$1https://adupulse.com/compliance/$2')
   .replace(/(^|\s)\/towns\/([a-z-]+)/g, '$1https://adupulse.com/towns/$2')
@@ -119,7 +122,7 @@ function renderInline(text: string) {
 
   const parts: (string | JSX.Element)[] = []
   // Match markdown links [text](url) OR relative paths /towns/... /compliance/... /housing-production/... /pricing
-  const regex = /(\[([^\]]+)\]\(([^)]+)\))|(\/(?:towns|compliance|housing-production|pricing|blog)(?:\/[a-z0-9-]+)*)/g
+  const regex = /(\[([^\]]+)\]\(([^)]+)\))|(\/(?:towns|compliance|infrastructure|housing-production|pricing|blog)(?:\/[a-z0-9-]+)*)/g
   let lastIndex = 0
   let match
   let key = 0
@@ -141,6 +144,7 @@ function renderInline(text: string) {
       const lastSegment = segments[segments.length - 1] || ''
       let display: string
       if (path === '/compliance') display = 'Policy Tracker'
+      else if (path === '/infrastructure') display = 'Infrastructure Tracker'
       else if (path === '/housing-production') display = 'Housing Production'
       else if (path === '/pricing') display = 'Pricing'
       else if (path === '/blog') display = 'Blog'

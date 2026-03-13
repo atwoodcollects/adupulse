@@ -198,10 +198,10 @@ export default function MassachusettsADUSepticConstraints() {
         </p>
 
         <p className="text-gray-300 leading-relaxed mb-8">
-          We&apos;re tracking this across every town we analyze. In four of the
-          five towns reviewed here, no explicit bedroom reallocation policy
-          exists. That&apos;s a gap worth closing — either through EOHLC guidance
-          or through explicit BoH policy adoption.
+          We&apos;re tracking this across every town we analyze. Whether local
+          Boards of Health have clear policies for ADU septic feasibility
+          varies widely — and that&apos;s a gap worth closing, either through
+          EOHLC guidance or through explicit BoH policy adoption.
         </p>
 
         <h2 className="text-2xl font-bold text-white mt-10 mb-4">

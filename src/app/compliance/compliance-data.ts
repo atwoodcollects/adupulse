@@ -3707,39 +3707,25 @@ export const towns: TownComplianceProfile[] = [
     bylawRetrievedAt: '2026-02-19',
     bylawSourceUrl: SOURCES.salem_adu,
     bylawSourceTitle: 'Zoning Ordinance',
-    bottomLine: 'Salem has 1 provision identified as inconsistent: a mandatory 70% Fair Market Rent cap that conflicts with state regulations. Two additional provisions are under review. Despite this, Salem has a 100% approval rate on the 9 permits submitted.',
+    bottomLine: 'Salem has no provisions identified as inconsistent. The 70% FMR rent cap is a voluntary opt-in for property owners seeking a tax exemption — not a mandatory condition of ADU approval. Two additional provisions are under review. Salem has a 100% approval rate on the 9 permits submitted.',
     provisions: [
       {
         id: 'slm-01',
-        provision: '70% Fair Market Rent Cap',
+        provision: 'Voluntary 70% FMR Rent Cap (Tax Exemption)',
         category: 'Use & Occupancy',
-        status: 'inconsistent',
+        status: 'compliant',
         stateLaw:
-          '760 CMR 71.03(3)(b)(4) \u2014 If imposed as a mandatory condition of ADU approval, rent caps conflict with state regulations governing protected-use ADUs.',
+          '760 CMR 71.03(3)(b)(4) \u2014 Voluntary affordability incentives are permissible; mandatory rent caps on protected-use ADUs are not.',
         localBylaw:
-          'ADU rent capped at 70% of HUD Fair Market Rent for the area.',
+          'Property owners may opt into a 70% FMR rent cap in exchange for a property tax exemption under Chapter 150 §8. This is not a mandatory condition of ADU approval.',
         impact:
-          'A mandatory rent cap on protected-use ADUs appears inconsistent with state law. Voluntary affordability incentives are permissible, but requiring below-market rent as a condition of approval is subject to statutory override under G.L. c. 40A §3.',
+          'Because the rent cap is a voluntary incentive pathway — not a condition of permit approval — it does not conflict with state law. Owners who do not opt in may rent at market rate.',
         citations: [
           { label: '760 CMR 71.03(3)(b)(4)', url: SOURCES.cmr71 },
           { label: 'Salem ADU Info', url: SOURCES.salem_adu },
         ],
       },
-      {
-        id: 'slm-02',
-        provision: '350 SF Minimum Size',
-        category: 'Dimensional & Parking',
-        status: 'review',
-        stateLaw:
-          '760 CMR 71.05(1) \u2014 State law sets a maximum (900 sqft) but does not address minimum size.',
-        localBylaw:
-          'ADUs must be at least 350 square feet.',
-        impact:
-          '350 SF is on the higher end for minimums. Could prevent studio-style ADUs.',
-        citations: [
-          { label: '760 CMR 71.00', url: SOURCES.cmr71 },
-        ],
-      },
+
       {
         id: 'slm-03',
         provision: 'District Limitations',

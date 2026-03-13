@@ -63,7 +63,8 @@
       "WebFetch(domain:www.amesburyma.gov)",
       "WebFetch(domain:www.miltonma.gov)",
       "WebFetch(domain:www.brooklinema.gov)",
-      "WebFetch(domain:miltonma.gov)"
+      "WebFetch(domain:miltonma.gov)",
+      "Bash(soffice:*)"
     ]
   }
 }

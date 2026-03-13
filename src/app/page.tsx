@@ -39,7 +39,7 @@ const SUGGESTED_QUERIES = [
   },
   {
     label: "What's the septic situation?",
-    prompt: 'How do local Board of Health septic rules affect ADU construction in Massachusetts? What is bedroom reallocation and which towns accept it?',
+    prompt: 'How do local Board of Health septic rules affect ADU construction in Massachusetts? Which towns exceed the Title 5 baseline?',
   },
   {
     label: 'How many ADUs have been built?',

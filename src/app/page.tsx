@@ -65,15 +65,13 @@ function stripMarkdown(text: string): string {
     .replace(/`(.+?)`/g, '$1')        // inline code
 }
 
-function fixRelativeUrls(text: string) {
-  return text
-    .replace(/\/infrastructure\/([a-z-]+)/g, 'https://adupulse.com/infrastructure/$1')
-    .replace(/\/compliance\/([a-z-]+)/g, 'https://adupulse.com/compliance/$1')
-    .replace(/\/towns\/([a-z-]+)/g, 'https://adupulse.com/towns/$1')
-}
+const fixRelativePaths = (text: string) => text
+  .replace(/(^|\s)\/infrastructure\/([a-z-]+)/g, '$1https://adupulse.com/infrastructure/$2')
+  .replace(/(^|\s)\/compliance\/([a-z-]+)/g, '$1https://adupulse.com/compliance/$2')
+  .replace(/(^|\s)\/towns\/([a-z-]+)/g, '$1https://adupulse.com/towns/$2')
 
 function renderResponse(text: string) {
-  const cleaned = stripMarkdown(fixRelativeUrls(text))
+  const cleaned = stripMarkdown(fixRelativePaths(text))
   const paragraphs = cleaned.split(/\n\n+/).filter(p => p.trim())
   return paragraphs.map((para, i) => {
     const lines = para.split('\n')

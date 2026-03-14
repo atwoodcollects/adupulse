@@ -1793,16 +1793,65 @@ export const towns: TownComplianceProfile[] = [
     name: 'Barnstable',
     county: 'Barnstable',
     population: 48916,
-    lastReviewed: '2026-02-15',
+    lastReviewed: '2026-03-14',
     bylawLastUpdated: 'May 2025',
-    bylawSource: 'Barnstable Zoning Ordinance §240-47.2 (May 2025 amendments)',
+    bylawSource: 'Code of the Town of Barnstable, Chapter 240 Zoning, §240-47.2 (amended May 15, 2025)',
     agDisapprovals: 0,
     permits: { submitted: 31, approved: 6, denied: 0, pending: 25, approvalRate: 19 },
-    bylawRetrievedAt: '2026-02-19',
+    bylawRetrievedAt: '2026-03-14',
     bylawSourceUrl: SOURCES.barnstable_adu,
-    bylawSourceTitle: 'Zoning Ordinance',
-    bottomLine: 'Barnstable has the lowest approval rate in the tracker at 19%. The entrance visibility requirement and site plan review process appear to be limiting approvals. Builders should factor in a longer timeline and potential pushback from planning staff.',
+    bylawSourceTitle: 'Code of the Town of Barnstable, Chapter 240 Zoning, §240-47.2 (amended May 15, 2025)',
+    bylawVersionDate: '2025-05-15',
+    bottomLine: 'Barnstable amended its ADU ordinance in May 2025 to address owner-occupancy and parking requirements inconsistent with Chapter 150. However, three provisions appear to remain inconsistent with state law: a two-person occupancy cap, a 12-month rental minimum, and a restriction barring rental of both the principal dwelling and ADU simultaneously.',
     provisions: [
+      {
+        id: 'bnb-01',
+        provision: 'Two-Person Occupancy Cap',
+        category: 'Use & Occupancy',
+        status: 'inconsistent',
+        stateLaw:
+          '760 CMR 71.00 — State regulations do not authorize occupancy restrictions as a condition of ADU approval.',
+        localBylaw:
+          'Section 240-47.2(C)(5) limits ADU occupancy to two persons over age 18. Barnstable\'s May 2025 amendment did not address this provision.',
+        impact:
+          'Occupancy limits beyond building code standards appear inconsistent with Chapter 150. No statutory basis exists for capping ADU occupancy at two persons.',
+        citations: [
+          { label: '760 CMR 71.00', url: SOURCES.cmr71 },
+          { label: 'Barnstable ADU Update', url: SOURCES.barnstable_update },
+        ],
+      },
+      {
+        id: 'bnb-02',
+        provision: '12-Month Rental Minimum and Single-Unit Rental Restriction',
+        category: 'Use & Occupancy',
+        status: 'inconsistent',
+        stateLaw:
+          'MGL c.40A §3 — Chapter 150 bars unreasonable restrictions on ADU rental; no statutory basis exists for a minimum rental period or a prohibition on renting both units.',
+        localBylaw:
+          'Section 240-47.2(C)(11) requires a minimum 12-month rental period and prohibits renting both the principal dwelling and ADU simultaneously.',
+        impact:
+          'Both conditions restrict the owner\'s ability to use the ADU as intended under Chapter 150. No statutory basis exists for either condition.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: 'Barnstable ADU Update', url: SOURCES.barnstable_update },
+        ],
+      },
+      {
+        id: 'bnb-03',
+        provision: 'Two-Bedroom Cap',
+        category: 'Dimensional & Parking',
+        status: 'inconsistent',
+        stateLaw:
+          'MGL c.40A §3 — The AG has disapproved bedroom caps in other Massachusetts towns as inconsistent with Chapter 150.',
+        localBylaw:
+          'Section 240-47.2(C)(4) limits ADUs to two bedrooms. Barnstable\'s May 2025 amendment did not address this provision.',
+        impact:
+          'Bedroom caps have been struck down by the AG in other towns. This provision appears inconsistent with state law.',
+        citations: [
+          { label: 'MGL c.40A §3', url: SOURCES.mgl40a_s3 },
+          { label: 'Barnstable ADU Update', url: SOURCES.barnstable_update },
+        ],
+      },
       {
         id: 'bar-01',
         provision: 'Entrance Visibility Requirement',

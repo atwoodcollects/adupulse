@@ -380,27 +380,39 @@ export default function InfraScreenPage() {
                           r.display || r.address
                         )}
                       </td>
-                      <td className="py-2 px-2 text-center" title={r.sewer.name ?? undefined}>
-                        <Dot color={r.sewer.hit ? 'green' : 'red'} />
-                      </td>
-                      <td className="py-2 px-2 text-center" title={r.water.name ?? undefined}>
-                        <Dot color={r.water.hit ? 'green' : 'red'} />
-                      </td>
-                      <td className="py-2 px-2 text-center">
-                        <Dot color={r.wetlands.hit ? 'red' : 'green'} />
-                      </td>
-                      <td className="py-2 px-2 text-center">
-                        <Dot color={r.flood.sfha ? 'red' : 'green'} />
-                      </td>
-                      <td className="py-2 px-2 text-center whitespace-nowrap">
-                        {r.mbta.distanceMiles != null ? (
-                          <span className="text-sm text-gray-300" title={`${r.mbta.station} · ${r.mbta.line}`}>
-                            {r.mbta.distanceMiles} mi
-                          </span>
-                        ) : (
-                          <span className="text-gray-600">—</span>
-                        )}
-                      </td>
+                      {r.error ? (
+                        <>
+                          <td className="py-2 px-2 text-center text-gray-500">—</td>
+                          <td className="py-2 px-2 text-center text-gray-500">—</td>
+                          <td className="py-2 px-2 text-center text-gray-500">—</td>
+                          <td className="py-2 px-2 text-center text-gray-500">—</td>
+                          <td className="py-2 px-2 text-center text-gray-500">—</td>
+                        </>
+                      ) : (
+                        <>
+                          <td className="py-2 px-2 text-center" title={r.sewer.name ?? undefined}>
+                            <Dot color={r.sewer.hit ? 'green' : 'red'} />
+                          </td>
+                          <td className="py-2 px-2 text-center" title={r.water.name ?? undefined}>
+                            <Dot color={r.water.hit ? 'green' : 'red'} />
+                          </td>
+                          <td className="py-2 px-2 text-center">
+                            <Dot color={r.wetlands.hit ? 'red' : 'green'} />
+                          </td>
+                          <td className="py-2 px-2 text-center">
+                            <Dot color={r.flood.sfha ? 'red' : 'green'} />
+                          </td>
+                          <td className="py-2 px-2 text-center whitespace-nowrap">
+                            {r.mbta.distanceMiles != null ? (
+                              <span className="text-sm text-gray-300" title={`${r.mbta.station} · ${r.mbta.line}`}>
+                                {r.mbta.distanceMiles} mi
+                              </span>
+                            ) : (
+                              <span className="text-gray-600">—</span>
+                            )}
+                          </td>
+                        </>
+                      )}
                     </tr>
                   ))}
                 </tbody>

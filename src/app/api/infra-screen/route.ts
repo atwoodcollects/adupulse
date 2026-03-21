@@ -111,21 +111,6 @@ export async function GET(req: NextRequest) {
       queryMBTAStations(geo.lat, geo.lng),
     ])
 
-    let sewerCapacity = null
-    if (sewerResult.status === 'fulfilled' && sewerResult.value.length > 0) {
-      const attrs = sewerResult.value[0]?.attributes
-      const permitId = (attrs?.ORIG_PERMIT_ID && attrs.ORIG_PERMIT_ID !== '<Null>')
-        ? attrs.ORIG_PERMIT_ID
-        : attrs?.PERMIT_ID
-      if (permitId) {
-        try {
-          sewerCapacity = await getSewerCapacity(permitId)
-        } catch (e) {
-          console.log('[infra-screen] ECHO capacity lookup failed:', e)
-        }
-      }
-    }
-
     let nearestStation = null
     if (mbtaResult.status === 'fulfilled' && mbtaResult.value.length > 0) {
       const withDistance = mbtaResult.value.map((f: any) => ({
@@ -167,7 +152,6 @@ export async function GET(req: NextRequest) {
         nearestStation,
         error: mbtaResult.status === 'rejected' ? mbtaResult.reason?.message : null,
       },
-      sewerCapacity,
     })
   } catch (e: any) {
     return NextResponse.json({ error: e.message }, { status: 500 })

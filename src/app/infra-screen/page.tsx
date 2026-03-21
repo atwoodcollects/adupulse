@@ -29,13 +29,6 @@ interface InfraResult {
     nearestStation: { name: string; line: string; distanceMiles: number } | null
     error: string | null
   }
-  sewerCapacity?: {
-    permitId: string
-    facilityName: string | null
-    actualFlowMGD: number | null
-    permitStatus: string | null
-    npdesId: string | null
-  } | null
   error?: string
 }
 
@@ -261,13 +254,6 @@ export default function InfraScreenPage() {
                     </>
                   )}
                 </div>
-                {result.sewerCapacity && (
-                  <p className="text-xs text-gray-400 mt-1">
-                    {result.sewerCapacity.actualFlowMGD != null
-                      ? `Actual flow: ${result.sewerCapacity.actualFlowMGD} MGD · Permit: ${result.sewerCapacity.permitStatus}`
-                      : `NPDES Permit: ${result.sewerCapacity.npdesId}`}
-                  </p>
-                )}
               </div>
 
               <div>

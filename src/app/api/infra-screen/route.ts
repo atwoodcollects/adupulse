@@ -43,19 +43,28 @@ async function getSewerCapacity(permitId: string) {
     p_id: permitId,
     responseset: '1',
   })
-  const text = await (await fetch(
-    `https://echodata.epa.gov/echo/cwa_rest_services.get_facility_info?${params}`
-  )).text()
-  const data = JSON.parse(text)
-  const facilities = data?.Results?.Facilities
-  if (!facilities || facilities.length === 0) return null
-  const f = facilities[0]
-  return {
-    permitId,
-    facilityName: f.CWPName ?? null,
-    actualFlowMGD: f.CWPActualAverageFlowNmbr ? parseFloat(f.CWPActualAverageFlowNmbr) : null,
-    permitStatus: f.CWPPermitStatusDesc ?? null,
-    npdesId: f.SourceID ?? null,
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), 4000)
+  try {
+    const text = await (await fetch(
+      `https://echodata.epa.gov/echo/cwa_rest_services.get_facility_info?${params}`,
+      { signal: controller.signal }
+    )).text()
+    clearTimeout(timeout)
+    const data = JSON.parse(text)
+    const facilities = data?.Results?.Facilities
+    if (!facilities || facilities.length === 0) return null
+    const f = facilities[0]
+    return {
+      permitId,
+      facilityName: f.CWPName ?? null,
+      actualFlowMGD: f.CWPActualAverageFlowNmbr ? parseFloat(f.CWPActualAverageFlowNmbr) : null,
+      permitStatus: f.CWPPermitStatusDesc ?? null,
+      npdesId: f.SourceID ?? null,
+    }
+  } catch (e) {
+    clearTimeout(timeout)
+    return null
   }
 }
 

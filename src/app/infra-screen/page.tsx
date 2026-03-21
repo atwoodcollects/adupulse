@@ -390,7 +390,7 @@ export default function InfraScreenPage() {
                         <Dot color={r.wetlands.hit ? 'red' : 'green'} />
                       </td>
                       <td className="py-2 px-2 text-center">
-                        <Dot color={r.flood.sfha ? 'red' : r.flood.zones.length > 0 ? 'yellow' : 'green'} />
+                        <Dot color={r.flood.sfha ? 'red' : 'green'} />
                       </td>
                       <td className="py-2 px-2 text-center whitespace-nowrap">
                         {r.mbta.distanceMiles != null ? (

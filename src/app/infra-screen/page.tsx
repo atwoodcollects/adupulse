@@ -14,6 +14,21 @@ interface InfraResult {
     features: { attributes: Record<string, string> }[]
     error: string | null
   }
+  wetlands: {
+    hit: boolean
+    features: { attributes: Record<string, string> }[]
+    error: string | null
+  }
+  flood: {
+    hit: boolean
+    sfha: boolean
+    zones: string[]
+    error: string | null
+  }
+  mbta: {
+    nearestStation: { name: string; line: string; distanceMiles: number } | null
+    error: string | null
+  }
   error?: string
 }
 
@@ -111,6 +126,59 @@ export default function InfraScreenPage() {
               <>
                 <span className="px-2 py-0.5 rounded text-xs font-medium bg-red-900 text-red-300">Not Served</span>
                 {result.water.error && <span className="text-sm text-red-400">{result.water.error}</span>}
+              </>
+            )}
+          </div>
+
+          <div className="flex items-center gap-3">
+            <span className="w-16 text-sm text-gray-400 leading-tight">MassDEP Wetlands</span>
+            {result.wetlands.hit ? (
+              <span className="px-2 py-0.5 rounded text-xs font-medium bg-red-900 text-red-300">Wetlands Present</span>
+            ) : (
+              <>
+                <span className="px-2 py-0.5 rounded text-xs font-medium bg-emerald-900 text-emerald-300">No Wetlands Mapped</span>
+                {result.wetlands.error && <span className="text-sm text-red-400">{result.wetlands.error}</span>}
+              </>
+            )}
+          </div>
+
+          <div className="flex items-center gap-3">
+            <span className="w-16 text-sm text-gray-400 leading-tight">FEMA Flood Zone</span>
+            {result.flood.sfha ? (
+              <>
+                <span className="px-2 py-0.5 rounded text-xs font-medium bg-red-900 text-red-300">SFHA — High Risk</span>
+                {result.flood.zones.length > 0 && (
+                  <span className="text-sm text-gray-300">{result.flood.zones.join(', ')}</span>
+                )}
+              </>
+            ) : result.flood.hit ? (
+              <>
+                <span className="px-2 py-0.5 rounded text-xs font-medium bg-orange-900 text-orange-300">Flood Zone Present</span>
+                {result.flood.zones.length > 0 && (
+                  <span className="text-sm text-gray-300">{result.flood.zones.join(', ')}</span>
+                )}
+              </>
+            ) : (
+              <>
+                <span className="px-2 py-0.5 rounded text-xs font-medium bg-emerald-900 text-emerald-300">No Flood Zone</span>
+                {result.flood.error && <span className="text-sm text-red-400">{result.flood.error}</span>}
+              </>
+            )}
+          </div>
+
+          <div className="flex items-center gap-3">
+            <span className="w-16 text-sm text-gray-400 leading-tight">MBTA Commuter Rail</span>
+            {result.mbta.nearestStation ? (
+              <>
+                <span className="px-2 py-0.5 rounded text-xs font-medium bg-emerald-900 text-emerald-300">{result.mbta.nearestStation.distanceMiles} mi</span>
+                <span className="text-sm text-gray-300">
+                  {result.mbta.nearestStation.name} &middot; {result.mbta.nearestStation.line}
+                </span>
+              </>
+            ) : (
+              <>
+                <span className="px-2 py-0.5 rounded text-xs font-medium bg-yellow-900 text-yellow-300">No Station within 5 mi</span>
+                {result.mbta.error && <span className="text-sm text-red-400">{result.mbta.error}</span>}
               </>
             )}
           </div>

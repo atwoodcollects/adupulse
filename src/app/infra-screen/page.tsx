@@ -64,20 +64,20 @@ export default function InfraScreenPage() {
     : null
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 p-8">
+    <div className="min-h-screen bg-gray-900 text-gray-100 px-4 py-6 sm:px-8 sm:py-10">
       <h1 className="text-2xl font-bold mb-6">Infrastructure Screen</h1>
-      <form onSubmit={handleSubmit} className="flex gap-3 mb-8 max-w-xl">
+      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 mb-8 max-w-xl">
         <input
           type="text"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
           placeholder="Enter a Massachusetts address"
-          className="flex-1 px-4 py-2 rounded bg-gray-800 border border-gray-700 text-gray-100 placeholder-gray-500 focus:outline-none focus:border-gray-500"
+          className="w-full px-4 py-2 rounded bg-gray-800 border border-gray-700 text-gray-100 placeholder-gray-500 focus:outline-none focus:border-gray-500"
         />
         <button
           type="submit"
           disabled={loading}
-          className="px-6 py-2 rounded bg-gray-700 hover:bg-gray-600 disabled:opacity-50 font-medium"
+          className="w-full sm:w-auto px-6 py-2 rounded bg-gray-700 hover:bg-gray-600 disabled:opacity-50 font-medium"
         >
           {loading ? 'Screening...' : 'Screen'}
         </button>
@@ -90,99 +90,109 @@ export default function InfraScreenPage() {
       {result && (
         <div className="max-w-xl space-y-4">
           {shortDisplay && (
-            <p className="text-gray-400 text-sm mb-4">{shortDisplay}</p>
+            <p className="text-gray-400 text-sm mb-4 truncate">{shortDisplay}</p>
           )}
 
-          <div className="flex items-center gap-3">
-            <span className="w-16 text-sm text-gray-400">Sewer</span>
-            {result.sewer.hit ? (
-              <>
-                <span className="px-2 py-0.5 rounded text-xs font-medium bg-emerald-900 text-emerald-300">Served</span>
-                <span className="text-sm text-gray-300">
-                  {result.sewer.features[0]?.attributes.SYSTNAME}
-                  {result.sewer.features[0]?.attributes.TRTMTPLANT && (
-                    <> &middot; {result.sewer.features[0].attributes.TRTMTPLANT}</>
-                  )}
-                </span>
-              </>
-            ) : (
-              <>
-                <span className="px-2 py-0.5 rounded text-xs font-medium bg-red-900 text-red-300">Not Served</span>
-                {result.sewer.error && <span className="text-sm text-red-400">{result.sewer.error}</span>}
-              </>
-            )}
-          </div>
-
-          <div className="flex items-center gap-3">
-            <span className="w-16 text-sm text-gray-400">Water</span>
-            {result.water.hit ? (
-              <>
-                <span className="px-2 py-0.5 rounded text-xs font-medium bg-emerald-900 text-emerald-300">Served</span>
-                <span className="text-sm text-gray-300">
-                  {result.water.features[0]?.attributes.PWS_NAME}
-                </span>
-              </>
-            ) : (
-              <>
-                <span className="px-2 py-0.5 rounded text-xs font-medium bg-red-900 text-red-300">Not Served</span>
-                {result.water.error && <span className="text-sm text-red-400">{result.water.error}</span>}
-              </>
-            )}
-          </div>
-
-          <div className="flex items-center gap-3">
-            <span className="w-16 text-sm text-gray-400 leading-tight">MassDEP Wetlands</span>
-            {result.wetlands.hit ? (
-              <span className="px-2 py-0.5 rounded text-xs font-medium bg-red-900 text-red-300">Wetlands Present</span>
-            ) : (
-              <>
-                <span className="px-2 py-0.5 rounded text-xs font-medium bg-emerald-900 text-emerald-300">No Wetlands Mapped</span>
-                {result.wetlands.error && <span className="text-sm text-red-400">{result.wetlands.error}</span>}
-              </>
-            )}
-          </div>
-
-          <div className="flex items-center gap-3">
-            <span className="w-16 text-sm text-gray-400 leading-tight">FEMA Flood Zone</span>
-            {(() => {
-              const sfhaZones = ['A','AE','AH','AO','AR','A99','V','VE']
-              const hasSfha = result.flood.zones.some(z => sfhaZones.includes(z))
-              if (hasSfha) return (
+          <div>
+            <span className="text-xs uppercase tracking-wide text-gray-500">Sewer</span>
+            <div className="flex flex-wrap items-center gap-2 mt-1">
+              {result.sewer.hit ? (
                 <>
-                  <span className="px-2 py-0.5 rounded text-xs font-medium bg-red-900 text-red-300">High Risk — SFHA</span>
-                  <span className="text-sm text-gray-300">{result.flood.zones.join(', ')}</span>
+                  <span className="shrink-0 px-2 py-0.5 rounded text-xs font-medium bg-emerald-900 text-emerald-300">Served</span>
+                  <span className="text-sm text-gray-300">
+                    {result.sewer.features[0]?.attributes.SYSTNAME}
+                    {result.sewer.features[0]?.attributes.TRTMTPLANT && (
+                      <> &middot; {result.sewer.features[0].attributes.TRTMTPLANT}</>
+                    )}
+                  </span>
                 </>
-              )
-              if (result.flood.hit) return (
+              ) : (
                 <>
-                  <span className="px-2 py-0.5 rounded text-xs font-medium bg-emerald-900 text-emerald-300">Low Risk — Zone X</span>
-                  <span className="text-sm text-gray-300">{result.flood.zones.join(', ')}</span>
+                  <span className="shrink-0 px-2 py-0.5 rounded text-xs font-medium bg-red-900 text-red-300">Not Served</span>
+                  {result.sewer.error && <span className="text-sm text-red-400">{result.sewer.error}</span>}
                 </>
-              )
-              return (
-                <>
-                  <span className="px-2 py-0.5 rounded text-xs font-medium bg-emerald-900 text-emerald-300">No Flood Zone</span>
-                  {result.flood.error && <span className="text-sm text-red-400">{result.flood.error}</span>}
-                </>
-              )
-            })()}
+              )}
+            </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <span className="w-16 text-sm text-gray-400 leading-tight">MBTA Commuter Rail</span>
-            {result.mbta.nearestStation ? (
-              <>
-                <span className="px-2 py-0.5 rounded text-xs font-medium bg-emerald-900 text-emerald-300">{result.mbta.nearestStation.distanceMiles} mi</span>
-                <span className="text-sm text-gray-300">
-                  {result.mbta.nearestStation.name} &middot; {result.mbta.nearestStation.line}
-                </span>
-              </>
-            ) : (
-              <>
-                <span className="px-2 py-0.5 rounded text-xs font-medium bg-yellow-900 text-yellow-300">No Station within 5 mi</span>
-                {result.mbta.error && <span className="text-sm text-red-400">{result.mbta.error}</span>}
-              </>
-            )}
+          <div>
+            <span className="text-xs uppercase tracking-wide text-gray-500">Water</span>
+            <div className="flex flex-wrap items-center gap-2 mt-1">
+              {result.water.hit ? (
+                <>
+                  <span className="shrink-0 px-2 py-0.5 rounded text-xs font-medium bg-emerald-900 text-emerald-300">Served</span>
+                  <span className="text-sm text-gray-300">
+                    {result.water.features[0]?.attributes.PWS_NAME}
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="shrink-0 px-2 py-0.5 rounded text-xs font-medium bg-red-900 text-red-300">Not Served</span>
+                  {result.water.error && <span className="text-sm text-red-400">{result.water.error}</span>}
+                </>
+              )}
+            </div>
+          </div>
+
+          <div>
+            <span className="text-xs uppercase tracking-wide text-gray-500">MassDEP Wetlands</span>
+            <div className="flex flex-wrap items-center gap-2 mt-1">
+              {result.wetlands.hit ? (
+                <span className="shrink-0 px-2 py-0.5 rounded text-xs font-medium bg-red-900 text-red-300">Wetlands Present</span>
+              ) : (
+                <>
+                  <span className="shrink-0 px-2 py-0.5 rounded text-xs font-medium bg-emerald-900 text-emerald-300">No Wetlands Mapped</span>
+                  {result.wetlands.error && <span className="text-sm text-red-400">{result.wetlands.error}</span>}
+                </>
+              )}
+            </div>
+          </div>
+
+          <div>
+            <span className="text-xs uppercase tracking-wide text-gray-500">FEMA Flood Zone</span>
+            <div className="flex flex-wrap items-center gap-2 mt-1">
+              {(() => {
+                const sfhaZones = ['A','AE','AH','AO','AR','A99','V','VE']
+                const hasSfha = result.flood.zones.some(z => sfhaZones.includes(z))
+                if (hasSfha) return (
+                  <>
+                    <span className="shrink-0 px-2 py-0.5 rounded text-xs font-medium bg-red-900 text-red-300">High Risk — SFHA</span>
+                    <span className="text-sm text-gray-300">{result.flood.zones.join(', ')}</span>
+                  </>
+                )
+                if (result.flood.hit) return (
+                  <>
+                    <span className="shrink-0 px-2 py-0.5 rounded text-xs font-medium bg-emerald-900 text-emerald-300">Low Risk — Zone X</span>
+                    <span className="text-sm text-gray-300">{result.flood.zones.join(', ')}</span>
+                  </>
+                )
+                return (
+                  <>
+                    <span className="shrink-0 px-2 py-0.5 rounded text-xs font-medium bg-emerald-900 text-emerald-300">No Flood Zone</span>
+                    {result.flood.error && <span className="text-sm text-red-400">{result.flood.error}</span>}
+                  </>
+                )
+              })()}
+            </div>
+          </div>
+
+          <div>
+            <span className="text-xs uppercase tracking-wide text-gray-500">MBTA Commuter Rail</span>
+            <div className="flex flex-wrap items-center gap-2 mt-1">
+              {result.mbta.nearestStation ? (
+                <>
+                  <span className="shrink-0 px-2 py-0.5 rounded text-xs font-medium bg-emerald-900 text-emerald-300">{result.mbta.nearestStation.distanceMiles} mi</span>
+                  <span className="text-sm text-gray-300">
+                    {result.mbta.nearestStation.name} &middot; {result.mbta.nearestStation.line}
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="shrink-0 px-2 py-0.5 rounded text-xs font-medium bg-yellow-900 text-yellow-300">No Station within 5 mi</span>
+                  {result.mbta.error && <span className="text-sm text-red-400">{result.mbta.error}</span>}
+                </>
+              )}
+            </div>
           </div>
         </div>
       )}

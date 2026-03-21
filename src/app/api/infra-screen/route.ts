@@ -36,6 +36,29 @@ async function queryMassGIS(serviceUrl: string, lat: number, lng: number) {
   return data.features ?? []
 }
 
+async function getSewerCapacity(permitId: string) {
+  if (!permitId) return null
+  const params = new URLSearchParams({
+    output: 'JSON',
+    p_id: permitId,
+    responseset: '1',
+  })
+  const text = await (await fetch(
+    `https://echodata.epa.gov/echo/cwa_rest_services.get_facility_info?${params}`
+  )).text()
+  const data = JSON.parse(text)
+  const facilities = data?.Results?.Facilities
+  if (!facilities || facilities.length === 0) return null
+  const f = facilities[0]
+  return {
+    permitId,
+    facilityName: f.CWPName ?? null,
+    actualFlowMGD: f.CWPActualAverageFlowNmbr ? parseFloat(f.CWPActualAverageFlowNmbr) : null,
+    permitStatus: f.CWPPermitStatusDesc ?? null,
+    npdesId: f.SourceID ?? null,
+  }
+}
+
 async function queryMBTAStations(lat: number, lng: number) {
   const geometry = JSON.stringify({ x: lng, y: lat, spatialReference: { wkid: 4326 } })
   const params = new URLSearchParams({
@@ -79,6 +102,18 @@ export async function GET(req: NextRequest) {
       queryMBTAStations(geo.lat, geo.lng),
     ])
 
+    let sewerCapacity = null
+    if (sewerResult.status === 'fulfilled' && sewerResult.value.length > 0) {
+      const permitId = sewerResult.value[0]?.attributes?.PERMIT_ID
+      if (permitId) {
+        try {
+          sewerCapacity = await getSewerCapacity(permitId)
+        } catch (e) {
+          console.log('[infra-screen] ECHO capacity lookup failed:', e)
+        }
+      }
+    }
+
     let nearestStation = null
     if (mbtaResult.status === 'fulfilled' && mbtaResult.value.length > 0) {
       const withDistance = mbtaResult.value.map((f: any) => ({
@@ -120,6 +155,7 @@ export async function GET(req: NextRequest) {
         nearestStation,
         error: mbtaResult.status === 'rejected' ? mbtaResult.reason?.message : null,
       },
+      sewerCapacity,
     })
   } catch (e: any) {
     return NextResponse.json({ error: e.message }, { status: 500 })

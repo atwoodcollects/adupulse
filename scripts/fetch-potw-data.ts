@@ -7,7 +7,7 @@ async function main() {
     'https://echodata.epa.gov/echo/cwa_rest_services.get_facility_info?output=JSON&p_st=MA&p_fac_typ=POTW&p_act=Y&responseset=500'
   )
   const text = await res.text()
-  console.log('Raw response preview:', text.slice(0, 500))
+  console.log('Raw response preview:', text.slice(0, 2000))
   const data = JSON.parse(text) as any
 
   const facilities = data?.Results?.Facilities ?? []

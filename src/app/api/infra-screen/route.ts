@@ -37,15 +37,18 @@ async function queryMassGIS(serviceUrl: string, lat: number, lng: number) {
 }
 
 async function queryMBTAStations(lat: number, lng: number) {
-  const geometry = JSON.stringify({ x: lng, y: lat, spatialReference: { wkid: 4326 } })
+  const delta = 0.08 // ~5 miles
+  const envelope = JSON.stringify({
+    xmin: lng - delta, ymin: lat - delta,
+    xmax: lng + delta, ymax: lat + delta,
+    spatialReference: { wkid: 4326 }
+  })
   const params = new URLSearchParams({
-    geometry,
-    geometryType: 'esriGeometryPoint',
+    geometry: envelope,
+    geometryType: 'esriGeometryEnvelope',
     inSR: '4326',
     outSR: '4326',
     spatialRel: 'esriSpatialRelIntersects',
-    distance: '8046', // 5 miles in meters
-    units: 'esriSRUnit_Meter',
     outFields: 'STATION,LINE',
     returnGeometry: 'true',
     f: 'json',

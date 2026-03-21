@@ -144,26 +144,28 @@ export default function InfraScreenPage() {
 
           <div className="flex items-center gap-3">
             <span className="w-16 text-sm text-gray-400 leading-tight">FEMA Flood Zone</span>
-            {result.flood.sfha ? (
-              <>
-                <span className="px-2 py-0.5 rounded text-xs font-medium bg-red-900 text-red-300">SFHA — High Risk</span>
-                {result.flood.zones.length > 0 && (
+            {(() => {
+              const sfhaZones = ['A','AE','AH','AO','AR','A99','V','VE']
+              const hasSfha = result.flood.zones.some(z => sfhaZones.includes(z))
+              if (hasSfha) return (
+                <>
+                  <span className="px-2 py-0.5 rounded text-xs font-medium bg-red-900 text-red-300">High Risk — SFHA</span>
                   <span className="text-sm text-gray-300">{result.flood.zones.join(', ')}</span>
-                )}
-              </>
-            ) : result.flood.hit ? (
-              <>
-                <span className="px-2 py-0.5 rounded text-xs font-medium bg-orange-900 text-orange-300">Flood Zone Present</span>
-                {result.flood.zones.length > 0 && (
+                </>
+              )
+              if (result.flood.hit) return (
+                <>
+                  <span className="px-2 py-0.5 rounded text-xs font-medium bg-emerald-900 text-emerald-300">Low Risk — Zone X</span>
                   <span className="text-sm text-gray-300">{result.flood.zones.join(', ')}</span>
-                )}
-              </>
-            ) : (
-              <>
-                <span className="px-2 py-0.5 rounded text-xs font-medium bg-emerald-900 text-emerald-300">No Flood Zone</span>
-                {result.flood.error && <span className="text-sm text-red-400">{result.flood.error}</span>}
-              </>
-            )}
+                </>
+              )
+              return (
+                <>
+                  <span className="px-2 py-0.5 rounded text-xs font-medium bg-emerald-900 text-emerald-300">No Flood Zone</span>
+                  {result.flood.error && <span className="text-sm text-red-400">{result.flood.error}</span>}
+                </>
+              )
+            })()}
           </div>
 
           <div className="flex items-center gap-3">

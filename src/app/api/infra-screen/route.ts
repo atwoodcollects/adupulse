@@ -37,19 +37,16 @@ async function queryMassGIS(serviceUrl: string, lat: number, lng: number) {
 }
 
 async function queryMBTAStations(lat: number, lng: number) {
-  const delta = 0.08 // ~5 miles
-  const envelope = JSON.stringify({
-    xmin: lng - delta, ymin: lat - delta,
-    xmax: lng + delta, ymax: lat + delta,
-    spatialReference: { wkid: 4326 }
-  })
+  const geometry = JSON.stringify({ x: lng, y: lat, spatialReference: { wkid: 4326 } })
   const params = new URLSearchParams({
-    geometry: envelope,
-    geometryType: 'esriGeometryEnvelope',
+    geometry,
+    geometryType: 'esriGeometryPoint',
     inSR: '4326',
     outSR: '4326',
     spatialRel: 'esriSpatialRelIntersects',
-    outFields: 'STATION,LINE',
+    distance: '8046',
+    units: 'esriSRUnit_Meter',
+    outFields: 'STATION,LINE_BRNCH',
     returnGeometry: 'true',
     f: 'json',
   })
@@ -91,7 +88,7 @@ export async function GET(req: NextRequest) {
       withDistance.sort((a: any, b: any) => a.distanceMiles - b.distanceMiles)
       nearestStation = {
         name: withDistance[0].attributes.STATION,
-        line: withDistance[0].attributes.LINE,
+        line: withDistance[0].attributes.LINE_BRNCH,
         distanceMiles: Math.round(withDistance[0].distanceMiles * 10) / 10
       }
     }

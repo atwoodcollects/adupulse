@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const MASSGIS_SEWER_URL = 'http://arcgisserver.digital.mass.gov/arcgisserver/rest/services/AGOL/DEP_SEWER_SERVICE_AREAS/FeatureServer/0'
-const MASSGIS_WATER_URL = 'http://arcgisserver.digital.mass.gov/arcgisserver/rest/services/AGOL/DEP_PWS_WATER_SERVICE_AREAS/FeatureServer/0'
+const MASSGIS_SEWER_URL = 'http://arcgisserver.digital.mass.gov/arcgisserver/rest/services/AGOL/DEP_SEWER_SERVICE_AREAS/FeatureServer/2'
+const MASSGIS_WATER_URL = 'http://arcgisserver.digital.mass.gov/arcgisserver/rest/services/AGOL/DEP_PWS_WATER_SERVICE_AREAS/FeatureServer/2'
 
 async function geocode(address: string): Promise<{ lat: number; lng: number; display: string }> {
   const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address + ', Massachusetts')}&format=json&limit=1&countrycodes=us`
@@ -14,11 +14,11 @@ async function geocode(address: string): Promise<{ lat: number; lng: number; dis
 }
 
 async function queryMassGIS(serviceUrl: string, lat: number, lng: number) {
-  const geometry = JSON.stringify({ x: lng, y: lat, spatialReference: { wkid: 4326 } })
   const params = new URLSearchParams({
-    geometry,
+    geometry: JSON.stringify({ x: lng, y: lat, spatialReference: { wkid: 4326 } }),
     geometryType: 'esriGeometryPoint',
     inSR: '4326',
+    outSR: '4326',
     spatialRel: 'esriSpatialRelIntersects',
     outFields: '*',
     returnGeometry: 'false',

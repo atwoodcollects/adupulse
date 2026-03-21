@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const MASSGIS_SEWER_URL = 'https://services1.arcgis.com/hGdibHYSPO59RG1h/arcgis/rest/services/SEWER_SERVICE_AREA_POTW_POLY/FeatureServer/0'
-const MASSGIS_WATER_URL = 'https://services1.arcgis.com/hGdibHYSPO59RG1h/arcgis/rest/services/DRINK_WATER_SERVICE_AREA_POLY/FeatureServer/0'
+const MASSGIS_SEWER_URL = 'http://arcgisserver.digital.mass.gov/arcgisserver/rest/services/AGOL/DEP_SEWER_SERVICE_AREAS/FeatureServer/0'
+const MASSGIS_WATER_URL = 'http://arcgisserver.digital.mass.gov/arcgisserver/rest/services/AGOL/DEP_PWS_WATER_SERVICE_AREAS/FeatureServer/0'
 
 async function geocode(address: string): Promise<{ lat: number; lng: number; display: string }> {
   const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address + ', Massachusetts')}&format=json&limit=1&countrycodes=us`

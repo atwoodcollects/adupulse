@@ -32,9 +32,10 @@ interface InfraResult {
   sewerCapacity?: {
     permitId: string
     facilityName: string | null
+    designFlowMGD: number | null
     actualFlowMGD: number | null
     permitStatus: string | null
-    npdesId: string | null
+    headroomMGD: number | null
   } | null
   error?: string
 }
@@ -261,13 +262,15 @@ export default function InfraScreenPage() {
                     </>
                   )}
                 </div>
-                {result.sewerCapacity && (
+                {result.sewerCapacity && result.sewerCapacity.headroomMGD != null ? (
                   <p className="text-xs text-gray-500 mt-1">
-                    {result.sewerCapacity.actualFlowMGD != null
-                      ? `Actual flow: ${result.sewerCapacity.actualFlowMGD} MGD · ${result.sewerCapacity.permitStatus}`
-                      : result.sewerCapacity.npdesId ? `NPDES Permit: ${result.sewerCapacity.npdesId}` : null}
+                    Design: {result.sewerCapacity.designFlowMGD}mgd · Actual: {result.sewerCapacity.actualFlowMGD}mgd · Headroom: {result.sewerCapacity.headroomMGD}mgd
                   </p>
-                )}
+                ) : result.sewerCapacity && result.sewerCapacity.actualFlowMGD != null ? (
+                  <p className="text-xs text-gray-500 mt-1">
+                    Actual flow: {result.sewerCapacity.actualFlowMGD}mgd
+                  </p>
+                ) : null}
               </div>
 
               <div>

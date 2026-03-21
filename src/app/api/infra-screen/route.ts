@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { MA_POTW_LOOKUP } from '@/data/ma-potw-lookup'
 
 const MASSGIS_SEWER_URL = 'http://arcgisserver.digital.mass.gov/arcgisserver/rest/services/AGOL/DEP_SEWER_SERVICE_AREAS/FeatureServer/2'
 const MASSGIS_WATER_URL = 'http://arcgisserver.digital.mass.gov/arcgisserver/rest/services/AGOL/DEP_PWS_WATER_SERVICE_AREAS/FeatureServer/2'
@@ -117,11 +118,17 @@ export async function GET(req: NextRequest) {
       const permitId = (attrs?.ORIG_PERMIT_ID && attrs.ORIG_PERMIT_ID !== '<Null>')
         ? attrs.ORIG_PERMIT_ID
         : attrs?.PERMIT_ID
-      if (permitId) {
-        try {
-          sewerCapacity = await getSewerCapacity(permitId)
-        } catch (e) {
-          console.log('[infra-screen] ECHO capacity lookup failed:', e)
+      if (permitId && MA_POTW_LOOKUP[permitId]) {
+        const record = MA_POTW_LOOKUP[permitId]
+        sewerCapacity = {
+          permitId,
+          facilityName: record.name,
+          designFlowMGD: record.designFlowMGD,
+          actualFlowMGD: record.actualFlowMGD,
+          permitStatus: record.permitStatus,
+          headroomMGD: (record.designFlowMGD != null && record.actualFlowMGD != null)
+            ? Math.round((record.designFlowMGD - record.actualFlowMGD) * 100) / 100
+            : null,
         }
       }
     }

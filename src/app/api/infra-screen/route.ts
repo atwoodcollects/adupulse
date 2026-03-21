@@ -113,7 +113,10 @@ export async function GET(req: NextRequest) {
 
     let sewerCapacity = null
     if (sewerResult.status === 'fulfilled' && sewerResult.value.length > 0) {
-      const permitId = sewerResult.value[0]?.attributes?.PERMIT_ID
+      const attrs = sewerResult.value[0]?.attributes
+      const permitId = (attrs?.ORIG_PERMIT_ID && attrs.ORIG_PERMIT_ID !== '<Null>')
+        ? attrs.ORIG_PERMIT_ID
+        : attrs?.PERMIT_ID
       if (permitId) {
         try {
           sewerCapacity = await getSewerCapacity(permitId)

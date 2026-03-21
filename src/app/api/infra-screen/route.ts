@@ -115,20 +115,31 @@ export async function GET(req: NextRequest) {
     let sewerCapacity = null
     if (sewerResult.status === 'fulfilled' && sewerResult.value.length > 0) {
       const attrs = sewerResult.value[0]?.attributes
-      const permitId = (attrs?.ORIG_PERMIT_ID && attrs.ORIG_PERMIT_ID !== '<Null>')
+      const rawPermitId = (attrs?.ORIG_PERMIT_ID && attrs.ORIG_PERMIT_ID !== '<Null>')
         ? attrs.ORIG_PERMIT_ID
         : attrs?.PERMIT_ID
-      if (permitId && MA_POTW_LOOKUP[permitId]) {
-        const record = MA_POTW_LOOKUP[permitId]
-        sewerCapacity = {
-          permitId,
-          facilityName: record.name,
-          designFlowMGD: record.designFlowMGD,
-          actualFlowMGD: record.actualFlowMGD,
-          permitStatus: record.permitStatus,
-          headroomMGD: (record.designFlowMGD != null && record.actualFlowMGD != null)
-            ? Math.round((record.designFlowMGD - record.actualFlowMGD) * 100) / 100
-            : null,
+
+      // ECHO uses 'MAL' prefix where MassGIS uses 'MA0' — try both
+      const permitIdsToTry = rawPermitId ? [
+        rawPermitId,
+        rawPermitId.replace(/^MA0/, 'MAL'),
+        rawPermitId.replace(/^MAL/, 'MA0'),
+      ] : []
+
+      for (const permitId of permitIdsToTry) {
+        if (permitId && MA_POTW_LOOKUP[permitId]) {
+          const record = MA_POTW_LOOKUP[permitId]
+          sewerCapacity = {
+            permitId,
+            facilityName: record.name,
+            designFlowMGD: record.designFlowMGD,
+            actualFlowMGD: record.actualFlowMGD,
+            permitStatus: record.permitStatus,
+            headroomMGD: (record.designFlowMGD != null && record.actualFlowMGD != null)
+              ? Math.round((record.designFlowMGD - record.actualFlowMGD) * 100) / 100
+              : null,
+          }
+          break
         }
       }
     }

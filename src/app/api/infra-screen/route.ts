@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const MASSGIS_SEWER_URL = 'https://gis.data.mass.gov/hosting/rest/services/Hosted/SEWER_SERVICE_AREA_POTW_POLY/FeatureServer/0'
-const MASSGIS_WATER_URL = 'https://gis.data.mass.gov/hosting/rest/services/Hosted/WATER_SERVICE_AREA_POLY/FeatureServer/0'
+const MASSGIS_SEWER_URL = 'https://services1.arcgis.com/hGdibHYSPO59RG1h/arcgis/rest/services/SEWER_SERVICE_AREA_POTW_POLY/FeatureServer/0'
+const MASSGIS_WATER_URL = 'https://services1.arcgis.com/hGdibHYSPO59RG1h/arcgis/rest/services/DRINK_WATER_SERVICE_AREA_POLY/FeatureServer/0'
 
 async function geocode(address: string): Promise<{ lat: number; lng: number; display: string }> {
   const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address + ', Massachusetts')}&format=json&limit=1&countrycodes=us`
@@ -25,9 +25,10 @@ async function queryMassGIS(serviceUrl: string, lat: number, lng: number) {
     f: 'json',
   })
   const res = await fetch(`${serviceUrl}/query?${params}`)
-  const data = await res.json()
-  // Log the raw response for debugging endpoint issues
-  console.log('[infra-screen] MassGIS response from', serviceUrl, JSON.stringify(data).slice(0, 300))
+  const text = await res.text()
+  console.log('[infra-screen] raw response status:', res.status, 'url:', serviceUrl)
+  console.log('[infra-screen] raw response body:', text.slice(0, 500))
+  const data = JSON.parse(text)
   if (data.error) throw new Error(`MassGIS error: ${data.error.message}`)
   return data.features ?? []
 }

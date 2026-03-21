@@ -37,6 +37,13 @@ interface InfraResult {
     permitStatus: string | null
     headroomMGD: number | null
   } | null
+  waterDemand?: {
+    systemName: string | null
+    annualDemandMG: number | null
+    maxDailyDemandMGD: number | null
+    populationServed: number | null
+    connectionsServed: number | null
+  } | null
   error?: string
 }
 
@@ -290,6 +297,11 @@ export default function InfraScreenPage() {
                     </>
                   )}
                 </div>
+                {result.waterDemand && result.waterDemand.maxDailyDemandMGD != null && (
+                  <p className="text-xs text-gray-500 mt-1">
+                    Max daily demand: {result.waterDemand.maxDailyDemandMGD} MGD · Connections: {result.waterDemand.connectionsServed?.toLocaleString()}
+                  </p>
+                )}
               </div>
 
               <div>

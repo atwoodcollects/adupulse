@@ -144,6 +144,20 @@ export async function GET(req: NextRequest) {
       }
     }
 
+    let waterDemand = null
+    if (waterResult.status === 'fulfilled' && waterResult.value.length > 0) {
+      const w = waterResult.value[0]?.attributes
+      if (w) {
+        waterDemand = {
+          systemName: w.PWS_NAME ?? null,
+          annualDemandMG: w.PWS_ANN_D ?? null,
+          maxDailyDemandMGD: w.PWS_MDD ?? null,
+          populationServed: w.PWSPOP_MAX ?? null,
+          connectionsServed: w.PWSNUM_SRV ?? null,
+        }
+      }
+    }
+
     let nearestStation = null
     if (mbtaResult.status === 'fulfilled' && mbtaResult.value.length > 0) {
       const withDistance = mbtaResult.value.map((f: any) => ({
@@ -186,6 +200,7 @@ export async function GET(req: NextRequest) {
         error: mbtaResult.status === 'rejected' ? mbtaResult.reason?.message : null,
       },
       sewerCapacity,
+      waterDemand,
     })
   } catch (e: any) {
     return NextResponse.json({ error: e.message }, { status: 500 })

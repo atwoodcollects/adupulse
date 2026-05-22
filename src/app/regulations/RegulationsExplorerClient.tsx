@@ -64,7 +64,7 @@ function buildRules(): Rule[] {
     }
   }
   // Sort: topics that appear most often first
-  return [...rules.values()].sort((a, b) => Object.keys(b.towns).length - Object.keys(a.towns).length)
+  return Array.from(rules.values()).sort((a, b) => Object.keys(b.towns).length - Object.keys(a.towns).length)
 }
 
 const CATEGORIES: { id: ProvisionCategory | 'all'; label: string }[] = [

@@ -8,6 +8,7 @@ import { useTown } from '@/contexts/TownContext'
 
 const mainNav = [
   { name: 'Policy Tracker', href: '/compliance' },
+  { name: 'Regulations', href: '/regulations' },
   { name: 'Infrastructure', href: '/infrastructure' },
   { name: 'Housing', href: '/housing-production' },
   { name: 'Blog', href: '/blog' },

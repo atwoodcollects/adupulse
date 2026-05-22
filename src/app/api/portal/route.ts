@@ -1,17 +1,12 @@
 // app/api/portal/route.ts
-import { auth, currentUser } from "@clerk/nextjs/server";
+// TODO: Re-implement auth check after Clerk removal
 import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 
-export async function POST() {
+export async function POST(req: Request) {
   try {
-    const { userId } = await auth();
-    if (!userId) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
-    const user = await currentUser();
-    const customerId = user?.publicMetadata?.stripeCustomerId as string;
+    // TODO: Auth check removed (was Clerk). Re-implement with new auth provider.
+    const { customerId } = await req.json();
 
     if (!customerId) {
       return NextResponse.json(

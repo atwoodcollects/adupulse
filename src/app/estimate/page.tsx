@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
+import PrebuiltVsSiteBuilt from '@/components/PrebuiltVsSiteBuilt'
 import { allEntries, getStatusCounts, getTownStatusLabel } from '@/app/compliance/compliance-data'
 
 // --- EXISTING COST DATA ---
@@ -565,6 +566,8 @@ export default function EstimatePage() {
             </div>
           </div>
         </div>
+        <PrebuiltVsSiteBuilt town={town} sqft={sqft} type={type} />
+
 
         {/* ===== SECTION 2: WHAT'S IT WORTH? ===== */}
         {hasMarketData && (

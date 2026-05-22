@@ -64,7 +64,9 @@
       "WebFetch(domain:www.miltonma.gov)",
       "WebFetch(domain:www.brooklinema.gov)",
       "WebFetch(domain:miltonma.gov)",
-      "Bash(soffice:*)"
+      "Bash(soffice:*)",
+      "WebFetch(domain:seeclickfix.com)",
+      "Bash(ls:*)"
     ]
   }
 }

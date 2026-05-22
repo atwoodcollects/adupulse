@@ -34,7 +34,6 @@ export function ComparisonGate({
         <div className="mt-4">
           <UpgradeBanner
             feature="unlimited town comparisons"
-            isSignedIn={true}
           />
         </div>
       )}

@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/react'
-import { ClerkProvider } from '@clerk/nextjs'
 import Script from 'next/script'
 import './globals.css'
 import ClientProviders from '@/components/ClientProviders'
@@ -33,11 +32,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             gtag('config', 'G-C22JP3HEV8');
           `}
         </Script>
-        <ClerkProvider>
-          <ClientProviders>
-            {children}
-          </ClientProviders>
-        </ClerkProvider>
+        <ClientProviders>
+          {children}
+        </ClientProviders>
         <Analytics />
       </body>
     </html>

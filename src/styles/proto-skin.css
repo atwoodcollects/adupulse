@@ -1,0 +1,298 @@
+/* ============================================================================
+ * ADU Pulse — Prototype Design Tokens
+ *
+ * Drop-in CSS file that brings the prototype's visual identity into the
+ * existing site. Apply by wrapping a page in <div className="proto">.
+ *
+ * Anything inside `.proto` gets:
+ *   • Bricolage Grotesque display / Manrope body / Instrument Serif italics
+ *   • Dark green-black palette
+ *   • Emerald accent + glow
+ *   • 1px hair borders + subtle radial gradients
+ * ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Manrope:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+.proto {
+  /* Palette */
+  --bg: #07100c;
+  --bg-2: #0b1612;
+  --surface: #0e1814;
+  --surface-2: #131f1a;
+  --hair: rgba(230, 241, 236, 0.08);
+  --hair-strong: rgba(230, 241, 236, 0.14);
+  --fg: #e6f1ec;
+  --fg-soft: #c4d2cd;
+  --fg-muted: #7f8c87;
+  --fg-dim: #56635e;
+  --emerald: #34d399;
+  --emerald-2: #10b981;
+  --emerald-soft: rgba(52, 211, 153, 0.14);
+  --emerald-hair: rgba(52, 211, 153, 0.28);
+  --amber: #fbbf24;
+  --amber-soft: rgba(251, 191, 36, 0.10);
+  --amber-hair: rgba(251, 191, 36, 0.28);
+  --rose: #fb7185;
+  --rose-soft: rgba(251, 113, 133, 0.10);
+  --rose-hair: rgba(251, 113, 133, 0.28);
+  --orange: #fb923c;
+  --orange-soft: rgba(251, 146, 60, 0.10);
+  --orange-hair: rgba(251, 146, 60, 0.28);
+
+  /* Typography */
+  --font-display: 'Bricolage Grotesque', 'Manrope', system-ui, sans-serif;
+  --font-body: 'Manrope', system-ui, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Page surface */
+  font-family: var(--font-body);
+  color: var(--fg);
+  background:
+    radial-gradient(1200px 600px at 50% -10%, rgba(52,211,153,0.06), transparent 60%),
+    radial-gradient(900px 600px at 90% 110%, rgba(52,211,153,0.04), transparent 60%),
+    var(--bg);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  min-height: 100vh;
+}
+
+/* Headings switch to display font automatically */
+.proto h1, .proto h2, .proto h3, .proto h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  color: var(--fg);
+}
+
+/* Mono utility */
+.proto-mono {
+  font-family: var(--font-mono);
+  font-feature-settings: "tnum","zero";
+}
+
+/* Label utility (small caps with tracking) */
+.proto-label {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 11px;
+  color: var(--fg-muted);
+}
+
+/* Italic serif accent (for "ADU" in titles, etc.) */
+.proto-serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Selection */
+.proto ::selection { background: var(--emerald-soft); color: var(--fg); }
+
+/* Card primitive — use as className on a wrapper div */
+.proto-card {
+  background: rgba(14, 24, 20, 0.5);
+  border: 1px solid var(--hair-strong);
+  border-radius: 14px;
+}
+.proto-card-soft {
+  background: rgba(14, 24, 20, 0.4);
+  border: 1px solid var(--hair);
+  border-radius: 12px;
+}
+
+/* Status pill primitives */
+.proto-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 11px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  border: 1px solid;
+}
+.proto-pill-rose    { color: var(--rose);    background: var(--rose-soft);    border-color: var(--rose-hair); }
+.proto-pill-amber   { color: var(--amber);   background: var(--amber-soft);   border-color: var(--amber-hair); }
+.proto-pill-orange  { color: var(--orange);  background: var(--orange-soft);  border-color: var(--orange-hair); }
+.proto-pill-emerald { color: var(--emerald); background: var(--emerald-soft); border-color: var(--emerald-hair); }
+.proto-pill-gray    { color: var(--fg-muted); background: rgba(230,241,236,0.04); border-color: var(--hair-strong); }
+
+.proto-pill-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+.proto-pill-rose    .proto-pill-dot,
+.proto-pill-orange  .proto-pill-dot { box-shadow: 0 0 6px currentColor; }
+
+/* 3-col gap table */
+.proto-gap-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px;
+  border: 1px solid var(--hair);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--hair);
+}
+.proto-gap-cell {
+  padding: 14px 16px;
+  background: rgba(14, 24, 20, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.proto-gap-cell-state  { background-image: linear-gradient(180deg, rgba(52,211,153,0.06), transparent); }
+.proto-gap-cell-rose   { background-image: linear-gradient(180deg, rgba(251,113,133,0.06), transparent); }
+.proto-gap-cell-amber  { background-image: linear-gradient(180deg, rgba(251,191,36,0.06), transparent); }
+.proto-gap-cell-orange { background-image: linear-gradient(180deg, rgba(251,146,60,0.06), transparent); }
+
+@media (max-width: 700px) {
+  .proto-gap-row { grid-template-columns: 1fr; }
+}
+
+/* Pulse ring (for the emerald dot on the title) */
+@keyframes proto-pulse {
+  0%   { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+.proto-pulse-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 999px;
+  border: 1px solid rgba(52, 211, 153, 0.35);
+  animation: proto-pulse 2.4s ease-out infinite;
+}
+
+/* Scrollbar (within proto) */
+.proto ::-webkit-scrollbar { width: 10px; height: 10px; }
+.proto ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 8px; }
+.proto ::-webkit-scrollbar-track { background: transparent; }
+
+/* === Enter / exit transitions for SPA-style page swaps ============= */
+.proto-enter {
+  animation: protoEnter 460ms cubic-bezier(.2,.7,.15,1) both;
+}
+@keyframes protoEnter {
+  0%   { opacity: 0; transform: translateY(14px); filter: blur(4px); }
+  60%  { opacity: 1; filter: blur(0); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* === Tailwind utility OVERRIDES scoped to .proto ====================
+   These let every existing Tailwind class inside a `.proto` wrapper
+   automatically adopt the prototype palette — no JSX rewrite needed. */
+
+/* Backgrounds */
+.proto .bg-gray-900 { background-color: var(--bg) !important; background-image:
+  radial-gradient(1200px 600px at 50% -10%, rgba(52,211,153,0.06), transparent 60%),
+  radial-gradient(900px 600px at 90% 110%, rgba(52,211,153,0.04), transparent 60%) !important; }
+.proto .bg-gray-800,
+.proto .bg-gray-800\/50,
+.proto .bg-gray-800\/30 {
+  background-color: rgba(14, 24, 20, 0.5) !important;
+  border: 1px solid var(--hair-strong) !important;
+}
+.proto .bg-gray-700,
+.proto .bg-gray-700\/50,
+.proto .bg-gray-700\/30 { background-color: rgba(20, 32, 26, 0.55) !important; }
+.proto .bg-gray-900\/30,
+.proto .bg-gray-900\/40,
+.proto .bg-gray-900\/50 { background-color: rgba(7, 16, 12, 0.5) !important; }
+
+/* Borders */
+.proto .border-border       { border-color: var(--hair-strong) !important; }
+.proto .border-gray-700,
+.proto .border-gray-700\/50,
+.proto .border-gray-700\/30 { border-color: var(--hair-strong) !important; }
+.proto .border-gray-600     { border-color: var(--hair-strong) !important; }
+.proto .divide-border > * + * { border-color: var(--hair) !important; }
+.proto .divide-border\/50 > * + * { border-color: var(--hair) !important; }
+
+/* Text colors */
+.proto .text-white            { color: var(--fg) !important; }
+.proto .text-gray-300         { color: var(--fg-soft) !important; }
+.proto .text-gray-400         { color: var(--fg-muted) !important; }
+.proto .text-gray-500         { color: var(--fg-muted) !important; }
+.proto .text-gray-600         { color: var(--fg-dim) !important; }
+.proto .text-text-primary     { color: var(--fg) !important; }
+.proto .text-text-secondary   { color: var(--fg-soft) !important; }
+.proto .text-text-muted       { color: var(--fg-muted) !important; }
+
+/* Blue → emerald everywhere */
+.proto .text-blue-400         { color: var(--emerald) !important; }
+.proto .text-blue-300         { color: var(--emerald-2) !important; }
+.proto .text-blue-500         { color: var(--emerald) !important; }
+.proto .bg-blue-400\/5,
+.proto .bg-blue-400\/10       { background-color: var(--emerald-soft) !important; }
+.proto .bg-blue-500\/20,
+.proto .bg-blue-500\/30       { background-color: var(--emerald-soft) !important; }
+.proto .bg-blue-600,
+.proto .bg-blue-700,
+.proto .hover\:bg-blue-700:hover,
+.proto .hover\:bg-blue-500:hover { background-color: var(--emerald) !important; color: #04130c !important; }
+.proto .border-blue-400\/20,
+.proto .border-blue-400\/30,
+.proto .border-blue-500\/30   { border-color: var(--emerald-hair) !important; }
+.proto .hover\:text-blue-300:hover { color: var(--emerald-2) !important; }
+
+/* Status colors — emerald stays, red/amber re-tuned to prototype palette */
+.proto .text-red-400          { color: var(--rose) !important; }
+.proto .text-red-300          { color: var(--rose) !important; }
+.proto .bg-red-400\/5,
+.proto .bg-red-400\/10        { background-color: var(--rose-soft) !important; }
+.proto .border-red-400\/20,
+.proto .border-red-400\/30    { border-color: var(--rose-hair) !important; }
+
+.proto .text-amber-400,
+.proto .text-amber-500        { color: var(--amber) !important; }
+.proto .bg-amber-400\/5,
+.proto .bg-amber-400\/10,
+.proto .bg-amber-500\/5,
+.proto .bg-amber-500\/10      { background-color: var(--amber-soft) !important; }
+.proto .border-amber-400\/20,
+.proto .border-amber-400\/30,
+.proto .border-amber-500\/30  { border-color: var(--amber-hair) !important; }
+.proto .text-amber-200\/90    { color: var(--fg-soft) !important; }
+.proto .bg-amber-900\/10      { background-color: var(--amber-soft) !important; }
+.proto .border-amber-500\/50  { border-color: var(--amber-hair) !important; }
+
+.proto .text-orange-400       { color: var(--orange) !important; }
+.proto .bg-orange-400\/10     { background-color: var(--orange-soft) !important; }
+.proto .border-orange-400\/30 { border-color: var(--orange-hair) !important; }
+
+.proto .text-emerald-400      { color: var(--emerald) !important; }
+.proto .bg-emerald-400\/5,
+.proto .bg-emerald-400\/10,
+.proto .bg-emerald-400\/20    { background-color: var(--emerald-soft) !important; }
+.proto .border-emerald-400\/20,
+.proto .border-emerald-400\/30 { border-color: var(--emerald-hair) !important; }
+.proto .bg-emerald-500,
+.proto .bg-emerald-600,
+.proto .hover\:bg-emerald-700:hover { background-color: var(--emerald) !important; }
+
+.proto .bg-blue-900\/10,
+.proto .bg-blue-900\/30       { background-color: var(--emerald-soft) !important; }
+.proto .border-blue-500\/50   { border-color: var(--emerald-hair) !important; }
+.proto .text-blue-200\/90     { color: var(--fg-soft) !important; }
+
+/* Fonts — applies to all text inside .proto */
+.proto, .proto * { font-family: var(--font-body) !important; }
+.proto h1, .proto h2, .proto h3, .proto h4 { font-family: var(--font-display) !important; }
+.proto .font-mono,
+.proto pre, .proto code,
+.proto [class*="tracking-wider"] { font-family: var(--font-mono) !important; }
+.proto .font-display { font-family: var(--font-display) !important; }
+
+/* Rings/shadows */
+.proto .focus\:border-blue-500:focus { border-color: var(--emerald) !important; }
+

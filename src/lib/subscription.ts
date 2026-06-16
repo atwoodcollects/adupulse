@@ -1,6 +1,5 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
 import { PLANS } from "./plans";
 
 export type SubscriptionTier = "free" | "pro";
@@ -18,9 +17,8 @@ interface SubscriptionInfo {
 }
 
 export function useSubscription(): SubscriptionInfo {
-  const { user, isLoaded } = useUser();
-  const tier =
-    (user?.publicMetadata?.subscriptionTier as SubscriptionTier) || "free";
+  // TODO: Re-implement subscription tier lookup after Clerk removal
+  const tier: SubscriptionTier = "free";
   // TEMP: bypass paywall — revert this line to re-enable
   const isPro = true; // tier === "pro";
   const plan = isPro ? PLANS.pro_monthly : PLANS.free;
@@ -28,7 +26,7 @@ export function useSubscription(): SubscriptionInfo {
   return {
     tier,
     plan,
-    isLoaded,
+    isLoaded: true,
     isPro,
     permitRowLimit: plan.permitRows,
     townCompareLimit: plan.townCompareLimit,

@@ -1,11 +1,8 @@
-import { clerkClient } from "@clerk/nextjs/server";
-
 export type SubscriptionTier = "free" | "pro";
 
 export async function getSubscriptionTier(
-  userId: string
+  _userId: string
 ): Promise<SubscriptionTier> {
-  const client = await clerkClient();
-  const user = await client.users.getUser(userId);
-  return (user.publicMetadata?.subscriptionTier as SubscriptionTier) || "free";
+  // TODO: Re-implement subscription tier lookup after Clerk removal
+  return "free";
 }

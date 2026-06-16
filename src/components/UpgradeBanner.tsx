@@ -2,16 +2,13 @@
 "use client";
 
 import Link from "next/link";
-import { SignInButton } from "@clerk/nextjs";
 
 interface UpgradeBannerProps {
   feature?: string;
-  isSignedIn: boolean;
 }
 
 export function UpgradeBanner({
   feature = "this feature",
-  isSignedIn,
 }: UpgradeBannerProps) {
   return (
     <div className="relative overflow-hidden rounded-xl border border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50 p-6 my-6">
@@ -35,38 +32,25 @@ export function UpgradeBanner({
         </div>
 
         <div className="flex items-center gap-3 mt-4 ml-9">
-          {isSignedIn ? (
-            <Link
-              href="/pricing"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white text-sm font-medium rounded-lg transition-colors"
+          <Link
+            href="/pricing"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white text-sm font-medium rounded-lg transition-colors"
+          >
+            Upgrade to Pro — $49/mo
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
             >
-              Upgrade to Pro — $49/mo
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"
-                />
-              </svg>
-            </Link>
-          ) : (
-            <>
-              <SignInButton mode="modal">
-                <button className="inline-flex items-center gap-2 px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white text-sm font-medium rounded-lg transition-colors">
-                  Sign up to unlock
-                </button>
-              </SignInButton>
-              <span className="text-xs text-gray-500">
-                Free account required, then upgrade for $49/mo
-              </span>
-            </>
-          )}
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M13 7l5 5m0 0l-5 5m5-5H6"
+              />
+            </svg>
+          </Link>
         </div>
       </div>
     </div>

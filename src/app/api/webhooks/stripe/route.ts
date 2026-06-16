@@ -1,38 +1,33 @@
 // app/api/webhooks/stripe/route.ts
+// TODO: Re-implement user metadata sync after Clerk removal
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 import { stripe } from "@/lib/stripe";
 import Stripe from "stripe";
 
-// Clerk SDK for updating user metadata
+// TODO: Re-implement with new auth/user system
 async function updateUserSubscription(
-  clerkUserId: string,
-  tier: "free" | "pro",
-  stripeSubscriptionId?: string
+  _userId: string,
+  _tier: "free" | "pro",
+  _stripeSubscriptionId?: string
 ) {
-  const { clerkClient } = await import("@clerk/nextjs/server");
-  const client = await clerkClient();
-  await client.users.updateUserMetadata(clerkUserId, {
-    publicMetadata: {
-      subscriptionTier: tier,
-      stripeSubscriptionId: stripeSubscriptionId || null,
-    },
-  });
+  // Previously updated Clerk user metadata. Needs replacement.
+  console.log(`TODO: Update user ${_userId} to tier ${_tier}`);
 }
 
-// Find the Clerk user ID from the Stripe customer
-async function getClerkUserId(
+// Find the user ID from the Stripe customer
+async function getUserId(
   customerId: string,
   subscriptionMetadata?: Stripe.Metadata
 ): Promise<string | null> {
-  // First check subscription metadata (most reliable)
-  if (subscriptionMetadata?.clerkUserId) {
-    return subscriptionMetadata.clerkUserId;
+  // First check subscription metadata
+  if (subscriptionMetadata?.userId) {
+    return subscriptionMetadata.userId;
   }
   // Fallback: check customer metadata
   const customer = await stripe.customers.retrieve(customerId);
   if (customer.deleted) return null;
-  return (customer as Stripe.Customer).metadata?.clerkUserId || null;
+  return (customer as Stripe.Customer).metadata?.userId || null;
 }
 
 export async function POST(req: Request) {
@@ -64,13 +59,13 @@ export async function POST(req: Request) {
       case "customer.subscription.updated": {
         const subscription = event.data.object as Stripe.Subscription;
         const customerId = subscription.customer as string;
-        const clerkUserId = await getClerkUserId(
+        const userId = await getUserId(
           customerId,
           subscription.metadata
         );
 
-        if (!clerkUserId) {
-          console.error("No Clerk user ID found for customer:", customerId);
+        if (!userId) {
+          console.error("No user ID found for customer:", customerId);
           break;
         }
 
@@ -79,8 +74,8 @@ export async function POST(req: Request) {
           subscription.status === "active" ||
           subscription.status === "trialing"
         ) {
-          await updateUserSubscription(clerkUserId, "pro", subscription.id);
-          console.log(`✅ Upgraded user ${clerkUserId} to Pro`);
+          await updateUserSubscription(userId, "pro", subscription.id);
+          console.log(`Upgraded user ${userId} to Pro`);
         }
         // Past due, unpaid, canceled = downgrade
         else if (
@@ -88,8 +83,8 @@ export async function POST(req: Request) {
           subscription.status === "unpaid" ||
           subscription.status === "past_due"
         ) {
-          await updateUserSubscription(clerkUserId, "free");
-          console.log(`⬇️ Downgraded user ${clerkUserId} to Free`);
+          await updateUserSubscription(userId, "free");
+          console.log(`Downgraded user ${userId} to Free`);
         }
         break;
       }
@@ -98,14 +93,14 @@ export async function POST(req: Request) {
       case "customer.subscription.deleted": {
         const subscription = event.data.object as Stripe.Subscription;
         const customerId = subscription.customer as string;
-        const clerkUserId = await getClerkUserId(
+        const userId = await getUserId(
           customerId,
           subscription.metadata
         );
 
-        if (clerkUserId) {
-          await updateUserSubscription(clerkUserId, "free");
-          console.log(`❌ Subscription ended for user ${clerkUserId}`);
+        if (userId) {
+          await updateUserSubscription(userId, "free");
+          console.log(`Subscription ended for user ${userId}`);
         }
         break;
       }
@@ -114,14 +109,11 @@ export async function POST(req: Request) {
       case "invoice.payment_failed": {
         const invoice = event.data.object as Stripe.Invoice;
         const customerId = invoice.customer as string;
-        console.warn(`⚠️ Payment failed for customer: ${customerId}`);
-        // Optional: send email notification, don't downgrade immediately
-        // Stripe will retry per your retry settings
+        console.warn(`Payment failed for customer: ${customerId}`);
         break;
       }
 
       default:
-        // Unhandled event type — that's fine
         break;
     }
   } catch (error) {

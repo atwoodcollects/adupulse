@@ -49,7 +49,7 @@ export default function ComplianceTownPage({ params }: { params: { slug: string 
   const narrative = narrativeCities.find(c => c.slug === params.slug)
   if (narrative) {
     return (
-      <div className="min-h-screen bg-gray-900">
+      <div className="proto min-h-screen bg-gray-900">
         <NavBar />
         <main className="px-4 py-6 sm:py-10">
           <nav className="max-w-4xl mx-auto mb-6 text-sm text-gray-400">
@@ -111,7 +111,7 @@ export default function ComplianceTownPage({ params }: { params: { slug: string 
   }
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="proto min-h-screen bg-gray-900">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <NavBar />
       <main className="px-4 py-6 sm:py-10">

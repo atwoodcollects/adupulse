@@ -2,7 +2,6 @@
 "use client";
 
 import { useSubscription } from "@/lib/subscription";
-import { useUser, SignInButton } from "@clerk/nextjs";
 import { UpgradeBanner } from "./UpgradeBanner";
 
 interface PaywallGateProps {
@@ -26,9 +25,8 @@ export function PaywallGate({
   freePreviewCount,
 }: PaywallGateProps) {
   const { isLoaded, isPro } = useSubscription();
-  const { isSignedIn } = useUser();
 
-  // Still loading auth state — show nothing to prevent flash
+  // Still loading — show nothing to prevent flash
   if (!isLoaded) {
     return (
       <div className="animate-pulse h-32 bg-gray-100 rounded-lg" />
@@ -40,12 +38,9 @@ export function PaywallGate({
     return <>{children}</>;
   }
 
-  // Free users (signed in or not) see the fallback
+  // Free users see the fallback
   const upgradeCTA = fallback || (
-    <UpgradeBanner
-      feature={feature}
-      isSignedIn={isSignedIn ?? false}
-    />
+    <UpgradeBanner feature={feature} />
   );
 
   // If freePreviewCount is set, we still render children but expect
